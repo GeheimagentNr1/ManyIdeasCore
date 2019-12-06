@@ -1,0 +1,7 @@
+{
+	"type": "manyideascore:mortaling",
+	"ingredient": {
+		"item": "minecraft:redstone_ore"
+	},
+	"result": "minecraft:redstone"
+}

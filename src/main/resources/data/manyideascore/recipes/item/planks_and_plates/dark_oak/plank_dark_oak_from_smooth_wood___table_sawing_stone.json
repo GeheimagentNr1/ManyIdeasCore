@@ -1,0 +1,8 @@
+{
+	"type": "manyideascore:table_sawing_stone",
+	"ingredient": {
+		"item": "manyideascore:wood_stripped_smooth_dark_oak"
+	},
+	"result": "manyideascore:plank_dark_oak",
+	"count": 6
+}

@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "facing=north": { "model": "manyideascore:block/debug/debug_block_cullface" },
+        "facing=east":  { "model": "manyideascore:block/debug/debug_block_cullface", "y": 90 },
+        "facing=south": { "model": "manyideascore:block/debug/debug_block_cullface", "y": 180 },
+        "facing=west":  { "model": "manyideascore:block/debug/debug_block_cullface", "y": 270 },
+        "facing=up":    { "model": "manyideascore:block/debug/debug_block_cullface", "x": -90 },
+        "facing=down":  { "model": "manyideascore:block/debug/debug_block_cullface", "x": 90 }
+    }
+}

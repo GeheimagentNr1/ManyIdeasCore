@@ -1,0 +1,7 @@
+{
+	"type": "manyideascore:table_sawing_stone",
+	"ingredient": {
+		"item": "minecraft:jungle_log"
+	},
+	"result": "manyideascore:log_stripped_smooth_jungle"
+}

@@ -1,0 +1,8 @@
+{
+	"type": "manyideascore:table_sawing_stone",
+	"ingredient": {
+		"item": "manyideascore:log_stripped_smooth_birch"
+	},
+	"result": "manyideascore:plank_birch",
+	"count": 4
+}

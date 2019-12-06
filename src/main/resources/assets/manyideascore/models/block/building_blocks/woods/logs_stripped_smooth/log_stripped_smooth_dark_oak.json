@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+        "end": "minecraft:block/stripped_dark_oak_log_top",
+        "side": "manyideascore:block/log_stripped_smooth/log_stripped_smooth_dark_oak"
+    }
+}

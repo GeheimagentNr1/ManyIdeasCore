@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "manyideascore:block/table_saws/table_saw_diamond" },
+        "facing=east":  { "model": "manyideascore:block/table_saws/table_saw_diamond", "y": 90 },
+        "facing=south": { "model": "manyideascore:block/table_saws/table_saw_diamond", "y": 180 },
+        "facing=west":  { "model": "manyideascore:block/table_saws/table_saw_diamond", "y": 270 }
+    }
+}

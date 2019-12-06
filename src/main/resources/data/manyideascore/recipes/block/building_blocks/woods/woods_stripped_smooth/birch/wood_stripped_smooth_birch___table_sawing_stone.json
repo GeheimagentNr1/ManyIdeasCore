@@ -1,0 +1,7 @@
+{
+	"type": "manyideascore:table_sawing_stone",
+	"ingredient": {
+		"item": "minecraft:birch_wood"
+	},
+	"result": "manyideascore:wood_stripped_smooth_birch"
+}

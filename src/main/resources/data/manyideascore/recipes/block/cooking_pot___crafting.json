@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"P P",
+		"I I",
+		"III"
+	],
+	"key": {
+		"I": {
+			"item": "minecraft:iron_ingot"
+		},
+		"P": {
+			"tag": "minecraft:planks"
+		}
+	},
+	"result": {
+		"item": "manyideascore:cooking_pot"
+	}
+}

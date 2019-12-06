@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "manyideascore:item/saws/saw_diamond"
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"type": "manyideascore:table_sawing_stone",
+	"ingredient": {
+		"item": "manyideascore:wood_stripped_smooth_jungle"
+	},
+	"result": "manyideascore:plank_jungle",
+	"count": 6
+}

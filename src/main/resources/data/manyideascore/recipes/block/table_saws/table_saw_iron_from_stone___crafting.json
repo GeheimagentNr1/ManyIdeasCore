@@ -1,0 +1,14 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "manyideascore:saw_iron"
+		},
+		{
+			"item": "manyideascore:table_saw_stone"
+		}
+	],
+	"result": {
+		"item": "manyideascore:table_saw_iron"
+	}
+}

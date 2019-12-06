@@ -1,0 +1,14 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"LL"
+	],
+	"key": {
+		"L": {
+			"item": "manyideascore:log_stripped_smooth_birch"
+		}
+	},
+	"result": {
+		"item": "manyideascore:wood_stripped_smooth_birch"
+	}
+}
