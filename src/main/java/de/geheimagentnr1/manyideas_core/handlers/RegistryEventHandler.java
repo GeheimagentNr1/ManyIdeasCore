@@ -47,7 +47,7 @@ public class RegistryEventHandler {
 	@SubscribeEvent
 	public static void onItemsRegistry( RegistryEvent.Register<Item> itemRegistryEvent ) {
 		
-		Item.Properties properties = new Item.Properties().group( ManyIdeasCore.setup.coreItemGroup );
+		Item.Properties properties = new Item.Properties().group( ManyIdeasCore.setup.manyIdeasCoreItemGroup );
 		
 		BlockRegistrationHelper.registerBlockItems( itemRegistryEvent, ModBlocks.BLOCKS, properties );
 		BlockRegistrationHelper.registerBlockItems( itemRegistryEvent, ModBlocksDebug.BLOCKS, properties );

@@ -10,10 +10,10 @@ import net.minecraft.item.ItemStack;
 import javax.annotation.Nonnull;
 
 
-public class CoreItemGroup extends ItemGroup {
+public class ManyIdeasCoreItemGroup extends ItemGroup {
 	
 	
-	public CoreItemGroup() {
+	public ManyIdeasCoreItemGroup() {
 		
 		super( ManyIdeasCore.MODID );
 	}

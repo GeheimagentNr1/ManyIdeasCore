@@ -9,6 +9,6 @@ public abstract class CoreBaseItem extends BaseItem {
 	
 	protected CoreBaseItem( Item.Properties item_properties, String registry_name ) {
 		
-		super( item_properties.group( ManyIdeasCore.setup.coreItemGroup ), registry_name );
+		super( item_properties.group( ManyIdeasCore.setup.manyIdeasCoreItemGroup ), registry_name );
 	}
 }
