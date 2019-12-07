@@ -1,8 +1,0 @@
-{
-	"type": "manyideascore:table_sawing_stone",
-	"ingredient": {
-		"item": "manyideascore:wood_stripped_smooth_spruce"
-	},
-	"result": "manyideascore:plank_spruce",
-	"count": 6
-}

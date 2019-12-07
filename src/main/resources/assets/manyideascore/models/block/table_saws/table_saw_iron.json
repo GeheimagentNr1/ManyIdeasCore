@@ -1,6 +1,0 @@
-{
-    "parent": "manyideascore:block/templates/table_saw",
-    "textures": {
-        "saw": "manyideascore:block/table_saws/saw_iron"
-    }
-}

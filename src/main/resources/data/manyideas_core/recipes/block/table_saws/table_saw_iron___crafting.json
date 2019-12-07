@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" I ",
+		"PPP",
+		"P P"
+	],
+	"key": {
+		"I": {
+			"item": "manyideas_core:saw_iron"
+		},
+		"P": {
+			"tag": "minecraft:planks"
+		}
+	},
+	"result": {
+		"item": "manyideas_core:table_saw_iron"
+	}
+}

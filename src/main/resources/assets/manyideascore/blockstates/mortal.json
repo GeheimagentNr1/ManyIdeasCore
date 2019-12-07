@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=north": { "model": "manyideascore:block/mortal", "y": 180 },
-        "facing=east":  { "model": "manyideascore:block/mortal", "y": 270 },
-        "facing=south": { "model": "manyideascore:block/mortal" },
-        "facing=west":  { "model": "manyideascore:block/mortal", "y": 90 }
-    }
-}

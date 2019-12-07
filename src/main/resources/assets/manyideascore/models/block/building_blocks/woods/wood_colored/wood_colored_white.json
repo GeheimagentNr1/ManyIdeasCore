@@ -1,6 +1,0 @@
-{
-	"parent": "minecraft:block/cube_all",
-	"textures": {
-		"all": "manyideascore:block/wood_colored/wood_colored_white"
-	}
-}

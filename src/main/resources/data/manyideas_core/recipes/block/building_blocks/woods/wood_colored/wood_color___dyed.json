@@ -1,0 +1,33 @@
+{
+	"type": "manyideas_core:dyed",
+	"shaped": false,
+	"ingredients": [
+		{
+			"tag": "manyideas_core:woods"
+		},
+		{
+			"color_tag": {
+				"black": "minecraft:black_dye",
+				"blue": "minecraft:blue_dye",
+				"brown": "minecraft:brown_dye",
+				"cyan": "minecraft:cyan_dye",
+				"gray": "minecraft:gray_dye",
+				"green": "minecraft:green_dye",
+				"light_blue": "minecraft:light_blue_dye",
+				"light_gray": "minecraft:light_gray_dye",
+				"lime": "minecraft:lime_dye",
+				"magenta": "minecraft:magenta_dye",
+				"orange": "minecraft:orange_dye",
+				"pink": "minecraft:pink_dye",
+				"purple": "minecraft:purple_dye",
+				"rainbow": "",
+				"red": "minecraft:red_dye",
+				"white": "minecraft:white_dye",
+				"yellow": "minecraft:yellow_dye"
+			}
+		}
+	],
+	"result": {
+		"item": "manyideas_core:wood_colored"
+	}
+}

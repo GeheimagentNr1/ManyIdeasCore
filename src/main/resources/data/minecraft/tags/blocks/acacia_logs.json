@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "manyideascore:log_stripped_smooth_acacia",
-    "manyideascore:wood_stripped_smooth_acacia"
+    "manyideas_core:log_stripped_smooth_acacia",
+    "manyideas_core:wood_stripped_smooth_acacia"
   ]
 }

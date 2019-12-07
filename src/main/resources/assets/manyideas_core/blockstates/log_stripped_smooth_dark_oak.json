@@ -1,0 +1,7 @@
+{
+	"variants": {
+		"axis=x": { "model": "manyideas_core:block/building_blocks/woods/logs_stripped_smooth/log_stripped_smooth_dark_oak", "x": 90, "y": 90 },
+		"axis=y": { "model": "manyideas_core:block/building_blocks/woods/logs_stripped_smooth/log_stripped_smooth_dark_oak" },
+		"axis=z": { "model": "manyideas_core:block/building_blocks/woods/logs_stripped_smooth/log_stripped_smooth_dark_oak", "x": 90 }
+	}
+}

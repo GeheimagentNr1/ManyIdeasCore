@@ -1,7 +1,0 @@
-{
-	"variants": {
-		"axis=x": { "model": "manyideascore:block/building_blocks/woods/logs_stripped_smooth/log_stripped_smooth_jungle", "x": 90, "y": 90 },
-		"axis=y": { "model": "manyideascore:block/building_blocks/woods/logs_stripped_smooth/log_stripped_smooth_jungle" },
-		"axis=z": { "model": "manyideascore:block/building_blocks/woods/logs_stripped_smooth/log_stripped_smooth_jungle", "x": 90 }
-	}
-}

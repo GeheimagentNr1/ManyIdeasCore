@@ -1,0 +1,14 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"LL"
+	],
+	"key": {
+		"L": {
+			"item": "manyideas_core:log_stripped_smooth_dark_oak"
+		}
+	},
+	"result": {
+		"item": "manyideas_core:wood_stripped_smooth_dark_oak"
+	}
+}

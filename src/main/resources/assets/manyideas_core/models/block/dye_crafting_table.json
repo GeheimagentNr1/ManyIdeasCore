@@ -1,0 +1,168 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "manyideas_core:block/dye_crafting_table/dye_crafting_table_top",
+        "top": "manyideas_core:block/dye_crafting_table/dye_crafting_table_top",
+        "oak_planks": "minecraft:block/oak_planks",
+        "dried_kelp_side": "minecraft:block/dried_kelp_side",
+        "iron_block": "minecraft:block/iron_block",
+        "stripped_oak_log_top": "minecraft:block/stripped_oak_log_top",
+        "stripped_oak_log": "minecraft:block/stripped_oak_log"
+    },
+    "display": {
+        "gui": {
+            "rotation": [ 30, 45, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.625, 0.625, 0.625 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.25, 0.25, 0.25 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "head": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, 315, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.4, 0.4, 0.4 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 75, 315, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.375, 0.375, 0.375 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "table_board",
+            "from": [ 1, 14.25, 1 ],
+            "to": [ 15, 16, 15 ],
+            "faces": {
+                "north": { "texture": "#oak_planks", "uv": [ 0, 0, 14, 1.75 ], "cullface": "up" },
+                "east": { "texture": "#oak_planks", "uv": [ 0, 0, 14, 1.75 ], "cullface": "up" },
+                "south": { "texture": "#oak_planks", "uv": [ 0, 0, 14, 1.75 ], "cullface": "up" },
+                "west": { "texture": "#oak_planks", "uv": [ 0, 0, 14, 1.75 ], "cullface": "up" },
+                "up": { "texture": "#top", "uv": [ 1, 1, 15, 15 ], "cullface": "up" }
+            }
+        },
+        {
+            "name": "leg1",
+            "from": [ 0, 0, 14 ],
+            "to": [ 2, 14, 16 ],
+            "faces": {
+                "north": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ] },
+                "east": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ] },
+                "south": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ], "cullface": "south" },
+                "west": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ], "cullface": "west" },
+                "down": { "texture": "#stripped_oak_log_top", "uv": [ 7, 7, 9, 9 ], "cullface": "down" }
+            }
+        },
+        {
+            "name": "leg2",
+            "from": [ 0, 0, 0 ],
+            "to": [ 2, 14, 2 ],
+            "faces": {
+                "north": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ], "cullface": "north" },
+                "east": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ] },
+                "south": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ] },
+                "west": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ], "cullface": "west" },
+                "down": { "texture": "#stripped_oak_log_top", "uv": [ 7, 7, 9, 9 ], "cullface": "down" }
+            }
+        },
+        {
+            "name": "leg3",
+            "from": [ 14, 0, 0 ],
+            "to": [ 16, 14, 2 ],
+            "faces": {
+                "north": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ], "cullface": "north" },
+                "east": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ], "cullface": "east" },
+                "south": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ] },
+                "west": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ] },
+                "down": { "texture": "#stripped_oak_log_top", "uv": [ 7, 7, 9, 9 ], "cullface": "down" }
+            }
+        },
+        {
+            "name": "leg4",
+            "from": [ 14, 0, 14 ],
+            "to": [ 16, 14, 16 ],
+            "faces": {
+                "north": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ] },
+                "east": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ], "cullface": "east" },
+                "south": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ], "cullface": "south" },
+                "west": { "texture": "#stripped_oak_log", "uv": [ 6, 0, 8, 14 ] },
+                "down": { "texture": "#stripped_oak_log_top", "uv": [ 7, 7, 9, 9 ], "cullface": "down" }
+            }
+        },
+        {
+            "name": "tabel_board_bottom",
+            "from": [ 0, 14, 0 ],
+            "to": [ 16, 15.75, 16 ],
+            "faces": {
+                "north": { "texture": "#stripped_oak_log", "uv": [ 0, 0, 16, 4.75 ], "cullface": "north" },
+                "east": { "texture": "#stripped_oak_log", "uv": [ 0, 0, 16, 1.75 ], "cullface": "east" },
+                "south": { "texture": "#stripped_oak_log", "uv": [ 0, 0, 16, 1.75 ], "cullface": "south" },
+                "west": { "texture": "#stripped_oak_log", "uv": [ 0, 0, 16, 1.75 ], "cullface": "west" },
+                "up": { "texture": "#stripped_oak_log_top", "uv": [ 0, 0, 16, 16 ] },
+                "down": { "texture": "#stripped_oak_log_top", "uv": [ 0, 0, 16, 16 ] }
+            }
+        },
+        {
+            "name": "brush1",
+            "from": [ 4, 16, 12.5 ],
+            "to": [ 4.5, 16.5, 16.5 ],
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "y", "angle": -22.5 },
+            "faces": {
+                "east": { "texture": "#stripped_oak_log", "uv": [ 0, 0, 4, 0.5 ], "cullface": "up" },
+                "south": { "texture": "#stripped_oak_log", "uv": [ 0, 0, 0.5, 0.5 ], "cullface": "up" },
+                "west": { "texture": "#stripped_oak_log", "uv": [ 10, 0, 14, 0.5 ], "cullface": "up" },
+                "up": { "texture": "#stripped_oak_log", "uv": [ 0, 0, 4, 0.5 ], "rotation": 270, "cullface": "up" }
+            }
+        },
+        {
+            "name": "brush2",
+            "from": [ 4, 16, 12 ],
+            "to": [ 4.5, 16.5, 12.5 ],
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "y", "angle": -22.5 },
+            "faces": {
+                "east": { "texture": "#iron_block", "uv": [ 0, 0, 0.5, 0.5 ], "cullface": "up" },
+                "west": { "texture": "#iron_block", "uv": [ 0, 0, 0.5, 0.5 ], "cullface": "up" },
+                "up": { "texture": "#iron_block", "uv": [ 0, 0, 0.5, 0.5 ], "rotation": 270, "cullface": "up" }
+            }
+        },
+        {
+            "name": "brush3",
+            "from": [ 3.8, 16, 10.8 ],
+            "to": [ 4.7, 16.5, 11.8 ],
+            "rotation": { "origin": [ 8, 8, 8 ], "axis": "y", "angle": -22.5 },
+            "faces": {
+                "north": { "texture": "#dried_kelp_side", "uv": [ 0, 0, 0.9, 0.5 ], "cullface": "up" },
+                "east": { "texture": "#dried_kelp_side", "uv": [ 0, 0, 1, 0.5 ], "cullface": "up" },
+                "south": { "texture": "#dried_kelp_side", "uv": [ 0, 0, 0.9, 0.5 ], "cullface": "up" },
+                "west": { "texture": "#dried_kelp_side", "uv": [ 0, 0, 1, 0.5 ], "cullface": "up" },
+                "up": { "texture": "#dried_kelp_side", "uv": [ 0, 0, 1, 0.9 ], "rotation": 270, "cullface": "up" }
+            }
+        },
+        {
+            "name": "brush3",
+            "from": [ 2.75, 16, 9.8 ],
+            "to": [ 3.35, 16.49, 10.4 ],
+            "rotation": { "origin": [ 3, 16, 10 ], "axis": "y", "angle": 22.5 },
+            "faces": {
+                "north": { "texture": "#dried_kelp_side", "uv": [ 0, 0, 0.6, 0.49 ], "cullface": "up" },
+                "east": { "texture": "#dried_kelp_side", "uv": [ 0, 0, 0.6, 0.49 ], "cullface": "up" },
+                "south": { "texture": "#dried_kelp_side", "uv": [ 0, 0, 0.6, 0.49 ], "cullface": "up" },
+                "west": { "texture": "#dried_kelp_side", "uv": [ 0, 0, 0.6, 0.49 ], "cullface": "up" },
+                "up": { "texture": "#dried_kelp_side", "uv": [ 0, 0, 0.6, 0.6 ], "rotation": 270, "cullface": "up" }
+            }
+        }
+    ]
+}

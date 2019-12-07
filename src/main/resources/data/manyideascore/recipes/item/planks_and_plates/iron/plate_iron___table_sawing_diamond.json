@@ -1,8 +1,0 @@
-{
-	"type": "manyideascore:table_sawing_diamond",
-	"ingredient": {
-		"item": "minecraft:iron_block"
-	},
-	"result": "manyideascore:iron_plate",
-	"count": 8
-}

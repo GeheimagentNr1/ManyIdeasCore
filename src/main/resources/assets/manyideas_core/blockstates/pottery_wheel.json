@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "manyideas_core:block/pottery_wheel", "y": 90 },
+        "facing=east":  { "model": "manyideas_core:block/pottery_wheel", "y": 180 },
+        "facing=south": { "model": "manyideas_core:block/pottery_wheel", "y": 270 },
+        "facing=west":  { "model": "manyideas_core:block/pottery_wheel" }
+    }
+}

@@ -14,8 +14,8 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = "${major_version}.${minor_version}.${patch_version}"
-group = 'de.geheimagentnr1.manyideascore' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'manyideascore'
+group = 'de.geheimagentnr1.manyideas_core' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'manyideas_core'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
@@ -43,7 +43,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                manyideascore {
+                manyideas_core {
                     source sourceSets.main
                 }
             }
@@ -59,7 +59,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                manyideascore {
+                manyideas_core {
                     source sourceSets.main
                 }
             }
@@ -74,10 +74,10 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'manyideascore', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'manyideas_core', '--all', '--output', file('src/generated/resources/')
 
             mods {
-                manyideascore {
+                manyideas_core {
                     source sourceSets.main
                 }
             }
@@ -138,7 +138,7 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title": "manyideascore",
+            "Specification-Title": "manyideas_core",
             "Specification-Vendor": "GeheimagentNr1",
             "Specification-Version": "${version}", // We are version 1 of ourselves
             "Implementation-Title": project.name,

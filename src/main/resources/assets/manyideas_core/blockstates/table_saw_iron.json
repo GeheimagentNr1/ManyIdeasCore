@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "manyideas_core:block/table_saws/table_saw_iron" },
+        "facing=east":  { "model": "manyideas_core:block/table_saws/table_saw_iron", "y": 90 },
+        "facing=south": { "model": "manyideas_core:block/table_saws/table_saw_iron", "y": 180 },
+        "facing=west":  { "model": "manyideas_core:block/table_saws/table_saw_iron", "y": 270 }
+    }
+}

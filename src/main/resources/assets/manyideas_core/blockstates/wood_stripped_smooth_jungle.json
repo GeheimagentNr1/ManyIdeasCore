@@ -1,0 +1,7 @@
+{
+	"variants": {
+		"axis=x": { "model": "manyideas_core:block/building_blocks/woods/woods_stripped_smooth/wood_stripped_smooth_jungle", "x": 90, "y": 90 },
+		"axis=y": { "model": "manyideas_core:block/building_blocks/woods/woods_stripped_smooth/wood_stripped_smooth_jungle" },
+		"axis=z": { "model": "manyideas_core:block/building_blocks/woods/woods_stripped_smooth/wood_stripped_smooth_jungle", "x": 90 }
+	}
+}

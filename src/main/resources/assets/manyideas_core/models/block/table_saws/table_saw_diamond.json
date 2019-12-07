@@ -1,0 +1,6 @@
+{
+    "parent": "manyideas_core:block/templates/table_saw",
+    "textures": {
+        "saw": "manyideas_core:block/table_saws/saw_diamond"
+    }
+}

@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"  S",
+		" PS",
+		"SSS"
+	],
+	"key": {
+		"P": {
+			"tag": "manyideas_core:planks"
+		},
+		"S": {
+			"tag": "minecraft:planks"
+		}
+	},
+	"result": {
+		"item": "manyideas_core:pottery_wheel"
+	}
+}

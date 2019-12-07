@@ -1,0 +1,23 @@
+{
+	"replace": false,
+	"values": [
+		"minecraft:acacia_wood",
+		"minecraft:stripped_acacia_wood",
+		"manyideas_core:wood_stripped_smooth_acacia",
+		"minecraft:birch_wood",
+		"minecraft:stripped_birch_wood",
+		"manyideas_core:wood_stripped_smooth_birch",
+		"minecraft:dark_oak_wood",
+		"minecraft:stripped_dark_oak_wood",
+		"manyideas_core:wood_stripped_smooth_dark_oak",
+		"minecraft:jungle_wood",
+		"minecraft:stripped_jungle_wood",
+		"manyideas_core:wood_stripped_smooth_jungle",
+		"minecraft:oak_wood",
+		"minecraft:stripped_oak_wood",
+		"manyideas_core:wood_stripped_smooth_oak",
+		"minecraft:spruce_wood",
+		"minecraft:stripped_spruce_wood",
+		"manyideas_core:wood_stripped_smooth_spruce"
+	]
+}

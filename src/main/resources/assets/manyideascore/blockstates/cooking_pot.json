@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=north": { "model": "manyideascore:block/cooking_pot" },
-        "facing=east":  { "model": "manyideascore:block/cooking_pot", "y": 90 },
-        "facing=south": { "model": "manyideascore:block/cooking_pot", "y": 180 },
-        "facing=west":  { "model": "manyideascore:block/cooking_pot", "y": 270 }
-    }
-}
