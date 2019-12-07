@@ -16,7 +16,8 @@ public class ColorStackList implements ColorList {
 	
 	private final ItemStack itemStack;
 	
-	public ColorStackList( ItemStack _stack ) {
+	//package-private
+	ColorStackList( ItemStack _stack ) {
 		
 		itemStack = _stack;
 	}
@@ -25,6 +26,12 @@ public class ColorStackList implements ColorList {
 	public Color getColor( ItemStack stack ) {
 		
 		return DyeBlockHelper.getColor( stack );
+	}
+	
+	//package-private
+	ItemStack getItemStack() {
+		
+		return itemStack;
 	}
 	
 	@Nonnull
@@ -39,7 +46,8 @@ public class ColorStackList implements ColorList {
 	public JsonObject serialize() {
 		
 		JsonObject jsonobject = new JsonObject();
-		jsonobject.addProperty("item", Objects.requireNonNull( itemStack.getItem().getRegistryName() ).toString() );
+		jsonobject.addProperty( "color_item",
+			Objects.requireNonNull( itemStack.getItem().getRegistryName() ).toString() );
 		return jsonobject;
 	}
 }

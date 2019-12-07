@@ -4,22 +4,18 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import de.geheimagentnr1.manyideascore.elements.block_state_properties.Color;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.TreeMap;
+import java.util.*;
 
 
 public class ColorTagList implements ColorList {
 	
 	
-	private final TreeMap<ItemStack, Color> stacks;/* = new TreeMap<>(
-		Comparator.comparing( o -> Objects.requireNonNull( o.getItem().getRegistryName() ) ) );*/
+	private final TreeMap<ItemStack, Color> stacks;
 	
-	public ColorTagList( TreeMap<ItemStack, Color> _stacks ) {
+	//package-private
+	ColorTagList( TreeMap<ItemStack, Color> _stacks ) {
 		
 		stacks = _stacks;
 	}
@@ -28,6 +24,12 @@ public class ColorTagList implements ColorList {
 	public Color getColor( ItemStack stack ) {
 		
 		return stacks.get( stack );
+	}
+	
+	//package-private
+	TreeMap<ItemStack, Color> getColorStacks() {
+		
+		return stacks;
 	}
 	
 	@Nonnull
@@ -43,12 +45,19 @@ public class ColorTagList implements ColorList {
 		
 		JsonObject jsonobject = new JsonObject();
 		JsonArray items = new JsonArray();
-		stacks.forEach( ( stack, color ) -> {
+		ArrayList<Color> colors = new ArrayList<>( Arrays.asList( Color.values() ) );
+		stacks.forEach( ( stack, stackColor ) -> {
 			JsonObject item = new JsonObject();
-			item.addProperty( "item", Objects.requireNonNull( stack.getItem().getRegistryName() ).toString() );
-			item.addProperty( "color", color.getName() );
+			item.addProperty( stackColor.getName(),
+				Objects.requireNonNull( stack.getItem().getRegistryName() ).toString() );
 			items.add( item );
+			colors.remove( stackColor );
 		} );
+		for( Color color : colors ) {
+			JsonObject item = new JsonObject();
+			item.addProperty( color.getName(), "" );
+			items.add( item );
+		}
 		jsonobject.add( "color_tag", items );
 		return jsonobject;
 	}

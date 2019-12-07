@@ -1,6 +1,5 @@
 package de.geheimagentnr1.manyideascore.elements.recipes.dyed_recipes;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.*;
 import de.geheimagentnr1.manyideascore.elements.block_state_properties.Color;
@@ -50,20 +49,12 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 			recipeHeight = 3;
 			deserializeShapedIngredients( ingredients, pattern, JSONUtils.getJsonObject( json, "keys" ) );
 		} else {
-			recipeWidth = 0;
-			recipeHeight = 0;
 			deserializeNonShapedIngredients( ingredients, JSONUtils.getJsonArray( json, "ingredients" ) );
+			recipeWidth = ingredients.size();
+			recipeHeight = 1;
 		}
 		ItemStack result = deserializeResult( JSONUtils.getJsonObject( json, "result" ) );
 		return new DyedRecipe( recipeId, this, shaped, ingredients, result, recipeWidth, recipeHeight );
-		/*String s = JSONUtils.getString( json, "group", "" );
-		Map<String, Ingredient> map = deserializeKey( JSONUtils.getJsonObject( json, "key" ) );
-		String[] astring = shrink( patternFromJson( JSONUtils.getJsonArray( json, "pattern" ) ) );
-		int i = astring[0].length();
-		int j = astring.length;
-		NonNullList<Ingredient> nonnulllist = deserializeIngredients( astring, map, i, j );
-		ItemStack itemstack = deserializeItem( JSONUtils.getJsonObject( json, "result" ) );
-		return new DyedRecipesOlc( recipeId, s, i, j, nonnulllist, itemstack );*/
 	}
 	
 	
@@ -133,7 +124,8 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 		}
 	}
 	
-	private Ingredient deserializeIngredient( JsonObject ingredient ) {
+	//package-private
+	Ingredient deserializeIngredient( JsonObject ingredient ) {
 		
 		if( ingredient.has( "color_item" ) ) {
 			return deserializeColorStackList( ingredient );
@@ -186,165 +178,16 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 		return new ItemStack( item, JSONUtils.getInt( result, "count", 1 ) );
 	}
 	
-	/*private static NonNullList<Ingredient> deserializeIngredients( String[] p_192402_0_,
-		Map<String, Ingredient> p_192402_1_, int p_192402_2_, int p_192402_3_ ) {
-		
-		NonNullList<Ingredient> nonnulllist = NonNullList.withSize( p_192402_2_ * p_192402_3_, Ingredient.EMPTY );
-		Set<String> set = Sets.newHashSet( p_192402_1_.keySet() );
-		set.remove( " " );
-		
-		for( int i = 0; i < p_192402_0_.length; ++i ) {
-			for( int j = 0; j < p_192402_0_[i].length(); ++j ) {
-				String s = p_192402_0_[i].substring( j, j + 1 );
-				Ingredient ingredient = p_192402_1_.get( s );
-				if( ingredient == null ) {
-					throw new JsonSyntaxException(
-						"Pattern references symbol '" + s + "' but it's not defined in the key" );
-				}
-				
-				set.remove( s );
-				nonnulllist.set( j + p_192402_2_ * i, ingredient );
-			}
-		}
-		
-		if( !set.isEmpty() ) {
-			throw new JsonSyntaxException( "Key defines symbols that aren't used in pattern: " + set );
-		} else {
-			return nonnulllist;
-		}
-	}
-	
-	@VisibleForTesting
-	static String[] shrink( String... p_194134_0_ ) {
-		
-		int i = 2147483647;
-		int j = 0;
-		int k = 0;
-		int l = 0;
-		
-		for( int i1 = 0; i1 < p_194134_0_.length; ++i1 ) {
-			String s = p_194134_0_[i1];
-			i = Math.min( i, firstNonSpace( s ) );
-			int j1 = lastNonSpace( s );
-			j = Math.max( j, j1 );
-			if( j1 < 0 ) {
-				if( k == i1 ) {
-					++k;
-				}
-				
-				++l;
-			} else {
-				l = 0;
-			}
-		}
-		
-		if( p_194134_0_.length == l ) {
-			return new String[0];
-		} else {
-			String[] astring = new String[p_194134_0_.length - l - k];
-			
-			for( int k1 = 0; k1 < astring.length; ++k1 ) {
-				astring[k1] = p_194134_0_[k1 + k].substring( i, j + 1 );
-			}
-			
-			return astring;
-		}
-	}
-	
-	private static int firstNonSpace( String p_194135_0_ ) {
-		
-		int i;
-		for( i = 0; i < p_194135_0_.length() && p_194135_0_.charAt( i ) == ' '; ++i ) {
-		}
-		
-		return i;
-	}
-	
-	private static int lastNonSpace( String p_194136_0_ ) {
-		
-		int i;
-		for( i = p_194136_0_.length() - 1; i >= 0 && p_194136_0_.charAt( i ) == ' '; --i ) {
-		}
-		
-		return i;
-	}
-	
-	private static String[] patternFromJson( JsonArray p_192407_0_ ) {
-		
-		String[] astring = new String[p_192407_0_.size()];
-		if( astring.length > DyedRecipesOlc.MAX_HEIGHT ) {
-			throw new JsonSyntaxException(
-				"Invalid pattern: too many rows, " + DyedRecipesOlc.MAX_HEIGHT + " is maximum" );
-		} else {
-			if( astring.length == 0 ) {
-				throw new JsonSyntaxException( "Invalid pattern: empty pattern not allowed" );
-			} else {
-				for( int i = 0; i < astring.length; ++i ) {
-					String s = JSONUtils.getString( p_192407_0_.get( i ), "pattern[" + i + "]" );
-					if( s.length() > DyedRecipesOlc.MAX_WIDTH ) {
-						throw new JsonSyntaxException(
-							"Invalid pattern: too many columns, " + DyedRecipesOlc.MAX_WIDTH + " is maximum" );
-					}
-					
-					if( i > 0 && astring[0].length() != s.length() ) {
-						throw new JsonSyntaxException( "Invalid pattern: each row must be the same width" );
-					}
-					
-					astring[i] = s;
-				}
-				
-				return astring;
-			}
-		}
-	}
-	
-	private static Map<String, Ingredient> deserializeKey( JsonObject p_192408_0_ ) {
-		
-		Map<String, Ingredient> map = Maps.newHashMap();
-		Iterator var2 = p_192408_0_.entrySet().iterator();
-		
-		while( var2.hasNext() ) {
-			Map.Entry<String, JsonElement> entry = (Map.Entry)var2.next();
-			if( ( (String)entry.getKey() ).length() != 1 ) {
-				throw new JsonSyntaxException( "Invalid key entry: '" + (String)entry.getKey() +
-					"' is an invalid symbol (must be 1 character only)." );
-			}
-			
-			if( " ".equals( entry.getKey() ) ) {
-				throw new JsonSyntaxException( "Invalid key entry: ' ' is a reserved symbol." );
-			}
-			
-			map.put( entry.getKey(), Ingredient.deserialize( (JsonElement)entry.getValue() ) );
-		}
-		
-		map.put( " ", Ingredient.EMPTY );
-		return map;
-	}
-	
-	public static ItemStack deserializeItem( JsonObject p_199798_0_ ) {
-		
-		String s = JSONUtils.getString( p_199798_0_, "item" );
-		Item var10000 = (Item)Registry.ITEM.getValue( new ResourceLocation( s ) ).orElseThrow( () -> {
-			return new JsonSyntaxException( "Unknown item '" + s + "'" );
-		} );
-		if( p_199798_0_.has( "data" ) ) {
-			throw new JsonParseException( "Disallowed data tag found" );
-		} else {
-			int i = JSONUtils.getInt( p_199798_0_, "count", 1 );
-			return CraftingHelper.getItemStack( p_199798_0_, true );
-		}
-	}*/
-	
 	@Nullable
 	@Override
 	public DyedRecipe read( @Nonnull ResourceLocation recipeId, @Nonnull PacketBuffer buffer ) {
 		
-		boolean shaped = buffer.getBoolean( 0 );
+		boolean shaped = buffer.readBoolean();
 		int recipeWidth = buffer.readVarInt();
 		int recipeHeight = buffer.readVarInt();
-		NonNullList<Ingredient> ingredients = NonNullList.withSize( recipeWidth * recipeHeight, Ingredient.EMPTY );
-		for( int k = 0; k < ingredients.size(); ++k ) {
-			ingredients.set( k, Ingredient.read( buffer ) );
+		NonNullList<Ingredient> ingredients = NonNullList.create();
+		for( int k = 0; k < recipeWidth * recipeHeight; ++k ) {
+			ingredients.add( Ingredient.read( buffer ) );
 		}
 		ItemStack result = buffer.readItemStack();
 		return new DyedRecipe( recipeId, this, shaped, ingredients, result, recipeWidth, recipeHeight );
