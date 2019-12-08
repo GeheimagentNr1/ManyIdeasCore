@@ -39,35 +39,35 @@ public class ModBlocks {
 	
 	public final static Block[] BLOCKS = new Block[] {//BCPFINRLT
 		//Building Blocks: Woods
-		new WoodColored(),//BCPFI_RLT
+		new WoodColored(),//BCPFINRLT
 		//Building Blocks: Woods: Logs Stripped Smooth
-		new LogStrippedSmoothAcacia(),//BCPFI_RLT
-		new LogStrippedSmoothBirch(),//BCPFI_RLT
-		new LogStrippedSmoothDarkOak(),//BCPFI_RLT
-		new LogStrippedSmoothJungle(),//BCPFI_RLT
-		new LogStrippedSmoothOak(),//BCPFI_RLT
-		new LogStrippedSmoothSpruce(),//BCPFI_RLT
+		new LogStrippedSmoothAcacia(),//BCPFINRLT
+		new LogStrippedSmoothBirch(),//BCPFINRLT
+		new LogStrippedSmoothDarkOak(),//BCPFINRLT
+		new LogStrippedSmoothJungle(),//BCPFINRLT
+		new LogStrippedSmoothOak(),//BCPFINRLT
+		new LogStrippedSmoothSpruce(),//BCPFINRLT
 		//Building Blocks: Woods: Woods Stripped Smooth
-		new WoodStrippedSmoothAcacia(),//BCPFI_RLT
-		new WoodStrippedSmoothBirch(),//BCPFI_RLT
-		new WoodStrippedSmoothDarkOak(),//BCPFI_RLT
-		new WoodStrippedSmoothJungle(),//BCPFI_RLT
-		new WoodStrippedSmoothOak(),//BCPFI_RLT
-		new WoodStrippedSmoothSpruce(),//BCPFI_RLT
+		new WoodStrippedSmoothAcacia(),//BCPFINRLT
+		new WoodStrippedSmoothBirch(),//BCPFINRLT
+		new WoodStrippedSmoothDarkOak(),//BCPFINRLT
+		new WoodStrippedSmoothJungle(),//BCPFINRLT
+		new WoodStrippedSmoothOak(),//BCPFINRLT
+		new WoodStrippedSmoothSpruce(),//BCPFINRLT
 		//Cooking Pot
-		new CookingPot(),//BCPFI_RLT//TODO: Function
+		new CookingPot(),//BCPFINRLT//TODO: Function
 		//Dye Crafting Table
-		new DyeCraftingTable(),//BCPFI_RLT
+		new DyeCraftingTable(),//BCPFINRLT
 		//End Block
-		new EndBlock(),//BCPFI_RLT
+		new EndBlock(),//BCPFINRLT
 		//Mortal
-		new Mortal(),//BCPFI_RLT
+		new Mortal(),//BCPFINRLT
 		//Pottery Wheel
-		new PotteryWheel(),//BCPFI_RLT//TODO: Function
+		new PotteryWheel(),//BCPFINRLT//TODO: Function
 		//Table Saws
-		new TableSawDiamond(),//BCPFI_RLT
-		new TableSawIron(),//BCPFI_RLT
-		new TableSawStone(),//BCPFI_RLT
+		new TableSawDiamond(),//BCPFINRLT
+		new TableSawIron(),//BCPFINRLT
+		new TableSawStone(),//BCPFINRLT
 	};
 	
 	//Building Blocks: Woods
