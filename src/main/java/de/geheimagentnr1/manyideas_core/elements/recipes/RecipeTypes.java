@@ -16,7 +16,6 @@ import net.minecraft.util.registry.Registry;
 @SuppressWarnings( { "StaticNonFinalField", "PublicField" } )
 public class RecipeTypes {
 	
-	
 	//Mortaling
 	
 	public static IRecipeType<DyedRecipe> DYED;

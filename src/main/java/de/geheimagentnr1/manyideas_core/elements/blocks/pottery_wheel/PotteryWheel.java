@@ -8,7 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.state.StateContainer;
@@ -78,6 +77,6 @@ public class PotteryWheel extends Block implements BlockItemInterface {
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return new BlockItem( ModBlocks.POTTERY_WHEEL, properties ).setRegistryName( registry_name );
+		return createBlockItem( ModBlocks.POTTERY_WHEEL, properties, registry_name );
 	}
 }

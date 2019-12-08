@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.state.StateContainer;
@@ -66,6 +65,6 @@ public class CookingPot extends Block implements BlockItemInterface {
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return new BlockItem( ModBlocks.COOKING_POT, properties ).setRegistryName( registry_name );
+		return createBlockItem( ModBlocks.COOKING_POT, properties, registry_name );
 	}
 }

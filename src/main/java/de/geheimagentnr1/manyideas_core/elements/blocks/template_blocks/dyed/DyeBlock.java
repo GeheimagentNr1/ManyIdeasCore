@@ -17,9 +17,11 @@ import javax.annotation.Nullable;
 public abstract class DyeBlock extends Block {
 	
 	
-	protected DyeBlock( Block.Properties properties ) {
+	@SuppressWarnings( "SameParameterValue" )
+	protected DyeBlock( Block.Properties properties, String registry_name ) {
 		
 		super( properties );
+		setRegistryName( registry_name );
 	}
 	
 	@Nullable

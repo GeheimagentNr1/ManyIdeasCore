@@ -24,8 +24,8 @@ public class WoodColored extends DyeBlock implements BlockItemInterface {
 	
 	public WoodColored() {
 		
-		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 2.0F ).sound( SoundType.WOOD ) );
-		setRegistryName( registry_name );
+		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 2.0F ).sound( SoundType.WOOD ),
+			registry_name );
 	}
 	
 	@Nullable
@@ -46,6 +46,6 @@ public class WoodColored extends DyeBlock implements BlockItemInterface {
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return new DyeBlockItem( ModBlocks.WOOD_COLORED, properties ).setRegistryName( registry_name );
+		return new DyeBlockItem( ModBlocks.WOOD_COLORED, properties, registry_name );
 	}
 }

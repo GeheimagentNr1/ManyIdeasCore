@@ -6,7 +6,6 @@ import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeVector;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.state.StateContainer;
@@ -59,6 +58,6 @@ public class DebugBlockCullface extends Block implements BlockItemInterface {
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return new BlockItem( this, properties ).setRegistryName( registry_name );
+		return createBlockItem( this, properties, registry_name );
 	}
 }

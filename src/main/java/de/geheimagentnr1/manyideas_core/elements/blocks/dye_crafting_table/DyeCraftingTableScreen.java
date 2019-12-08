@@ -33,7 +33,7 @@ public class DyeCraftingTableScreen extends ContainerScreen<DyeCraftingTableCont
 	}
 	
 	@Override
-	protected void drawGuiContainerForegroundLayer( int p_146979_1_, int p_146979_2_ ) {
+	protected void drawGuiContainerForegroundLayer( int mouseX, int mouseY ) {
 		
 		font.drawString( title.getFormattedText(), 28.0F, 6.0F, 4210752 );
 		font.drawString( playerInventory.getDisplayName().getFormattedText(), 8.0F, ySize - 96 + 2, 4210752 );

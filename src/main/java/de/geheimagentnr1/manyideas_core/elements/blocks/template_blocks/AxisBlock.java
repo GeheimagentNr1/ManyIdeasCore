@@ -13,9 +13,10 @@ import javax.annotation.Nullable;
 public abstract class AxisBlock extends Block {
 	
 	
-	protected AxisBlock( Block.Properties properties ) {
+	protected AxisBlock( Block.Properties properties, String registry_name ) {
 		
 		super( properties );
+		setRegistryName( registry_name );
 	}
 	
 	@Nullable

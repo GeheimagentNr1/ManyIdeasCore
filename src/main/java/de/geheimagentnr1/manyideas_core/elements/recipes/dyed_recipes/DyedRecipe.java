@@ -5,7 +5,10 @@ import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.*;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -34,7 +37,8 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 	
 	private final int recipeHeight;
 	
-	public DyedRecipe( ResourceLocation _id, IRecipeSerializer<?> _serializer, boolean _shaped,
+	//package-private
+	DyedRecipe( ResourceLocation _id, IRecipeSerializer<?> _serializer, boolean _shaped,
 		NonNullList<Ingredient> _ingredients, ItemStack _result, int _recipeWidth, int _recipeHeight ) {
 		
 		id = _id;
@@ -179,11 +183,13 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 		return serializer;
 	}
 	
-	public boolean isShaped() {
+	//package-private
+	boolean isShaped() {
 		
 		return shaped;
 	}
 	
+	@Nonnull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		
@@ -195,12 +201,14 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 		return result;
 	}
 	
-	public int getRecipeWidth() {
+	//package-private
+	int getRecipeWidth() {
 		
 		return recipeWidth;
 	}
 	
-	public int getRecipeHeight() {
+	//package-private
+	int getRecipeHeight() {
 		
 		return recipeHeight;
 	}

@@ -15,7 +15,7 @@ import java.util.TreeMap;
 public class ColorIngredientSerializer implements IIngredientSerializer<ColorIngredient> {
 	
 	
-	public static final ColorIngredientSerializer INSTANCE  = new ColorIngredientSerializer();
+	public static final ColorIngredientSerializer INSTANCE = new ColorIngredientSerializer();
 	
 	@Nonnull
 	@Override
@@ -43,11 +43,11 @@ public class ColorIngredientSerializer implements IIngredientSerializer<ColorIng
 	
 	@Override
 	public void write( @Nonnull PacketBuffer buffer, ColorIngredient ingredient ) {
-	
+		
 		ColorList colorList = ingredient.getIngrediant();
 		if( colorList instanceof ColorStackList ) {
 			buffer.writeInt( 0 );
-			buffer.writeItemStack( ( (ColorStackList)colorList).getItemStack() );
+			buffer.writeItemStack( ( (ColorStackList)colorList ).getItemStack() );
 		} else {
 			buffer.writeInt( 1 );
 			TreeMap<ItemStack, Color> colorStacks = ( (ColorTagList)colorList ).getColorStacks();

@@ -19,9 +19,10 @@ import javax.annotation.Nonnull;
 public class DyeBlockItem extends BlockItem {
 	
 	
-	public DyeBlockItem( Block block, Item.Properties _properties ) {
+	public DyeBlockItem( Block block, Item.Properties _properties, String registry_name ) {
 		
 		super( block, _properties );
+		setRegistryName( registry_name );
 		addProperties();
 	}
 	

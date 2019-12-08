@@ -9,8 +9,9 @@ import net.minecraft.block.material.Material;
 public abstract class Wood extends AxisBlock {
 	
 	
-	protected Wood() {
+	protected Wood( String registry_name ) {
 		
-		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 2.0F ).sound( SoundType.WOOD ) );
+		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 2.0F ).sound( SoundType.WOOD ),
+			registry_name );
 	}
 }

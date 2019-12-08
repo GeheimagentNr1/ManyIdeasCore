@@ -5,7 +5,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
 
-public interface ColorList extends Ingredient.IItemList {
+//package-private
+interface ColorList extends Ingredient.IItemList {
+	
 	
 	//public
 	Color getColor( ItemStack stack );

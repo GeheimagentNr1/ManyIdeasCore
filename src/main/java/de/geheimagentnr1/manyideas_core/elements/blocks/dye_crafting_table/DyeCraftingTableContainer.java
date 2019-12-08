@@ -85,17 +85,17 @@ public class DyeCraftingTableContainer extends Container {
 	}
 	
 	@Override
-	public void onCraftMatrixChanged( IInventory inventory ) {
+	public void onCraftMatrixChanged( IInventory inventoryIn ) {
 		
 		worldPosCallable.consume( ( world, pos ) ->
 			changeCaftingSlot( windowId, world, player, craftingInventory, resultInventory ) );
 	}
 	
 	@Override
-	public void onContainerClosed( PlayerEntity player ) {
+	public void onContainerClosed( PlayerEntity playerIn ) {
 		
-		super.onContainerClosed( player );
-		worldPosCallable.consume( ( world, pos ) -> clearContainer( player, world, craftingInventory ) );
+		super.onContainerClosed( playerIn );
+		worldPosCallable.consume( ( world, pos ) -> clearContainer( playerIn, world, craftingInventory ) );
 	}
 	
 	@Override
@@ -106,7 +106,7 @@ public class DyeCraftingTableContainer extends Container {
 	
 	@Nonnull
 	@Override
-	public ItemStack transferStackInSlot( PlayerEntity player, int index ) {
+	public ItemStack transferStackInSlot( PlayerEntity playerIn, int index ) {
 		
 		ItemStack resultStack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get( index );
@@ -114,7 +114,7 @@ public class DyeCraftingTableContainer extends Container {
 			ItemStack stack = slot.getStack();
 			resultStack = stack.copy();
 			if( index == 0 ) {
-				worldPosCallable.consume( ( world, pos ) -> stack.getItem().onCreated( stack, world, player ) );
+				worldPosCallable.consume( ( world, pos ) -> stack.getItem().onCreated( stack, world, playerIn ) );
 				if( !mergeItemStack( stack, 10, 46, true ) ) {
 					return ItemStack.EMPTY;
 				}
@@ -144,9 +144,9 @@ public class DyeCraftingTableContainer extends Container {
 			if( stack.getCount() == resultStack.getCount() ) {
 				return ItemStack.EMPTY;
 			}
-			ItemStack dropStack = slot.onTake( player, stack );
+			ItemStack dropStack = slot.onTake( playerIn, stack );
 			if( index == 0 ) {
-				player.dropItem( dropStack, false );
+				playerIn.dropItem( dropStack, false );
 			}
 		}
 		
@@ -154,8 +154,8 @@ public class DyeCraftingTableContainer extends Container {
 	}
 	
 	@Override
-	public boolean canMergeSlot( ItemStack stack, Slot slot ) {
+	public boolean canMergeSlot( ItemStack stack, Slot slotIn ) {
 		
-		return slot.inventory != resultInventory;
+		return slotIn.inventory != resultInventory;
 	}
 }

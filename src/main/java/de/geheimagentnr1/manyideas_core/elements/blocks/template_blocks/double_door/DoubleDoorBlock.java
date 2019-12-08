@@ -24,15 +24,18 @@ import javax.annotation.Nonnull;
 public abstract class DoubleDoorBlock extends DoorBlock {
 	
 	
-	protected DoubleDoorBlock( Block.Properties properties ) {
+	protected DoubleDoorBlock( Block.Properties properties, String registry_name ) {
 		
 		super( properties );
+		setRegistryName( registry_name );
 		initDoubleDoorBlock( material != Material.IRON );
 	}
 	
-	protected DoubleDoorBlock( Block.Properties properties, boolean canBeOpenedOnBlockActivated ) {
+	protected DoubleDoorBlock( Block.Properties properties, String registry_name,
+		boolean canBeOpenedOnBlockActivated ) {
 		
 		super( properties );
+		setRegistryName( registry_name );
 		initDoubleDoorBlock( canBeOpenedOnBlockActivated );
 	}
 	

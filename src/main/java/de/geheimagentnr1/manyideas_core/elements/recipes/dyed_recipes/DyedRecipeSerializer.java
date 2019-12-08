@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import com.google.gson.*;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlockItem;
+import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeSerializers;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -25,16 +26,6 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 	implements IRecipeSerializer<DyedRecipe> {
 	
 	
-/*	private final boolean shaped;
-	
-	private final NonNullList<Ingredient> ingredients;
-	
-	private final ItemStack result;
-	
-	private final int recipeWidth;
-	
-	private final int recipeHeight;*/
-	
 	@Nonnull
 	@Override
 	public DyedRecipe read( @Nonnull ResourceLocation recipeId, @Nonnull JsonObject json ) {
@@ -54,7 +45,8 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 			recipeHeight = 1;
 		}
 		ItemStack result = deserializeResult( JSONUtils.getJsonObject( json, "result" ) );
-		return new DyedRecipe( recipeId, this, shaped, ingredients, result, recipeWidth, recipeHeight );
+		return new DyedRecipe( recipeId, RecipeSerializers.DYED, shaped, ingredients, result, recipeWidth,
+			recipeHeight );
 	}
 	
 	
@@ -190,7 +182,8 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 			ingredients.add( Ingredient.read( buffer ) );
 		}
 		ItemStack result = buffer.readItemStack();
-		return new DyedRecipe( recipeId, this, shaped, ingredients, result, recipeWidth, recipeHeight );
+		return new DyedRecipe( recipeId, RecipeSerializers.DYED, shaped, ingredients, result, recipeWidth,
+			recipeHeight );
 	}
 	
 	@Override

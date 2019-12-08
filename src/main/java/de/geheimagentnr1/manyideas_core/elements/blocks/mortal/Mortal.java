@@ -10,7 +10,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -98,6 +97,6 @@ public class Mortal extends Block implements BlockItemInterface {
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return new BlockItem( ModBlocks.MORTAL, properties ).setRegistryName( registry_name );
+		return createBlockItem( ModBlocks.MORTAL, properties, registry_name );
 	}
 }

@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
@@ -74,6 +73,6 @@ public class EndBlock extends Block implements BlockItemInterface {
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return new BlockItem( ModBlocks.END_BLOCK, properties ).setRegistryName( registry_name );
+		return createBlockItem( ModBlocks.END_BLOCK, properties, registry_name );
 	}
 }

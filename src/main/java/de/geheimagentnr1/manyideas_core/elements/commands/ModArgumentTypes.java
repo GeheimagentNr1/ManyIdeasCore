@@ -9,6 +9,7 @@ import net.minecraft.command.arguments.ArgumentTypes;
 
 public class ModArgumentTypes {
 	
+	
 	public static void registerArgumentTypes() {
 		
 		ArgumentTypes.register( ManyIdeasCore.MODID + ":" + ColorArgument.registry_name,
