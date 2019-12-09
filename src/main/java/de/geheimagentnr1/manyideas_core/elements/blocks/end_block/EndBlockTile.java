@@ -27,7 +27,8 @@ public class EndBlockTile extends TileEntity {
 		BlockPos direction_pos = pos.offset( direction );
 		BlockState direction_state = world.getBlockState( direction_pos );
 		return direction_state.getRenderType() == BlockRenderType.INVISIBLE ||
-			direction_state.getBlock().getRenderLayer() != BlockRenderLayer.SOLID &&
-				!Block.hasSolidSide( direction_state, world, direction_pos, direction );
+			direction_state.getBlock().getRenderLayer() != BlockRenderLayer.SOLID ||
+			direction_state.getBlock().getRenderLayer() == BlockRenderLayer.SOLID &&
+				!Block.hasSolidSide( direction_state, world, direction_pos, direction.getOpposite() );
 	}
 }
