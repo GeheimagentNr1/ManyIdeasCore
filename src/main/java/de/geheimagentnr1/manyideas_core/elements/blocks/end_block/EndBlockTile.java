@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -18,7 +19,14 @@ public class EndBlockTile extends TileEntity {
 		super( ModBlocks.END_BLOCK_TILE );
 	}
 	
+	@SuppressWarnings( "unused" )
+	public EndBlockTile( TileEntityType<? extends EndBlockTile> _type ) {
+		
+		super( _type );
+	}
+	
 	//package-private
+	@SuppressWarnings( "deprecation" )
 	boolean shouldRender( Direction direction ) {
 		
 		if( world == null ) {
@@ -26,9 +34,16 @@ public class EndBlockTile extends TileEntity {
 		}
 		BlockPos direction_pos = pos.offset( direction );
 		BlockState direction_state = world.getBlockState( direction_pos );
-		return direction_state.getRenderType() == BlockRenderType.INVISIBLE ||
-			direction_state.getBlock().getRenderLayer() != BlockRenderLayer.SOLID ||
-			direction_state.getBlock().getRenderLayer() == BlockRenderLayer.SOLID &&
-				!Block.hasSolidSide( direction_state, world, direction_pos, direction.getOpposite() );
+		if( direction_state.getRenderType() == BlockRenderType.INVISIBLE ) {
+			return true;
+		}
+		if( direction_state.getBlock() instanceof IEndBlock ) {
+			return false;
+		}
+		if( direction_state.getBlock().getRenderLayer() != BlockRenderLayer.SOLID ) {
+			return !direction_state.getBlock().isSolid( direction_state );
+		} else {
+			return !Block.hasSolidSide( direction_state, world, direction_pos, direction.getOpposite() );
+		}
 	}
 }

@@ -3,6 +3,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.end_block;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -15,7 +16,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
-public class EndBlock extends Block implements BlockItemInterface {
+public class EndBlock extends Block implements BlockItemInterface, IEndBlock {
 	
 	
 	public final static String registry_name = "end_block";
@@ -35,7 +36,20 @@ public class EndBlock extends Block implements BlockItemInterface {
 	@Override
 	public BlockRenderLayer getRenderLayer() {
 		
-		return BlockRenderLayer.CUTOUT_MIPPED;
+		return BlockRenderLayer.CUTOUT;
+	}
+	
+	/**
+	 * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
+	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
+	 */
+	@Deprecated
+	@SuppressWarnings( "deprecation" )
+	@Nonnull
+	@Override
+	public BlockRenderType getRenderType( BlockState state ) {
+		
+		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 	
 	/**
