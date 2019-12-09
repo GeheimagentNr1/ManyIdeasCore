@@ -26,7 +26,7 @@ public class ModBlocksDebug {
 		if( ModConfig.DEBUG.get() ) {
 			return new Block[] {//BCPFINRLT
 				//Debug
-				new DebugBlockCullface(),//BCFI_RLT
+				new DebugBlockCullface(),//BCFINRLT
 			};
 		} else {
 			return new Block[0];

@@ -21,17 +21,17 @@ public class ModItems {
 	
 	public final static Item[] ITEMS = {
 		//Planks and Plates
-		new PlankAcacia(),//FI_RT
-		new PlankBirch(),//FI_RT
-		new PlankDarkOak(),//FI_RT
-		new PlateIron(),//FI_RT
-		new PlankJungle(),//FI_RT
-		new PlankOak(),//FI_RT
-		new PlankSpruce(),//FI_RT
+		new PlankAcacia(),//FINRT
+		new PlankBirch(),//FINRT
+		new PlankDarkOak(),//FINRT
+		new PlateIron(),//FINRT
+		new PlankJungle(),//FINRT
+		new PlankOak(),//FINRT
+		new PlankSpruce(),//FINRT
 		//Saws
-		new SawDiamond(),//FI_RT
-		new SawIron(),//FI_RT
-		new SawStone(),//FI_RT
+		new SawDiamond(),//FINRT
+		new SawIron(),//FINRT
+		new SawStone(),//FINRT
 	};
 	
 	//Plank and Plates
