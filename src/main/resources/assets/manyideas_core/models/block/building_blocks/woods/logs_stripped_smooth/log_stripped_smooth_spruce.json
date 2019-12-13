@@ -2,6 +2,6 @@
     "parent": "minecraft:block/cube_column",
     "textures": {
         "end": "minecraft:block/stripped_spruce_log_top",
-        "side": "manyideas_core:block/log_stripped_smooth/log_stripped_smooth_spruce"
+        "side": "manyideas_core:block/building_blocks/woods/log_stripped_smooth/log_stripped_smooth_spruce"
     }
 }

@@ -1,8 +1,8 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
     "textures": {
-        "particle": "manyideas_core:block/log_stripped_smooth/log_stripped_smooth_acacia",
-        "smooth_stripped_acacia": "manyideas_core:block/log_stripped_smooth/log_stripped_smooth_acacia"
+        "particle": "manyideas_core:block/building_blocks/woods/log_stripped_smooth/log_stripped_smooth_acacia",
+        "smooth_stripped_acacia": "manyideas_core:block/building_blocks/woods/log_stripped_smooth/log_stripped_smooth_acacia"
     },
     "display": {
         "gui": {

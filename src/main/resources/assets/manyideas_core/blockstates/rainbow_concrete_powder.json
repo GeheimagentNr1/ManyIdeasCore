@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "": [
+            { "model": "manyideas_core:block/building_blocks/rainbow/rainbow_concrete_powder" },
+            { "model": "manyideas_core:block/building_blocks/rainbow/rainbow_concrete_powder", "y": 90 },
+            { "model": "manyideas_core:block/building_blocks/rainbow/rainbow_concrete_powder", "y": 180 },
+            { "model": "manyideas_core:block/building_blocks/rainbow/rainbow_concrete_powder", "y": 270 }
+        ]
+    }
+}

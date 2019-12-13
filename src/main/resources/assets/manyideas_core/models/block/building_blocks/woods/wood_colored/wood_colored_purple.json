@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:block/cube_all",
 	"textures": {
-		"all": "manyideas_core:block/wood_colored/wood_colored_purple"
+		"all": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_purple"
 	}
 }

@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/cube_all",
+    "textures": {
+        "all": "manyideas_core:block/building_blocks/rainbow/stained_glass/rainbow_stained_glass"
+    }
+}

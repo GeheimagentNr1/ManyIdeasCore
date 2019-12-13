@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "manyideas_core:block/building_blocks/rainbow/stained_glass/rainbow_stained_glass"
+    }
+}

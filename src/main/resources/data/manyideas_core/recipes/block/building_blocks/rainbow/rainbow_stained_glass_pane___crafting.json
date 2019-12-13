@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "stained_glass_pane",
+  "pattern": [
+    "GGG",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "manyideas_core:rainbow_stained_glass_block"
+    }
+  },
+  "result": {
+    "item": "manyideas_core:rainbow_stained_glass_pane",
+    "count": 16
+  }
+}

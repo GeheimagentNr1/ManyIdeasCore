@@ -1,10 +1,12 @@
 package de.geheimagentnr1.manyideas_core.elements.items;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
+import de.geheimagentnr1.manyideas_core.elements.items.dyes.DyeRainbow;
 import de.geheimagentnr1.manyideas_core.elements.items.planks_and_plates.*;
 import de.geheimagentnr1.manyideas_core.elements.items.saws.SawDiamond;
 import de.geheimagentnr1.manyideas_core.elements.items.saws.SawIron;
 import de.geheimagentnr1.manyideas_core.elements.items.saws.SawStone;
+import de.geheimagentnr1.manyideas_core.elements.items.tools.MysteriousShears;
 import net.minecraft.item.Item;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -20,6 +22,8 @@ public class ModItems {
 	// T - Tags fertig
 	
 	public final static Item[] ITEMS = {
+		//Dyes
+		new DyeRainbow(),//FINRT
 		//Planks and Plates
 		new PlankAcacia(),//FINRT
 		new PlankBirch(),//FINRT
@@ -32,7 +36,14 @@ public class ModItems {
 		new SawDiamond(),//FINRT
 		new SawIron(),//FINRT
 		new SawStone(),//FINRT
+		//Tools
+		new MysteriousShears(),//FINRT
 	};
+	
+	//Dyes
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + DyeRainbow.registry_name )
+	public static DyeRainbow DYE_RAINBOW;
 	
 	//Plank and Plates
 	
@@ -67,4 +78,9 @@ public class ModItems {
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + SawStone.registry_name )
 	public static SawStone SAW_STONE;
+	
+	//Tools
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + MysteriousShears.registry_name )
+	public static MysteriousShears MYSTERIOUS_SHEARS;
 }

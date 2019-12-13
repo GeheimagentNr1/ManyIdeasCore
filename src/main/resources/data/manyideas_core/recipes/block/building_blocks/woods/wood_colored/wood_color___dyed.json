@@ -20,7 +20,7 @@
 				"orange": "minecraft:orange_dye",
 				"pink": "minecraft:pink_dye",
 				"purple": "minecraft:purple_dye",
-				"rainbow": "",
+				"rainbow": "manyideas_core:dye_rainbow",
 				"red": "minecraft:red_dye",
 				"white": "minecraft:white_dye",
 				"yellow": "minecraft:yellow_dye"

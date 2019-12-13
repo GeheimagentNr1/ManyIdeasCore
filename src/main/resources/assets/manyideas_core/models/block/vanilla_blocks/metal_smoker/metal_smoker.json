@@ -1,0 +1,9 @@
+{
+    "parent": "minecraft:block/orientable_with_bottom",
+    "textures": {
+        "bottom": "manyideas_core:block/vanilla_blocks/metal_smoker/metal_smoker_bottom",
+        "top": "manyideas_core:block/vanilla_blocks/metal_smoker/metal_smoker_top_off",
+        "front": "manyideas_core:block/vanilla_blocks/metal_smoker/metal_smoker_front_off",
+        "side": "manyideas_core:block/vanilla_blocks/metal_smoker/metal_smoker_side"
+    }
+}

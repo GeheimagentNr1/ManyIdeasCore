@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "stained_glass",
+  "pattern": [
+    "GGG",
+    "GDG",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "D": {
+      "item": "manyideas_core:dye_rainbow"
+    }
+  },
+  "result": {
+    "item": "manyideas_core:rainbow_stained_glass_block",
+    "count": 8
+  }
+}

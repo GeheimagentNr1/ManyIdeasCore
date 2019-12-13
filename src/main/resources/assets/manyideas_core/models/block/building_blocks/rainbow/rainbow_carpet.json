@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:block/carpet",
+	"textures": {
+		"particle": "manyideas_core:block/building_blocks/rainbow/rainbow_wool",
+		"wool": "manyideas_core:block/building_blocks/rainbow/rainbow_wool"
+	}
+}

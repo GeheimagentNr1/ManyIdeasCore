@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/template_glass_pane_post",
+    "textures": {
+        "edge": "manyideas_core:block/building_blocks/rainbow/stained_glass_pane/rainbow_stained_glass_pane_top",
+        "pane": "manyideas_core:block/building_blocks/rainbow/stained_glass/rainbow_stained_glass"
+    }
+}
