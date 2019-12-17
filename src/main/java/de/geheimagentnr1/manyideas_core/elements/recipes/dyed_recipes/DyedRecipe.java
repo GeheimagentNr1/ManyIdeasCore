@@ -108,24 +108,6 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 				}
 			}
 		}
-		/*for( int i = 0; i < ingredients.size(); i++ ) {
-			Ingredient ingredient = ingredients.get( i );
-			if( ingredient instanceof ColorIngredient ) {
-				ColorIngredient colorIngredient = (ColorIngredient)ingredient;
-				Color newColor = colorIngredient.getColor( inv.getStackInSlot( i ) );
-				if( newColor == null ) {
-					return Optional.empty();
-				} else {
-					if( color == null ) {
-						color = newColor;
-					} else {
-						if( color != newColor ) {
-							return Optional.empty();
-						}
-					}
-				}
-			}
-		}*/
 		return color == null ? Optional.empty() : Optional.of( color );
 	}
 	

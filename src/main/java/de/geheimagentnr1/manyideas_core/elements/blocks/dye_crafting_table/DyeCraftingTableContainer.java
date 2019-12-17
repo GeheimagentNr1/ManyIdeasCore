@@ -10,7 +10,6 @@ import net.minecraft.inventory.CraftResultInventory;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.CraftingResultSlot;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SSetSlotPacket;
@@ -47,14 +46,14 @@ public class DyeCraftingTableContainer extends Container {
 		resultInventory = new CraftResultInventory();
 		worldPosCallable = _worldPosCallable;
 		player = playerInventory.player;
-		addSlot( new CraftingResultSlot( playerInventory.player, craftingInventory, resultInventory, 0, 124, 35 ) );
+		addSlot( new DyeCraftingTableResultCraftingSlot( playerInventory.player, craftingInventory, resultInventory, 0,
+			124, 35 ) );
 		for( int i = 0; i < 3; i++ ) {
 			for( int j = 0; j < 3; j++ ) {
 				addSlot(
 					new Slot( craftingInventory, j + i * 3, 30 + j * 18, 17 + i * 18 ) );
 			}
 		}
-		
 		for( int i = 0; i < 3; i++ ) {
 			for( int j = 0; j < 9; j++ ) {
 				addSlot( new Slot( playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18 ) );
@@ -64,7 +63,6 @@ public class DyeCraftingTableContainer extends Container {
 		for( int i = 0; i < 9; i++ ) {
 			addSlot( new Slot( playerInventory, i, 8 + i * 18, 142 ) );
 		}
-		
 	}
 	
 	private static void changeCaftingSlot( int windowId, World world, PlayerEntity player,
@@ -74,7 +72,7 @@ public class DyeCraftingTableContainer extends Container {
 			ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
 			ItemStack stack = ItemStack.EMPTY;
 			Optional<DyedRecipe> recipeOptional = Objects.requireNonNull( world.getServer() ).getRecipeManager()
-				.getRecipe( RecipeTypes.DYED, craftingInventory, world );//TODO
+				.getRecipe( RecipeTypes.DYED, craftingInventory, world );
 			if( recipeOptional.isPresent() ) {
 				DyedRecipe recipe = recipeOptional.get();
 				stack = recipe.getCraftingResult( craftingInventory );
@@ -149,7 +147,6 @@ public class DyeCraftingTableContainer extends Container {
 				playerIn.dropItem( dropStack, false );
 			}
 		}
-		
 		return resultStack;
 	}
 	
