@@ -31,8 +31,8 @@ public class ModConfig {
 		BUILDER.comment( "General settings" ).push( GENERAL );
 		DEBUG = BUILDER.comment( "Activated Debug Blocks" ).define( "debug_blocks", false );
 		ALL_COLORS_IN_ITEM_GROUP = BUILDER.comment(
-			"Should all Colors of DyedBlocks should be shown in the Creative Tab" )
-			.define( "all_colors_in_item_group", false );
+			"Should all Colors of Dyed Blocks should be shown in the Creative Tabs" )
+			.define( "all_colors_in_item_group", true );
 		BUILDER.pop();
 		
 		CONFIG = BUILDER.build();
