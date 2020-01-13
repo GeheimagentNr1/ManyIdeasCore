@@ -80,7 +80,7 @@ public abstract class TableSawContainer extends Container {
 	}
 	
 	@SuppressWarnings( { "OverridableMethodCallDuringObjectConstruction", "AbstractMethodCallInConstructor",
-		"OverriddenMethodCallDuringObjectConstruction", "ThisEscapedInObjectConstruction" } )
+		"OverriddenMethodCallDuringObjectConstruction", "ThisEscapedInObjectConstruction", "rawtypes" } )
 	protected TableSawContainer( ContainerType<? extends TableSawContainer> tableSawContainerType, int windowIdIn,
 		PlayerInventory playerInventoryIn, IWorldPosCallable worldPosCallableIn ) {
 		
@@ -113,6 +113,7 @@ public abstract class TableSawContainer extends Container {
 		ACCEPTED_INPUT_ITEMS = ImmutableList.copyOf( acceptable_input );
 	}
 	
+	@SuppressWarnings( "rawtypes" )
 	protected abstract List<IRecipeType> getAcceptedRecipeTypes();
 	
 	/**

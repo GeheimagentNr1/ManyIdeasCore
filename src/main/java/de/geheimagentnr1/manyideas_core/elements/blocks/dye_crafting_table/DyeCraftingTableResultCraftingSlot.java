@@ -14,7 +14,8 @@ import net.minecraftforge.fml.hooks.BasicEventHooks;
 import javax.annotation.Nonnull;
 
 
-public class DyeCraftingTableResultCraftingSlot extends Slot {
+//package-private
+class DyeCraftingTableResultCraftingSlot extends Slot {
 	
 	
 	private final CraftingInventory craftingInventory;
@@ -23,7 +24,8 @@ public class DyeCraftingTableResultCraftingSlot extends Slot {
 	
 	private int amountCrafted;
 	
-	public DyeCraftingTableResultCraftingSlot( PlayerEntity _player, CraftingInventory _craftingInventory,
+	//package-private
+	DyeCraftingTableResultCraftingSlot( PlayerEntity _player, CraftingInventory _craftingInventory,
 		IInventory inventoryIn, int slotIndex, int xPosition, int yPosition ) {
 		
 		super( inventoryIn, slotIndex, xPosition, yPosition );

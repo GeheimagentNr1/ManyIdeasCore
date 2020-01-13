@@ -31,6 +31,7 @@ public class TableSawStoneContainer extends TableSawContainer {
 		super( ModBlocks.TABLE_SAW_STONE_CONTAINER, windowIdIn, playerInventoryIn, worldPosCallableIn );
 	}
 	
+	@SuppressWarnings( "rawtypes" )
 	@Override
 	public List<IRecipeType> getAcceptedRecipeTypes() {
 		

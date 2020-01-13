@@ -68,6 +68,7 @@ public class ElementCountCommand {
 		return block_counts;
 	}
 	
+	@SuppressWarnings( "rawtypes" )
 	private static void addElementToTreeMap( ForgeRegistryEntry element, TreeSet<String> names,
 		TreeMap<String, Integer> counts ) {
 		
