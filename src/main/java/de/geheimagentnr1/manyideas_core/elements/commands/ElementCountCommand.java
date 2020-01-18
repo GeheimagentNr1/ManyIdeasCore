@@ -22,8 +22,8 @@ public class ElementCountCommand {
 	@SuppressWarnings( "SameReturnValue" )
 	public static void register( CommandDispatcher<CommandSource> dispatcher ) {
 		
-		LiteralArgumentBuilder<CommandSource> givedbCommand = Commands.literal( "element_count" );
-		givedbCommand.executes( command -> {
+		LiteralArgumentBuilder<CommandSource> elementCountCommand = Commands.literal( "element_count" );
+		elementCountCommand.executes( command -> {
 			TreeSet<String> names = new TreeSet<>();
 			TreeMap<String, Integer> block_item_counts = new TreeMap<>();
 			TreeMap<String, Integer> item_counts = new TreeMap<>();
@@ -41,7 +41,7 @@ public class ElementCountCommand {
 			}
 			return 1;
 		} );
-		dispatcher.register( givedbCommand );
+		dispatcher.register( elementCountCommand );
 	}
 	
 	@SuppressWarnings( "deprecation" )
