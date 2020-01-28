@@ -76,8 +76,8 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 			}
 		}
 		if( isPlaceFree( context.getWorld(), pos, facing, context ) ) {
-			return getDefaultState( left_sided ).with( BlockStateProperties.HORIZONTAL_FACING, facing )
-				.with( X_SIZE, 0 ).with( Y_SIZE, 0 ).with( Z_SIZE, z_index );
+			return withSize( withSize( withSize( getDefaultState( left_sided )
+				.with( BlockStateProperties.HORIZONTAL_FACING, facing ), X_SIZE, 0 ), Y_SIZE, 0 ), Z_SIZE, z_index );
 		} else {
 			return null;
 		}
@@ -130,13 +130,13 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	public void onBlockPlacedBy( World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer,
 		ItemStack stack ) {
 		
-		int z_index = state.get( Z_SIZE );
+		int z_index = getSize( state, Z_SIZE );
 		if( z_index != 0 ) {
 			pos = pos.offset( state.get( BlockStateProperties.HORIZONTAL_FACING ).rotateYCCW(), z_index );
 		}
 		runForBlocks( pos, state.get( BlockStateProperties.HORIZONTAL_FACING ),
 			( x, y, z, blockPos ) -> worldIn.setBlockState( blockPos,
-				state.with( X_SIZE, x ).with( Y_SIZE, y ).with( Z_SIZE, z ), 3 ) );
+				withSize( withSize( withSize( state, X_SIZE, x ), Y_SIZE, y ), Z_SIZE, z ), 3 ) );
 	}
 	
 	@Override
@@ -178,13 +178,13 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	protected BlockPos getZeroPos( BlockState state, BlockPos pos ) {
 		
 		Direction facing = state.get( BlockStateProperties.HORIZONTAL_FACING );
-		for( int x = 0; x < state.get( X_SIZE ); x++ ) {
+		for( int x = 0; x < getSize( state, X_SIZE ); x++ ) {
 			pos = pos.offset( facing.getOpposite() );
 		}
-		for( int y = 0; y < state.get( Y_SIZE ); y++ ) {
+		for( int y = 0; y < getSize( state, Y_SIZE ); y++ ) {
 			pos = pos.down();
 		}
-		for( int z = 0; z < state.get( Z_SIZE ); z++ ) {
+		for( int z = 0; z < getSize( state, Z_SIZE ); z++ ) {
 			pos = pos.offset( facing.rotateYCCW() );
 		}
 		return pos;
@@ -256,12 +256,37 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 			} );
 	}
 	
+	private int getSize( BlockState state, IntegerProperty property ) {
+		
+		if( state.has( property ) ) {
+			return state.get( property );
+		}
+		return 0;
+	}
+	
+	private BlockState withSize( BlockState state, IntegerProperty property, int value ) {
+		
+		if( state.has( property ) ) {
+			return state.with( property, value );
+		}
+		return state;
+	}
+	
 	@Override
 	protected void fillStateContainer( StateContainer.Builder<Block, BlockState> builder ) {
 		
-		X_SIZE = IntegerProperty.create( "x", 0, getXSize() - 1 );
-		Y_SIZE = IntegerProperty.create( "y", 0, getYSize() - 1 );
-		Z_SIZE = IntegerProperty.create( "z", 0, getZSize() - 1 );
-		builder.add( BlockStateProperties.HORIZONTAL_FACING, X_SIZE, Y_SIZE, Z_SIZE );
+		builder.add( BlockStateProperties.HORIZONTAL_FACING );
+		if( getXSize() > 1 ) {
+			X_SIZE = IntegerProperty.create( "x", 0, getXSize() - 1 );
+			builder.add( X_SIZE );
+		}
+		if( getYSize() > 1 ) {
+			Y_SIZE = IntegerProperty.create( "y", 0, getYSize() - 1 );
+			builder.add( Y_SIZE );
+		}
+		if( getZSize() > 1 ) {
+			Z_SIZE = IntegerProperty.create( "z", 0, getZSize() - 1 );
+			builder.add( Z_SIZE );
+		}
 	}
 }
