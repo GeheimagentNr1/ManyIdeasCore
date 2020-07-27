@@ -16,6 +16,7 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSa
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.metal_smoker.MetalSmoker;
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.metal_smoker.MetalSmokerTile;
 import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
+import de.geheimagentnr1.manyideas_core.special.decoration_renderer.PlayerDecorationManager;
 import de.geheimagentnr1.manyideas_core.util.BlockRegistrationHelper;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.container.ContainerType;
@@ -25,6 +26,7 @@ import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 
@@ -37,6 +39,12 @@ public class RegistryEventHandler {
 	public static void setup( FMLCommonSetupEvent event ) {
 		
 		ManyIdeasCore.proxy.init();
+	}
+	
+	@SubscribeEvent
+	public static void handleClientSetupEvent( FMLClientSetupEvent event ) {
+		
+		PlayerDecorationManager.initDecorationList();
 	}
 	
 	@SubscribeEvent
