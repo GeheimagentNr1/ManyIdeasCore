@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 public class EndBlock extends Block implements BlockItemInterface, IEndBlock {
 	
 	
-	public final static String registry_name = "end_block";
+	public static final String registry_name = "end_block";
 	
 	public EndBlock() {
 		
@@ -47,7 +47,7 @@ public class EndBlock extends Block implements BlockItemInterface, IEndBlock {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public BlockRenderType getRenderType( BlockState state ) {
+	public BlockRenderType getRenderType( @Nonnull BlockState state ) {
 		
 		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}

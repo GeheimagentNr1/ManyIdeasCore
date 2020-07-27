@@ -23,13 +23,13 @@ import java.util.function.Function;
 class DyeItemParser {
 	
 	
-	private final static DynamicCommandExceptionType ITEM_BAD_ID = new DynamicCommandExceptionType( function ->
+	private static final DynamicCommandExceptionType ITEM_BAD_ID = new DynamicCommandExceptionType( function ->
 		new TranslationTextComponent( "argument.item.id.invalid", function ) );
 	
-	private final static Function<SuggestionsBuilder, CompletableFuture<Suggestions>> DEFAULT_SUGGESTIONS_BUILDER =
+	private static final Function<SuggestionsBuilder, CompletableFuture<Suggestions>> DEFAULT_SUGGESTIONS_BUILDER =
 		SuggestionsBuilder::buildFuture;
 	
-	private final static Set<ResourceLocation> KEY_SET = getDyeItemKeySet();
+	private static final Set<ResourceLocation> KEY_SET = getDyeItemKeySet();
 	
 	private final StringReader reader;
 	

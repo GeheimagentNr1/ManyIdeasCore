@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
@@ -20,7 +21,7 @@ import java.util.Objects;
 public class WoodColored extends DyeBlock implements BlockItemInterface {
 	
 	
-	public final static String registry_name = "wood_colored";
+	public static final String registry_name = "wood_colored";
 	
 	public WoodColored() {
 		
@@ -30,14 +31,14 @@ public class WoodColored extends DyeBlock implements BlockItemInterface {
 	
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement( BlockItemUseContext context ) {
+	public BlockState getStateForPlacement( @Nonnull BlockItemUseContext context ) {
 		
 		BlockState place_state = Objects.requireNonNull( super.getStateForPlacement( context ) );
 		return place_state.with( BlockStateProperties.AXIS, context.getFace().getAxis() );
 	}
 	
 	@Override
-	protected void fillStateContainer( StateContainer.Builder<Block, BlockState> builder ) {
+	protected void fillStateContainer( @Nonnull StateContainer.Builder<Block, BlockState> builder ) {
 		
 		super.fillStateContainer( builder );
 		builder.add( BlockStateProperties.AXIS );

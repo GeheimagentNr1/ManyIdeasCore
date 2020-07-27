@@ -83,14 +83,14 @@ public class DyeCraftingTableContainer extends Container {
 	}
 	
 	@Override
-	public void onCraftMatrixChanged( IInventory inventoryIn ) {
+	public void onCraftMatrixChanged( @Nonnull IInventory inventoryIn ) {
 		
 		worldPosCallable.consume( ( world, pos ) ->
 			changeCaftingSlot( windowId, world, player, craftingInventory, resultInventory ) );
 	}
 	
 	@Override
-	public void onContainerClosed( PlayerEntity playerIn ) {
+	public void onContainerClosed( @Nonnull PlayerEntity playerIn ) {
 		
 		super.onContainerClosed( playerIn );
 		worldPosCallable.consume( ( world, pos ) -> clearContainer( playerIn, world, craftingInventory ) );
@@ -104,7 +104,7 @@ public class DyeCraftingTableContainer extends Container {
 	
 	@Nonnull
 	@Override
-	public ItemStack transferStackInSlot( PlayerEntity playerIn, int index ) {
+	public ItemStack transferStackInSlot( @Nonnull PlayerEntity playerIn, int index ) {
 		
 		ItemStack resultStack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get( index );
@@ -151,7 +151,7 @@ public class DyeCraftingTableContainer extends Container {
 	}
 	
 	@Override
-	public boolean canMergeSlot( ItemStack stack, Slot slotIn ) {
+	public boolean canMergeSlot( @Nonnull ItemStack stack, Slot slotIn ) {
 		
 		return slotIn.inventory != resultInventory;
 	}

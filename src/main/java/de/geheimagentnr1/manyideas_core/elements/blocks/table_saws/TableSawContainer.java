@@ -103,8 +103,8 @@ public abstract class TableSawContainer extends Container {
 		List<IRecipeType> acceptedRecipeTypes = getAcceptedRecipeTypes();
 		world.getRecipeManager().getRecipes().forEach( iRecipe -> {
 			if( acceptedRecipeTypes.contains( iRecipe.getType() ) ) {
-				TableSawRecipe TableSawRecipe = (TableSawRecipe)iRecipe;
-				ItemStack[] itemStacks = TableSawRecipe.getIngredients().get( 0 ).getMatchingStacks();
+				TableSawRecipe tableSawRecipe = (TableSawRecipe)iRecipe;
+				ItemStack[] itemStacks = tableSawRecipe.getIngredients().get( 0 ).getMatchingStacks();
 				for( ItemStack itemStack : itemStacks ) {
 					acceptable_input.add( itemStack.getItem() );
 				}
@@ -158,7 +158,7 @@ public abstract class TableSawContainer extends Container {
 	 * Handles the given Button-click on the server, currently only used by enchanting. Name is for legacy.
 	 */
 	@Override
-	public boolean enchantItem( PlayerEntity playerIn, int id ) {
+	public boolean enchantItem( @Nonnull PlayerEntity playerIn, int id ) {
 		
 		if( id >= 0 && id < recipes.size() ) {
 			selectedRecipe.set( id );
@@ -171,7 +171,7 @@ public abstract class TableSawContainer extends Container {
 	 * Callback for when the crafting matrix is changed.
 	 */
 	@Override
-	public void onCraftMatrixChanged( IInventory inventoryIn ) {
+	public void onCraftMatrixChanged( @Nonnull IInventory inventoryIn ) {
 		
 		ItemStack itemstack = inputInventorySlot.getStack();
 		if( itemstack.getItem() != itemStackInput.getItem() ) {
@@ -196,11 +196,11 @@ public abstract class TableSawContainer extends Container {
 	//package-private
 	void updateRecipeResultSlot() {
 		
-		if( !recipes.isEmpty() ) {
-			TableSawRecipe TableSawRecipe = recipes.get( selectedRecipe.get() );
-			outputInventorySlot.putStack( TableSawRecipe.getCraftingResult( inputInventory ) );
-		} else {
+		if( recipes.isEmpty() ) {
 			outputInventorySlot.putStack( ItemStack.EMPTY );
+		} else {
+			TableSawRecipe tableSawRecipe = recipes.get( selectedRecipe.get() );
+			outputInventorySlot.putStack( tableSawRecipe.getCraftingResult( inputInventory ) );
 		}
 		
 		detectAndSendChanges();
@@ -225,7 +225,7 @@ public abstract class TableSawContainer extends Container {
 	 * null for the initial slot that was double-clicked.
 	 */
 	@Override
-	public boolean canMergeSlot( ItemStack stack, Slot slotIn ) {
+	public boolean canMergeSlot( @Nonnull ItemStack stack, @Nonnull Slot slotIn ) {
 		
 		return false;
 	}
@@ -236,7 +236,7 @@ public abstract class TableSawContainer extends Container {
 	 */
 	@Nonnull
 	@Override
-	public ItemStack transferStackInSlot( PlayerEntity playerIn, int index ) {
+	public ItemStack transferStackInSlot( @Nonnull PlayerEntity playerIn, int index ) {
 		
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get( index );
@@ -290,7 +290,7 @@ public abstract class TableSawContainer extends Container {
 	 * Called when the container is closed.
 	 */
 	@Override
-	public void onContainerClosed( PlayerEntity playerIn ) {
+	public void onContainerClosed( @Nonnull PlayerEntity playerIn ) {
 		
 		super.onContainerClosed( playerIn );
 		resultI.removeStackFromSlot( 1 );

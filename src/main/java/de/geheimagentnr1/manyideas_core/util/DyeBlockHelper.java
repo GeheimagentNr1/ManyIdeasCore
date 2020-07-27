@@ -14,9 +14,9 @@ import net.minecraft.state.StateContainer;
 public class DyeBlockHelper {
 	
 	
-	private final static String dyeNBTname = "dye";
+	private static final String dyeNBTname = "dye";
 	
-	private final static String colorNBTname = "color";
+	private static final String colorNBTname = "color";
 	
 	private static String getColorNameFromStack( ItemStack stack ) {
 		

@@ -11,7 +11,7 @@ import net.minecraft.item.Item;
 public class FlowerTallStraightRoseBush extends TallFlower {
 	
 	
-	public final static String registry_name = "flower_tall_straight_rose_bush";
+	public static final String registry_name = "flower_tall_straight_rose_bush";
 	
 	public FlowerTallStraightRoseBush() {
 		

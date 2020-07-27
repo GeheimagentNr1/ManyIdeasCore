@@ -47,7 +47,7 @@ public abstract class DoubleDoorBlock extends DoorBlock {
 	
 	@Override
 	public boolean onBlockActivated( @Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
-		PlayerEntity player, Hand handIn, BlockRayTraceResult hit ) {
+		PlayerEntity player, @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit ) {
 		
 		if( player.getHeldItem( handIn ).getItem() == Items.REDSTONE_TORCH ) {
 			state = state.cycle( ModBlockStateProperties.OPENED_BY );
@@ -72,8 +72,8 @@ public abstract class DoubleDoorBlock extends DoorBlock {
 	}
 	
 	@Override
-	public void neighborChanged( @Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos, Block blockIn,
-		BlockPos fromPos, boolean isMoving ) {
+	public void neighborChanged( @Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos,
+		@Nonnull Block blockIn, @Nonnull BlockPos fromPos, boolean isMoving ) {
 		
 		boolean isPowered = worldIn.isBlockPowered( pos ) || worldIn.isBlockPowered( pos.offset( state.get( HALF ) ==
 			DoubleBlockHalf.LOWER ? Direction.UP : Direction.DOWN ) );
@@ -86,7 +86,7 @@ public abstract class DoubleDoorBlock extends DoorBlock {
 	}
 	
 	@Override
-	protected void fillStateContainer( StateContainer.Builder<Block, BlockState> builder ) {
+	protected void fillStateContainer( @Nonnull StateContainer.Builder<Block, BlockState> builder ) {
 		
 		super.fillStateContainer( builder );
 		builder.add( ModBlockStateProperties.OPENED_BY );

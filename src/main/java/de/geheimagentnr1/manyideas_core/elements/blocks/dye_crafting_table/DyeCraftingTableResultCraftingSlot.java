@@ -25,6 +25,7 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	private int amountCrafted;
 	
 	//package-private
+	@SuppressWarnings( "SameParameterValue" )
 	DyeCraftingTableResultCraftingSlot( PlayerEntity _player, CraftingInventory _craftingInventory,
 		IInventory inventoryIn, int slotIndex, int xPosition, int yPosition ) {
 		
@@ -37,7 +38,7 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
 	 */
 	@Override
-	public boolean isItemValid( ItemStack stack ) {
+	public boolean isItemValid( @Nonnull ItemStack stack ) {
 		
 		return false;
 	}
@@ -62,7 +63,7 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	 * internal count then calls onCrafting(item).
 	 */
 	@Override
-	protected void onCrafting( ItemStack stack, int amount ) {
+	protected void onCrafting( @Nonnull ItemStack stack, int amount ) {
 		
 		amountCrafted += amount;
 		onCrafting( stack );
@@ -78,7 +79,7 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	 * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood.
 	 */
 	@Override
-	protected void onCrafting( ItemStack stack ) {
+	protected void onCrafting( @Nonnull ItemStack stack ) {
 		
 		if( amountCrafted > 0 ) {
 			stack.onCrafting( player.world, player, amountCrafted );
@@ -92,7 +93,7 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	
 	@Nonnull
 	@Override
-	public ItemStack onTake( PlayerEntity thePlayer, @Nonnull ItemStack stack ) {
+	public ItemStack onTake( @Nonnull PlayerEntity thePlayer, @Nonnull ItemStack stack ) {
 		
 		onCrafting( stack );
 		ForgeHooks.setCraftingPlayer( thePlayer );

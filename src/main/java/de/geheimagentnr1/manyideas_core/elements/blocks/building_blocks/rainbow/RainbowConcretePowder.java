@@ -12,7 +12,7 @@ import net.minecraft.item.Item;
 public class RainbowConcretePowder extends ConcretePowderBlock implements BlockItemInterface {
 	
 	
-	public final static String registry_name = "rainbow_concrete_powder";
+	public static final String registry_name = "rainbow_concrete_powder";
 	
 	//package-private
 	static Block CONCRETE_BLOCK;

@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 public class PlankJungle extends CoreBaseItem {
 	
 	
-	public final static String registry_name = "plank_jungle";
+	public static final String registry_name = "plank_jungle";
 	
 	public PlankJungle() {
 		

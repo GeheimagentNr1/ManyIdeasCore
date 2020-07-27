@@ -30,7 +30,7 @@ public class MetalSmokerTile extends AbstractFurnaceTileEntity {
 	}
 	
 	@Override
-	protected int getBurnTime( ItemStack stack ) {
+	protected int getBurnTime( @Nonnull ItemStack stack ) {
 		
 		return super.getBurnTime( stack ) / 2;
 	}

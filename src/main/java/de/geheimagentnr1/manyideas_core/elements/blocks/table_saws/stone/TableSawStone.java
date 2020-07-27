@@ -12,7 +12,7 @@ import net.minecraft.util.IWorldPosCallable;
 public class TableSawStone extends TableSaw implements BlockItemInterface {
 	
 	
-	public final static String registry_name = "table_saw_stone";
+	public static final String registry_name = "table_saw_stone";
 	
 	public TableSawStone() {
 		

@@ -12,7 +12,7 @@ import net.minecraft.potion.Effects;
 public class FlowerStraightOrchidBlue extends Flower {
 	
 	
-	public final static String registry_name = "flower_straight_orchid_blue";
+	public static final String registry_name = "flower_straight_orchid_blue";
 	
 	public FlowerStraightOrchidBlue() {
 		

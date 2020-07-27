@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
 public abstract class TableSaw extends Block {
 	
 	
-	private final static DamageSource SAW = new DamageSource( "table_saw" );
+	private static final DamageSource SAW = new DamageSource( "table_saw" );
 	
 	private final TranslationTextComponent CONTAINER_NAME;
 	
@@ -63,7 +63,8 @@ public abstract class TableSaw extends Block {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getShape( BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context ) {
+	public VoxelShape getShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+		@Nonnull ISelectionContext context ) {
 		
 		return SHAPE;
 	}
@@ -77,15 +78,15 @@ public abstract class TableSaw extends Block {
 	}
 	
 	@Override
-	public void onEntityWalk( World worldIn, BlockPos pos, Entity entityIn ) {
+	public void onEntityWalk( @Nonnull World worldIn, @Nonnull BlockPos pos, Entity entityIn ) {
 		
 		entityIn.attackEntityFrom( SAW, 1.0F );
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public boolean onBlockActivated( BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn,
-		BlockRayTraceResult hit ) {
+	public boolean onBlockActivated( BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
+		PlayerEntity player, @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit ) {
 		
 		player.openContainer( state.getContainer( worldIn, pos ) );
 		return true;
@@ -94,7 +95,8 @@ public abstract class TableSaw extends Block {
 	@SuppressWarnings( "deprecation" )
 	@Nullable
 	@Override
-	public INamedContainerProvider getContainer( BlockState state, World worldIn, BlockPos pos ) {
+	public INamedContainerProvider getContainer( @Nonnull BlockState state, @Nonnull World worldIn,
+		@Nonnull BlockPos pos ) {
 		
 		return new SimpleNamedContainerProvider( ( windowID, playerInventory, player ) ->
 			getContainer( windowID, playerInventory, IWorldPosCallable.of( worldIn, pos ) ),

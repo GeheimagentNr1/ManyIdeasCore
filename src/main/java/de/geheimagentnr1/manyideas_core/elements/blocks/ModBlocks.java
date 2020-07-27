@@ -46,7 +46,7 @@ public class ModBlocks {
 	// L - Loottable fertig
 	// T - Tags fertig
 	
-	public final static Block[] BLOCKS = new Block[] {//BCPFINRLT
+	public static final Block[] BLOCKS = new Block[] {//BCPFINRLT
 		//Building Blocks: Blocks: Rainbow
 		new RainbowCarpet(),//BCPFINRLT
 		new RainbowConcrete(),//BCPFINRLT//Kein Rezept

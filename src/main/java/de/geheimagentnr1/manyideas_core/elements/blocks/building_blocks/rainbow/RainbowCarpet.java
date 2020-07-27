@@ -13,7 +13,7 @@ import net.minecraft.item.Item;
 public class RainbowCarpet extends CarpetBlock implements BlockItemInterface {
 	
 	
-	public final static String registry_name = "rainbow_carpet";
+	public static final String registry_name = "rainbow_carpet";
 	
 	public RainbowCarpet() {
 		

@@ -26,9 +26,9 @@ import javax.annotation.Nullable;
 public class PotteryWheel extends Block implements BlockItemInterface {
 	
 	
-	public final static String registry_name = "pottery_wheel";
+	public static final String registry_name = "pottery_wheel";
 	
-	private final static VoxelShapeMemory SHAPES = VoxelShapeMemory.createHorizontalVoxelShapes( Direction.WEST,
+	private static final VoxelShapeMemory SHAPES = VoxelShapeMemory.createHorizontalVoxelShapes( Direction.WEST,
 		VoxelShapeVector.create( 2, 0, 0, 16, 3, 16 ), VoxelShapeVector.create( 0, 0, 3, 1, 15, 5 ),
 		VoxelShapeVector.create( 0, 0, 11, 1, 15, 13 ), VoxelShapeVector.create( 0, 9, 5, 1, 11, 11 ),
 		VoxelShapeVector.create( 0, 15, 0, 3, 16, 16 ), VoxelShapeVector.create( 2, 3, 0, 3, 15, 1 ),
@@ -55,7 +55,8 @@ public class PotteryWheel extends Block implements BlockItemInterface {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getShape( BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context ) {
+	public VoxelShape getShape( BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+		@Nonnull ISelectionContext context ) {
 		
 		return SHAPES.getShapeFromHorizontalFacing( state.get( BlockStateProperties.HORIZONTAL_FACING ) );
 	}

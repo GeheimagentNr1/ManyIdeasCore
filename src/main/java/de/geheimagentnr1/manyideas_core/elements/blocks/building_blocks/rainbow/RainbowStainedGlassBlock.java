@@ -13,7 +13,7 @@ import net.minecraft.item.Item;
 public class RainbowStainedGlassBlock extends StainedGlassBlock implements BlockItemInterface {
 	
 	
-	public final static String registry_name = "rainbow_stained_glass_block";
+	public static final String registry_name = "rainbow_stained_glass_block";
 	
 	public RainbowStainedGlassBlock() {
 		

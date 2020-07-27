@@ -16,9 +16,9 @@ import java.util.concurrent.CompletableFuture;
 public class DyeItemArgument implements ArgumentType<Item> {
 	
 	
-	public final static String registry_name = "dye_item";
+	public static final String registry_name = "dye_item";
 	
-	private final static Collection<String> EXAMPLES = Arrays.asList( "stick", "minecraft:stick" );
+	private static final Collection<String> EXAMPLES = Arrays.asList( "stick", "minecraft:stick" );
 	
 	public static DyeItemArgument dyeItem() {
 		

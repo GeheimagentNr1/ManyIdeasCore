@@ -41,7 +41,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public PushReaction getPushReaction( BlockState state ) {
+	public PushReaction getPushReaction( @Nonnull BlockState state ) {
 		
 		return PushReaction.BLOCK;
 	}
@@ -127,8 +127,8 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	}
 	
 	@Override
-	public void onBlockPlacedBy( World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer,
-		ItemStack stack ) {
+	public void onBlockPlacedBy( @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull BlockState state,
+		@Nullable LivingEntity placer, @Nonnull ItemStack stack ) {
 		
 		int z_index = getSize( state, Z_SIZE );
 		if( z_index != 0 ) {
@@ -140,7 +140,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	}
 	
 	@Override
-	public void onBlockHarvested( World worldIn, @Nonnull BlockPos pos, BlockState state,
+	public void onBlockHarvested( @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull BlockState state,
 		@Nonnull PlayerEntity player ) {
 		
 		runForBlocks( getZeroPos( state, pos ), state.get( BlockStateProperties.HORIZONTAL_FACING ),
@@ -160,8 +160,8 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void onReplaced( BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos, BlockState newState,
-		boolean isMoving ) {
+	public void onReplaced( @Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
+		BlockState newState, boolean isMoving ) {
 		
 		if( newState.getBlock() != this ) {
 			runForBlocks( getZeroPos( state, pos ), state.get( BlockStateProperties.HORIZONTAL_FACING ),

@@ -16,9 +16,9 @@ import java.util.concurrent.CompletableFuture;
 public class ColorArgument implements ArgumentType<Color> {
 	
 	
-	public final static String registry_name = "color";
+	public static final String registry_name = "color";
 	
-	private final static Collection<String> EXAMPLES = Collections.singletonList( "green" );
+	private static final Collection<String> EXAMPLES = Collections.singletonList( "green" );
 	
 	public static ColorArgument color() {
 		

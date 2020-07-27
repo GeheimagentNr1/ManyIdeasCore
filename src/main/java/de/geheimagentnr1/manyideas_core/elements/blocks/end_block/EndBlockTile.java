@@ -40,10 +40,10 @@ public class EndBlockTile extends TileEntity {
 		if( direction_state.getBlock() instanceof IEndBlock ) {
 			return false;
 		}
-		if( direction_state.getBlock().getRenderLayer() != BlockRenderLayer.SOLID ) {
-			return !direction_state.getBlock().isSolid( direction_state );
-		} else {
+		if( direction_state.getBlock().getRenderLayer() == BlockRenderLayer.SOLID ) {
 			return !Block.hasSolidSide( direction_state, world, direction_pos, direction.getOpposite() );
+		} else {
+			return !direction_state.getBlock().isSolid( direction_state );
 		}
 	}
 }

@@ -21,7 +21,7 @@ import java.util.Optional;
 public class DyedRecipe implements IRecipe<CraftingInventory> {
 	
 	
-	public final static String registry_name = "dyed";
+	public static final String registry_name = "dyed";
 	
 	private final ResourceLocation id;
 	

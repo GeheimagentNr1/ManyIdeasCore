@@ -26,13 +26,13 @@ public abstract class DyeBlock extends Block {
 	
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement( BlockItemUseContext context ) {
+	public BlockState getStateForPlacement( @Nonnull BlockItemUseContext context ) {
 		
 		return DyeBlockHelper.getStateForPlacement( this, context );
 	}
 	
 	@Override
-	protected void fillStateContainer( StateContainer.Builder<Block, BlockState> builder ) {
+	protected void fillStateContainer( @Nonnull StateContainer.Builder<Block, BlockState> builder ) {
 		
 		DyeBlockHelper.fillStateContainer( builder );
 	}
@@ -40,7 +40,7 @@ public abstract class DyeBlock extends Block {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public ItemStack getItem( IBlockReader worldIn, BlockPos pos, BlockState state ) {
+	public ItemStack getItem( @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull BlockState state ) {
 		
 		return DyeBlockHelper.getItem( this, state );
 	}

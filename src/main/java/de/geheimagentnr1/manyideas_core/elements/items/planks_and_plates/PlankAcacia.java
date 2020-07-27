@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 public class PlankAcacia extends CoreBaseItem {
 	
 	
-	public final static String registry_name = "plank_acacia";
+	public static final String registry_name = "plank_acacia";
 	
 	public PlankAcacia() {
 		

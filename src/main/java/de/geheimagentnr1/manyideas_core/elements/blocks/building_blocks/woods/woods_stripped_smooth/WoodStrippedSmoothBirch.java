@@ -9,7 +9,7 @@ import net.minecraft.item.Item;
 public class WoodStrippedSmoothBirch extends Wood implements BlockItemInterface {
 	
 	
-	public final static String registry_name = "wood_stripped_smooth_birch";
+	public static final String registry_name = "wood_stripped_smooth_birch";
 	
 	public WoodStrippedSmoothBirch() {
 		

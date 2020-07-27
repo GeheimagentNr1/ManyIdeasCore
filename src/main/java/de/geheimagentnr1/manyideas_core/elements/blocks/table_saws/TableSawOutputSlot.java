@@ -35,14 +35,14 @@ class TableSawOutputSlot extends Slot {
 	 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
 	 */
 	@Override
-	public boolean isItemValid( ItemStack stack ) {
+	public boolean isItemValid( @Nonnull ItemStack stack ) {
 		
 		return false;
 	}
 	
 	@Nonnull
 	@Override
-	public ItemStack onTake( PlayerEntity thePlayer, @Nonnull ItemStack stack ) {
+	public ItemStack onTake( @Nonnull PlayerEntity thePlayer, @Nonnull ItemStack stack ) {
 		
 		ItemStack itemstack = inputInventorySlot.decrStackSize( 1 );
 		if( !itemstack.isEmpty() ) {

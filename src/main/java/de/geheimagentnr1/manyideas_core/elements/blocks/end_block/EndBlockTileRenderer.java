@@ -12,6 +12,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 
+import javax.annotation.Nonnull;
 import java.nio.FloatBuffer;
 import java.util.Random;
 
@@ -35,7 +36,7 @@ public class EndBlockTileRenderer extends TileEntityRenderer<EndBlockTile> {
 	private final FloatBuffer buffer = GLAllocation.createDirectFloatBuffer( 16 );
 	
 	@Override
-	public void render( EndBlockTile tileEntityIn, double x, double y, double z, float partialTicks,
+	public void render( @Nonnull EndBlockTile tileEntityIn, double x, double y, double z, float partialTicks,
 		int destroyStage ) {
 		
 		GlStateManager.disableLighting();

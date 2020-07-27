@@ -19,7 +19,7 @@ public class ModBlocksDebug {
 	// L - Loottable fertig
 	// T - Tags fertig
 	
-	public final static Block[] BLOCKS = initBlocks();
+	public static final Block[] BLOCKS = initBlocks();
 	
 	private static Block[] initBlocks() {
 		

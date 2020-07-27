@@ -21,7 +21,7 @@ public class ModItems {
 	// R - Rezept fertig
 	// T - Tags fertig
 	
-	public final static Item[] ITEMS = {
+	public static final Item[] ITEMS = {
 		//Dyes
 		new DyeRainbow(),//FINRT
 		//Planks and Plates

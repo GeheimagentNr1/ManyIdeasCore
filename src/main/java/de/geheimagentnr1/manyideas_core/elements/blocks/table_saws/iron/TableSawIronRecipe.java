@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 public class TableSawIronRecipe extends TableSawRecipe {
 	
 	
-	public final static String registry_name = "table_sawing_iron";
+	public static final String registry_name = "table_sawing_iron";
 	
 	public TableSawIronRecipe( ResourceLocation id, String group, Ingredient _ingredient,
 		ItemStack _result ) {

@@ -22,10 +22,10 @@ import java.util.function.Function;
 class ColorParser {
 	
 	
-	private final static DynamicCommandExceptionType COLOR_INVALID = new DynamicCommandExceptionType( function ->
+	private static final DynamicCommandExceptionType COLOR_INVALID = new DynamicCommandExceptionType( function ->
 		new TranslationTextComponent( "argument.color.invalid", function ) );
 	
-	private final static Set<String> COLORS = getItemKeySet();
+	private static final Set<String> COLORS = getItemKeySet();
 	
 	private final StringReader reader;
 	
@@ -66,9 +66,9 @@ class ColorParser {
 	
 	private Optional<Color> getItemForRegistry( ResourceLocation resourceLocation ) {
 		
-		for( Color dyeColor : Color.values() ) {
-			if( dyeColor.name().equals( resourceLocation.getPath().toUpperCase( Locale.ENGLISH ) ) ) {
-				return Optional.of( dyeColor );
+		for( Color dye_color : Color.values() ) {
+			if( dye_color.name().equals( resourceLocation.getPath().toUpperCase( Locale.ENGLISH ) ) ) {
+				return Optional.of( dye_color );
 			}
 		}
 		return Optional.empty();

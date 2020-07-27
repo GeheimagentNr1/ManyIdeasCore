@@ -12,19 +12,19 @@ import org.apache.logging.log4j.Logger;
 public class ModConfig {
 	
 	
-	private final static Logger LOGGER = LogManager.getLogger();
+	private static final Logger LOGGER = LogManager.getLogger();
 	
-	private final static String mod_name = "Many Ideas Core";
+	private static final String mod_name = "Many Ideas Core";
 	
-	private final static ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+	private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 	
-	private final static ForgeConfigSpec CONFIG;
+	private static final ForgeConfigSpec CONFIG;
 	
-	private final static String GENERAL = "general";
+	private static final String GENERAL = "general";
 	
-	public final static ForgeConfigSpec.BooleanValue DEBUG;
+	public static final ForgeConfigSpec.BooleanValue DEBUG;
 	
-	public final static ForgeConfigSpec.BooleanValue ALL_COLORS_IN_ITEM_GROUP;
+	public static final ForgeConfigSpec.BooleanValue ALL_COLORS_IN_ITEM_GROUP;
 	
 	static {
 		

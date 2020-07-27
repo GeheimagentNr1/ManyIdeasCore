@@ -9,7 +9,7 @@ import net.minecraft.item.Item;
 public class LogStrippedSmoothAcacia extends Wood implements BlockItemInterface {
 	
 	
-	public final static String registry_name = "log_stripped_smooth_acacia";
+	public static final String registry_name = "log_stripped_smooth_acacia";
 	
 	public LogStrippedSmoothAcacia() {
 		

@@ -11,7 +11,7 @@ import net.minecraft.item.Item;
 public class RainbowTerracotta extends Block implements BlockItemInterface {
 	
 	
-	public final static String registry_name = "rainbow_terracotta";
+	public static final String registry_name = "rainbow_terracotta";
 	
 	public RainbowTerracotta() {
 		

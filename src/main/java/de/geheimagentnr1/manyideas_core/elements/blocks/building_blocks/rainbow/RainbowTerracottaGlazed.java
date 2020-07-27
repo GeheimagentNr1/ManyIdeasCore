@@ -12,7 +12,7 @@ import net.minecraft.item.Item;
 public class RainbowTerracottaGlazed extends GlazedTerracottaBlock implements BlockItemInterface {
 	
 	
-	public final static String registry_name = "rainbow_terracotta_glazed";
+	public static final String registry_name = "rainbow_terracotta_glazed";
 	
 	public RainbowTerracottaGlazed() {
 		

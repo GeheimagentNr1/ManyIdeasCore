@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 public class SawIron extends CoreBaseItem {
 	
 	
-	public final static String registry_name = "saw_iron";
+	public static final String registry_name = "saw_iron";
 	
 	public SawIron() {
 		

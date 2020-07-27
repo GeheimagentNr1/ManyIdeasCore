@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 public class PlateIron extends CoreBaseItem {
 	
 	
-	public final static String registry_name = "plate_iron";
+	public static final String registry_name = "plate_iron";
 	
 	public PlateIron() {
 		

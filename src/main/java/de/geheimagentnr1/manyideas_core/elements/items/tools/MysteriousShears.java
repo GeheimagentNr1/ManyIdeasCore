@@ -21,15 +21,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 
 public class MysteriousShears extends CoreBaseItem {
 	
 	
-	public final static String registry_name = "mysterious_shears";
+	public static final String registry_name = "mysterious_shears";
 	
-	private final static ArrayList<Block> destroys_blocks = new ArrayList<>( Arrays.asList( Blocks.COBWEB,
+	private static final ArrayList<Block> destroys_blocks = new ArrayList<>( Arrays.asList( Blocks.COBWEB,
 		Blocks.GRASS, Blocks.FERN, Blocks.DEAD_BUSH, Blocks.VINE, Blocks.TRIPWIRE ) );
 	
 	public MysteriousShears() {
@@ -38,7 +39,7 @@ public class MysteriousShears extends CoreBaseItem {
 	}
 	
 	@Override
-	public boolean hasEffect( ItemStack stack ) {
+	public boolean hasEffect( @Nonnull ItemStack stack ) {
 		
 		return true;
 	}
@@ -47,8 +48,8 @@ public class MysteriousShears extends CoreBaseItem {
 	 * Called when a Block is destroyed using this Item. Return true to trigger the "Use Item" statistic.
 	 */
 	@Override
-	public boolean onBlockDestroyed( ItemStack stack, World worldIn, BlockState state, BlockPos pos,
-		LivingEntity entityLiving ) {
+	public boolean onBlockDestroyed( @Nonnull ItemStack stack, World worldIn, @Nonnull BlockState state,
+		@Nonnull BlockPos pos, @Nonnull LivingEntity entityLiving ) {
 		
 		if( !worldIn.isRemote ) {
 			stack.damageItem( 1, entityLiving, entity -> entity.sendBreakAnimation( EquipmentSlotType.MAINHAND ) );
@@ -72,7 +73,7 @@ public class MysteriousShears extends CoreBaseItem {
 	}
 	
 	@Override
-	public float getDestroySpeed( ItemStack stack, BlockState state ) {
+	public float getDestroySpeed( @Nonnull ItemStack stack, BlockState state ) {
 		
 		if( state.getBlock() == Blocks.COBWEB || state.isIn( BlockTags.LEAVES ) ) {
 			return 15.0F;
@@ -86,8 +87,8 @@ public class MysteriousShears extends CoreBaseItem {
 	 */
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public boolean itemInteractionForEntity( ItemStack stack, PlayerEntity playerIn,
-		LivingEntity target, Hand hand ) {
+	public boolean itemInteractionForEntity( @Nonnull ItemStack stack, @Nonnull PlayerEntity playerIn,
+		LivingEntity target, @Nonnull Hand hand ) {
 		
 		if( target.world.isRemote ) {
 			return false;
@@ -108,8 +109,8 @@ public class MysteriousShears extends CoreBaseItem {
 					drops = shear_target.onSheared( stack, target.world, pos,
 						EnchantmentHelper.getEnchantmentLevel( Enchantments.FORTUNE, stack ) );
 				}
-				drops.forEach( d -> {
-					ItemEntity ent = target.entityDropItem( d, 1.0F );
+				drops.forEach( drop -> {
+					ItemEntity ent = target.entityDropItem( drop, 1.0F );
 					Objects.requireNonNull( ent ).setMotion( ent.getMotion().add(
 						( random.nextFloat() - random.nextFloat() ) * 0.1F, random.nextFloat() * 0.05F,
 						( random.nextFloat() - random.nextFloat() ) * 0.1F ) );

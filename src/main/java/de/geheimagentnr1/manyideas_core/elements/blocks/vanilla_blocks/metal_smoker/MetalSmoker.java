@@ -24,7 +24,7 @@ import java.util.Random;
 public class MetalSmoker extends AbstractFurnaceBlock implements BlockItemInterface {
 	
 	
-	public final static String registry_name = "metal_smoker";
+	public static final String registry_name = "metal_smoker";
 	
 	public MetalSmoker() {
 		
@@ -61,7 +61,8 @@ public class MetalSmoker extends AbstractFurnaceBlock implements BlockItemInterf
 	 * of whether the block can receive random update ticks
 	 */
 	@Override
-	public void animateTick( BlockState stateIn, World worldIn, BlockPos pos, Random rand ) {
+	public void animateTick( BlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos,
+		@Nonnull Random rand ) {
 		
 		if( stateIn.get( LIT ) ) {
 			double x = pos.getX() + 0.5D;

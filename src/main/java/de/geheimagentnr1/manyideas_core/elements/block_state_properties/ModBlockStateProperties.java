@@ -6,8 +6,8 @@ import net.minecraft.state.EnumProperty;
 public class ModBlockStateProperties {
 	
 	
-	public final static EnumProperty<CanBeOpenedByBlockState> OPENED_BY = EnumProperty.create( "can_be_opened_by",
+	public static final EnumProperty<CanBeOpenedByBlockState> OPENED_BY = EnumProperty.create( "can_be_opened_by",
 		CanBeOpenedByBlockState.class );
 	
-	public final static EnumProperty<Color> COLOR = EnumProperty.create( "color", Color.class );
+	public static final EnumProperty<Color> COLOR = EnumProperty.create( "color", Color.class );
 }

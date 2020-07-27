@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 public class DyeRainbow extends CoreBaseItem {
 	
 	
-	public final static String registry_name = "dye_rainbow";
+	public static final String registry_name = "dye_rainbow";
 	
 	public DyeRainbow() {
 		

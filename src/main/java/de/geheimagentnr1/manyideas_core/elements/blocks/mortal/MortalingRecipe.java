@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 public class MortalingRecipe extends SingleItemRecipe {
 	
 	
-	public final static String registry_name = "mortaling";
+	public static final String registry_name = "mortaling";
 	
 	public MortalingRecipe( ResourceLocation _id, String _group, Ingredient _ingredient, ItemStack _result ) {
 		

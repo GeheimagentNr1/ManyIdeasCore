@@ -33,7 +33,7 @@ import java.util.Optional;
 public class Mortal extends Block implements BlockItemInterface {
 	
 	
-	public final static String registry_name = "mortal";
+	public static final String registry_name = "mortal";
 	
 	private static final VoxelShapeMemory SHAPES = VoxelShapeMemory.createHorizontalVoxelShapes(
 		Direction.SOUTH, VoxelShapeVector.create( 1, 0, 2, 6, 6, 7 ) );
@@ -54,15 +54,16 @@ public class Mortal extends Block implements BlockItemInterface {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getShape( BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context ) {
+	public VoxelShape getShape( BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+		@Nonnull ISelectionContext context ) {
 		
 		return SHAPES.getShapeFromHorizontalFacing( state.get( BlockStateProperties.HORIZONTAL_FACING ) );
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public boolean onBlockActivated( BlockState state, World worldIn, BlockPos pos,
-		PlayerEntity player, Hand handIn, BlockRayTraceResult hit ) {
+	public boolean onBlockActivated( @Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos,
+		PlayerEntity player, @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit ) {
 		
 		ItemStack crafting_stack = player.getHeldItem( handIn );
 		MortalCraftingInventory craftingInventory = new MortalCraftingInventory( crafting_stack );

@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 public class CookingPot extends Block implements BlockItemInterface {
 	
 	
-	public final static String registry_name = "cooking_pot";
+	public static final String registry_name = "cooking_pot";
 	
 	private static final VoxelShape SHAPE = Block.makeCuboidShape( 4, 0, 4, 12, 4, 12 );
 	
@@ -43,7 +43,8 @@ public class CookingPot extends Block implements BlockItemInterface {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getShape( BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context ) {
+	public VoxelShape getShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+		@Nonnull ISelectionContext context ) {
 		
 		return SHAPE;
 	}

@@ -9,7 +9,7 @@ import net.minecraft.item.Item;
 public class LogStrippedSmoothJungle extends Wood implements BlockItemInterface {
 	
 	
-	public final static String registry_name = "log_stripped_smooth_jungle";
+	public static final String registry_name = "log_stripped_smooth_jungle";
 	
 	public LogStrippedSmoothJungle() {
 		
