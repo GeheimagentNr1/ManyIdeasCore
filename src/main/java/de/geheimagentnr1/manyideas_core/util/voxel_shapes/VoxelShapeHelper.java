@@ -152,7 +152,8 @@ public class VoxelShapeHelper {
 		return turnVoxelShapeVectors( vectors, createXturnMatrix( -90 ) );
 	}
 	
-	public static VoxelShape vectorsToVoxelShape( VoxelShapeVector[] vectors ) {
+	//package-private
+	static VoxelShape vectorsToVoxelShape( VoxelShapeVector[] vectors ) {
 		
 		ArrayList<VoxelShape> shapes = new ArrayList<>();
 		for( VoxelShapeVector vector : vectors ) {
