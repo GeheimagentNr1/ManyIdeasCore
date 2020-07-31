@@ -3,6 +3,8 @@ package de.geheimagentnr1.manyideas_core.handlers;
 import de.geheimagentnr1.manyideas_core.elements.commands.ElementCountCommand;
 import de.geheimagentnr1.manyideas_core.elements.commands.givedb.GiveDBCommand;
 import de.geheimagentnr1.manyideas_core.special.decoration_renderer.PlayerDecorationManager;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -21,6 +23,7 @@ public class ForgeEventHandler {
 		GiveDBCommand.register( event.getCommandDispatcher() );
 	}
 	
+	@OnlyIn( Dist.CLIENT )
 	@SubscribeEvent
 	public static void handlePreRenderPlayerEvent( RenderPlayerEvent.Pre event ) {
 		
