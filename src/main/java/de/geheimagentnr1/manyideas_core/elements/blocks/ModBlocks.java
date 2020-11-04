@@ -5,13 +5,11 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.rainbow.
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.WoodColored;
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.logs_stripped_smooth.*;
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.woods_stripped_smooth.*;
-import de.geheimagentnr1.manyideas_core.elements.blocks.cooking_pot.CookingPot;
 import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTable;
 import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableContainer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlock;
 import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlockTile;
 import de.geheimagentnr1.manyideas_core.elements.blocks.mortal.Mortal;
-import de.geheimagentnr1.manyideas_core.elements.blocks.pottery_wheel.PotteryWheel;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamond;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondContainer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIron;
@@ -72,16 +70,12 @@ public class ModBlocks {
 		new WoodStrippedSmoothJungle(),//BCPFINRLT
 		new WoodStrippedSmoothOak(),//BCPFINRLT
 		new WoodStrippedSmoothSpruce(),//BCPFINRLT
-		//Cooking Pot
-		//new CookingPot(),//BCPFINRLT//TODO: Function
 		//Dye Crafting Table
 		new DyeCraftingTable(),//BCPFINRLT
 		//End Block
 		new EndBlock(),//BCPFINRLT
 		//Mortal
 		new Mortal(),//BCPFINRLT
-		//Pottery Wheel
-		//new PotteryWheel(),//BCPFINRLT//TODO: Function
 		//Table Saws
 		new TableSawDiamond(),//BCPFINRLT
 		new TableSawIron(),//BCPFINRLT
@@ -169,11 +163,6 @@ public class ModBlocks {
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + WoodStrippedSmoothSpruce.registry_name )
 	public static WoodStrippedSmoothSpruce WOOD_STRIPPED_SMOOTH_SPRUCE;
 	
-	//Cooking Pot
-	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + CookingPot.registry_name )
-	public static CookingPot COOKING_POT;
-	
 	//Dye Crafting Table
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + DyeCraftingTable.registry_name )
@@ -194,11 +183,6 @@ public class ModBlocks {
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + Mortal.registry_name )
 	public static Mortal MORTAL;
-	
-	//Pottery Wheel
-	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + PotteryWheel.registry_name )
-	public static PotteryWheel POTTERY_WHEEL;
 	
 	//Table Saws
 	

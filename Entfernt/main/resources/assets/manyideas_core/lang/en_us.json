@@ -1,0 +1,8 @@
+{
+	"main_module": "Main",
+	"main_blocks": "Blocks",
+	"main_blocks_cooking_pot": "Blocks: Cooking Pot",
+	"block.manyideas_core.cooking_pot": "Cooking Pot",
+	"main_blocks_pottery_wheel": "Blocks: Pottery Wheel",
+	"block.manyideas_core.pottery_wheel": "Pottery Wheel"
+}
