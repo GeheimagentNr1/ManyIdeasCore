@@ -73,7 +73,7 @@ public class ModBlocks {
 		new WoodStrippedSmoothOak(),//BCPFINRLT
 		new WoodStrippedSmoothSpruce(),//BCPFINRLT
 		//Cooking Pot
-		new CookingPot(),//BCPFINRLT//TODO: Function
+		//new CookingPot(),//BCPFINRLT//TODO: Function
 		//Dye Crafting Table
 		new DyeCraftingTable(),//BCPFINRLT
 		//End Block
@@ -81,7 +81,7 @@ public class ModBlocks {
 		//Mortal
 		new Mortal(),//BCPFINRLT
 		//Pottery Wheel
-		new PotteryWheel(),//BCPFINRLT//TODO: Function
+		//new PotteryWheel(),//BCPFINRLT//TODO: Function
 		//Table Saws
 		new TableSawDiamond(),//BCPFINRLT
 		new TableSawIron(),//BCPFINRLT

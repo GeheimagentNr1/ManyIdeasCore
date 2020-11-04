@@ -1,4 +1,4 @@
-package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.double_door;
+package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.doors;
 
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.CanBeOpenedByBlockState;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.ModBlockStateProperties;
@@ -65,23 +65,36 @@ public abstract class DoubleDoorBlock extends DoorBlock {
 			state = state.cycle( OPEN );
 			worldIn.setBlockState( pos, state, 10 );
 			playDoorSound( player, worldIn, pos, state.get( OPEN ) );
-			notifyOtherDoubleDoors( state, worldIn, pos, state.get( OPEN ) );
+			BlockPos neighborPos = pos.offset( getDirectionToOtherDoor( state ) );
+			BlockState neighborState = worldIn.getBlockState( neighborPos );
+			if( neighborState.getBlock() instanceof DoubleDoorBlock &&
+				state.get( FACING ) == neighborState.get( FACING ) &&
+				state.get( HINGE ) != neighborState.get( HINGE ) ) {
+				worldIn.setBlockState( neighborPos, neighborState.with( OPEN, state.get( OPEN ) ), 2 );
+			}
 			return true;
 		}
 		return false;
 	}
 	
 	@Override
-	public void neighborChanged( @Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos,
+	public void neighborChanged( @Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
 		@Nonnull Block blockIn, @Nonnull BlockPos fromPos, boolean isMoving ) {
 		
-		boolean isPowered = worldIn.isBlockPowered( pos ) || worldIn.isBlockPowered( pos.offset( state.get( HALF ) ==
-			DoubleBlockHalf.LOWER ? Direction.UP : Direction.DOWN ) );
+		boolean isDoorPowered = isDoorBlockPowerd( pos, worldIn, state );
+		BlockPos neighborPos = pos.offset( getDirectionToOtherDoor( state ) );
+		BlockState neighborState = worldIn.getBlockState( neighborPos );
+		boolean isNeighborDoubleDoor = neighborState.getBlock() instanceof DoubleDoorBlock &&
+			state.get( FACING ) == neighborState.get( FACING ) && state.get( HINGE ) != neighborState.get( HINGE );
 		
-		if( canBeOpened( state, false ) && blockIn != this && isPowered != state.get( POWERED ) ) {
-			playDoorSound( null, worldIn, pos, isPowered );
-			worldIn.setBlockState( pos, state.with( POWERED, isPowered ).with( OPEN, isPowered ), 2 );
-			notifyOtherDoubleDoors( state, worldIn, pos, isPowered );
+		if( isNeighborDoubleDoor ) {
+			isDoorPowered |= isDoorBlockPowerd( neighborPos, worldIn, worldIn.getBlockState( neighborPos ) );
+		}
+		if( canBeOpened( state, false ) && blockIn != this && isDoorPowered != state.get( POWERED ) ) {
+			playDoorSound( null, worldIn, pos, isDoorPowered );
+			worldIn.setBlockState( pos, state.with( POWERED, isDoorPowered ).with( OPEN, isDoorPowered ), 2 );
+			worldIn.setBlockState( neighborPos, neighborState.with( POWERED, isDoorPowered )
+				.with( OPEN, isDoorPowered ), 2 );
 		}
 	}
 	
@@ -108,7 +121,13 @@ public abstract class DoubleDoorBlock extends DoorBlock {
 		}
 	}
 	
-	private void notifyOtherDoubleDoors( BlockState state, World worldIn, BlockPos pos, boolean isOpen ) {
+	private boolean isDoorBlockPowerd( BlockPos pos, World world, BlockState state ) {
+		
+		return world.isBlockPowered( pos ) || world.isBlockPowered( pos.offset( state.get( HALF ) ==
+				DoubleBlockHalf.LOWER ? Direction.UP : Direction.DOWN ) );
+	}
+	
+	private Direction getDirectionToOtherDoor( BlockState state ) {
 		
 		Direction direction = null;
 		
@@ -142,15 +161,7 @@ public abstract class DoubleDoorBlock extends DoorBlock {
 				}
 				break;
 		}
-		if( direction != null ) {
-			BlockPos neighborPos = pos.offset( direction );
-			BlockState neighborState = worldIn.getBlockState( neighborPos );
-			if( neighborState.getBlock() instanceof DoubleDoorBlock &&
-				state.get( FACING ) == neighborState.get( FACING ) &&
-				state.get( HINGE ) != neighborState.get( HINGE ) ) {
-				worldIn.setBlockState( neighborPos, neighborState.with( OPEN, isOpen ), 2 );
-			}
-		}
+		return direction;
 	}
 	
 	private void playDoorSound( PlayerEntity player, World world, BlockPos pos, boolean open ) {
