@@ -91,10 +91,14 @@ public abstract class DoubleDoorBlock extends DoorBlock {
 			isDoorPowered |= isDoorBlockPowerd( neighborPos, worldIn, worldIn.getBlockState( neighborPos ) );
 		}
 		if( canBeOpened( state, false ) && blockIn != this && isDoorPowered != state.get( POWERED ) ) {
-			playDoorSound( null, worldIn, pos, isDoorPowered );
+			if( state.get( OPEN ) != isDoorPowered ) {
+				playDoorSound( null, worldIn, pos, isDoorPowered );
+			}
 			worldIn.setBlockState( pos, state.with( POWERED, isDoorPowered ).with( OPEN, isDoorPowered ), 2 );
-			worldIn.setBlockState( neighborPos, neighborState.with( POWERED, isDoorPowered )
-				.with( OPEN, isDoorPowered ), 2 );
+			if( isNeighborDoubleDoor ) {
+				worldIn.setBlockState( neighborPos, neighborState.with( POWERED, isDoorPowered )
+					.with( OPEN, isDoorPowered ), 2 );
+			}
 		}
 	}
 	

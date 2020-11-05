@@ -114,7 +114,23 @@ public abstract class BigDoor extends MultiBlock {
 				worldIn.setBlockState( blockPos, worldIn.getBlockState( blockPos )
 					.with( BlockStateProperties.OPEN, open ), 3 ) );
 		playDoorSound( player, worldIn, pos, open );
-		notifyOtherDoubleDoors( state, worldIn, zeroPos, facing, open );
+		if( doubleDoorActive ) {
+			Direction direction = state.get( BlockStateProperties.DOOR_HINGE ) == DoorHingeSide.LEFT ?
+				facing.rotateY() : facing.rotateYCCW();
+			BlockPos neighborPos = zeroPos.offset( direction, getZSize() );
+			BlockState neighborState = worldIn.getBlockState( neighborPos );
+			if( neighborState.getBlock() == this ) {
+				BlockPos neighborZeroPos = getZeroPos( neighborState, neighborPos );
+				if( neighborPos.equals( neighborZeroPos ) && state.get( BlockStateProperties.HORIZONTAL_FACING ) ==
+					neighborState.get( BlockStateProperties.HORIZONTAL_FACING ) &&
+					state.get( BlockStateProperties.DOOR_HINGE ) != neighborState.get(
+						BlockStateProperties.DOOR_HINGE ) ) {
+					runForBlocks( neighborZeroPos, facing, ( x, y, z, blockPos ) ->
+						worldIn.setBlockState( blockPos, worldIn.getBlockState( blockPos )
+							.with( BlockStateProperties.OPEN, open ), 3 ) );
+				}
+			}
+		}
 		return true;
 	}
 	
@@ -127,36 +143,36 @@ public abstract class BigDoor extends MultiBlock {
 			return;
 		}
 		BlockPos zeroPos = getZeroPos( state, pos );
+		DoorHingeSide doorHingeSide = state.get( BlockStateProperties.DOOR_HINGE );
 		Direction facing = state.get( BlockStateProperties.HORIZONTAL_FACING );
 		boolean isPowered = isPowered( worldIn, zeroPos, facing );
+		Direction direction = doorHingeSide == DoorHingeSide.LEFT ?
+			facing.rotateY() : facing.rotateYCCW();
+		BlockPos neighborPos = zeroPos.offset( direction, getZSize() );
+		BlockState neighborState = worldIn.getBlockState( neighborPos );
+		BlockPos neighborZeroPos = null;
+		boolean isNeighborDoubleDoor = false;
+		if( neighborState.getBlock() == this ) {
+			neighborZeroPos = getZeroPos( neighborState, neighborPos );
+			if( neighborPos.equals( neighborZeroPos ) &&
+				facing == neighborState.get( BlockStateProperties.HORIZONTAL_FACING ) &&
+				doorHingeSide != neighborState.get( BlockStateProperties.DOOR_HINGE ) ) {
+				isNeighborDoubleDoor = true;
+				isPowered |= isPowered( worldIn, neighborZeroPos, facing );
+			}
+		}
 		if( isPowered != state.get( BlockStateProperties.POWERED ) ) {
+			if( state.get( BlockStateProperties.OPEN ) != isPowered ) {
+				playDoorSound( null, worldIn, pos, isPowered );
+			}
+			boolean isDoorPowered = isPowered;
 			runForBlocks( zeroPos, facing, ( x, y, z, blockPos ) ->
 				worldIn.setBlockState( blockPos, worldIn.getBlockState( blockPos ).with( BlockStateProperties.POWERED,
-					isPowered ).with( BlockStateProperties.OPEN, isPowered ), 3 ) );
-			playDoorSound( null, worldIn, pos, isPowered );
-			notifyOtherDoubleDoors( state, worldIn, zeroPos, facing, isPowered );
-		}
-	}
-	
-	private void notifyOtherDoubleDoors( BlockState state, World worldIn, BlockPos zeroPos, Direction facing,
-		boolean isOpen ) {
-		
-		if( doubleDoorActive ) {
-			Direction direction = state.get( BlockStateProperties.DOOR_HINGE ) == DoorHingeSide.LEFT ?
-				facing.rotateY() : facing.rotateYCCW();
-			
-			BlockPos neighborPos = zeroPos.offset( direction, getZSize() );
-			BlockState neighborState = worldIn.getBlockState( neighborPos );
-			if( neighborState.getBlock() == this ) {
-				BlockPos neighborZeroPos = getZeroPos( neighborState, neighborPos );
-				if( neighborPos.equals( neighborZeroPos ) && state.get( BlockStateProperties.HORIZONTAL_FACING ) ==
-					neighborState.get( BlockStateProperties.HORIZONTAL_FACING ) &&
-					state.get( BlockStateProperties.DOOR_HINGE ) != neighborState.get(
-						BlockStateProperties.DOOR_HINGE ) ) {
-					runForBlocks( neighborZeroPos, facing, ( x, y, z, blockPos ) ->
-						worldIn.setBlockState( blockPos, worldIn.getBlockState( blockPos )
-							.with( BlockStateProperties.OPEN, isOpen ), 3 ) );
-				}
+					isDoorPowered ).with( BlockStateProperties.OPEN, isDoorPowered ), 3 ) );
+			if( doubleDoorActive && isNeighborDoubleDoor ) {
+				runForBlocks( neighborZeroPos, facing, ( x, y, z, blockPos ) ->
+					worldIn.setBlockState( blockPos, worldIn.getBlockState( blockPos )
+						.with( BlockStateProperties.OPEN, isDoorPowered ), 3 ) );
 			}
 		}
 	}
