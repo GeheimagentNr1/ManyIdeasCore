@@ -172,6 +172,7 @@ public abstract class BigDoor extends MultiBlock {
 			if( doubleDoorActive && isNeighborDoubleDoor ) {
 				runForBlocks( neighborZeroPos, facing, ( x, y, z, blockPos ) ->
 					worldIn.setBlockState( blockPos, worldIn.getBlockState( blockPos )
+						.with( BlockStateProperties.POWERED, isDoorPowered )
 						.with( BlockStateProperties.OPEN, isDoorPowered ), 3 ) );
 			}
 		}
