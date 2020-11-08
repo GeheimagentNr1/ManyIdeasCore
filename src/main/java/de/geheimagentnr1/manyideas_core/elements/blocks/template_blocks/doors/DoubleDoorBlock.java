@@ -128,7 +128,7 @@ public abstract class DoubleDoorBlock extends DoorBlock {
 	private boolean isDoorBlockPowerd( BlockPos pos, World world, BlockState state ) {
 		
 		return world.isBlockPowered( pos ) || world.isBlockPowered( pos.offset( state.get( HALF ) ==
-				DoubleBlockHalf.LOWER ? Direction.UP : Direction.DOWN ) );
+			DoubleBlockHalf.LOWER ? Direction.UP : Direction.DOWN ) );
 	}
 	
 	private Direction getDirectionToOtherDoor( BlockState state ) {

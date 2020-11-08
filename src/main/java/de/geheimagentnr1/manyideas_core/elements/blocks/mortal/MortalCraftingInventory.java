@@ -54,12 +54,12 @@ class MortalCraftingInventory implements IInventory {
 	
 	@Override
 	public void setInventorySlotContents( int index, @Nonnull ItemStack stack ) {
-	
+		
 	}
 	
 	@Override
 	public void markDirty() {
-	
+		
 	}
 	
 	@Override

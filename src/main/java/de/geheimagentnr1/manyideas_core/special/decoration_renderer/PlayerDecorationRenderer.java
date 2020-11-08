@@ -60,7 +60,7 @@ class PlayerDecorationRenderer {
 		
 		double bouncing = ( System.currentTimeMillis() & Long.MAX_VALUE ) / 1000.0D;
 		GlStateManager.translated( 0.0D, StrictMath.sin( bouncing % ( 2 * Math.PI ) ) * 0.25, 0.0D );
-		GlStateManager.rotated( (float) ( bouncing * 40.0D % 360 ), 0, 1, 0 );
+		GlStateManager.rotated( (float)( bouncing * 40.0D % 360 ), 0, 1, 0 );
 		
 		GlStateManager.disableLighting();
 		GlStateManager.pushMatrix();
