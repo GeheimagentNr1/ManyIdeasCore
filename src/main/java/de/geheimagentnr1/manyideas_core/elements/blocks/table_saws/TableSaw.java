@@ -1,6 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
+import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.util.TranslationKeyHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -33,7 +34,7 @@ import javax.annotation.Nullable;
 
 
 @SuppressWarnings( "AbstractClassExtendsConcreteClass" )
-public abstract class TableSaw extends Block {
+public abstract class TableSaw extends Block implements BlockItemInterface {
 	
 	
 	private static final DamageSource SAW = new DamageSource( "table_saw" );

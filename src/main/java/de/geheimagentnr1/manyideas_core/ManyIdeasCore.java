@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core;
 
+import de.geheimagentnr1.manyideas_core.config.MainConfig;
 import de.geheimagentnr1.manyideas_core.setup.ClientProxy;
 import de.geheimagentnr1.manyideas_core.setup.IProxy;
 import de.geheimagentnr1.manyideas_core.setup.ModSetup;
@@ -8,6 +9,7 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 
 
+@SuppressWarnings( "UtilityClassWithPublicConstructor" )
 @Mod( ManyIdeasCore.MODID )
 public class ManyIdeasCore {
 	
@@ -17,4 +19,9 @@ public class ManyIdeasCore {
 	public static final IProxy proxy = DistExecutor.runForDist( () -> ClientProxy::new, () -> ServerProxy::new );
 	
 	public static final ModSetup setup = new ModSetup();
+	
+	public ManyIdeasCore() {
+		
+		MainConfig.load();
+	}
 }

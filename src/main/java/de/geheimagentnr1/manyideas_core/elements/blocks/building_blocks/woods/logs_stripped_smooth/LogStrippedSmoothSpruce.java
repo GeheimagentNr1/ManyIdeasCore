@@ -1,12 +1,11 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.logs_stripped_smooth;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.Wood;
 import net.minecraft.item.Item;
 
 
-public class LogStrippedSmoothSpruce extends Wood implements BlockItemInterface {
+public class LogStrippedSmoothSpruce extends Wood {
 	
 	
 	public static final String registry_name = "log_stripped_smooth_spruce";

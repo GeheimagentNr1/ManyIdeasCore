@@ -1,6 +1,5 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSaw;
 import net.minecraft.entity.player.PlayerInventory;
@@ -9,7 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.IWorldPosCallable;
 
 
-public class TableSawIron extends TableSaw implements BlockItemInterface {
+public class TableSawIron extends TableSaw {
 	
 	
 	public static final String registry_name = "table_saw_iron";

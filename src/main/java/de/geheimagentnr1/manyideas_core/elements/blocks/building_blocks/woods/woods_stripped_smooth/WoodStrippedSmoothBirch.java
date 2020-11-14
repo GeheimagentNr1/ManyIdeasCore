@@ -1,12 +1,11 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.woods_stripped_smooth;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.Wood;
 import net.minecraft.item.Item;
 
 
-public class WoodStrippedSmoothBirch extends Wood implements BlockItemInterface {
+public class WoodStrippedSmoothBirch extends Wood {
 	
 	
 	public static final String registry_name = "wood_stripped_smooth_birch";

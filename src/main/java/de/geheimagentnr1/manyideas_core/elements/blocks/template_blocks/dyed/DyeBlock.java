@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed;
 
+import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -14,7 +15,7 @@ import javax.annotation.Nullable;
 
 
 @SuppressWarnings( "AbstractClassExtendsConcreteClass" )
-public abstract class DyeBlock extends Block {
+public abstract class DyeBlock extends Block implements BlockItemInterface {
 	
 	
 	@SuppressWarnings( "SameParameterValue" )

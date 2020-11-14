@@ -1,7 +1,6 @@
 package de.geheimagentnr1.manyideas_core.setup;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
-import de.geheimagentnr1.manyideas_core.config.ModConfig;
 import de.geheimagentnr1.manyideas_core.elements.commands.ModArgumentTypes;
 import de.geheimagentnr1.manyideas_core.elements.item_groups.ManyIdeasCoreItemGroup;
 import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeSerializers;
@@ -19,7 +18,6 @@ public class ModSetup {
 	
 	public ModSetup() {
 		
-		ModConfig.load();
 		ModArgumentTypes.registerArgumentTypes();
 		RecipeTypes.init();
 		RecipeSerializers.init();

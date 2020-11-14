@@ -2,6 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.doors;
 
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.CanBeOpenedByBlockState;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.ModBlockStateProperties;
+import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DoorBlock;
@@ -21,7 +22,7 @@ import javax.annotation.Nonnull;
 
 
 @SuppressWarnings( { "AbstractClassExtendsConcreteClass", "unused", "AbstractClassNeverImplemented" } )
-public abstract class DoubleDoorBlock extends DoorBlock {
+public abstract class DoubleDoorBlock extends DoorBlock implements BlockItemInterface {
 	
 	
 	protected DoubleDoorBlock( Block.Properties properties, String registry_name ) {

@@ -1,6 +1,5 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlock;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlockItem;
@@ -18,7 +17,7 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 
 
-public class WoodColored extends DyeBlock implements BlockItemInterface {
+public class WoodColored extends DyeBlock {
 	
 	
 	public static final String registry_name = "wood_colored";
