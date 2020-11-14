@@ -45,7 +45,6 @@ public class RegistryEventHandler {
 	@SubscribeEvent
 	public static void handleClientSetupEvent( FMLClientSetupEvent event ) {
 		
-		
 		ScreenManager.registerFactory( ModBlocks.DYE_CRAFTING_TABLE_CONTAINER, DyeCraftingTableScreen::new );
 		ScreenManager.registerFactory( ModBlocks.TABLE_SAW_STONE_CONTAINER, TableSawScreen::new );
 		ScreenManager.registerFactory( ModBlocks.TABLE_SAW_IRON_CONTAINER, TableSawScreen::new );
