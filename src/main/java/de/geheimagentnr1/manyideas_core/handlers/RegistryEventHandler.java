@@ -5,8 +5,11 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksDebug;
 import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTable;
 import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableContainer;
+import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableScreen;
 import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlock;
 import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlockTile;
+import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlockTileRenderer;
+import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSawScreen;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamond;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondContainer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIron;
@@ -19,15 +22,18 @@ import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
 import de.geheimagentnr1.manyideas_core.special.decoration_renderer.PlayerDecorationManager;
 import de.geheimagentnr1.manyideas_core.util.BlockRegistrationHelper;
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 
 @SuppressWarnings( "unused" )
@@ -35,14 +41,17 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 public class RegistryEventHandler {
 	
 	
-	@SubscribeEvent
-	public static void setup( FMLCommonSetupEvent event ) {
-		
-		ManyIdeasCore.proxy.init();
-	}
-	
+	@OnlyIn( Dist.CLIENT )
 	@SubscribeEvent
 	public static void handleClientSetupEvent( FMLClientSetupEvent event ) {
+		
+		
+		ScreenManager.registerFactory( ModBlocks.DYE_CRAFTING_TABLE_CONTAINER, DyeCraftingTableScreen::new );
+		ScreenManager.registerFactory( ModBlocks.TABLE_SAW_STONE_CONTAINER, TableSawScreen::new );
+		ScreenManager.registerFactory( ModBlocks.TABLE_SAW_IRON_CONTAINER, TableSawScreen::new );
+		ScreenManager.registerFactory( ModBlocks.TABLE_SAW_DIAMOND_CONTAINER, TableSawScreen::new );
+		
+		ClientRegistry.bindTileEntitySpecialRenderer( EndBlockTile.class, new EndBlockTileRenderer() );
 		
 		PlayerDecorationManager.initDecorationList();
 	}
