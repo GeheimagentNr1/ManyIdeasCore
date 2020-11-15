@@ -9,7 +9,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
@@ -23,7 +22,7 @@ public class DyeBlockItem extends BlockItem {
 		
 		super( block, _properties );
 		setRegistryName( registry_name );
-		addProperties();
+		addPropertyOverride( DyeBlockItemPropertyGetter.registry_name, new DyeBlockItemPropertyGetter() );
 	}
 	
 	@Nonnull
@@ -31,17 +30,6 @@ public class DyeBlockItem extends BlockItem {
 	public ITextComponent getDisplayName( @Nonnull ItemStack stack ) {
 		
 		return new TranslationTextComponent( getTranslationKey( stack ) + "_" + DyeBlockHelper.getColorName( stack ) );
-	}
-	
-	private void addProperties() {
-		
-		for( Color fColor : Color.values() ) {
-			addPropertyOverride( new ResourceLocation( fColor.getName() ),
-				( itemStack, world, livingEntity ) -> {
-					String color = DyeBlockHelper.getColorName( itemStack );
-					return color.equals( fColor.getName() ) ? 1 : 0;
-				} );
-		}
 	}
 	
 	@SuppressWarnings( "ParameterHidesMemberVariable" )

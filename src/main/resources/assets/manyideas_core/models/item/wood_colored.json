@@ -3,103 +3,103 @@
 	"overrides": [
 		{
 			"predicate": {
-				"black": 1
+				"color": 0
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_black"
 		},
 		{
 			"predicate": {
-				"blue": 1
+				"color": 1
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_blue"
 		},
 		{
 			"predicate": {
-				"brown": 1
+				"color": 2
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_brown"
 		},
 		{
 			"predicate": {
-				"cyan": 1
+				"color": 3
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_cyan"
 		},
 		{
 			"predicate": {
-				"gray": 1
+				"color": 4
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_gray"
 		},
 		{
 			"predicate": {
-				"green": 1
+				"color": 5
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_green"
 		},
 		{
 			"predicate": {
-				"light_blue": 1
+				"color": 6
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_light_blue"
 		},
 		{
 			"predicate": {
-				"light_gray": 1
+				"color": 7
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_light_gray"
 		},
 		{
 			"predicate": {
-				"lime": 1
+				"color": 8
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_lime"
 		},
 		{
 			"predicate": {
-				"magenta": 1
+				"color": 9
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_magenta"
 		},
 		{
 			"predicate": {
-				"orange": 1
+				"color": 10
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_orange"
 		},
 		{
 			"predicate": {
-				"pink": 1
+				"color": 11
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_pink"
 		},
 		{
 			"predicate": {
-				"purple": 1
+				"color": 12
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_purple"
 		},
 		{
 			"predicate": {
-				"rainbow": 1
+				"color": 13
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_rainbow"
 		},
 		{
 			"predicate": {
-				"red": 1
+				"color": 14
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_red"
 		},
 		{
 			"predicate": {
-				"white": 1
+				"color": 15
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_white"
 		},
 		{
 			"predicate": {
-				"yellow": 1
+				"color": 16
 			},
 			"model": "manyideas_core:block/building_blocks/woods/wood_colored/wood_colored_yellow"
 		}
