@@ -28,6 +28,12 @@ public class ColorStackList implements ColorList {
 		return DyeBlockHelper.getColor( stack );
 	}
 	
+	@Override
+	public ItemStack getStack( Color color ) {
+		
+		return DyeBlockHelper.setColorToItemStack( itemStack.copy(), color );
+	}
+	
 	//package-private
 	ItemStack getItemStack() {
 		

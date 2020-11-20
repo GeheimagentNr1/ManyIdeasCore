@@ -12,7 +12,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
-public class DyeBlockItemPropertyGetter implements IItemPropertyGetter {
+//package-private
+class DyeBlockItemPropertyGetter implements IItemPropertyGetter {
 	
 	
 	public static final ResourceLocation registry_name = new ResourceLocation( "color" );

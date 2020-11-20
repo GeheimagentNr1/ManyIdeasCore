@@ -1,8 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 
-import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
-import de.geheimagentnr1.manyideas_core.util.TranslationKeyHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -25,7 +23,6 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
@@ -39,8 +36,6 @@ public abstract class TableSaw extends Block implements BlockItemInterface {
 	
 	private static final DamageSource SAW = new DamageSource( "table_saw" );
 	
-	private final TranslationTextComponent CONTAINER_NAME;
-	
 	private static final VoxelShape SHAPE = VoxelShapes.or( Block.makeCuboidShape( 0.0, 14.0, 0.0, 16.0, 15.75, 16.0 ),
 		Block.makeCuboidShape( 0.0, 0.0, 0.0, 2.0, 14.0, 2.0 ),
 		Block.makeCuboidShape( 14.0, 0.0, 0.0, 16.0, 14.0, 2.0 ),
@@ -51,7 +46,6 @@ public abstract class TableSaw extends Block implements BlockItemInterface {
 		
 		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 2.5F ).sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
-		CONTAINER_NAME = TranslationKeyHelper.generateContainerTranslationText( ManyIdeasCore.MODID, registry_name );
 	}
 	
 	@Nonnull
@@ -101,7 +95,7 @@ public abstract class TableSaw extends Block implements BlockItemInterface {
 		
 		return new SimpleNamedContainerProvider( ( windowID, playerInventory, player ) ->
 			getContainer( windowID, playerInventory, IWorldPosCallable.of( worldIn, pos ) ),
-			CONTAINER_NAME );
+			getNameTextComponent() );
 	}
 	
 	//package-private

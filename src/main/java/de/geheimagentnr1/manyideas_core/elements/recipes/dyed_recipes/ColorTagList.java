@@ -26,6 +26,17 @@ public class ColorTagList implements ColorList {
 		return stacks.get( stack );
 	}
 	
+	@Override
+	public ItemStack getStack( Color color ) {
+		
+		for( Map.Entry<ItemStack, Color> entry : stacks.entrySet() ) {
+			if( entry.getValue() == color ) {
+				return entry.getKey().copy();
+			}
+		}
+		return ItemStack.EMPTY;
+	}
+	
 	//package-private
 	TreeMap<ItemStack, Color> getColorStacks() {
 		

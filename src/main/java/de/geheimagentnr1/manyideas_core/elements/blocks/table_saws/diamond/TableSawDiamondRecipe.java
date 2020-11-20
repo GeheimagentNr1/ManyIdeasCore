@@ -19,8 +19,8 @@ public class TableSawDiamondRecipe extends TableSawRecipe {
 	public TableSawDiamondRecipe( ResourceLocation id, String group, Ingredient _ingredient,
 		ItemStack _result ) {
 		
-		super( RecipeTypes.TABLE_SAWING_DIAMOND, RecipeSerializers.TABLE_SAWING_DIAMOND, id, group,
-			_ingredient, _result );
+		super( RecipeTypes.TABLE_SAWING_DIAMOND, RecipeSerializers.TABLE_SAWING_DIAMOND, id, group, _ingredient,
+			_result );
 	}
 	
 	@Nonnull

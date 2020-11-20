@@ -47,4 +47,9 @@ public class ColorIngredient extends Ingredient {
 		
 		return ingrediant.getColor( stack );
 	}
+	
+	public ItemStack getStack( Color color ) {
+		
+		return ingrediant.getStack( color );
+	}
 }

@@ -11,4 +11,7 @@ interface ColorList extends Ingredient.IItemList {
 	
 	//public
 	Color getColor( ItemStack stack );
+	
+	//public
+	ItemStack getStack( Color color );
 }

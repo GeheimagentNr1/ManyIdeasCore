@@ -106,4 +106,8 @@ public abstract class SingleItemRecipe implements IRecipe<IInventory> {
 		return result.copy();
 	}
 	
+	public Ingredient getIngredient() {
+		
+		return ingredient;
+	}
 }

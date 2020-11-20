@@ -1,9 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
-import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
-import de.geheimagentnr1.manyideas_core.util.TranslationKeyHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -22,7 +20,6 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
@@ -34,9 +31,6 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	
 	
 	public static final String registry_name = "dye_crafting_table";
-	
-	private static final ITextComponent CONTAINER_NAME = TranslationKeyHelper.generateContainerTranslationText(
-		ManyIdeasCore.MODID, registry_name );
 	
 	private static final VoxelShape SHAPE = VoxelShapes.or( Block.makeCuboidShape( 0.0, 14.0, 0.0, 16.0, 15.75, 16.0 ),
 		Block.makeCuboidShape( 0.0, 0.0, 0.0, 2.0, 14.0, 2.0 ),
@@ -83,7 +77,7 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 		
 		return new SimpleNamedContainerProvider( ( windowID, playerInventory, playerEntity ) ->
 			new DyeCraftingTableContainer( windowID, playerInventory, IWorldPosCallable.of( worldIn, pos ) ),
-			CONTAINER_NAME );
+			getNameTextComponent() );
 	}
 	
 	@Override
