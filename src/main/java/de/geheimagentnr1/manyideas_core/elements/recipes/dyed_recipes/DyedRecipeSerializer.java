@@ -154,7 +154,7 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 		JsonObject color_tag = JSONUtils.getJsonObject( ingredient, "color_tag" );
 		TreeMap<ItemStack, Color> stacks =
 			new TreeMap<>( Comparator.comparing( o -> Objects.requireNonNull( o.getItem()
-			.getRegistryName() ) ) );
+				.getRegistryName() ) ) );
 		for( Color color : Color.values() ) {
 			String registry_key = JSONUtils.getString( color_tag, color.getName(), "" );
 			if( !registry_key.isEmpty() ) {

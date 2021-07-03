@@ -124,7 +124,8 @@ public abstract class BigDoor extends MultiBlock {
 		runForBlocks(
 			zeroPos,
 			facing,
-			( x, y, z, blockPos ) -> worldIn.setBlockState( blockPos,
+			( x, y, z, blockPos ) -> worldIn.setBlockState(
+				blockPos,
 				worldIn.getBlockState( blockPos ).with( BlockStateProperties.OPEN, open ),
 				3
 			)
@@ -145,7 +146,8 @@ public abstract class BigDoor extends MultiBlock {
 					runForBlocks(
 						neighborZeroPos,
 						facing,
-						( x, y, z, blockPos ) -> worldIn.setBlockState( blockPos,
+						( x, y, z, blockPos ) -> worldIn.setBlockState(
+							blockPos,
 							worldIn.getBlockState( blockPos ).with( BlockStateProperties.OPEN, open ),
 							3
 						)
@@ -195,7 +197,8 @@ public abstract class BigDoor extends MultiBlock {
 			runForBlocks(
 				zeroPos,
 				facing,
-				( x, y, z, blockPos ) -> worldIn.setBlockState( blockPos,
+				( x, y, z, blockPos ) -> worldIn.setBlockState(
+					blockPos,
 					worldIn.getBlockState( blockPos )
 						.with( BlockStateProperties.POWERED, isDoorPowered )
 						.with( BlockStateProperties.OPEN, isDoorPowered ),
@@ -206,7 +209,8 @@ public abstract class BigDoor extends MultiBlock {
 				runForBlocks(
 					neighborZeroPos,
 					facing,
-					( x, y, z, blockPos ) -> worldIn.setBlockState( blockPos,
+					( x, y, z, blockPos ) -> worldIn.setBlockState(
+						blockPos,
 						worldIn.getBlockState( blockPos )
 							.with( BlockStateProperties.POWERED, isDoorPowered )
 							.with( BlockStateProperties.OPEN, isDoorPowered ),

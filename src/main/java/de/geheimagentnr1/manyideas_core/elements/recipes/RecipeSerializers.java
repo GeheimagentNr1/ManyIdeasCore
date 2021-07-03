@@ -34,8 +34,9 @@ public class RecipeSerializers {
 	public static IRecipeSerializer<TableSawStoneRecipe> TABLE_SAWING_STONE;
 	
 	@SuppressWarnings( "deprecation" )
-	private static <S extends IRecipeSerializer<T>, T extends IRecipe<?>> S register( String key,
-	                                                                                  S recipeSerializer ) {
+	private static <S extends IRecipeSerializer<T>, T extends IRecipe<?>> S register(
+		String key,
+		S recipeSerializer ) {
 		
 		return Registry.register(
 			Registry.RECIPE_SERIALIZER,
@@ -49,8 +50,10 @@ public class RecipeSerializers {
 		//Dyed
 		DYED = register( DyedRecipe.registry_name, new DyedRecipeSerializer() );
 		//Mortaling
-		MORTALING = register( MortalingRecipe.registry_name,
-			new SingleItemRecipeSerializer<>( MortalingRecipe::new ) );
+		MORTALING = register(
+			MortalingRecipe.registry_name,
+			new SingleItemRecipeSerializer<>( MortalingRecipe::new )
+		);
 		//Tablesawing
 		TABLE_SAWING_DIAMOND = register(
 			TableSawDiamondRecipe.registry_name,

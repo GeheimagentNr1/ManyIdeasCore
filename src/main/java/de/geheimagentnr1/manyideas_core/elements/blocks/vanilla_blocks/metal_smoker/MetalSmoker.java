@@ -63,8 +63,9 @@ public class MetalSmoker extends AbstractFurnaceBlock implements BlockItemInterf
 	 * of whether the block can receive random update ticks
 	 */
 	@Override
-	public void animateTick( BlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos,
-	                         @Nonnull Random rand ) {
+	public void animateTick(
+		BlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos,
+		@Nonnull Random rand ) {
 		
 		if( stateIn.get( LIT ) ) {
 			double x = pos.getX() + 0.5D;

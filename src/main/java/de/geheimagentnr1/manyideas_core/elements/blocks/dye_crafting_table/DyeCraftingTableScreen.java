@@ -22,10 +22,10 @@ public class DyeCraftingTableScreen extends ContainerScreen<DyeCraftingTableCont
 	
 	public DyeCraftingTableScreen(
 		DyeCraftingTableContainer _container,
-		PlayerInventory _playerInventory,
-		ITextComponent _title ) {
+		PlayerInventory inv,
+		ITextComponent titleIn ) {
 		
-		super( _container, _playerInventory, _title );
+		super( _container, inv, titleIn );
 	}
 	
 	@SuppressWarnings( "ParameterNameDiffersFromOverriddenParameter" )

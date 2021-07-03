@@ -37,7 +37,8 @@ class PlayerDecorationRenderer {
 		Vec3d currentPos = Minecraft.getInstance().gameRenderer.getActiveRenderInfo().getProjectedView();
 		Vec3d playerPos = player.getEyePosition( partialTicks );
 		GlStateManager.translated( playerPos.x - currentPos.x, playerPos.y - currentPos.y,
-			playerPos.z - currentPos.z );
+			playerPos.z - currentPos.z
+		);
 		GlStateManager.translated( 0.0D, 1 - ( player.isSneaking() ? 0.125D : 0.0D ), 0.0D );
 		
 		renderItemStack();

@@ -36,7 +36,8 @@ public class GiveDBCommand {
 				"color",
 				ColorArgument.color()
 			)
-				.executes( context -> giveItem( context.getSource(),
+				.executes( context -> giveItem(
+					context.getSource(),
 					DyeItemArgument.getItem( context, "dye_item" ),
 					ColorArgument.getColor( context, "color" ),
 					EntityArgument.getPlayers( context, "targets" ),
@@ -62,8 +63,10 @@ public class GiveDBCommand {
 		int count ) {
 		
 		for( ServerPlayerEntity player : targets ) {
-			player.addItemStackToInventory( DyeBlockHelper.setColorToItemStack( new ItemStack( item, count ),
-				color ) );
+			player.addItemStackToInventory( DyeBlockHelper.setColorToItemStack(
+				new ItemStack( item, count ),
+				color
+			) );
 			player.playSound(
 				SoundEvents.ENTITY_ITEM_PICKUP,
 				0.2F,

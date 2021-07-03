@@ -143,7 +143,8 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 		runForBlocks(
 			pos,
 			state.get( BlockStateProperties.HORIZONTAL_FACING ),
-			( x, y, z, blockPos ) -> worldIn.setBlockState( blockPos,
+			( x, y, z, blockPos ) -> worldIn.setBlockState(
+				blockPos,
 				withSize( withSize( withSize( state, X_SIZE, x ), Y_SIZE, y ), Z_SIZE, z ),
 				3
 			)

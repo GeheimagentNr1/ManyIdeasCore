@@ -18,12 +18,12 @@ public abstract class TableSawRecipe extends SingleItemRecipe {
 	protected TableSawRecipe(
 		IRecipeType<? extends TableSawRecipe> recipeType,
 		IRecipeSerializer<? extends TableSawRecipe> recipeSerializer,
-		ResourceLocation id,
-		String group,
+		ResourceLocation _id,
+		String _group,
 		Ingredient _ingredient,
 		ItemStack _result ) {
 		
-		super( recipeType, recipeSerializer, id, group, _ingredient, _result );
+		super( recipeType, recipeSerializer, _id, _group, _ingredient, _result );
 	}
 	
 	@Override

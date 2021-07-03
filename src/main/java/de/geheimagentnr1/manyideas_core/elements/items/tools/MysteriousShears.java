@@ -131,7 +131,8 @@ public class MysteriousShears extends CoreBaseItem {
 				drops.forEach( drop -> {
 					ItemEntity ent = target.entityDropItem( drop, 1.0F );
 					Objects.requireNonNull( ent ).setMotion( ent.getMotion()
-						.add( ( random.nextFloat() - random.nextFloat() ) * 0.1F,
+						.add(
+							( random.nextFloat() - random.nextFloat() ) * 0.1F,
 							random.nextFloat() * 0.05F,
 							( random.nextFloat() - random.nextFloat() ) * 0.1F
 						) );

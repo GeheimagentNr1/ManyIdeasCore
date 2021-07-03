@@ -44,9 +44,9 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 	
 	private boolean hasItemsInInputSlot;
 	
-	public TableSawScreen( TableSawContainer containerIn, PlayerInventory playerInv, ITextComponent titleIn ) {
+	public TableSawScreen( TableSawContainer containerIn, PlayerInventory inv, ITextComponent titleIn ) {
 		
-		super( containerIn, playerInv, titleIn );
+		super( containerIn, inv, titleIn );
 		containerIn.setInventoryUpdateListener( this::onInventoryUpdate );
 	}
 	
