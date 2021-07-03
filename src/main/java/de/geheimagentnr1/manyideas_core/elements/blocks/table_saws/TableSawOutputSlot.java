@@ -22,8 +22,11 @@ class TableSawOutputSlot extends Slot {
 	private final Slot inputInventorySlot;
 	
 	//package-private
-	TableSawOutputSlot( TableSawContainer _tableSawContainer, IWorldPosCallable _worldPosCallableIn,
-		Slot _inputInventorySlot, IInventory inventoryIn ) {
+	TableSawOutputSlot(
+		TableSawContainer _tableSawContainer,
+		IWorldPosCallable _worldPosCallableIn,
+		Slot _inputInventorySlot,
+		IInventory inventoryIn ) {
 		
 		super( inventoryIn, 1, 143, 33 );
 		tableSawContainer = _tableSawContainer;
@@ -52,8 +55,7 @@ class TableSawOutputSlot extends Slot {
 		worldPosCallableIn.consume( ( world, pos ) -> {
 			long l = world.getGameTime();
 			if( tableSawContainer.lastOnTake != l ) {
-				world.playSound( null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT,
-					SoundCategory.BLOCKS, 1.0F, 1.0F );
+				world.playSound( null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.BLOCKS, 1.0F, 1.0F );
 				tableSawContainer.lastOnTake = l;
 			}
 		} );

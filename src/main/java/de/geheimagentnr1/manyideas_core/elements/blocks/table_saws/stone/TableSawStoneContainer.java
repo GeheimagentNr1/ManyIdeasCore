@@ -25,8 +25,7 @@ public class TableSawStoneContainer extends TableSawContainer {
 	}
 	
 	//package-private
-	TableSawStoneContainer( int windowIdIn, PlayerInventory playerInventoryIn,
-		IWorldPosCallable worldPosCallableIn ) {
+	TableSawStoneContainer( int windowIdIn, PlayerInventory playerInventoryIn, IWorldPosCallable worldPosCallableIn ) {
 		
 		super( ModBlocks.TABLE_SAW_STONE_CONTAINER, windowIdIn, playerInventoryIn, worldPosCallableIn );
 	}
@@ -47,7 +46,7 @@ public class TableSawStoneContainer extends TableSawContainer {
 	@Override
 	public List<TableSawRecipe> getAvaiableRecipes( IInventory inventoryIn, World _world ) {
 		
-		return new ArrayList<>(
-			_world.getRecipeManager().getRecipes( RecipeTypes.TABLE_SAWING_STONE, inventoryIn, _world ) );
+		return new ArrayList<>( _world.getRecipeManager()
+			.getRecipes( RecipeTypes.TABLE_SAWING_STONE, inventoryIn, _world ) );
 	}
 }

@@ -1,8 +1,8 @@
 {
-    "variants": {
-        "facing=north": { "model": "manyideas_core:block/table_saws/table_saw_diamond" },
-        "facing=east":  { "model": "manyideas_core:block/table_saws/table_saw_diamond", "y": 90 },
-        "facing=south": { "model": "manyideas_core:block/table_saws/table_saw_diamond", "y": 180 },
-        "facing=west":  { "model": "manyideas_core:block/table_saws/table_saw_diamond", "y": 270 }
-    }
+	"variants": {
+		"facing=north": { "model": "manyideas_core:block/table_saws/table_saw_diamond" },
+		"facing=east":  { "model": "manyideas_core:block/table_saws/table_saw_diamond", "y": 90 },
+		"facing=south": { "model": "manyideas_core:block/table_saws/table_saw_diamond", "y": 180 },
+		"facing=west":  { "model": "manyideas_core:block/table_saws/table_saw_diamond", "y": 270 }
+	}
 }

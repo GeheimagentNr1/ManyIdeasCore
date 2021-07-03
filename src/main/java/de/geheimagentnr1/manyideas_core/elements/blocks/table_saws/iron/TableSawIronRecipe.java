@@ -16,11 +16,9 @@ public class TableSawIronRecipe extends TableSawRecipe {
 	
 	public static final String registry_name = "table_sawing_iron";
 	
-	public TableSawIronRecipe( ResourceLocation id, String group, Ingredient _ingredient,
-		ItemStack _result ) {
+	public TableSawIronRecipe( ResourceLocation id, String group, Ingredient _ingredient, ItemStack _result ) {
 		
-		super( RecipeTypes.TABLE_SAWING_IRON, RecipeSerializers.TABLE_SAWING_IRON, id, group,
-			_ingredient, _result );
+		super( RecipeTypes.TABLE_SAWING_IRON, RecipeSerializers.TABLE_SAWING_IRON, id, group, _ingredient, _result );
 	}
 	
 	@Nonnull

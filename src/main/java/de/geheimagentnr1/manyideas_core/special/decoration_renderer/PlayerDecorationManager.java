@@ -28,8 +28,10 @@ public class PlayerDecorationManager {
 		try {
 			URL url = new URL( "https://raw.githubusercontent.com/GeheimagentNr1/Online_Mod_Data/master/" +
 				"player_decorations.json" );
-			return JSONUtil.GSON.fromJson( new InputStreamReader( url.openStream(), StandardCharsets.UTF_8 ),
-				JsonArray.class );
+			return JSONUtil.GSON.fromJson(
+				new InputStreamReader( url.openStream(), StandardCharsets.UTF_8 ),
+				JsonArray.class
+			);
 		} catch( IOException exception ) {
 			LOGGER.error( "Failed to load Player Decorations", exception );
 			return new JsonArray();
@@ -75,8 +77,8 @@ public class PlayerDecorationManager {
 	
 	public static void renderForPlayer( PlayerEntity player, float partialTicks ) {
 		
-		PlayerDecorationRenderer playerDecorationRenderer = DECORATION_LIST.get(
-			player.getName().getUnformattedComponentText() );
+		PlayerDecorationRenderer playerDecorationRenderer = DECORATION_LIST.get( player.getName()
+			.getUnformattedComponentText() );
 		
 		if( playerDecorationRenderer != null ) {
 			playerDecorationRenderer.renderItemStack( player, partialTicks );

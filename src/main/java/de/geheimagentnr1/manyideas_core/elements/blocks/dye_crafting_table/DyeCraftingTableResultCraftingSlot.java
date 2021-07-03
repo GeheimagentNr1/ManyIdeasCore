@@ -26,8 +26,13 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	
 	//package-private
 	@SuppressWarnings( "SameParameterValue" )
-	DyeCraftingTableResultCraftingSlot( PlayerEntity _player, CraftingInventory _craftingInventory,
-		IInventory inventoryIn, int slotIndex, int xPosition, int yPosition ) {
+	DyeCraftingTableResultCraftingSlot(
+		PlayerEntity _player,
+		CraftingInventory _craftingInventory,
+		IInventory inventoryIn,
+		int slotIndex,
+		int xPosition,
+		int yPosition ) {
 		
 		super( inventoryIn, slotIndex, xPosition, yPosition );
 		player = _player;
@@ -97,8 +102,11 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 		
 		onCrafting( stack );
 		ForgeHooks.setCraftingPlayer( thePlayer );
-		NonNullList<ItemStack> ingredients = thePlayer.world.getRecipeManager().getRecipeNonNull( RecipeTypes.DYED,
-			craftingInventory, thePlayer.world );
+		NonNullList<ItemStack> ingredients = thePlayer.world.getRecipeManager().getRecipeNonNull(
+			RecipeTypes.DYED,
+			craftingInventory,
+			thePlayer.world
+		);
 		ForgeHooks.setCraftingPlayer( null );
 		for( int i = 0; i < ingredients.size(); ++i ) {
 			ItemStack crafting_stack = craftingInventory.getStackInSlot( i );
@@ -112,8 +120,10 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 				if( crafting_stack.isEmpty() ) {
 					craftingInventory.setInventorySlotContents( i, ingredient );
 				} else {
-					if( ItemStack.areItemsEqual( crafting_stack, ingredient ) &&
-						ItemStack.areItemStackTagsEqual( crafting_stack, ingredient ) ) {
+					if( ItemStack.areItemsEqual( crafting_stack, ingredient ) && ItemStack.areItemStackTagsEqual(
+						crafting_stack,
+						ingredient
+					) ) {
 						ingredient.grow( crafting_stack.getCount() );
 						craftingInventory.setInventorySlotContents( i, ingredient );
 					} else {

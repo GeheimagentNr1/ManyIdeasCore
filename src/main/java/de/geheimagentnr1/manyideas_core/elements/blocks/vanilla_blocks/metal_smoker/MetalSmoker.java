@@ -28,7 +28,9 @@ public class MetalSmoker extends AbstractFurnaceBlock implements BlockItemInterf
 	
 	public MetalSmoker() {
 		
-		super( Block.Properties.create( Material.ROCK ).hardnessAndResistance( 3.5F ).lightValue( 13 )
+		super( Block.Properties.create( Material.ROCK )
+			.hardnessAndResistance( 3.5F )
+			.lightValue( 13 )
 			.sound( SoundType.STONE ) );
 		setRegistryName( registry_name );
 	}
@@ -62,7 +64,7 @@ public class MetalSmoker extends AbstractFurnaceBlock implements BlockItemInterf
 	 */
 	@Override
 	public void animateTick( BlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos,
-		@Nonnull Random rand ) {
+	                         @Nonnull Random rand ) {
 		
 		if( stateIn.get( LIT ) ) {
 			double x = pos.getX() + 0.5D;

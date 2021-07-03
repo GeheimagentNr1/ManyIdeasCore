@@ -19,8 +19,7 @@ class DyeBlockItemPropertyGetter implements IItemPropertyGetter {
 	public static final ResourceLocation registry_name = new ResourceLocation( "color" );
 	
 	@Override
-	public float call( @Nonnull ItemStack stack, @Nullable World world,
-		@Nullable LivingEntity livingEntity ) {
+	public float call( @Nonnull ItemStack stack, @Nullable World world, @Nullable LivingEntity livingEntity ) {
 		
 		Color[] colors = Color.values();
 		String color = DyeBlockHelper.getColorName( stack );

@@ -10,7 +10,6 @@ class VoxelShapeHelperTest {
 	
 	
 	//package-private
-	@SuppressWarnings( "JUnitTestMethodWithNoAssertions" )
 	@Test
 	void test() {
 		

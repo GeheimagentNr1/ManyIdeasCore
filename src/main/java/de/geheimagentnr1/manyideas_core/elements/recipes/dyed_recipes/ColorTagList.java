@@ -59,8 +59,10 @@ public class ColorTagList implements ColorList {
 		ArrayList<Color> colors = new ArrayList<>( Arrays.asList( Color.values() ) );
 		stacks.forEach( ( stack, stackColor ) -> {
 			JsonObject item = new JsonObject();
-			item.addProperty( stackColor.getName(),
-				Objects.requireNonNull( stack.getItem().getRegistryName() ).toString() );
+			item.addProperty(
+				stackColor.getName(),
+				Objects.requireNonNull( stack.getItem().getRegistryName() ).toString()
+			);
 			items.add( item );
 			colors.remove( stackColor );
 		} );

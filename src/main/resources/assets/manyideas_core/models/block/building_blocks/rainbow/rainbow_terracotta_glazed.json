@@ -1,7 +1,7 @@
 {
-    "parent": "minecraft:block/template_glazed_terracotta",
-    "textures": {
-        "particle": "manyideas_core:block/building_blocks/rainbow/rainbow_terracotta_glazed",
-        "pattern": "manyideas_core:block/building_blocks/rainbow/rainbow_terracotta_glazed"
-    }
+	"parent":   "minecraft:block/template_glazed_terracotta",
+	"textures": {
+		"particle": "manyideas_core:block/building_blocks/rainbow/rainbow_terracotta_glazed",
+		"pattern":  "manyideas_core:block/building_blocks/rainbow/rainbow_terracotta_glazed"
+	}
 }

@@ -15,10 +15,14 @@ import java.util.Objects;
 public class DyeCraftingTableScreen extends ContainerScreen<DyeCraftingTableContainer> {
 	
 	
-	private static final ResourceLocation CRAFTING_TABLE_GUI_TEXTURES = new ResourceLocation( "minecraft",
-		"textures/gui/container/crafting_table.png" );
+	private static final ResourceLocation CRAFTING_TABLE_GUI_TEXTURES = new ResourceLocation(
+		"minecraft",
+		"textures/gui/container/crafting_table.png"
+	);
 	
-	public DyeCraftingTableScreen( DyeCraftingTableContainer _container, PlayerInventory _playerInventory,
+	public DyeCraftingTableScreen(
+		DyeCraftingTableContainer _container,
+		PlayerInventory _playerInventory,
 		ITextComponent _title ) {
 		
 		super( _container, _playerInventory, _title );

@@ -45,8 +45,15 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 			recipeHeight = 1;
 		}
 		ItemStack result = deserializeResult( JSONUtils.getJsonObject( json, "result" ) );
-		return new DyedRecipe( recipeId, RecipeSerializers.DYED, shaped, ingredients, result, recipeWidth,
-			recipeHeight );
+		return new DyedRecipe(
+			recipeId,
+			RecipeSerializers.DYED,
+			shaped,
+			ingredients,
+			result,
+			recipeWidth,
+			recipeHeight
+		);
 	}
 	
 	
@@ -68,7 +75,9 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 		return pattern;
 	}
 	
-	private void deserializeShapedIngredients( NonNullList<Ingredient> ingredients, String[][] pattern,
+	private void deserializeShapedIngredients(
+		NonNullList<Ingredient> ingredients,
+		String[][] pattern,
 		JsonObject keysJson ) {
 		
 		Map<String, Ingredient> keyMapping = deserializeKeys( keysJson );
@@ -78,8 +87,8 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 			for( int j = 0; j < 3; j++ ) {
 				Ingredient ingredient = keyMapping.get( pattern[i][j] );
 				if( ingredient == null ) {
-					throw new JsonSyntaxException( "Pattern references symbol '" + pattern[i][j] +
-						"' but it's not defined in the key" );
+					throw new JsonSyntaxException(
+						"Pattern references symbol '" + pattern[i][j] + "' but it's not defined in the key" );
 				}
 				keys.remove( pattern[i][j] );
 				ingredients.add( ingredient );
@@ -96,8 +105,8 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 		
 		for( Map.Entry<String, JsonElement> entry : keys.entrySet() ) {
 			if( entry.getKey().length() != 1 ) {
-				throw new JsonSyntaxException( "Invalid key entry: '" + entry.getKey() +
-					"' is an invalid symbol (must be 1 character only)." );
+				throw new JsonSyntaxException(
+					"Invalid key entry: '" + entry.getKey() + "' is an invalid symbol (must be 1 character only)." );
 			}
 			if( " ".equals( entry.getKey() ) ) {
 				throw new JsonSyntaxException( "Invalid key entry: ' ' is a reserved symbol." );
@@ -108,8 +117,7 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 		return map;
 	}
 	
-	private void deserializeNonShapedIngredients( NonNullList<Ingredient> ingredients,
-		JsonArray ingredientsJSON ) {
+	private void deserializeNonShapedIngredients( NonNullList<Ingredient> ingredients, JsonArray ingredientsJSON ) {
 		
 		for( int i = 0; i < ingredientsJSON.size(); i++ ) {
 			ingredients.add( deserializeIngredient( ingredientsJSON.get( i ).getAsJsonObject() ) );
@@ -132,8 +140,8 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 	private Ingredient deserializeColorStackList( JsonObject ingredient ) {
 		
 		ResourceLocation location = new ResourceLocation( JSONUtils.getString( ingredient, "color_item" ) );
-		Item item = Registry.ITEM.getValue( location )
-			.orElseThrow( () -> new JsonSyntaxException( "Unknown item '" + location + "'" ) );
+		Item item = Registry.ITEM.getValue( location ).orElseThrow( () -> new JsonSyntaxException(
+			"Unknown item '" + location + "'" ) );
 		if( !( item instanceof DyeBlockItem ) ) {
 			throw new JsonSyntaxException( location + " is not a DyeBlockItem" );
 		}
@@ -144,15 +152,15 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 	private Ingredient deserializeColorTagList( JsonObject ingredient ) {
 		
 		JsonObject color_tag = JSONUtils.getJsonObject( ingredient, "color_tag" );
-		TreeMap<ItemStack, Color> stacks = new TreeMap<>(
-			Comparator.comparing( o -> Objects.requireNonNull( o.getItem().getRegistryName() ) ) );
+		TreeMap<ItemStack, Color> stacks =
+			new TreeMap<>( Comparator.comparing( o -> Objects.requireNonNull( o.getItem()
+			.getRegistryName() ) ) );
 		for( Color color : Color.values() ) {
 			String registry_key = JSONUtils.getString( color_tag, color.getName(), "" );
 			if( !registry_key.isEmpty() ) {
 				ResourceLocation location = new ResourceLocation( registry_key );
-				stacks.put( new ItemStack( Registry.ITEM.getValue( location ).orElseThrow( () ->
-						new JsonSyntaxException( "Unknown item '" + location + "'" ) ) ),
-					color );
+				stacks.put( new ItemStack( Registry.ITEM.getValue( location )
+					.orElseThrow( () -> new JsonSyntaxException( "Unknown item '" + location + "'" ) ) ), color );
 			}
 		}
 		return new ColorIngredient( new ColorTagList( stacks ) );
@@ -162,8 +170,9 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 	private ItemStack deserializeResult( JsonObject result ) {
 		
 		String registry_key = JSONUtils.getString( result, "item" );
-		Item item = Registry.ITEM.getValue( new ResourceLocation( registry_key ) )
-			.orElseThrow( () -> new JsonSyntaxException( "Unknown item '" + registry_key + "'" ) );
+		Item item =
+			Registry.ITEM.getValue( new ResourceLocation( registry_key ) ).orElseThrow( () -> new JsonSyntaxException(
+				"Unknown item '" + registry_key + "'" ) );
 		if( !( item instanceof DyeBlockItem ) ) {
 			throw new JsonParseException( "Unallowed Recipe Result" );
 		}
@@ -182,8 +191,15 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 			ingredients.add( Ingredient.read( buffer ) );
 		}
 		ItemStack result = buffer.readItemStack();
-		return new DyedRecipe( recipeId, RecipeSerializers.DYED, shaped, ingredients, result, recipeWidth,
-			recipeHeight );
+		return new DyedRecipe(
+			recipeId,
+			RecipeSerializers.DYED,
+			shaped,
+			ingredients,
+			result,
+			recipeWidth,
+			recipeHeight
+		);
 	}
 	
 	@Override

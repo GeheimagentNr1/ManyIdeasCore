@@ -22,8 +22,11 @@ import java.util.function.Function;
 class ColorParser {
 	
 	
-	private static final DynamicCommandExceptionType COLOR_INVALID = new DynamicCommandExceptionType( function ->
-		new TranslationTextComponent( "argument.color.invalid", function ) );
+	private static final DynamicCommandExceptionType COLOR_INVALID =
+		new DynamicCommandExceptionType( function -> new TranslationTextComponent(
+			"argument.color.invalid",
+			function
+		) );
 	
 	private static final Set<String> COLORS = getItemKeySet();
 	

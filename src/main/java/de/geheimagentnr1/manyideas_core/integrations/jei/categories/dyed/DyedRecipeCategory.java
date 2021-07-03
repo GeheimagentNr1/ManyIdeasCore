@@ -18,8 +18,10 @@ import javax.annotation.Nonnull;
 public class DyedRecipeCategory extends JeiRecipeCategory<JeiDyedRecipe> {
 	
 	
-	public static final ResourceLocation registry_key = new ResourceLocation( ManyIdeasCore.MODID,
-		DyedRecipe.registry_name );
+	public static final ResourceLocation registry_key = new ResourceLocation(
+		ManyIdeasCore.MODID,
+		DyedRecipe.registry_name
+	);
 	
 	private static final ResourceLocation texture = new ResourceLocation( "jei", "textures/gui/gui_vanilla.png" );
 	
@@ -60,7 +62,9 @@ public class DyedRecipeCategory extends JeiRecipeCategory<JeiDyedRecipe> {
 	}
 	
 	@Override
-	public void setRecipe( IRecipeLayout iRecipeLayout, @Nonnull JeiDyedRecipe jeiDyedRecipe,
+	public void setRecipe(
+		IRecipeLayout iRecipeLayout,
+		@Nonnull JeiDyedRecipe jeiDyedRecipe,
 		@Nonnull IIngredients iIngredients ) {
 		
 		IGuiItemStackGroup itemStacks = iRecipeLayout.getItemStacks();

@@ -9,7 +9,9 @@ import net.minecraftforge.event.RegistryEvent;
 public class BlockRegistrationHelper {
 	
 	
-	public static void registerBlockItems( RegistryEvent.Register<Item> itemRegistryEvent, Block[] blocks,
+	public static void registerBlockItems(
+		RegistryEvent.Register<Item> itemRegistryEvent,
+		Block[] blocks,
 		Item.Properties properties ) {
 		
 		for( Block block : blocks ) {

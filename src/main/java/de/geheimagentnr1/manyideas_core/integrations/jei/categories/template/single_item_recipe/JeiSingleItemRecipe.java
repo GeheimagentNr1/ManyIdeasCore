@@ -29,13 +29,13 @@ public abstract class JeiSingleItemRecipe<T extends SingleItemRecipe> {
 	
 	@SuppressWarnings( "unchecked" )
 	protected static <R extends SingleItemRecipe, J extends JeiSingleItemRecipe<R>> List<J> getRecipes(
-		IRecipeType<R> recipeType, Function<R, J> jeiRecipeBuilder ) {
+		IRecipeType<R> recipeType,
+		Function<R, J> jeiRecipeBuilder ) {
 		
 		ClientWorld world = Minecraft.getInstance().world;
 		ArrayList<J> jeiRecipes = new ArrayList<>();
-		world.getRecipeManager().getRecipes().stream().filter(
-			iRecipe -> iRecipe.getType() == recipeType ).forEach( iRecipe ->
-			jeiRecipes.add( jeiRecipeBuilder.apply( (R)iRecipe ) ) );
+		world.getRecipeManager().getRecipes().stream().filter( iRecipe -> iRecipe.getType() == recipeType ).forEach(
+			iRecipe -> jeiRecipes.add( jeiRecipeBuilder.apply( (R)iRecipe ) ) );
 		return jeiRecipes;
 	}
 	

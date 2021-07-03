@@ -15,9 +15,13 @@ import javax.annotation.Nonnull;
 public abstract class TableSawRecipe extends SingleItemRecipe {
 	
 	
-	protected TableSawRecipe( IRecipeType<? extends TableSawRecipe> recipeType,
-		IRecipeSerializer<? extends TableSawRecipe> recipeSerializer, ResourceLocation id, String group,
-		Ingredient _ingredient, ItemStack _result ) {
+	protected TableSawRecipe(
+		IRecipeType<? extends TableSawRecipe> recipeType,
+		IRecipeSerializer<? extends TableSawRecipe> recipeSerializer,
+		ResourceLocation id,
+		String group,
+		Ingredient _ingredient,
+		ItemStack _result ) {
 		
 		super( recipeType, recipeSerializer, id, group, _ingredient, _result );
 	}

@@ -17,8 +17,10 @@ public class RainbowStainedGlassBlock extends StainedGlassBlock implements Block
 	
 	public RainbowStainedGlassBlock() {
 		
-		super( DyeColor.WHITE, Block.Properties.create( Material.GLASS ).hardnessAndResistance( 0.3F )
-			.sound( SoundType.GLASS ) );
+		super(
+			DyeColor.WHITE,
+			Block.Properties.create( Material.GLASS ).hardnessAndResistance( 0.3F ).sound( SoundType.GLASS )
+		);
 		setRegistryName( registry_name );
 	}
 	

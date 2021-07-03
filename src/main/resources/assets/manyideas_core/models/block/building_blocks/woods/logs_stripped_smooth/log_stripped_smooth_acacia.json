@@ -1,7 +1,7 @@
 {
-    "parent": "minecraft:block/cube_column",
-    "textures": {
-        "end": "minecraft:block/stripped_acacia_log_top",
-        "side": "manyideas_core:block/building_blocks/woods/log_stripped_smooth/log_stripped_smooth_acacia"
-    }
+	"parent":   "minecraft:block/cube_column",
+	"textures": {
+		"end":  "minecraft:block/stripped_acacia_log_top",
+		"side": "manyideas_core:block/building_blocks/woods/log_stripped_smooth/log_stripped_smooth_acacia"
+	}
 }

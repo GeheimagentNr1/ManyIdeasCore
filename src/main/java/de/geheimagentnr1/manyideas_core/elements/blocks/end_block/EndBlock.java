@@ -23,7 +23,8 @@ public class EndBlock extends Block implements BlockItemInterface, IEndBlock {
 	
 	public EndBlock() {
 		
-		super( Block.Properties.create( Material.ROCK ).hardnessAndResistance( 50.0F, 1200.0F )
+		super( Block.Properties.create( Material.ROCK )
+			.hardnessAndResistance( 50.0F, 1200.0F )
 			.sound( SoundType.GLASS ) );
 		setRegistryName( registry_name );
 	}

@@ -17,8 +17,10 @@ public class RainbowCarpet extends CarpetBlock implements BlockItemInterface {
 	
 	public RainbowCarpet() {
 		
-		super( DyeColor.WHITE, Block.Properties.create( Material.CARPET ).hardnessAndResistance( 0.1F )
-			.sound( SoundType.CLOTH ) );
+		super(
+			DyeColor.WHITE,
+			Block.Properties.create( Material.CARPET ).hardnessAndResistance( 0.1F ).sound( SoundType.CLOTH )
+		);
 		setRegistryName( registry_name );
 	}
 	

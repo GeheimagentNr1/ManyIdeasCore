@@ -32,11 +32,13 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	
 	public static final String registry_name = "dye_crafting_table";
 	
-	private static final VoxelShape SHAPE = VoxelShapes.or( Block.makeCuboidShape( 0.0, 14.0, 0.0, 16.0, 15.75, 16.0 ),
+	private static final VoxelShape SHAPE = VoxelShapes.or(
+		Block.makeCuboidShape( 0.0, 14.0, 0.0, 16.0, 15.75, 16.0 ),
 		Block.makeCuboidShape( 0.0, 0.0, 0.0, 2.0, 14.0, 2.0 ),
 		Block.makeCuboidShape( 14.0, 0.0, 0.0, 16.0, 14.0, 2.0 ),
 		Block.makeCuboidShape( 14.0, 0.0, 14.0, 16.0, 14.0, 16.0 ),
-		Block.makeCuboidShape( 0.0, 0.0, 14.0, 2.0, 14.0, 16.0 ) );
+		Block.makeCuboidShape( 0.0, 0.0, 14.0, 2.0, 14.0, 16.0 )
+	);
 	
 	public DyeCraftingTable() {
 		
@@ -47,7 +49,10 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+	public VoxelShape getShape(
+		@Nonnull BlockState state,
+		@Nonnull IBlockReader worldIn,
+		@Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
 		return SHAPE;
@@ -63,8 +68,13 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public boolean onBlockActivated( BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
-		PlayerEntity player, @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit ) {
+	public boolean onBlockActivated(
+		BlockState state,
+		@Nonnull World worldIn,
+		@Nonnull BlockPos pos,
+		PlayerEntity player,
+		@Nonnull Hand handIn,
+		@Nonnull BlockRayTraceResult hit ) {
 		
 		player.openContainer( state.getContainer( worldIn, pos ) );
 		return true;
@@ -72,12 +82,16 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public INamedContainerProvider getContainer( @Nonnull BlockState state, @Nonnull World worldIn,
+	public INamedContainerProvider getContainer(
+		@Nonnull BlockState state,
+		@Nonnull World worldIn,
 		@Nonnull BlockPos pos ) {
 		
-		return new SimpleNamedContainerProvider( ( windowID, playerInventory, playerEntity ) ->
-			new DyeCraftingTableContainer( windowID, playerInventory, IWorldPosCallable.of( worldIn, pos ) ),
-			getNameTextComponent() );
+		return new SimpleNamedContainerProvider( ( windowID, playerInventory, playerEntity ) -> new DyeCraftingTableContainer(
+			windowID,
+			playerInventory,
+			IWorldPosCallable.of( worldIn, pos )
+		), getNameTextComponent() );
 	}
 	
 	@Override

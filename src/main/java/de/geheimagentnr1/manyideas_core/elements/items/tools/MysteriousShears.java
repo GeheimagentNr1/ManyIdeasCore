@@ -30,8 +30,14 @@ public class MysteriousShears extends CoreBaseItem {
 	
 	public static final String registry_name = "mysterious_shears";
 	
-	private static final ArrayList<Block> destroys_blocks = new ArrayList<>( Arrays.asList( Blocks.COBWEB,
-		Blocks.GRASS, Blocks.FERN, Blocks.DEAD_BUSH, Blocks.VINE, Blocks.TRIPWIRE ) );
+	private static final ArrayList<Block> destroys_blocks = new ArrayList<>( Arrays.asList(
+		Blocks.COBWEB,
+		Blocks.GRASS,
+		Blocks.FERN,
+		Blocks.DEAD_BUSH,
+		Blocks.VINE,
+		Blocks.TRIPWIRE
+	) );
 	
 	public MysteriousShears() {
 		
@@ -48,8 +54,12 @@ public class MysteriousShears extends CoreBaseItem {
 	 * Called when a Block is destroyed using this Item. Return true to trigger the "Use Item" statistic.
 	 */
 	@Override
-	public boolean onBlockDestroyed( @Nonnull ItemStack stack, World worldIn, @Nonnull BlockState state,
-		@Nonnull BlockPos pos, @Nonnull LivingEntity entityLiving ) {
+	public boolean onBlockDestroyed(
+		@Nonnull ItemStack stack,
+		World worldIn,
+		@Nonnull BlockState state,
+		@Nonnull BlockPos pos,
+		@Nonnull LivingEntity entityLiving ) {
 		
 		if( !worldIn.isRemote ) {
 			stack.damageItem( 1, entityLiving, entity -> entity.sendBreakAnimation( EquipmentSlotType.MAINHAND ) );
@@ -87,8 +97,11 @@ public class MysteriousShears extends CoreBaseItem {
 	 */
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public boolean itemInteractionForEntity( @Nonnull ItemStack stack, @Nonnull PlayerEntity playerIn,
-		LivingEntity target, @Nonnull Hand hand ) {
+	public boolean itemInteractionForEntity(
+		@Nonnull ItemStack stack,
+		@Nonnull PlayerEntity playerIn,
+		LivingEntity target,
+		@Nonnull Hand hand ) {
 		
 		if( target.world.isRemote ) {
 			return false;
@@ -101,19 +114,27 @@ public class MysteriousShears extends CoreBaseItem {
 				List<ItemStack> drops;
 				if( shear_target instanceof SheepEntity && target.getCustomName() != null &&
 					target.getCustomName().getFormattedText().equals( "jeb_" ) ) {
-					drops = Collections.singletonList( new ItemStack( ModBlocks.RAINBOW_WOOL,
-						random.nextInt( 3 ) + 1 ) );
+					drops = Collections.singletonList( new ItemStack(
+						ModBlocks.RAINBOW_WOOL,
+						random.nextInt( 3 ) + 1
+					) );
 					( (SheepEntity)shear_target ).setSheared( true );
 					target.playSound( SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F );
 				} else {
-					drops = shear_target.onSheared( stack, target.world, pos,
-						EnchantmentHelper.getEnchantmentLevel( Enchantments.FORTUNE, stack ) );
+					drops = shear_target.onSheared(
+						stack,
+						target.world,
+						pos,
+						EnchantmentHelper.getEnchantmentLevel( Enchantments.FORTUNE, stack )
+					);
 				}
 				drops.forEach( drop -> {
 					ItemEntity ent = target.entityDropItem( drop, 1.0F );
-					Objects.requireNonNull( ent ).setMotion( ent.getMotion().add(
-						( random.nextFloat() - random.nextFloat() ) * 0.1F, random.nextFloat() * 0.05F,
-						( random.nextFloat() - random.nextFloat() ) * 0.1F ) );
+					Objects.requireNonNull( ent ).setMotion( ent.getMotion()
+						.add( ( random.nextFloat() - random.nextFloat() ) * 0.1F,
+							random.nextFloat() * 0.05F,
+							( random.nextFloat() - random.nextFloat() ) * 0.1F
+						) );
 				} );
 				stack.damageItem( 1, target, e -> e.sendBreakAnimation( hand ) );
 			}

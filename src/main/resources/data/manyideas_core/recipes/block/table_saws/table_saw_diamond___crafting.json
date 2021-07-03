@@ -1,11 +1,11 @@
 {
-	"type": "minecraft:crafting_shaped",
+	"type":    "minecraft:crafting_shaped",
 	"pattern": [
 		" D ",
 		"PPP",
 		"P P"
 	],
-	"key": {
+	"key":     {
 		"D": {
 			"item": "manyideas_core:saw_diamond"
 		},
@@ -13,7 +13,7 @@
 			"tag": "minecraft:planks"
 		}
 	},
-	"result": {
+	"result":  {
 		"item": "manyideas_core:table_saw_diamond"
 	}
 }

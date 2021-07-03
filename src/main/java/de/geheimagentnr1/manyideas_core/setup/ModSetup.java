@@ -21,7 +21,9 @@ public class ModSetup {
 		ModArgumentTypes.registerArgumentTypes();
 		RecipeTypes.init();
 		RecipeSerializers.init();
-		CraftingHelper.register( new ResourceLocation( ManyIdeasCore.MODID + ":" + "color" ),
-			ColorIngredientSerializer.INSTANCE );
+		CraftingHelper.register(
+			new ResourceLocation( ManyIdeasCore.MODID + ":" + "color" ),
+			ColorIngredientSerializer.INSTANCE
+		);
 	}
 }

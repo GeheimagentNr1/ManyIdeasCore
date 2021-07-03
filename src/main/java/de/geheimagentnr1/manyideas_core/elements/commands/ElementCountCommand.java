@@ -32,12 +32,16 @@ public class ElementCountCommand {
 			
 			for( String name : names ) {
 				command.getSource().sendFeedback( new StringTextComponent( name ), false );
-				command.getSource().sendFeedback( new StringTextComponent( "block count: " +
-					block_counts.get( name ) ), false );
-				command.getSource().sendFeedback( new StringTextComponent( "block item count: " +
-					block_item_counts.get( name ) ), false );
-				command.getSource().sendFeedback( new StringTextComponent( "item count: " +
-					item_counts.get( name ) ), false );
+				command.getSource().sendFeedback(
+					new StringTextComponent( "block count: " + block_counts.get( name ) ),
+					false
+				);
+				command.getSource().sendFeedback( new StringTextComponent(
+					"block item count: " + block_item_counts.get( name ) ), false );
+				command.getSource().sendFeedback(
+					new StringTextComponent( "item count: " + item_counts.get( name ) ),
+					false
+				);
 			}
 			return 1;
 		} );
@@ -45,7 +49,9 @@ public class ElementCountCommand {
 	}
 	
 	@SuppressWarnings( "deprecation" )
-	private static void countItems( TreeSet<String> names, TreeMap<String, Integer> item_counts,
+	private static void countItems(
+		TreeSet<String> names,
+		TreeMap<String, Integer> item_counts,
 		TreeMap<String, Integer> block_item_counts ) {
 		
 		for( Item item : Registry.ITEM ) {
@@ -69,7 +75,9 @@ public class ElementCountCommand {
 	}
 	
 	@SuppressWarnings( "rawtypes" )
-	private static void addElementToTreeMap( ForgeRegistryEntry element, TreeSet<String> names,
+	private static void addElementToTreeMap(
+		ForgeRegistryEntry element,
+		TreeSet<String> names,
 		TreeMap<String, Integer> counts ) {
 		
 		ResourceLocation resourceLocation = element.getRegistryName();

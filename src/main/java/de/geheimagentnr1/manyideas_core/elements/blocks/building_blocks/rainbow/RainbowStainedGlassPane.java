@@ -17,8 +17,10 @@ public class RainbowStainedGlassPane extends StainedGlassPaneBlock implements Bl
 	
 	public RainbowStainedGlassPane() {
 		
-		super( DyeColor.WHITE, Block.Properties.create( Material.GLASS ).hardnessAndResistance( 0.3F )
-			.sound( SoundType.GLASS ) );
+		super(
+			DyeColor.WHITE,
+			Block.Properties.create( Material.GLASS ).hardnessAndResistance( 0.3F ).sound( SoundType.GLASS )
+		);
 		setRegistryName( registry_name );
 	}
 	

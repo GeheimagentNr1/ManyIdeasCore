@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "": { "model": "manyideas_core:block/building_blocks/rainbow/rainbow_concrete" }
-    }
+	"variants": {
+		"": { "model": "manyideas_core:block/building_blocks/rainbow/rainbow_concrete" }
+	}
 }

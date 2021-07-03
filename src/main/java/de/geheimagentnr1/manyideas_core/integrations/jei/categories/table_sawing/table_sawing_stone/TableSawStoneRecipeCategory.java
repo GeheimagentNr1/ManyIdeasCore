@@ -13,8 +13,10 @@ import javax.annotation.Nonnull;
 public class TableSawStoneRecipeCategory extends JeiSingleItemRecipeCategory<JeiTableSawStoneRecipe> {
 	
 	
-	public static final ResourceLocation registry_key = new ResourceLocation( ManyIdeasCore.MODID,
-		TableSawStoneRecipe.registry_name );
+	public static final ResourceLocation registry_key = new ResourceLocation(
+		ManyIdeasCore.MODID,
+		TableSawStoneRecipe.registry_name
+	);
 	
 	public TableSawStoneRecipeCategory( IGuiHelper guiHelper ) {
 		

@@ -25,8 +25,7 @@ public class TableSawIronContainer extends TableSawContainer {
 	}
 	
 	//package-private
-	TableSawIronContainer( int windowIdIn, PlayerInventory playerInventoryIn,
-		IWorldPosCallable worldPosCallableIn ) {
+	TableSawIronContainer( int windowIdIn, PlayerInventory playerInventoryIn, IWorldPosCallable worldPosCallableIn ) {
 		
 		super( ModBlocks.TABLE_SAW_IRON_CONTAINER, windowIdIn, playerInventoryIn, worldPosCallableIn );
 	}

@@ -13,8 +13,10 @@ import javax.annotation.Nonnull;
 public class TableSawIronRecipeCategory extends JeiSingleItemRecipeCategory<JeiTableSawIronRecipe> {
 	
 	
-	public static final ResourceLocation registry_key = new ResourceLocation( ManyIdeasCore.MODID,
-		TableSawIronRecipe.registry_name );
+	public static final ResourceLocation registry_key = new ResourceLocation(
+		ManyIdeasCore.MODID,
+		TableSawIronRecipe.registry_name
+	);
 	
 	public TableSawIronRecipeCategory( IGuiHelper guiHelper ) {
 		

@@ -25,8 +25,10 @@ public class DebugBlockCullface extends Block implements BlockItemInterface {
 	
 	private static final String registry_name = "debug_block_cullface";
 	
-	private static final VoxelShapeMemory SHAPES = VoxelShapeMemory.createVoxelShapes( Direction.NORTH,
-		VoxelShapeVector.create( 0, 0, 0, 16, 16, 0.1 ) );
+	private static final VoxelShapeMemory SHAPES = VoxelShapeMemory.createVoxelShapes(
+		Direction.NORTH,
+		VoxelShapeVector.create( 0, 0, 0, 16, 16, 0.1 )
+	);
 	
 	public DebugBlockCullface() {
 		
@@ -37,7 +39,10 @@ public class DebugBlockCullface extends Block implements BlockItemInterface {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getShape( BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+	public VoxelShape getShape(
+		BlockState state,
+		@Nonnull IBlockReader worldIn,
+		@Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
 		return SHAPES.getShapeFromFacing( state.get( BlockStateProperties.FACING ) );

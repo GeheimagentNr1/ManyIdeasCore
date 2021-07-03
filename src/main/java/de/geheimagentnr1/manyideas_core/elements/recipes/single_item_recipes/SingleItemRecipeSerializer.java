@@ -13,8 +13,8 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 import javax.annotation.Nonnull;
 
 
-public class SingleItemRecipeSerializer<T extends SingleItemRecipe>
-	extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<T> {
+public class SingleItemRecipeSerializer<T extends SingleItemRecipe> extends ForgeRegistryEntry<IRecipeSerializer<?>>
+	implements IRecipeSerializer<T> {
 	
 	
 	private final ISingleItemRecipeFactory<T> factory;
@@ -39,8 +39,10 @@ public class SingleItemRecipeSerializer<T extends SingleItemRecipe>
 		
 		String resultName = JSONUtils.getString( json, "result" );
 		int resultCount = JSONUtils.hasField( json, "count" ) ? JSONUtils.getInt( json, "count" ) : 1;
-		ItemStack result = new ItemStack( Registry.ITEM.getOrDefault( new ResourceLocation( resultName ) ),
-			resultCount );
+		ItemStack result = new ItemStack(
+			Registry.ITEM.getOrDefault( new ResourceLocation( resultName ) ),
+			resultCount
+		);
 		return factory.create( recipeId, group, ingredient, result );
 	}
 	

@@ -16,8 +16,15 @@ public class FlowerStraightAllium extends Flower {
 	
 	public FlowerStraightAllium() {
 		
-		super( Effects.FIRE_RESISTANCE, 4, Block.Properties.create( Material.PLANTS ).doesNotBlockMovement()
-			.hardnessAndResistance( 0.0F ).sound( SoundType.PLANT ), registry_name );
+		super(
+			Effects.FIRE_RESISTANCE,
+			4,
+			Block.Properties.create( Material.PLANTS )
+				.doesNotBlockMovement()
+				.hardnessAndResistance( 0.0F )
+				.sound( SoundType.PLANT ),
+			registry_name
+		);
 	}
 	
 	@Override

@@ -43,8 +43,10 @@ public class JeiIntegration implements IModPlugin {
 	@Override
 	public void registerItemSubtypes( ISubtypeRegistration registration ) {
 		
-		registration.registerSubtypeInterpreter( ModBlocks.WOOD_COLORED.asItem(),
-			new DyeBlockItemSubtypeInterpreter() );
+		registration.registerSubtypeInterpreter(
+			ModBlocks.WOOD_COLORED.asItem(),
+			new DyeBlockItemSubtypeInterpreter()
+		);
 	}
 	
 	@Override
@@ -74,39 +76,95 @@ public class JeiIntegration implements IModPlugin {
 	@Override
 	public void registerRecipeTransferHandlers( IRecipeTransferRegistration registration ) {
 		
-		registration.addRecipeTransferHandler( DyeCraftingTableContainer.class, DyedRecipeCategory.registry_key, 0, 9,
-			10, 36 );
-		registration.addRecipeTransferHandler( TableSawDiamondContainer.class,
-			TableSawDiamondRecipeCategory.registry_key, 0, 1, 2, 36 );
-		registration.addRecipeTransferHandler( TableSawDiamondContainer.class, TableSawIronRecipeCategory.registry_key,
-			0, 1, 2, 36 );
-		registration.addRecipeTransferHandler( TableSawDiamondContainer.class,
-			TableSawStoneRecipeCategory.registry_key, 0, 1, 2, 36 );
-		registration.addRecipeTransferHandler( TableSawIronContainer.class, TableSawIronRecipeCategory.registry_key, 0,
-			1, 2, 36 );
-		registration.addRecipeTransferHandler( TableSawIronContainer.class, TableSawStoneRecipeCategory.registry_key,
-			0, 1, 2, 36 );
-		registration.addRecipeTransferHandler( TableSawStoneContainer.class, TableSawStoneRecipeCategory.registry_key,
-			0, 1, 2, 36 );
+		registration.addRecipeTransferHandler(
+			DyeCraftingTableContainer.class,
+			DyedRecipeCategory.registry_key,
+			0,
+			9,
+			10,
+			36
+		);
+		registration.addRecipeTransferHandler(
+			TableSawDiamondContainer.class,
+			TableSawDiamondRecipeCategory.registry_key,
+			0,
+			1,
+			2,
+			36
+		);
+		registration.addRecipeTransferHandler(
+			TableSawDiamondContainer.class,
+			TableSawIronRecipeCategory.registry_key,
+			0,
+			1,
+			2,
+			36
+		);
+		registration.addRecipeTransferHandler(
+			TableSawDiamondContainer.class,
+			TableSawStoneRecipeCategory.registry_key,
+			0,
+			1,
+			2,
+			36
+		);
+		registration.addRecipeTransferHandler(
+			TableSawIronContainer.class,
+			TableSawIronRecipeCategory.registry_key,
+			0,
+			1,
+			2,
+			36
+		);
+		registration.addRecipeTransferHandler(
+			TableSawIronContainer.class,
+			TableSawStoneRecipeCategory.registry_key,
+			0,
+			1,
+			2,
+			36
+		);
+		registration.addRecipeTransferHandler(
+			TableSawStoneContainer.class,
+			TableSawStoneRecipeCategory.registry_key,
+			0,
+			1,
+			2,
+			36
+		);
 	}
 	
 	@Override
 	public void registerRecipeCatalysts( IRecipeCatalystRegistration registration ) {
 		
-		registration.addRecipeCatalyst( new ItemStack( ModBlocks.DYE_CRAFTING_TABLE ),
-			DyedRecipeCategory.registry_key );
+		registration.addRecipeCatalyst(
+			new ItemStack( ModBlocks.DYE_CRAFTING_TABLE ),
+			DyedRecipeCategory.registry_key
+		);
 		registration.addRecipeCatalyst( new ItemStack( ModBlocks.MORTAL ), MortalingRecipeCategory.registry_key );
-		registration.addRecipeCatalyst( new ItemStack( ModBlocks.TABLE_SAW_DIAMOND ),
-			TableSawDiamondRecipeCategory.registry_key );
-		registration.addRecipeCatalyst( new ItemStack( ModBlocks.TABLE_SAW_DIAMOND ),
-			TableSawIronRecipeCategory.registry_key );
-		registration.addRecipeCatalyst( new ItemStack( ModBlocks.TABLE_SAW_DIAMOND ),
-			TableSawStoneRecipeCategory.registry_key );
-		registration.addRecipeCatalyst( new ItemStack( ModBlocks.TABLE_SAW_IRON ),
-			TableSawIronRecipeCategory.registry_key );
-		registration.addRecipeCatalyst( new ItemStack( ModBlocks.TABLE_SAW_IRON ),
-			TableSawStoneRecipeCategory.registry_key );
-		registration.addRecipeCatalyst( new ItemStack( ModBlocks.TABLE_SAW_STONE ),
-			TableSawStoneRecipeCategory.registry_key );
+		registration.addRecipeCatalyst(
+			new ItemStack( ModBlocks.TABLE_SAW_DIAMOND ),
+			TableSawDiamondRecipeCategory.registry_key
+		);
+		registration.addRecipeCatalyst(
+			new ItemStack( ModBlocks.TABLE_SAW_DIAMOND ),
+			TableSawIronRecipeCategory.registry_key
+		);
+		registration.addRecipeCatalyst(
+			new ItemStack( ModBlocks.TABLE_SAW_DIAMOND ),
+			TableSawStoneRecipeCategory.registry_key
+		);
+		registration.addRecipeCatalyst(
+			new ItemStack( ModBlocks.TABLE_SAW_IRON ),
+			TableSawIronRecipeCategory.registry_key
+		);
+		registration.addRecipeCatalyst(
+			new ItemStack( ModBlocks.TABLE_SAW_IRON ),
+			TableSawStoneRecipeCategory.registry_key
+		);
+		registration.addRecipeCatalyst(
+			new ItemStack( ModBlocks.TABLE_SAW_STONE ),
+			TableSawStoneRecipeCategory.registry_key
+		);
 	}
 }

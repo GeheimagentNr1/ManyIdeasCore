@@ -12,9 +12,15 @@ public class ModArgumentTypes {
 	
 	public static void registerArgumentTypes() {
 		
-		ArgumentTypes.register( ManyIdeasCore.MODID + ":" + ColorArgument.registry_name,
-			ColorArgument.class, new ArgumentSerializer<>( ColorArgument::color ) );
-		ArgumentTypes.register( ManyIdeasCore.MODID + ":" + DyeItemArgument.registry_name,
-			DyeItemArgument.class, new ArgumentSerializer<>( DyeItemArgument::dyeItem ) );
+		ArgumentTypes.register(
+			ManyIdeasCore.MODID + ":" + ColorArgument.registry_name,
+			ColorArgument.class,
+			new ArgumentSerializer<>( ColorArgument::color )
+		);
+		ArgumentTypes.register(
+			ManyIdeasCore.MODID + ":" + DyeItemArgument.registry_name,
+			DyeItemArgument.class,
+			new ArgumentSerializer<>( DyeItemArgument::dyeItem )
+		);
 	}
 }

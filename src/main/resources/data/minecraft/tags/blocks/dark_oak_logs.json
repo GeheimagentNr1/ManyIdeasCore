@@ -1,7 +1,7 @@
 {
-  "replace": false,
-  "values": [
-    "manyideas_core:log_stripped_smooth_dark_oak",
-    "manyideas_core:wood_stripped_smooth_dark_oak"
-  ]
+	"replace": false,
+	"values":  [
+		"manyideas_core:log_stripped_smooth_dark_oak",
+		"manyideas_core:wood_stripped_smooth_dark_oak"
+	]
 }

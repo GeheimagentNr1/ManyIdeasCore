@@ -16,8 +16,15 @@ public class FlowerStraightOrchidBlue extends Flower {
 	
 	public FlowerStraightOrchidBlue() {
 		
-		super( Effects.SATURATION, 7, Block.Properties.create( Material.PLANTS ).doesNotBlockMovement()
-			.hardnessAndResistance( 0.0F ).sound( SoundType.PLANT ), registry_name );
+		super(
+			Effects.SATURATION,
+			7,
+			Block.Properties.create( Material.PLANTS )
+				.doesNotBlockMovement()
+				.hardnessAndResistance( 0.0F )
+				.sound( SoundType.PLANT ),
+			registry_name
+		);
 	}
 	
 	@Override

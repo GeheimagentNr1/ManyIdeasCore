@@ -1,11 +1,11 @@
 {
-	"type": "minecraft:crafting_shaped",
+	"type":    "minecraft:crafting_shaped",
 	"pattern": [
 		"PPP",
 		"PSP",
 		"PPP"
 	],
-	"key": {
+	"key":     {
 		"S": {
 			"item": "minecraft:smoker"
 		},
@@ -13,7 +13,7 @@
 			"item": "manyideas_core:plate_iron"
 		}
 	},
-	"result": {
+	"result":  {
 		"item": "manyideas_core:metal_smoker"
 	}
 }

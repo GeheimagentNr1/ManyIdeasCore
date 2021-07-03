@@ -21,7 +21,12 @@ public class VoxelShapeMemory {
 	
 	private final VoxelShape down;
 	
-	private VoxelShapeMemory( VoxelShape _north, VoxelShape _east, VoxelShape _south, VoxelShape _west, VoxelShape _up,
+	private VoxelShapeMemory(
+		VoxelShape _north,
+		VoxelShape _east,
+		VoxelShape _south,
+		VoxelShape _west,
+		VoxelShape _up,
 		VoxelShape _down ) {
 		
 		north = _north;

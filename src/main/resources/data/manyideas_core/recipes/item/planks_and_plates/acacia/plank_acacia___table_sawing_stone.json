@@ -1,8 +1,8 @@
 {
-	"type": "manyideas_core:table_sawing_stone",
+	"type":       "manyideas_core:table_sawing_stone",
 	"ingredient": {
 		"item": "minecraft:stripped_acacia_log"
 	},
-	"result": "manyideas_core:plank_acacia",
-	"count": 4
+	"result":     "manyideas_core:plank_acacia",
+	"count":      4
 }

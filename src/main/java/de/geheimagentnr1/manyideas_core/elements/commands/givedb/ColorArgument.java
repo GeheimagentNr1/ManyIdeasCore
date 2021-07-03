@@ -41,7 +41,7 @@ public class ColorArgument implements ArgumentType<Color> {
 	
 	@Override
 	public <S> CompletableFuture<Suggestions> listSuggestions( CommandContext<S> context,
-		SuggestionsBuilder builder ) {
+	                                                           SuggestionsBuilder builder ) {
 		
 		StringReader reader = new StringReader( builder.getInput() );
 		reader.setCursor( builder.getStart() );

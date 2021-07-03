@@ -1,14 +1,14 @@
 {
-    "type": "minecraft:crafting_shapeless",
-    "ingredients": [
-        {
-            "item": "minecraft:blue_orchid"
-        },
-        {
-            "item": "minecraft:stick"
-        }
-    ],
-    "result": {
-        "item": "manyideas_core:flower_straight_orchid_blue"
-    }
+	"type":        "minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "minecraft:blue_orchid"
+		},
+		{
+			"item": "minecraft:stick"
+		}
+	],
+	"result":      {
+		"item": "manyideas_core:flower_straight_orchid_blue"
+	}
 }

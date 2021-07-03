@@ -46,12 +46,17 @@ public class DyeCraftingTableContainer extends Container {
 		resultInventory = new CraftResultInventory();
 		worldPosCallable = _worldPosCallable;
 		player = playerInventory.player;
-		addSlot( new DyeCraftingTableResultCraftingSlot( playerInventory.player, craftingInventory, resultInventory, 0,
-			124, 35 ) );
+		addSlot( new DyeCraftingTableResultCraftingSlot(
+			playerInventory.player,
+			craftingInventory,
+			resultInventory,
+			0,
+			124,
+			35
+		) );
 		for( int i = 0; i < 3; i++ ) {
 			for( int j = 0; j < 3; j++ ) {
-				addSlot(
-					new Slot( craftingInventory, j + i * 3, 30 + j * 18, 17 + i * 18 ) );
+				addSlot( new Slot( craftingInventory, j + i * 3, 30 + j * 18, 17 + i * 18 ) );
 			}
 		}
 		for( int i = 0; i < 3; i++ ) {
@@ -64,14 +69,22 @@ public class DyeCraftingTableContainer extends Container {
 		}
 	}
 	
-	private static void changeCaftingSlot( int windowId, World world, PlayerEntity player,
-		CraftingInventory craftingInventory, CraftResultInventory resultInventory ) {
+	private static void changeCaftingSlot(
+		int windowId,
+		World world,
+		PlayerEntity player,
+		CraftingInventory craftingInventory,
+		CraftResultInventory resultInventory ) {
 		
 		if( !world.isRemote ) {
 			ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
 			ItemStack stack = ItemStack.EMPTY;
-			Optional<DyedRecipe> recipeOptional = Objects.requireNonNull( world.getServer() ).getRecipeManager()
-				.getRecipe( RecipeTypes.DYED, craftingInventory, world );
+			Optional<DyedRecipe> recipeOptional =
+				Objects.requireNonNull( world.getServer() ).getRecipeManager().getRecipe(
+					RecipeTypes.DYED,
+					craftingInventory,
+					world
+				);
 			if( recipeOptional.isPresent() ) {
 				DyedRecipe recipe = recipeOptional.get();
 				stack = recipe.getCraftingResult( craftingInventory );
@@ -84,8 +97,13 @@ public class DyeCraftingTableContainer extends Container {
 	@Override
 	public void onCraftMatrixChanged( @Nonnull IInventory inventoryIn ) {
 		
-		worldPosCallable.consume( ( world, pos ) ->
-			changeCaftingSlot( windowId, world, player, craftingInventory, resultInventory ) );
+		worldPosCallable.consume( ( world, pos ) -> changeCaftingSlot(
+			windowId,
+			world,
+			player,
+			craftingInventory,
+			resultInventory
+		) );
 	}
 	
 	@Override

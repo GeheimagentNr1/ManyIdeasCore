@@ -19,8 +19,10 @@ public abstract class JeiSingleItemRecipeCategory<R extends JeiSingleItemRecipe<
 	extends JeiRecipeCategory<R> {
 	
 	
-	private static final ResourceLocation texture = new ResourceLocation( ManyIdeasCore.MODID,
-		"textures/jei/gui/single_item_recipe_gui.png" );
+	private static final ResourceLocation texture = new ResourceLocation(
+		ManyIdeasCore.MODID,
+		"textures/jei/gui/single_item_recipe_gui.png"
+	);
 	
 	private final IDrawable background;
 	

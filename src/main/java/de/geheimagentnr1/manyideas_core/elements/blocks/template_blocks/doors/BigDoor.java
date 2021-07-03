@@ -26,8 +26,10 @@ import javax.annotation.Nonnull;
 public abstract class BigDoor extends MultiBlock {
 	
 	
-	private static final VoxelShapeMemory DOORS_SHAPES = VoxelShapeMemory.createHorizontalVoxelShapes( Direction.SOUTH,
-		VoxelShapeVector.create( 0, 0, 0, 16, 16, 3 ) );
+	private static final VoxelShapeMemory DOORS_SHAPES = VoxelShapeMemory.createHorizontalVoxelShapes(
+		Direction.SOUTH,
+		VoxelShapeVector.create( 0, 0, 0, 16, 16, 3 )
+	);
 	
 	private boolean[][][] hasBlockstateAtPos;
 	
@@ -36,8 +38,8 @@ public abstract class BigDoor extends MultiBlock {
 	protected BigDoor( Block.Properties properties, boolean _doubleDoorActive, String registry_name ) {
 		
 		super( properties, registry_name );
-		setDefaultState( getDefaultState().with( BlockStateProperties.OPEN, false ).with( BlockStateProperties.POWERED,
-			false ) );
+		setDefaultState( getDefaultState().with( BlockStateProperties.OPEN, false )
+			.with( BlockStateProperties.POWERED, false ) );
 		doubleDoorActive = _doubleDoorActive;
 	}
 	
@@ -55,7 +57,10 @@ public abstract class BigDoor extends MultiBlock {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getShape( BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+	public VoxelShape getShape(
+		BlockState state,
+		@Nonnull IBlockReader worldIn,
+		@Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
 		Direction facing = state.get( BlockStateProperties.HORIZONTAL_FACING );
@@ -97,37 +102,54 @@ public abstract class BigDoor extends MultiBlock {
 	@Override
 	protected BlockState getDefaultState( boolean left_sided ) {
 		
-		return getDefaultState().with( BlockStateProperties.DOOR_HINGE, left_sided ? DoorHingeSide.LEFT :
-			DoorHingeSide.RIGHT );
+		return getDefaultState().with(
+			BlockStateProperties.DOOR_HINGE,
+			left_sided ? DoorHingeSide.LEFT : DoorHingeSide.RIGHT
+		);
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public boolean onBlockActivated( @Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
-		@Nonnull PlayerEntity player, @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit ) {
+	public boolean onBlockActivated(
+		@Nonnull BlockState state,
+		@Nonnull World worldIn,
+		@Nonnull BlockPos pos,
+		@Nonnull PlayerEntity player,
+		@Nonnull Hand handIn,
+		@Nonnull BlockRayTraceResult hit ) {
 		
 		boolean open = !state.get( BlockStateProperties.OPEN );
 		Direction facing = state.get( BlockStateProperties.HORIZONTAL_FACING );
 		BlockPos zeroPos = getZeroPos( state, pos );
-		runForBlocks( zeroPos, facing,
-			( x, y, z, blockPos ) ->
-				worldIn.setBlockState( blockPos, worldIn.getBlockState( blockPos )
-					.with( BlockStateProperties.OPEN, open ), 3 ) );
+		runForBlocks(
+			zeroPos,
+			facing,
+			( x, y, z, blockPos ) -> worldIn.setBlockState( blockPos,
+				worldIn.getBlockState( blockPos ).with( BlockStateProperties.OPEN, open ),
+				3
+			)
+		);
 		playDoorSound( player, worldIn, pos, open );
 		if( doubleDoorActive ) {
-			Direction direction = state.get( BlockStateProperties.DOOR_HINGE ) == DoorHingeSide.LEFT ?
-				facing.rotateY() : facing.rotateYCCW();
+			Direction direction = state.get( BlockStateProperties.DOOR_HINGE ) == DoorHingeSide.LEFT
+				? facing.rotateY()
+				: facing.rotateYCCW();
 			BlockPos neighborPos = zeroPos.offset( direction, getZSize() );
 			BlockState neighborState = worldIn.getBlockState( neighborPos );
 			if( neighborState.getBlock() == this ) {
 				BlockPos neighborZeroPos = getZeroPos( neighborState, neighborPos );
 				if( neighborPos.equals( neighborZeroPos ) && state.get( BlockStateProperties.HORIZONTAL_FACING ) ==
 					neighborState.get( BlockStateProperties.HORIZONTAL_FACING ) &&
-					state.get( BlockStateProperties.DOOR_HINGE ) != neighborState.get(
-						BlockStateProperties.DOOR_HINGE ) ) {
-					runForBlocks( neighborZeroPos, facing, ( x, y, z, blockPos ) ->
-						worldIn.setBlockState( blockPos, worldIn.getBlockState( blockPos )
-							.with( BlockStateProperties.OPEN, open ), 3 ) );
+					state.get( BlockStateProperties.DOOR_HINGE ) !=
+						neighborState.get( BlockStateProperties.DOOR_HINGE ) ) {
+					runForBlocks(
+						neighborZeroPos,
+						facing,
+						( x, y, z, blockPos ) -> worldIn.setBlockState( blockPos,
+							worldIn.getBlockState( blockPos ).with( BlockStateProperties.OPEN, open ),
+							3
+						)
+					);
 				}
 			}
 		}
@@ -136,8 +158,13 @@ public abstract class BigDoor extends MultiBlock {
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void neighborChanged( @Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
-		@Nonnull Block blockIn, @Nonnull BlockPos fromPos, boolean isMoving ) {
+	public void neighborChanged(
+		@Nonnull BlockState state,
+		@Nonnull World worldIn,
+		@Nonnull BlockPos pos,
+		@Nonnull Block blockIn,
+		@Nonnull BlockPos fromPos,
+		boolean isMoving ) {
 		
 		if( blockIn == this ) {
 			return;
@@ -146,8 +173,7 @@ public abstract class BigDoor extends MultiBlock {
 		DoorHingeSide doorHingeSide = state.get( BlockStateProperties.DOOR_HINGE );
 		Direction facing = state.get( BlockStateProperties.HORIZONTAL_FACING );
 		boolean isPowered = isPowered( worldIn, zeroPos, facing );
-		Direction direction = doorHingeSide == DoorHingeSide.LEFT ?
-			facing.rotateY() : facing.rotateYCCW();
+		Direction direction = doorHingeSide == DoorHingeSide.LEFT ? facing.rotateY() : facing.rotateYCCW();
 		BlockPos neighborPos = zeroPos.offset( direction, getZSize() );
 		BlockState neighborState = worldIn.getBlockState( neighborPos );
 		BlockPos neighborZeroPos = null;
@@ -166,14 +192,27 @@ public abstract class BigDoor extends MultiBlock {
 				playDoorSound( null, worldIn, pos, isPowered );
 			}
 			boolean isDoorPowered = isPowered;
-			runForBlocks( zeroPos, facing, ( x, y, z, blockPos ) ->
-				worldIn.setBlockState( blockPos, worldIn.getBlockState( blockPos ).with( BlockStateProperties.POWERED,
-					isDoorPowered ).with( BlockStateProperties.OPEN, isDoorPowered ), 3 ) );
-			if( doubleDoorActive && isNeighborDoubleDoor ) {
-				runForBlocks( neighborZeroPos, facing, ( x, y, z, blockPos ) ->
-					worldIn.setBlockState( blockPos, worldIn.getBlockState( blockPos )
+			runForBlocks(
+				zeroPos,
+				facing,
+				( x, y, z, blockPos ) -> worldIn.setBlockState( blockPos,
+					worldIn.getBlockState( blockPos )
 						.with( BlockStateProperties.POWERED, isDoorPowered )
-						.with( BlockStateProperties.OPEN, isDoorPowered ), 3 ) );
+						.with( BlockStateProperties.OPEN, isDoorPowered ),
+					3
+				)
+			);
+			if( doubleDoorActive && isNeighborDoubleDoor ) {
+				runForBlocks(
+					neighborZeroPos,
+					facing,
+					( x, y, z, blockPos ) -> worldIn.setBlockState( blockPos,
+						worldIn.getBlockState( blockPos )
+							.with( BlockStateProperties.POWERED, isDoorPowered )
+							.with( BlockStateProperties.OPEN, isDoorPowered ),
+						3
+					)
+				);
 			}
 		}
 	}
@@ -187,8 +226,14 @@ public abstract class BigDoor extends MultiBlock {
 	
 	private void playDoorSound( PlayerEntity player, World world, BlockPos pos, boolean open ) {
 		
-		world.playSound( player, pos, open ? getOpenDoorSound() : getCloseDoorSound(), SoundCategory.BLOCKS, 1.0F,
-			1.0F );
+		world.playSound(
+			player,
+			pos,
+			open ? getOpenDoorSound() : getCloseDoorSound(),
+			SoundCategory.BLOCKS,
+			1.0F,
+			1.0F
+		);
 	}
 	
 	private SoundEvent getCloseDoorSound() {

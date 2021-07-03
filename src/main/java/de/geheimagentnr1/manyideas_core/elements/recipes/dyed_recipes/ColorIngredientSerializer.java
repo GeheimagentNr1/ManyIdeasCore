@@ -24,8 +24,8 @@ public class ColorIngredientSerializer implements IIngredientSerializer<ColorIng
 		if( buffer.readInt() == 0 ) {
 			return new ColorIngredient( new ColorStackList( buffer.readItemStack() ) );
 		} else {
-			TreeMap<ItemStack, Color> colorStacks = new TreeMap<>(
-				Comparator.comparing( o -> Objects.requireNonNull( o.getItem().getRegistryName() ) ) );
+			TreeMap<ItemStack, Color> colorStacks =
+				new TreeMap<>( Comparator.comparing( o -> Objects.requireNonNull( o.getItem().getRegistryName() ) ) );
 			int count = buffer.readInt();
 			for( int i = 0; i < count; i++ ) {
 				colorStacks.put( buffer.readItemStack(), Color.values()[buffer.readInt()] );

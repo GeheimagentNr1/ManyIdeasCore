@@ -13,8 +13,10 @@ import javax.annotation.Nonnull;
 public class MortalingRecipeCategory extends JeiSingleItemRecipeCategory<JeiMortalingRecipe> {
 	
 	
-	public static final ResourceLocation registry_key = new ResourceLocation( ManyIdeasCore.MODID,
-		MortalingRecipe.registry_name );
+	public static final ResourceLocation registry_key = new ResourceLocation(
+		ManyIdeasCore.MODID,
+		MortalingRecipe.registry_name
+	);
 	
 	public MortalingRecipeCategory( IGuiHelper guiHelper ) {
 		

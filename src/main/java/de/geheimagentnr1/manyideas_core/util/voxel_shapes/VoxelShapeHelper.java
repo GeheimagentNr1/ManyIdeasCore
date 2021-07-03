@@ -120,11 +120,7 @@ public class VoxelShapeHelper {
 		x += 8.0;
 		y += 8.0;
 		z += 8.0;
-		return new double[] {
-			x,
-			y,
-			z
-		};
+		return new double[] { x, y, z };
 	}
 	
 	public static VoxelShapeVector[] eastVectors( VoxelShapeVector[] vectors ) {

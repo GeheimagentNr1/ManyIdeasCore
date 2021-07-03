@@ -1,11 +1,11 @@
 {
-	"type": "minecraft:crafting_shaped",
+	"type":    "minecraft:crafting_shaped",
 	"pattern": [
 		"DIS",
 		"PPP",
 		"P P"
 	],
-	"key": {
+	"key":     {
 		"D": {
 			"item": "minecraft:dried_kelp"
 		},
@@ -19,7 +19,7 @@
 			"tag": "minecraft:planks"
 		}
 	},
-	"result": {
+	"result":  {
 		"item": "manyideas_core:dye_crafting_table"
 	}
 }

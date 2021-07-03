@@ -32,7 +32,9 @@ public abstract class DoubleDoorBlock extends DoorBlock implements BlockItemInte
 		initDoubleDoorBlock( material != Material.IRON );
 	}
 	
-	protected DoubleDoorBlock( Block.Properties properties, String registry_name,
+	protected DoubleDoorBlock(
+		Block.Properties properties,
+		String registry_name,
 		boolean canBeOpenedOnBlockActivated ) {
 		
 		super( properties );
@@ -42,13 +44,22 @@ public abstract class DoubleDoorBlock extends DoorBlock implements BlockItemInte
 	
 	private void initDoubleDoorBlock( boolean canBeOpenedOnBlockActivated ) {
 		
-		setDefaultState( getDefaultState().with( ModBlockStateProperties.OPENED_BY, material != Material.IRON ||
-			canBeOpenedOnBlockActivated ? CanBeOpenedByBlockState.BOTH : CanBeOpenedByBlockState.REDSTONE ) );
+		setDefaultState( getDefaultState().with(
+			ModBlockStateProperties.OPENED_BY,
+			material != Material.IRON || canBeOpenedOnBlockActivated
+				? CanBeOpenedByBlockState.BOTH
+				: CanBeOpenedByBlockState.REDSTONE
+		) );
 	}
 	
 	@Override
-	public boolean onBlockActivated( @Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
-		PlayerEntity player, @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit ) {
+	public boolean onBlockActivated(
+		@Nonnull BlockState state,
+		@Nonnull World worldIn,
+		@Nonnull BlockPos pos,
+		PlayerEntity player,
+		@Nonnull Hand handIn,
+		@Nonnull BlockRayTraceResult hit ) {
 		
 		if( player.getHeldItem( handIn ).getItem() == Items.REDSTONE_TORCH ) {
 			state = state.cycle( ModBlockStateProperties.OPENED_BY );
@@ -57,8 +68,8 @@ public abstract class DoubleDoorBlock extends DoorBlock implements BlockItemInte
 			BlockState other_state = worldIn.getBlockState( other_pos ).cycle( ModBlockStateProperties.OPENED_BY );
 			worldIn.setBlockState( other_pos, other_state, 3 );
 			if( !worldIn.isRemote ) {
-				player.sendMessage( new StringTextComponent( "Door reacts on: " +
-					state.get( ModBlockStateProperties.OPENED_BY ).getName() ) );
+				player.sendMessage( new StringTextComponent(
+					"Door reacts on: " + state.get( ModBlockStateProperties.OPENED_BY ).getName() ) );
 			}
 			return true;
 		}
@@ -79,14 +90,20 @@ public abstract class DoubleDoorBlock extends DoorBlock implements BlockItemInte
 	}
 	
 	@Override
-	public void neighborChanged( @Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
-		@Nonnull Block blockIn, @Nonnull BlockPos fromPos, boolean isMoving ) {
+	public void neighborChanged(
+		@Nonnull BlockState state,
+		@Nonnull World worldIn,
+		@Nonnull BlockPos pos,
+		@Nonnull Block blockIn,
+		@Nonnull BlockPos fromPos,
+		boolean isMoving ) {
 		
 		boolean isDoorPowered = isDoorBlockPowerd( pos, worldIn, state );
 		BlockPos neighborPos = pos.offset( getDirectionToOtherDoor( state ) );
 		BlockState neighborState = worldIn.getBlockState( neighborPos );
-		boolean isNeighborDoubleDoor = neighborState.getBlock() instanceof DoubleDoorBlock &&
-			state.get( FACING ) == neighborState.get( FACING ) && state.get( HINGE ) != neighborState.get( HINGE );
+		boolean isNeighborDoubleDoor =
+			neighborState.getBlock() instanceof DoubleDoorBlock && state.get( FACING ) == neighborState.get( FACING ) &&
+				state.get( HINGE ) != neighborState.get( HINGE );
 		
 		if( isNeighborDoubleDoor ) {
 			isDoorPowered |= isDoorBlockPowerd( neighborPos, worldIn, worldIn.getBlockState( neighborPos ) );
@@ -97,8 +114,11 @@ public abstract class DoubleDoorBlock extends DoorBlock implements BlockItemInte
 			}
 			worldIn.setBlockState( pos, state.with( POWERED, isDoorPowered ).with( OPEN, isDoorPowered ), 2 );
 			if( isNeighborDoubleDoor ) {
-				worldIn.setBlockState( neighborPos, neighborState.with( POWERED, isDoorPowered )
-					.with( OPEN, isDoorPowered ), 2 );
+				worldIn.setBlockState(
+					neighborPos,
+					neighborState.with( POWERED, isDoorPowered ).with( OPEN, isDoorPowered ),
+					2
+				);
 			}
 		}
 	}
@@ -128,8 +148,8 @@ public abstract class DoubleDoorBlock extends DoorBlock implements BlockItemInte
 	
 	private boolean isDoorBlockPowerd( BlockPos pos, World world, BlockState state ) {
 		
-		return world.isBlockPowered( pos ) || world.isBlockPowered( pos.offset( state.get( HALF ) ==
-			DoubleBlockHalf.LOWER ? Direction.UP : Direction.DOWN ) );
+		return world.isBlockPowered( pos ) || world.isBlockPowered( pos.offset(
+			state.get( HALF ) == DoubleBlockHalf.LOWER ? Direction.UP : Direction.DOWN ) );
 	}
 	
 	private Direction getDirectionToOtherDoor( BlockState state ) {
@@ -171,8 +191,14 @@ public abstract class DoubleDoorBlock extends DoorBlock implements BlockItemInte
 	
 	private void playDoorSound( PlayerEntity player, World world, BlockPos pos, boolean open ) {
 		
-		world.playSound( player, pos, open ? getOpenDoorSound() : getCloseDoorSound(), SoundCategory.BLOCKS, 1.0F,
-			1.0F );
+		world.playSound(
+			player,
+			pos,
+			open ? getOpenDoorSound() : getCloseDoorSound(),
+			SoundCategory.BLOCKS,
+			1.0F,
+			1.0F
+		);
 	}
 	
 	private SoundEvent getCloseDoorSound() {

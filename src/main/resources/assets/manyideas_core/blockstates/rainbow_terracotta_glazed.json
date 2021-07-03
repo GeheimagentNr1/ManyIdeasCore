@@ -1,8 +1,8 @@
 {
-    "variants": {
-        "facing=north": { "model": "manyideas_core:block/building_blocks/rainbow/rainbow_terracotta_glazed", "y": 180 },
-        "facing=east":  { "model": "manyideas_core:block/building_blocks/rainbow/rainbow_terracotta_glazed", "y": 270 },
-        "facing=south": { "model": "manyideas_core:block/building_blocks/rainbow/rainbow_terracotta_glazed" },
-        "facing=west":  { "model": "manyideas_core:block/building_blocks/rainbow/rainbow_terracotta_glazed", "y": 90 }
-    }
+	"variants": {
+		"facing=north": { "model": "manyideas_core:block/building_blocks/rainbow/rainbow_terracotta_glazed", "y": 180 },
+		"facing=east":  { "model": "manyideas_core:block/building_blocks/rainbow/rainbow_terracotta_glazed", "y": 270 },
+		"facing=south": { "model": "manyideas_core:block/building_blocks/rainbow/rainbow_terracotta_glazed" },
+		"facing=west":  { "model": "manyideas_core:block/building_blocks/rainbow/rainbow_terracotta_glazed", "y": 90 }
+	}
 }

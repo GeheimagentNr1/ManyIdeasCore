@@ -52,8 +52,10 @@ public class ColorStackList implements ColorList {
 	public JsonObject serialize() {
 		
 		JsonObject jsonobject = new JsonObject();
-		jsonobject.addProperty( "color_item",
-			Objects.requireNonNull( itemStack.getItem().getRegistryName() ).toString() );
+		jsonobject.addProperty(
+			"color_item",
+			Objects.requireNonNull( itemStack.getItem().getRegistryName() ).toString()
+		);
 		return jsonobject;
 	}
 }

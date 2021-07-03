@@ -24,8 +24,10 @@ public class WoodColored extends DyeBlock {
 	
 	public WoodColored() {
 		
-		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 2.0F ).sound( SoundType.WOOD ),
-			registry_name );
+		super(
+			Block.Properties.create( Material.WOOD ).hardnessAndResistance( 2.0F ).sound( SoundType.WOOD ),
+			registry_name
+		);
 	}
 	
 	@Nullable

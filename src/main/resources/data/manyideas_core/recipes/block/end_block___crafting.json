@@ -1,11 +1,11 @@
 {
-	"type": "minecraft:crafting_shaped",
+	"type":    "minecraft:crafting_shaped",
 	"pattern": [
 		"EEE",
 		"ESE",
 		"EEE"
 	],
-	"key": {
+	"key":     {
 		"E": {
 			"item": "minecraft:ender_eye"
 		},
@@ -13,7 +13,7 @@
 			"item": "minecraft:end_stone"
 		}
 	},
-	"result": {
+	"result":  {
 		"item": "manyideas_core:end_block"
 	}
 }

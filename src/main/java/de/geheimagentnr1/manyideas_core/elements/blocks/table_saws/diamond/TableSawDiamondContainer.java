@@ -25,7 +25,9 @@ public class TableSawDiamondContainer extends TableSawContainer {
 	}
 	
 	//package-private
-	TableSawDiamondContainer( int windowIdIn, PlayerInventory playerInventoryIn,
+	TableSawDiamondContainer(
+		int windowIdIn,
+		PlayerInventory playerInventoryIn,
 		IWorldPosCallable worldPosCallableIn ) {
 		
 		super( ModBlocks.TABLE_SAW_DIAMOND_CONTAINER, windowIdIn, playerInventoryIn, worldPosCallableIn );
@@ -35,8 +37,11 @@ public class TableSawDiamondContainer extends TableSawContainer {
 	@Override
 	public List<IRecipeType> getAcceptedRecipeTypes() {
 		
-		return Arrays.asList( RecipeTypes.TABLE_SAWING_STONE, RecipeTypes.TABLE_SAWING_IRON,
-			RecipeTypes.TABLE_SAWING_DIAMOND );
+		return Arrays.asList(
+			RecipeTypes.TABLE_SAWING_STONE,
+			RecipeTypes.TABLE_SAWING_IRON,
+			RecipeTypes.TABLE_SAWING_DIAMOND
+		);
 	}
 	
 	@Override

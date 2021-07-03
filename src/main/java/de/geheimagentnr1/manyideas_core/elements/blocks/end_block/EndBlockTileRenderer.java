@@ -20,11 +20,15 @@ import java.util.Random;
 public class EndBlockTileRenderer extends TileEntityRenderer<EndBlockTile> {
 	
 	
-	private static final ResourceLocation END_SKY_TEXTURE = new ResourceLocation( "minecraft",
-		"textures/environment/end_sky.png" );
+	private static final ResourceLocation END_SKY_TEXTURE = new ResourceLocation(
+		"minecraft",
+		"textures/environment/end_sky.png"
+	);
 	
-	private static final ResourceLocation END_PORTAL_TEXTURE = new ResourceLocation( "minecraft",
-		"textures/entity/end_portal.png" );
+	private static final ResourceLocation END_PORTAL_TEXTURE = new ResourceLocation(
+		"minecraft",
+		"textures/entity/end_portal.png"
+	);
 	
 	@SuppressWarnings( "UnsecureRandomNumberGeneration" )
 	private static final Random RANDOM = new Random( 31100L );
@@ -36,7 +40,12 @@ public class EndBlockTileRenderer extends TileEntityRenderer<EndBlockTile> {
 	private final FloatBuffer buffer = GLAllocation.createDirectFloatBuffer( 16 );
 	
 	@Override
-	public void render( @Nonnull EndBlockTile tileEntityIn, double x, double y, double z, float partialTicks,
+	public void render(
+		@Nonnull EndBlockTile tileEntityIn,
+		double x,
+		double y,
+		double z,
+		float partialTicks,
 		int destroyStage ) {
 		
 		GlStateManager.disableLighting();
@@ -55,8 +64,10 @@ public class EndBlockTileRenderer extends TileEntityRenderer<EndBlockTile> {
 				bindTexture( END_SKY_TEXTURE );
 				f1 = 0.15F;
 				GlStateManager.enableBlend();
-				GlStateManager.blendFunc( GlStateManager.SourceFactor.SRC_ALPHA,
-					GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA );
+				GlStateManager.blendFunc(
+					GlStateManager.SourceFactor.SRC_ALPHA,
+					GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA
+				);
 			}
 			
 			if( j >= 1 ) {
@@ -85,8 +96,11 @@ public class EndBlockTileRenderer extends TileEntityRenderer<EndBlockTile> {
 			GlStateManager.translatef( 0.5F, 0.5F, 0.0F );
 			GlStateManager.scalef( 0.5F, 0.5F, 1.0F );
 			float f2 = j + 1;
-			GlStateManager.translatef( 17.0F / f2,
-				( 2.0F + f2 / 1.5F ) * ( ( Util.milliTime() % 800000L ) / 800000.0F ), 0.0F );
+			GlStateManager.translatef(
+				17.0F / f2,
+				( 2.0F + f2 / 1.5F ) * ( ( Util.milliTime() % 800000L ) / 800000.0F ),
+				0.0F
+			);
 			GlStateManager.rotatef( ( f2 * f2 * 4321.0F + f2 * 9.0F ) * 2.0F, 0.0F, 0.0F, 1.0F );
 			GlStateManager.scalef( 4.5F - f2 / 4.0F, 4.5F - f2 / 4.0F, 1.0F );
 			GlStateManager.multMatrix( PROJECTION );

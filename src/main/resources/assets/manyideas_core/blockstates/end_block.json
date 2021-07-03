@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "": { "model": "manyideas_core:block/end_block/end_block" }
-    }
+	"variants": {
+		"": { "model": "manyideas_core:block/end_block/end_block" }
+	}
 }

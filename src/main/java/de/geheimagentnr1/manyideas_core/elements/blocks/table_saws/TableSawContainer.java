@@ -73,23 +73,37 @@ public abstract class TableSawContainer extends Container {
 	 */
 	private final CraftResultInventory resultI = new CraftResultInventory();
 	
-	protected TableSawContainer( ContainerType<? extends TableSawContainer> tableSawContainerType, int windowIdIn,
+	protected TableSawContainer(
+		ContainerType<? extends TableSawContainer> tableSawContainerType,
+		int windowIdIn,
 		PlayerInventory playerInventoryIn ) {
 		
 		this( tableSawContainerType, windowIdIn, playerInventoryIn, IWorldPosCallable.DUMMY );
 	}
 	
-	@SuppressWarnings( { "OverridableMethodCallDuringObjectConstruction", "AbstractMethodCallInConstructor",
-		"OverriddenMethodCallDuringObjectConstruction", "ThisEscapedInObjectConstruction", "rawtypes" } )
-	protected TableSawContainer( ContainerType<? extends TableSawContainer> tableSawContainerType, int windowIdIn,
-		PlayerInventory playerInventoryIn, IWorldPosCallable worldPosCallableIn ) {
+	@SuppressWarnings( {
+		"OverridableMethodCallDuringObjectConstruction",
+		"AbstractMethodCallInConstructor",
+		"OverriddenMethodCallDuringObjectConstruction",
+		"ThisEscapedInObjectConstruction",
+		"rawtypes"
+	} )
+	protected TableSawContainer(
+		ContainerType<? extends TableSawContainer> tableSawContainerType,
+		int windowIdIn,
+		PlayerInventory playerInventoryIn,
+		IWorldPosCallable worldPosCallableIn ) {
 		
 		super( tableSawContainerType, windowIdIn );
 		worldPosCallable = worldPosCallableIn;
 		world = playerInventoryIn.player.world;
 		inputInventorySlot = addSlot( new Slot( inputInventory, 0, 20, 33 ) );
-		outputInventorySlot = addSlot( new TableSawOutputSlot( this, worldPosCallableIn, inputInventorySlot,
-			resultI ) );
+		outputInventorySlot = addSlot( new TableSawOutputSlot(
+			this,
+			worldPosCallableIn,
+			inputInventorySlot,
+			resultI
+		) );
 		for( int i = 0; i < 3; ++i ) {
 			for( int j = 0; j < 9; ++j ) {
 				addSlot( new Slot( playerInventoryIn, j + i * 9 + 9, 8 + j * 18, 84 + i * 18 ) );

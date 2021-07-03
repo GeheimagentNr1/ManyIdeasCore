@@ -48,8 +48,10 @@ public class JeiDyedRecipe {
 						ItemStack[] matchingStacks = ingredient.getMatchingStacks();
 						if( matchingStacks.length == 1 && matchingStacks[0].getItem() instanceof DyeBlockItem ) {
 							for( Color matchingStackColor : Color.values() ) {
-								itemStacks.add( DyeBlockHelper.setColorToItemStack( matchingStacks[0].copy(),
-									matchingStackColor ) );
+								itemStacks.add( DyeBlockHelper.setColorToItemStack(
+									matchingStacks[0].copy(),
+									matchingStackColor
+								) );
 							}
 						} else {
 							itemStacks.addAll( Arrays.asList( ingredient.getMatchingStacks() ) );

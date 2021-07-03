@@ -23,8 +23,11 @@ import java.util.function.Function;
 class DyeItemParser {
 	
 	
-	private static final DynamicCommandExceptionType ITEM_BAD_ID = new DynamicCommandExceptionType( function ->
-		new TranslationTextComponent( "argument.item.id.invalid", function ) );
+	private static final DynamicCommandExceptionType ITEM_BAD_ID =
+		new DynamicCommandExceptionType( function -> new TranslationTextComponent(
+			"argument.item.id.invalid",
+			function
+		) );
 	
 	private static final Function<SuggestionsBuilder, CompletableFuture<Suggestions>> DEFAULT_SUGGESTIONS_BUILDER =
 		SuggestionsBuilder::buildFuture;

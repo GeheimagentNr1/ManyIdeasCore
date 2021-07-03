@@ -38,8 +38,14 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 	private final int recipeHeight;
 	
 	//package-private
-	DyedRecipe( ResourceLocation _id, IRecipeSerializer<?> _serializer, boolean _shaped,
-		NonNullList<Ingredient> _ingredients, ItemStack _result, int _recipeWidth, int _recipeHeight ) {
+	DyedRecipe(
+		ResourceLocation _id,
+		IRecipeSerializer<?> _serializer,
+		boolean _shaped,
+		NonNullList<Ingredient> _ingredients,
+		ItemStack _result,
+		int _recipeWidth,
+		int _recipeHeight ) {
 		
 		id = _id;
 		serializer = _serializer;

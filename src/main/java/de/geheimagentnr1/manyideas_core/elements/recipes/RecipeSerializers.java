@@ -35,10 +35,13 @@ public class RecipeSerializers {
 	
 	@SuppressWarnings( "deprecation" )
 	private static <S extends IRecipeSerializer<T>, T extends IRecipe<?>> S register( String key,
-		S recipeSerializer ) {
+	                                                                                  S recipeSerializer ) {
 		
-		return Registry.register( Registry.RECIPE_SERIALIZER, new ResourceLocation( ManyIdeasCore.MODID, key ),
-			recipeSerializer );
+		return Registry.register(
+			Registry.RECIPE_SERIALIZER,
+			new ResourceLocation( ManyIdeasCore.MODID, key ),
+			recipeSerializer
+		);
 	}
 	
 	public static void init() {
@@ -49,11 +52,17 @@ public class RecipeSerializers {
 		MORTALING = register( MortalingRecipe.registry_name,
 			new SingleItemRecipeSerializer<>( MortalingRecipe::new ) );
 		//Tablesawing
-		TABLE_SAWING_DIAMOND = register( TableSawDiamondRecipe.registry_name,
-			new SingleItemRecipeSerializer<>( TableSawDiamondRecipe::new ) );
-		TABLE_SAWING_IRON = register( TableSawIronRecipe.registry_name,
-			new SingleItemRecipeSerializer<>( TableSawIronRecipe::new ) );
-		TABLE_SAWING_STONE = register( TableSawStoneRecipe.registry_name,
-			new SingleItemRecipeSerializer<>( TableSawStoneRecipe::new ) );
+		TABLE_SAWING_DIAMOND = register(
+			TableSawDiamondRecipe.registry_name,
+			new SingleItemRecipeSerializer<>( TableSawDiamondRecipe::new )
+		);
+		TABLE_SAWING_IRON = register(
+			TableSawIronRecipe.registry_name,
+			new SingleItemRecipeSerializer<>( TableSawIronRecipe::new )
+		);
+		TABLE_SAWING_STONE = register(
+			TableSawStoneRecipe.registry_name,
+			new SingleItemRecipeSerializer<>( TableSawStoneRecipe::new )
+		);
 	}
 }

@@ -23,7 +23,9 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 	
 	
 	private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(
-		ManyIdeasCore.MODID, "textures/gui/table_saws/table_saw_gui.png" );
+		ManyIdeasCore.MODID,
+		"textures/gui/table_saws/table_saw_gui.png"
+	);
 	
 	private float sliderProgress;
 	
@@ -116,8 +118,8 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 			int k = left + ( j % 4 << 4 );
 			int l = j / 4;
 			int i1 = top + l * 18 + 2;
-			Objects.requireNonNull( minecraft ).getItemRenderer().renderItemAndEffectIntoGUI(
-				list.get( i ).getRecipeOutput(), k, i1 );
+			Objects.requireNonNull( minecraft ).getItemRenderer().renderItemAndEffectIntoGUI( list.get( i )
+				.getRecipeOutput(), k, i1 );
 		}
 		RenderHelper.disableStandardItemLighting();
 	}
@@ -136,18 +138,19 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 				double d0 = p_mouseClicked_1_ - ( i + ( i1 % 4 << 4 ) );
 				@SuppressWarnings( "IntegerDivisionInFloatingPointContext" )
 				double d1 = p_mouseClicked_3_ - ( j + i1 / 4 * 18 );
-				if( d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D && container.enchantItem(
-					Objects.requireNonNull( minecraft ).player, l ) ) {
-					Minecraft.getInstance().getSoundHandler().play(
-						SimpleSound.master( SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F ) );
+				if( d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D &&
+					container.enchantItem( Objects.requireNonNull( minecraft ).player, l ) ) {
+					Minecraft.getInstance()
+						.getSoundHandler()
+						.play( SimpleSound.master( SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F ) );
 					minecraft.playerController.sendEnchantPacket( container.windowId, l );
 					return true;
 				}
 			}
 			int i1 = guiLeft + 119;
 			int i2 = guiTop + 9;
-			if( p_mouseClicked_1_ >= i1 && p_mouseClicked_1_ < i1 + 12 &&
-				p_mouseClicked_3_ >= i2 && p_mouseClicked_3_ < i2 + 54 ) {
+			if( p_mouseClicked_1_ >= i1 && p_mouseClicked_1_ < i1 + 12 && p_mouseClicked_3_ >= i2 &&
+				p_mouseClicked_3_ < i2 + 54 ) {
 				clickedOnSroll = true;
 			}
 		}
@@ -155,8 +158,12 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 	}
 	
 	@Override
-	public boolean mouseDragged( double p_mouseDragged_1_, double p_mouseDragged_3_, int p_mouseDragged_5_,
-		double p_mouseDragged_6_, double p_mouseDragged_8_ ) {
+	public boolean mouseDragged(
+		double p_mouseDragged_1_,
+		double p_mouseDragged_3_,
+		int p_mouseDragged_5_,
+		double p_mouseDragged_6_,
+		double p_mouseDragged_8_ ) {
 		
 		if( clickedOnSroll && canScroll() ) {
 			int i = guiTop + 14;
@@ -166,8 +173,13 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 			recipeIndexOffset = (int)( sliderProgress * getHiddenRows() + 0.5D ) << 2;
 			return true;
 		} else {
-			return super.mouseDragged( p_mouseDragged_1_, p_mouseDragged_3_, p_mouseDragged_5_, p_mouseDragged_6_,
-				p_mouseDragged_8_ );
+			return super.mouseDragged(
+				p_mouseDragged_1_,
+				p_mouseDragged_3_,
+				p_mouseDragged_5_,
+				p_mouseDragged_6_,
+				p_mouseDragged_8_
+			);
 		}
 	}
 	

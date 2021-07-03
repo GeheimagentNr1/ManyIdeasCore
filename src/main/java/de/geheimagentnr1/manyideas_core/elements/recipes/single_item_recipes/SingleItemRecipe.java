@@ -28,8 +28,13 @@ public abstract class SingleItemRecipe implements IRecipe<IInventory> {
 	
 	private final String group;
 	
-	protected SingleItemRecipe( IRecipeType<?> _type, IRecipeSerializer<?> _serializer, ResourceLocation _id,
-		String _group, Ingredient _ingredient, ItemStack _result ) {
+	protected SingleItemRecipe(
+		IRecipeType<?> _type,
+		IRecipeSerializer<?> _serializer,
+		ResourceLocation _id,
+		String _group,
+		Ingredient _ingredient,
+		ItemStack _result ) {
 		
 		type = _type;
 		serializer = _serializer;

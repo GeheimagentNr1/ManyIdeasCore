@@ -30,8 +30,8 @@ public class MainConfig {
 		BUILDER.comment( "General settings" ).push( GENERAL );
 		DEBUG = BUILDER.comment( "Activate Debug Blocks?" ).define( "debug_blocks", false );
 		ALL_COLORS_IN_ITEM_GROUP = BUILDER.comment(
-			"Should all Colors of Dyed Blocks should be shown in the Creative Tabs?" )
-			.define( "all_colors_in_item_group", true );
+			"Should all Colors of Dyed Blocks should be shown in the Creative Tabs?"
+		).define( "all_colors_in_item_group", true );
 		BUILDER.pop();
 		
 		CONFIG = BUILDER.build();
@@ -39,8 +39,9 @@ public class MainConfig {
 	
 	public static void load() {
 		
-		CommentedFileConfig configData = CommentedFileConfig.builder( FMLPaths.CONFIGDIR.get().resolve(
-			ManyIdeasCore.MODID + ".toml" ) ).sync().autosave().writingMode( WritingMode.REPLACE ).build();
+		CommentedFileConfig configData = CommentedFileConfig.builder(
+			FMLPaths.CONFIGDIR.get().resolve( ManyIdeasCore.MODID + ".toml" )
+		).sync().autosave().writingMode( WritingMode.REPLACE ).build();
 		String mod_name = ModLoadingContext.get().getActiveContainer().getModInfo().getDisplayName();
 		
 		LOGGER.info( "Loading \"{}\" Config", mod_name );

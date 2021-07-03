@@ -76,22 +76,34 @@ public class RegistryEventHandler {
 	@SubscribeEvent
 	public static void onTileEntityRegistry( RegistryEvent.Register<TileEntityType<?>> event ) {
 		
-		event.getRegistry().register( TileEntityType.Builder.create( EndBlockTile::new,
-			ModBlocks.END_BLOCK ).build( null ).setRegistryName( EndBlock.registry_name ) );
-		event.getRegistry().register( TileEntityType.Builder.create( MetalSmokerTile::new,
-			ModBlocks.METAL_SMOKER ).build( null ).setRegistryName( MetalSmoker.registry_name ) );
+		event.getRegistry().register( TileEntityType.Builder.create( EndBlockTile::new, ModBlocks.END_BLOCK )
+			.build( null )
+			.setRegistryName( EndBlock.registry_name ) );
+		event.getRegistry().register( TileEntityType.Builder.create( MetalSmokerTile::new, ModBlocks.METAL_SMOKER )
+			.build( null )
+			.setRegistryName( MetalSmoker.registry_name ) );
 	}
 	
 	@SubscribeEvent
 	public static void onContainerRegistry( RegistryEvent.Register<ContainerType<?>> event ) {
 		
-		event.getRegistry().register( IForgeContainerType.create( ( windowId, inv, data ) ->
-			new DyeCraftingTableContainer( windowId, inv ) ).setRegistryName( DyeCraftingTable.registry_name ) );
-		event.getRegistry().register( IForgeContainerType.create( ( windowId, inv, data ) ->
-			new TableSawDiamondContainer( windowId, inv ) ).setRegistryName( TableSawDiamond.registry_name ) );
-		event.getRegistry().register( IForgeContainerType.create( ( windowId, inv, data ) ->
-			new TableSawIronContainer( windowId, inv ) ).setRegistryName( TableSawIron.registry_name ) );
-		event.getRegistry().register( IForgeContainerType.create( ( windowId, inv, data ) ->
-			new TableSawStoneContainer( windowId, inv ) ).setRegistryName( TableSawStone.registry_name ) );
+		event.getRegistry()
+			.register( IForgeContainerType.create( ( windowId, inv, data ) -> new DyeCraftingTableContainer(
+				windowId,
+				inv
+			) ).setRegistryName( DyeCraftingTable.registry_name ) );
+		event.getRegistry()
+			.register( IForgeContainerType.create( ( windowId, inv, data ) -> new TableSawDiamondContainer(
+				windowId,
+				inv
+			) ).setRegistryName( TableSawDiamond.registry_name ) );
+		event.getRegistry().register( IForgeContainerType.create( ( windowId, inv, data ) -> new TableSawIronContainer(
+			windowId,
+			inv
+		) ).setRegistryName( TableSawIron.registry_name ) );
+		event.getRegistry().register( IForgeContainerType.create( ( windowId, inv, data ) -> new TableSawStoneContainer(
+			windowId,
+			inv
+		) ).setRegistryName( TableSawStone.registry_name ) );
 	}
 }

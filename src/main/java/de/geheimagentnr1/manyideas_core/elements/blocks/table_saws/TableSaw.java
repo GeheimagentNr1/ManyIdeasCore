@@ -36,11 +36,13 @@ public abstract class TableSaw extends Block implements BlockItemInterface {
 	
 	private static final DamageSource SAW = new DamageSource( "table_saw" );
 	
-	private static final VoxelShape SHAPE = VoxelShapes.or( Block.makeCuboidShape( 0.0, 14.0, 0.0, 16.0, 15.75, 16.0 ),
+	private static final VoxelShape SHAPE = VoxelShapes.or(
+		Block.makeCuboidShape( 0.0, 14.0, 0.0, 16.0, 15.75, 16.0 ),
 		Block.makeCuboidShape( 0.0, 0.0, 0.0, 2.0, 14.0, 2.0 ),
 		Block.makeCuboidShape( 14.0, 0.0, 0.0, 16.0, 14.0, 2.0 ),
 		Block.makeCuboidShape( 14.0, 0.0, 14.0, 16.0, 14.0, 16.0 ),
-		Block.makeCuboidShape( 0.0, 0.0, 14.0, 2.0, 14.0, 16.0 ) );
+		Block.makeCuboidShape( 0.0, 0.0, 14.0, 2.0, 14.0, 16.0 )
+	);
 	
 	protected TableSaw( String registry_name ) {
 		
@@ -58,7 +60,10 @@ public abstract class TableSaw extends Block implements BlockItemInterface {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+	public VoxelShape getShape(
+		@Nonnull BlockState state,
+		@Nonnull IBlockReader worldIn,
+		@Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
 		return SHAPE;
@@ -80,8 +85,13 @@ public abstract class TableSaw extends Block implements BlockItemInterface {
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public boolean onBlockActivated( BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
-		PlayerEntity player, @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit ) {
+	public boolean onBlockActivated(
+		BlockState state,
+		@Nonnull World worldIn,
+		@Nonnull BlockPos pos,
+		PlayerEntity player,
+		@Nonnull Hand handIn,
+		@Nonnull BlockRayTraceResult hit ) {
 		
 		player.openContainer( state.getContainer( worldIn, pos ) );
 		return true;
@@ -90,16 +100,22 @@ public abstract class TableSaw extends Block implements BlockItemInterface {
 	@SuppressWarnings( "deprecation" )
 	@Nullable
 	@Override
-	public INamedContainerProvider getContainer( @Nonnull BlockState state, @Nonnull World worldIn,
+	public INamedContainerProvider getContainer(
+		@Nonnull BlockState state,
+		@Nonnull World worldIn,
 		@Nonnull BlockPos pos ) {
 		
-		return new SimpleNamedContainerProvider( ( windowID, playerInventory, player ) ->
-			getContainer( windowID, playerInventory, IWorldPosCallable.of( worldIn, pos ) ),
-			getNameTextComponent() );
+		return new SimpleNamedContainerProvider( ( windowID, playerInventory, player ) -> getContainer(
+			windowID,
+			playerInventory,
+			IWorldPosCallable.of( worldIn, pos )
+		), getNameTextComponent() );
 	}
 	
 	//package-private
-	protected abstract Container getContainer( int windowID, PlayerInventory playerInventory,
+	protected abstract Container getContainer(
+		int windowID,
+		PlayerInventory playerInventory,
 		IWorldPosCallable worldPosCallable );
 	
 	@Override

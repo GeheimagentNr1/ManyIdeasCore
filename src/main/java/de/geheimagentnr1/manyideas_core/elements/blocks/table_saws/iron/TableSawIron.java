@@ -19,7 +19,9 @@ public class TableSawIron extends TableSaw {
 	}
 	
 	@Override
-	protected Container getContainer( int windowID, PlayerInventory playerInventory,
+	protected Container getContainer(
+		int windowID,
+		PlayerInventory playerInventory,
 		IWorldPosCallable worldPosCallable ) {
 		
 		return new TableSawIronContainer( windowID, playerInventory, worldPosCallable );

@@ -1,7 +1,7 @@
 {
-  "replace": false,
-  "values": [
-    "manyideas_core:log_stripped_smooth_birch",
-    "manyideas_core:wood_stripped_smooth_birch"
-  ]
+	"replace": false,
+	"values":  [
+		"manyideas_core:log_stripped_smooth_birch",
+		"manyideas_core:wood_stripped_smooth_birch"
+	]
 }
