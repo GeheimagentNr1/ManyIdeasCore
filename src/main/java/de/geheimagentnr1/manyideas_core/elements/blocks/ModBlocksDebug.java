@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks;
 
-import de.geheimagentnr1.manyideas_core.config.MainConfig;
+import de.geheimagentnr1.manyideas_core.config.ClientConfig;
 import de.geheimagentnr1.manyideas_core.elements.blocks.debug.DebugBlockCullface;
 import net.minecraft.block.Block;
 
@@ -23,7 +23,7 @@ public class ModBlocksDebug {
 	
 	private static Block[] initBlocks() {
 		
-		if( MainConfig.DEBUG.get() ) {
+		if( ClientConfig.DEBUG.get() ) {
 			return new Block[] {//BCPFINRLT
 				//Debug
 				new DebugBlockCullface(),//BCFINRLT

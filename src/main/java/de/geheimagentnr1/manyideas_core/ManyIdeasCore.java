@@ -1,8 +1,10 @@
 package de.geheimagentnr1.manyideas_core;
 
-import de.geheimagentnr1.manyideas_core.config.MainConfig;
+import de.geheimagentnr1.manyideas_core.config.ClientConfig;
 import de.geheimagentnr1.manyideas_core.setup.ModSetup;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 
 
 @SuppressWarnings( "UtilityClassWithPublicConstructor" )
@@ -16,6 +18,7 @@ public class ManyIdeasCore {
 	
 	public ManyIdeasCore() {
 		
-		MainConfig.load();
+		ClientConfig.load();
+		ModLoadingContext.get().registerConfig( ModConfig.Type.CLIENT, ClientConfig.CONFIG );
 	}
 }

@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed;
 
-import de.geheimagentnr1.manyideas_core.config.MainConfig;
+import de.geheimagentnr1.manyideas_core.config.ClientConfig;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
 import net.minecraft.block.Block;
@@ -37,7 +37,7 @@ public class DyeBlockItem extends BlockItem {
 	public void fillItemGroup( @Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items ) {
 		
 		if( isInGroup( group ) ) {
-			if( MainConfig.ALL_COLORS_IN_ITEM_GROUP.get() ) {
+			if( ClientConfig.ALL_COLORS_IN_ITEM_GROUP.get() ) {
 				for( Color color : Color.values() ) {
 					items.add( DyeBlockHelper.createItemStackOfItem( this, color ) );
 				}
