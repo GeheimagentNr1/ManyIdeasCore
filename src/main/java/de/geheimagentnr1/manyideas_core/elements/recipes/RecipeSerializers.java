@@ -1,7 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
-import de.geheimagentnr1.manyideas_core.elements.blocks.mortal.MortalingRecipe;
+import de.geheimagentnr1.manyideas_core.elements.blocks.mortar.GrindingRecipe;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondRecipe;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronRecipe;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneRecipe;
@@ -21,9 +21,9 @@ public class RecipeSerializers {
 	
 	public static IRecipeSerializer<DyedRecipe> DYED;
 	
-	//Mortaling
+	//Grinding
 	
-	public static IRecipeSerializer<MortalingRecipe> MORTALING;
+	public static IRecipeSerializer<GrindingRecipe> GRINDING;
 	
 	//Tablesawing
 	
@@ -49,10 +49,10 @@ public class RecipeSerializers {
 		
 		//Dyed
 		DYED = register( DyedRecipe.registry_name, new DyedRecipeSerializer() );
-		//Mortaling
-		MORTALING = register(
-			MortalingRecipe.registry_name,
-			new SingleItemRecipeSerializer<>( MortalingRecipe::new )
+		//Grinding
+		GRINDING = register(
+			GrindingRecipe.registry_name,
+			new SingleItemRecipeSerializer<>( GrindingRecipe::new )
 		);
 		//Tablesawing
 		TABLE_SAWING_DIAMOND = register(

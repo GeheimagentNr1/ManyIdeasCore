@@ -1,0 +1,11 @@
+{
+	"replace": false,
+	"values":  [
+		"manyideas_core:plank_acacia",
+		"manyideas_core:plank_birch",
+		"manyideas_core:plank_dark_oak",
+		"manyideas_core:plank_jungle",
+		"manyideas_core:plank_oak",
+		"manyideas_core:plank_spruce"
+	]
+}

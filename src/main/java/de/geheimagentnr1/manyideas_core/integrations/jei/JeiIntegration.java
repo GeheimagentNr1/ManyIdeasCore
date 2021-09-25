@@ -8,8 +8,8 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSaw
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneContainer;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.dyed.DyedRecipeCategory;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.dyed.JeiDyedRecipe;
-import de.geheimagentnr1.manyideas_core.integrations.jei.categories.mortaling.JeiMortalingRecipe;
-import de.geheimagentnr1.manyideas_core.integrations.jei.categories.mortaling.MortalingRecipeCategory;
+import de.geheimagentnr1.manyideas_core.integrations.jei.categories.grinding.JeiGrindingRecipe;
+import de.geheimagentnr1.manyideas_core.integrations.jei.categories.grinding.GrindingRecipeCategory;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.table_sawing.table_sawing_diamond.JeiTableSawDiamondRecipe;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.table_sawing.table_sawing_diamond.TableSawDiamondRecipeCategory;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.table_sawing.table_sawing_iron.JeiTableSawIronRecipe;
@@ -44,6 +44,10 @@ public class JeiIntegration implements IModPlugin {
 	public void registerItemSubtypes( ISubtypeRegistration registration ) {
 		
 		registration.registerSubtypeInterpreter(
+			ModBlocks.PLANKS_COLORED.asItem(),
+			new DyeBlockItemSubtypeInterpreter()
+		);
+		registration.registerSubtypeInterpreter(
 			ModBlocks.WOOD_COLORED.asItem(),
 			new DyeBlockItemSubtypeInterpreter()
 		);
@@ -56,7 +60,7 @@ public class JeiIntegration implements IModPlugin {
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 		registration.addRecipeCategories(
 			new DyedRecipeCategory( guiHelper ),
-			new MortalingRecipeCategory( guiHelper ),
+			new GrindingRecipeCategory( guiHelper ),
 			new TableSawDiamondRecipeCategory( guiHelper ),
 			new TableSawIronRecipeCategory( guiHelper ),
 			new TableSawStoneRecipeCategory( guiHelper )
@@ -67,7 +71,7 @@ public class JeiIntegration implements IModPlugin {
 	public void registerRecipes( IRecipeRegistration registration ) {
 		
 		registration.addRecipes( JeiDyedRecipe.getRecipes(), DyedRecipeCategory.registry_key );
-		registration.addRecipes( JeiMortalingRecipe.getRecipes(), MortalingRecipeCategory.registry_key );
+		registration.addRecipes( JeiGrindingRecipe.getRecipes(), GrindingRecipeCategory.registry_key );
 		registration.addRecipes( JeiTableSawDiamondRecipe.getRecipes(), TableSawDiamondRecipeCategory.registry_key );
 		registration.addRecipes( JeiTableSawIronRecipe.getRecipes(), TableSawIronRecipeCategory.registry_key );
 		registration.addRecipes( JeiTableSawStoneRecipe.getRecipes(), TableSawStoneRecipeCategory.registry_key );
@@ -141,7 +145,7 @@ public class JeiIntegration implements IModPlugin {
 			new ItemStack( ModBlocks.DYE_CRAFTING_TABLE ),
 			DyedRecipeCategory.registry_key
 		);
-		registration.addRecipeCatalyst( new ItemStack( ModBlocks.MORTAL ), MortalingRecipeCategory.registry_key );
+		registration.addRecipeCatalyst( new ItemStack( ModBlocks.MORTAR ), GrindingRecipeCategory.registry_key );
 		registration.addRecipeCatalyst(
 			new ItemStack( ModBlocks.TABLE_SAW_DIAMOND ),
 			TableSawDiamondRecipeCategory.registry_key

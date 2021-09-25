@@ -1,55 +1,57 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.doors;
 
-import de.geheimagentnr1.manyideas_core.elements.block_state_properties.CanBeOpenedByBlockState;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.ModBlockStateProperties;
+import de.geheimagentnr1.manyideas_core.elements.block_state_properties.OpenedBy;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
+import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces.RedstoneKeyable;
+import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
+import de.geheimagentnr1.manyideas_core.util.doors.BlockData;
+import de.geheimagentnr1.manyideas_core.util.doors.DoorsHelper;
+import de.geheimagentnr1.manyideas_core.util.doors.OpenedByHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Items;
 import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.DoorHingeSide;
-import net.minecraft.state.properties.DoubleBlockHalf;
-import net.minecraft.util.*;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 
 @SuppressWarnings( { "AbstractClassExtendsConcreteClass", "unused", "AbstractClassNeverImplemented" } )
-public abstract class DoubleDoorBlock extends DoorBlock implements BlockItemInterface {
+public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyable, BlockItemInterface {
 	
 	
 	protected DoubleDoorBlock( Block.Properties properties, String registry_name ) {
 		
 		super( properties );
 		setRegistryName( registry_name );
-		initDoubleDoorBlock( material != Material.IRON );
+		initDoubleDoorBlock(
+			material == Material.IRON ? OpenedBy.REDSTONE : OpenedBy.BOTH
+		);
 	}
 	
 	protected DoubleDoorBlock(
 		Block.Properties properties,
 		String registry_name,
-		boolean canBeOpenedOnBlockActivated ) {
+		OpenedBy openedBy ) {
 		
 		super( properties );
 		setRegistryName( registry_name );
-		initDoubleDoorBlock( canBeOpenedOnBlockActivated );
+		initDoubleDoorBlock( openedBy );
 	}
 	
-	private void initDoubleDoorBlock( boolean canBeOpenedOnBlockActivated ) {
+	private void initDoubleDoorBlock( OpenedBy openedBy ) {
 		
-		setDefaultState( getDefaultState().with(
-			ModBlockStateProperties.OPENED_BY,
-			material != Material.IRON || canBeOpenedOnBlockActivated
-				? CanBeOpenedByBlockState.BOTH
-				: CanBeOpenedByBlockState.REDSTONE
-		) );
+		setDefaultState( getDefaultState().with( ModBlockStateProperties.OPENED_BY, openedBy ) );
 	}
 	
 	@Override
@@ -57,32 +59,19 @@ public abstract class DoubleDoorBlock extends DoorBlock implements BlockItemInte
 		@Nonnull BlockState state,
 		@Nonnull World worldIn,
 		@Nonnull BlockPos pos,
-		PlayerEntity player,
+		@Nonnull PlayerEntity player,
 		@Nonnull Hand handIn,
 		@Nonnull BlockRayTraceResult hit ) {
 		
-		if( player.getHeldItem( handIn ).getItem() == Items.REDSTONE_TORCH ) {
-			state = state.cycle( ModBlockStateProperties.OPENED_BY );
-			worldIn.setBlockState( pos, state, 3 );
-			BlockPos other_pos = state.get( HALF ) == DoubleBlockHalf.LOWER ? pos.up() : pos.down();
-			BlockState other_state = worldIn.getBlockState( other_pos ).cycle( ModBlockStateProperties.OPENED_BY );
-			worldIn.setBlockState( other_pos, other_state, 3 );
-			if( !worldIn.isRemote ) {
-				player.sendMessage( new StringTextComponent(
-					"Door reacts on: " + state.get( ModBlockStateProperties.OPENED_BY ).getName() ) );
-			}
-			return true;
-		}
-		if( canBeOpened( state, true ) ) {
-			state = state.cycle( OPEN );
-			worldIn.setBlockState( pos, state, 10 );
-			playDoorSound( player, worldIn, pos, state.get( OPEN ) );
-			BlockPos neighborPos = pos.offset( getDirectionToOtherDoor( state ) );
-			BlockState neighborState = worldIn.getBlockState( neighborPos );
-			if( neighborState.getBlock() instanceof DoubleDoorBlock &&
-				state.get( FACING ) == neighborState.get( FACING ) &&
-				state.get( HINGE ) != neighborState.get( HINGE ) ) {
-				worldIn.setBlockState( neighborPos, neighborState.with( OPEN, state.get( OPEN ) ), 2 );
+		if( player.getHeldItem( handIn ).getItem() != ModItems.RESTONE_KEY
+			&& OpenedByHelper.canBeOpened( state, true ) ) {
+			boolean open = !state.get( OPEN );
+			worldIn.setBlockState( pos, state.with( OPEN, open ), 10 );
+			DoorsHelper.playDoorSound( worldIn, pos, material, player, state.get( OPEN ) );
+			
+			BlockData neighbor = DoorsHelper.getNeighborBlock( worldIn, pos, state );
+			if( DoorsHelper.isNeighbor( state, neighbor ) ) {
+				worldIn.setBlockState( neighbor.getPos(), neighbor.getState().with( OPEN, open ), 2 );
 			}
 			return true;
 		}
@@ -98,27 +87,24 @@ public abstract class DoubleDoorBlock extends DoorBlock implements BlockItemInte
 		@Nonnull BlockPos fromPos,
 		boolean isMoving ) {
 		
-		boolean isDoorPowered = isDoorBlockPowerd( pos, worldIn, state );
-		BlockPos neighborPos = pos.offset( getDirectionToOtherDoor( state ) );
-		BlockState neighborState = worldIn.getBlockState( neighborPos );
-		boolean isNeighborDoubleDoor =
-			neighborState.getBlock() instanceof DoubleDoorBlock && state.get( FACING ) == neighborState.get( FACING ) &&
-				state.get( HINGE ) != neighborState.get( HINGE );
-		
-		if( isNeighborDoubleDoor ) {
-			isDoorPowered |= isDoorBlockPowerd( neighborPos, worldIn, worldIn.getBlockState( neighborPos ) );
-		}
-		if( canBeOpened( state, false ) && blockIn != this && isDoorPowered != state.get( POWERED ) ) {
-			if( state.get( OPEN ) != isDoorPowered ) {
-				playDoorSound( null, worldIn, pos, isDoorPowered );
-			}
-			worldIn.setBlockState( pos, state.with( POWERED, isDoorPowered ).with( OPEN, isDoorPowered ), 2 );
-			if( isNeighborDoubleDoor ) {
-				worldIn.setBlockState(
-					neighborPos,
-					neighborState.with( POWERED, isDoorPowered ).with( OPEN, isDoorPowered ),
-					2
-				);
+		if( blockIn != this && OpenedByHelper.canBeOpened( state, false ) ) {
+			BlockData neighbor = DoorsHelper.getNeighborBlock( worldIn, pos, state );
+			boolean isNeighbor = DoorsHelper.isNeighbor( state, neighbor );
+			boolean isDoorPowered = DoorsHelper.isDoorPowered( worldIn, pos, state ) ||
+				isNeighbor && DoorsHelper.isDoorPowered( worldIn, neighbor.getPos(), neighbor.getState() );
+			
+			if( isDoorPowered != state.get( POWERED ) ) {
+				if( state.get( OPEN ) != isDoorPowered ) {
+					DoorsHelper.playDoorSound( worldIn, pos, material, null, isDoorPowered );
+				}
+				worldIn.setBlockState( pos, state.with( POWERED, isDoorPowered ).with( OPEN, isDoorPowered ), 2 );
+				if( isNeighbor ) {
+					worldIn.setBlockState(
+						neighbor.getPos(),
+						neighbor.getState().with( POWERED, isDoorPowered ).with( OPEN, isDoorPowered ),
+						2
+					);
+				}
 			}
 		}
 	}
@@ -130,84 +116,63 @@ public abstract class DoubleDoorBlock extends DoorBlock implements BlockItemInte
 		builder.add( ModBlockStateProperties.OPENED_BY );
 	}
 	
-	private boolean canBeOpened( BlockState state, boolean onActivated ) {
+	@Override
+	public ITextComponent getTitle() {
 		
-		switch( state.get( ModBlockStateProperties.OPENED_BY ) ) {
-			case NOTHING:
-				return false;
-			case HAND:
-				return onActivated;
-			case REDSTONE:
-				return !onActivated;
-			case BOTH:
-				return true;
-			default:
-				throw new IllegalStateException( "Illegal \"can_be_opened_by\" State" );
+		return OpenedByHelper.OPEN_BY_CONTAINER_TITLE;
+	}
+	
+	@Override
+	public ResourceLocation getIconTextures() {
+		
+		return OpenedByHelper.ICON_TEXTURES;
+	}
+	
+	@Override
+	public List<Option> getOptions() {
+		
+		return OpenedByHelper.buildOptions();
+	}
+	
+	@Override
+	public int getStateIndex( BlockState state ) {
+		
+		return OpenedByHelper.getStateIndex( state );
+	}
+	
+	@Override
+	public void setBlockStateValue(
+		World world, BlockState state, BlockPos pos, int stateIndex,
+		PlayerEntity player ) {
+		
+		OpenedBy[] openedByValues = OpenedBy.values();
+		if( stateIndex >= 0 && stateIndex < openedByValues.length ) {
+			OpenedBy openedBy = openedByValues[stateIndex];
+			
+			world.setBlockState( pos, state.with( ModBlockStateProperties.OPENED_BY, openedBy ), 2 );
+			
+			BlockData other = DoorsHelper.getOtherBlock( world, pos, state );
+			world.setBlockState(
+				other.getPos(),
+				other.getState().with( ModBlockStateProperties.OPENED_BY, openedBy ),
+				2
+			);
+			
+			BlockData neighbor = DoorsHelper.getNeighborBlock( world, pos, state );
+			if( DoorsHelper.isNeighbor( state, neighbor ) ) {
+				world.setBlockState(
+					neighbor.getPos(),
+					neighbor.getState().with( ModBlockStateProperties.OPENED_BY, openedBy ),
+					2
+				);
+				
+				BlockData otherNeighbor = DoorsHelper.getOtherBlock( world, neighbor.getPos(), neighbor.getState() );
+				world.setBlockState(
+					otherNeighbor.getPos(),
+					otherNeighbor.getState().with( ModBlockStateProperties.OPENED_BY, openedBy ),
+					2
+				);
+			}
 		}
-	}
-	
-	private boolean isDoorBlockPowerd( BlockPos pos, World world, BlockState state ) {
-		
-		return world.isBlockPowered( pos ) || world.isBlockPowered( pos.offset(
-			state.get( HALF ) == DoubleBlockHalf.LOWER ? Direction.UP : Direction.DOWN ) );
-	}
-	
-	private Direction getDirectionToOtherDoor( BlockState state ) {
-		
-		Direction direction = null;
-		
-		switch( state.get( FACING ) ) {
-			case EAST:
-				if( state.get( HINGE ) == DoorHingeSide.LEFT ) {
-					direction = Direction.SOUTH;
-				} else {
-					direction = Direction.NORTH;
-				}
-				break;
-			case WEST:
-				if( state.get( HINGE ) == DoorHingeSide.LEFT ) {
-					direction = Direction.NORTH;
-				} else {
-					direction = Direction.SOUTH;
-				}
-				break;
-			case SOUTH:
-				if( state.get( HINGE ) == DoorHingeSide.LEFT ) {
-					direction = Direction.WEST;
-				} else {
-					direction = Direction.EAST;
-				}
-				break;
-			case NORTH:
-				if( state.get( HINGE ) == DoorHingeSide.LEFT ) {
-					direction = Direction.EAST;
-				} else {
-					direction = Direction.WEST;
-				}
-				break;
-		}
-		return direction;
-	}
-	
-	private void playDoorSound( PlayerEntity player, World world, BlockPos pos, boolean open ) {
-		
-		world.playSound(
-			player,
-			pos,
-			open ? getOpenDoorSound() : getCloseDoorSound(),
-			SoundCategory.BLOCKS,
-			1.0F,
-			1.0F
-		);
-	}
-	
-	private SoundEvent getCloseDoorSound() {
-		
-		return material == Material.IRON ? SoundEvents.BLOCK_IRON_DOOR_OPEN : SoundEvents.BLOCK_WOODEN_DOOR_OPEN;
-	}
-	
-	private SoundEvent getOpenDoorSound() {
-		
-		return material == Material.IRON ? SoundEvents.BLOCK_IRON_DOOR_CLOSE : SoundEvents.BLOCK_WOODEN_DOOR_CLOSE;
 	}
 }

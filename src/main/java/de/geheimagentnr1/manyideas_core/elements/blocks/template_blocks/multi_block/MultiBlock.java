@@ -15,6 +15,7 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
@@ -109,23 +110,29 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	
 	private boolean isPlaceFree( World world, BlockPos pos, Direction facing, BlockItemUseContext context ) {
 		
-		return calculateForBlocks( pos, facing, new MultiBlockCalculater<Boolean>() {
-			
-			@Override
-			public Optional<Boolean> calculate( int x, int y, int z, BlockPos blockPos ) {
+		return calculateForBlocks(
+			world,
+			pos,
+			facing,
+			new MultiBlockCalculater<Boolean>() {
 				
-				if( !world.getBlockState( blockPos ).isReplaceable( context ) ) {
-					return Optional.of( false );
+				@Override
+				public Optional<Boolean> calculate( int x, int y, int z, BlockPos blockPos ) {
+					
+					if( !world.getBlockState( blockPos ).isReplaceable( context ) ) {
+						return Optional.of( false );
+					}
+					return Optional.empty();
 				}
-				return Optional.empty();
-			}
-			
-			@Override
-			public Boolean getAlternative() {
 				
-				return true;
-			}
-		} );
+				@Override
+				public Boolean getAlternative() {
+					
+					return true;
+				}
+			},
+			false
+		);
 	}
 	
 	@Override
@@ -141,13 +148,15 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 			pos = pos.offset( state.get( BlockStateProperties.HORIZONTAL_FACING ).rotateYCCW(), z_index );
 		}
 		runForBlocks(
+			worldIn,
 			pos,
 			state.get( BlockStateProperties.HORIZONTAL_FACING ),
 			( x, y, z, blockPos ) -> worldIn.setBlockState(
 				blockPos,
 				withSize( withSize( withSize( state, X_SIZE, x ), Y_SIZE, y ), Z_SIZE, z ),
 				3
-			)
+			),
+			false
 		);
 	}
 	
@@ -159,25 +168,25 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 		@Nonnull PlayerEntity player ) {
 		
 		runForBlocks(
+			worldIn,
 			getZeroPos( state, pos ),
 			state.get( BlockStateProperties.HORIZONTAL_FACING ),
 			( x, y, z, blockPos ) -> {
 				BlockState blockState = worldIn.getBlockState( blockPos );
-				if( blockState.getBlock() == this ) {
-					worldIn.removeBlock( blockPos, true );
-					super.onBlockHarvested( worldIn, blockPos, blockState, player );
-					if( !worldIn.isRemote && !player.isCreative() ) {
-						Block.spawnDrops(
-							blockState,
-							worldIn,
-							blockPos,
-							worldIn.getTileEntity( blockPos ),
-							player,
-							player.getHeldItemMainhand()
-						);
-					}
+				worldIn.removeBlock( blockPos, true );
+				super.onBlockHarvested( worldIn, blockPos, blockState, player );
+				if( !worldIn.isRemote && !player.isCreative() ) {
+					Block.spawnDrops(
+						blockState,
+						worldIn,
+						blockPos,
+						worldIn.getTileEntity( blockPos ),
+						player,
+						player.getHeldItemMainhand()
+					);
 				}
-			}
+			},
+			true
 		);
 		super.onBlockHarvested( worldIn, pos, state, player );
 	}
@@ -193,15 +202,15 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 		
 		if( newState.getBlock() != this ) {
 			runForBlocks(
+				worldIn,
 				getZeroPos( state, pos ),
 				state.get( BlockStateProperties.HORIZONTAL_FACING ),
 				( x, y, z, blockPos ) -> {
 					BlockState blockState = worldIn.getBlockState( blockPos );
-					if( blockState.getBlock() == this ) {
-						super.onReplaced( blockState, worldIn, blockPos, Blocks.AIR.getDefaultState(), isMoving );
-						worldIn.setBlockState( blockPos, Blocks.AIR.getDefaultState(), 3 );
-					}
-				}
+					super.onReplaced( blockState, worldIn, blockPos, Blocks.AIR.getDefaultState(), isMoving );
+					worldIn.setBlockState( blockPos, Blocks.AIR.getDefaultState(), 3 );
+				},
+				true
 			);
 		}
 	}
@@ -209,19 +218,23 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	protected BlockPos getZeroPos( BlockState state, BlockPos pos ) {
 		
 		Direction facing = state.get( BlockStateProperties.HORIZONTAL_FACING );
-		for( int x = 0; x < getSize( state, X_SIZE ); x++ ) {
-			pos = pos.offset( facing.getOpposite() );
-		}
-		for( int y = 0; y < getSize( state, Y_SIZE ); y++ ) {
-			pos = pos.down();
-		}
-		for( int z = 0; z < getSize( state, Z_SIZE ); z++ ) {
-			pos = pos.offset( facing.rotateYCCW() );
-		}
+		pos = pos.offset( facing.getOpposite(), getSize( state, X_SIZE ) );
+		pos = pos.down( getSize( state, Y_SIZE ) );
+		pos = pos.offset( facing.rotateYCCW(), getSize( state, Z_SIZE ) );
 		return pos;
 	}
 	
-	protected void runForBlocks( BlockPos pos, Direction facing, MultiBlockRunner runner ) {
+	protected boolean checkBlockAtPos( IWorld world, BlockPos pos, boolean checkIsBlockAtPos ) {
+		
+		return !checkIsBlockAtPos || world.getBlockState( pos ).getBlock() == this;
+	}
+	
+	protected void runForBlocks(
+		IWorld world,
+		BlockPos pos,
+		Direction facing,
+		MultiBlockRunner runner,
+		boolean checkIsBlockAtPos ) {
 		
 		boolean[][][] hasStatesAtPos = hasBlockStatesAtPos();
 		BlockPos x_pos = pos;
@@ -232,7 +245,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 			for( int y = 0; y < getYSize(); y++, y_pos = y_pos.up() ) {
 				BlockPos z_pos = y_pos;
 				for( int z = 0; z < getZSize(); z++, z_pos = z_pos.offset( z_facing ) ) {
-					if( hasStatesAtPos[x][y][z] ) {
+					if( hasStatesAtPos[x][y][z] && checkBlockAtPos( world, z_pos, checkIsBlockAtPos ) ) {
 						runner.run( x, y, z, z_pos );
 					}
 				}
@@ -240,7 +253,12 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 		}
 	}
 	
-	private <T> T calculateForBlocks( BlockPos pos, Direction facing, MultiBlockCalculater<T> calculater ) {
+	private <T> T calculateForBlocks(
+		IWorld world,
+		BlockPos pos,
+		Direction facing,
+		MultiBlockCalculater<T> calculater,
+		boolean checkIsBlockAtPos ) {
 		
 		boolean[][][] hasStatesAtPos = hasBlockStatesAtPos();
 		Direction z_facing = facing.rotateY();
@@ -251,7 +269,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 			for( int y = 0; y < getYSize(); y++, y_pos = y_pos.up() ) {
 				BlockPos z_pos = y_pos;
 				for( int z = 0; z < getZSize(); z++, z_pos = z_pos.offset( z_facing ) ) {
-					if( hasStatesAtPos[x][y][z] ) {
+					if( hasStatesAtPos[x][y][z] && checkBlockAtPos( world, z_pos, checkIsBlockAtPos ) ) {
 						Optional<T> result = calculater.calculate( x, y, z, z_pos );
 						if( result.isPresent() ) {
 							return result.get();
@@ -265,24 +283,30 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	
 	protected boolean isPowered( World worldIn, BlockPos zeroPos, Direction facing ) {
 		
-		return calculateForBlocks( zeroPos, facing, new MultiBlockCalculater<Boolean>() {
-			
-			@Override
-			public Optional<Boolean> calculate( int x, int y, int z, BlockPos blockPos ) {
+		return calculateForBlocks(
+			worldIn,
+			zeroPos,
+			facing,
+			new MultiBlockCalculater<Boolean>() {
 				
-				if( worldIn.isBlockPowered( blockPos ) ) {
-					return Optional.of( true );
-				} else {
-					return Optional.empty();
+				@Override
+				public Optional<Boolean> calculate( int x, int y, int z, BlockPos blockPos ) {
+					
+					if( worldIn.isBlockPowered( blockPos ) ) {
+						return Optional.of( true );
+					} else {
+						return Optional.empty();
+					}
 				}
-			}
-			
-			@Override
-			public Boolean getAlternative() {
 				
-				return false;
-			}
-		} );
+				@Override
+				public Boolean getAlternative() {
+					
+					return false;
+				}
+			},
+			true
+		);
 	}
 	
 	private int getSize( BlockState state, IntegerProperty property ) {

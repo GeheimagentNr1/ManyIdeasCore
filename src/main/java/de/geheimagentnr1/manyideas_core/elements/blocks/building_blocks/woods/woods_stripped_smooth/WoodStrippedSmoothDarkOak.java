@@ -18,6 +18,6 @@ public class WoodStrippedSmoothDarkOak extends Wood {
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return createBlockItem( ModBlocks.SMOOTH_STRIPPED_DARK_OAK_WOOD, properties, registry_name );
+		return createBlockItem( ModBlocks.WOOD_STRIPPED_SMOOTH_DARK_OAK, properties, registry_name );
 	}
 }

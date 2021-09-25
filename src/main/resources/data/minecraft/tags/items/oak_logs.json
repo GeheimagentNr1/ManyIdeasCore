@@ -2,7 +2,6 @@
 	"replace": false,
 	"values":  [
 		"manyideas_core:log_stripped_smooth_oak",
-		"manyideas_core:wood_stripped_smooth_oak",
-		"manyideas_core:wood_colored"
+		"manyideas_core:wood_stripped_smooth_oak"
 	]
 }

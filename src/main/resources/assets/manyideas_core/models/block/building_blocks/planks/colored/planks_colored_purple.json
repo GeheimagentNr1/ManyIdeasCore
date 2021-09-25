@@ -1,0 +1,6 @@
+{
+	"parent":   "minecraft:block/cube_all",
+	"textures": {
+		"all": "manyideas_core:block/building_blocks/planks/colored/planks_colored_purple"
+	}
+}

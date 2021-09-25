@@ -1,0 +1,8 @@
+{
+	"type":       "manyideas_core:table_sawing_diamond",
+	"ingredient": {
+		"item": "minecraft:quartz_block"
+	},
+	"result":     "manyideas_core:plate_quartz",
+	"count":      8
+}

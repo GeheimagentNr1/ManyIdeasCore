@@ -1,0 +1,19 @@
+{
+	"type":    "minecraft:crafting_shaped",
+	"pattern": [
+		"  P",
+		"PPR",
+		"PP "
+	],
+	"key":     {
+		"P": {
+			"item": "manyideas_core:plate_iron"
+		},
+		"R": {
+			"item": "minecraft:redstone"
+		}
+	},
+	"result":  {
+		"item": "manyideas_core:redstone_key"
+	}
+}

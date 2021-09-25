@@ -1,7 +1,0 @@
-{
-	"type":       "manyideas_core:mortaling",
-	"ingredient": {
-		"item": "minecraft:prismarine_crystals"
-	},
-	"result":     "manyideas_core:dye_rainbow"
-}

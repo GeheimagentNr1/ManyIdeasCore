@@ -16,9 +16,11 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSaw
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronContainer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStone;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneContainer;
-import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.metal_smoker.MetalSmoker;
-import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.metal_smoker.MetalSmokerTile;
 import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
+import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.RedstoneKey;
+import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyContainer;
+import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyScreen;
+import de.geheimagentnr1.manyideas_core.network.Network;
 import de.geheimagentnr1.manyideas_core.special.decoration_renderer.PlayerDecorationManager;
 import de.geheimagentnr1.manyideas_core.util.BlockRegistrationHelper;
 import net.minecraft.block.Block;
@@ -34,12 +36,19 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 
 @SuppressWarnings( "unused" )
 @Mod.EventBusSubscriber( bus = Mod.EventBusSubscriber.Bus.MOD )
 public class ModEventHandler {
 	
+	
+	@SubscribeEvent
+	public static void handleCommonSetupEvent( FMLCommonSetupEvent event ) {
+		
+		Network.registerPackets();
+	}
 	
 	@OnlyIn( Dist.CLIENT )
 	@SubscribeEvent
@@ -49,6 +58,8 @@ public class ModEventHandler {
 		ScreenManager.registerFactory( ModBlocks.TABLE_SAW_STONE_CONTAINER, TableSawScreen::new );
 		ScreenManager.registerFactory( ModBlocks.TABLE_SAW_IRON_CONTAINER, TableSawScreen::new );
 		ScreenManager.registerFactory( ModBlocks.TABLE_SAW_DIAMOND_CONTAINER, TableSawScreen::new );
+		
+		ScreenManager.registerFactory( ModItems.RESTONE_KEY_CONTAINER, RedstoneKeyScreen::new );
 		
 		ClientRegistry.bindTileEntitySpecialRenderer( EndBlockTile.class, new EndBlockTileRenderer() );
 		
@@ -79,9 +90,6 @@ public class ModEventHandler {
 		event.getRegistry().register( TileEntityType.Builder.create( EndBlockTile::new, ModBlocks.END_BLOCK )
 			.build( null )
 			.setRegistryName( EndBlock.registry_name ) );
-		event.getRegistry().register( TileEntityType.Builder.create( MetalSmokerTile::new, ModBlocks.METAL_SMOKER )
-			.build( null )
-			.setRegistryName( MetalSmoker.registry_name ) );
 	}
 	
 	@SubscribeEvent
@@ -105,5 +113,10 @@ public class ModEventHandler {
 			windowId,
 			inv
 		) ).setRegistryName( TableSawStone.registry_name ) );
+		
+		event.getRegistry().register(
+			IForgeContainerType.create( ( windowId, inv, data ) -> new RedstoneKeyContainer( windowId, data ) )
+				.setRegistryName( RedstoneKey.registry_name )
+		);
 	}
 }

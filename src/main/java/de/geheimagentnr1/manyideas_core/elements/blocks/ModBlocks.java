@@ -1,6 +1,8 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
+import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.planks.PlanksColored;
+import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.planks.seamless.*;
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.rainbow.*;
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.WoodColored;
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.logs_stripped_smooth.*;
@@ -9,7 +11,7 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCr
 import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableContainer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlock;
 import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlockTile;
-import de.geheimagentnr1.manyideas_core.elements.blocks.mortal.Mortal;
+import de.geheimagentnr1.manyideas_core.elements.blocks.mortar.Mortar;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamond;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondContainer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIron;
@@ -22,8 +24,6 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_s
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightPeony;
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightRoseBush;
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightSunflower;
-import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.metal_smoker.MetalSmoker;
-import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.metal_smoker.MetalSmokerTile;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.tileentity.TileEntityType;
@@ -45,6 +45,15 @@ public class ModBlocks {
 	// T - Tags fertig
 	
 	public static final Block[] BLOCKS = new Block[] {//BCPFINRLT
+		//Building Blocks: Planks
+		new PlanksColored(),//BCPFINRLT
+		//Building Blocks: Planks: Seamless
+		new PlanksSeamlessAcacia(),//BCPFINRLT
+		new PlanksSeamlessBirch(),//BCPFINRLT
+		new PlanksSeamlessDarkOak(),//BCPFINRLT
+		new PlanksSeamlessJungle(),//BCPFINRLT
+		new PlanksSeamlessOak(),//BCPFINRLT
+		new PlanksSeamlessSpruce(),//BCPFINRLT
 		//Building Blocks: Blocks: Rainbow
 		new RainbowCarpet(),//BCPFINRLT
 		new RainbowConcrete(),//BCPFINRLT//Kein Rezept
@@ -74,8 +83,8 @@ public class ModBlocks {
 		new DyeCraftingTable(),//BCPFINRLT
 		//End Block
 		new EndBlock(),//BCPFINRLT
-		//Mortal
-		new Mortal(),//BCPFINRLT
+		//Mortar
+		new Mortar(),//BCPFINRLT
 		//Table Saws
 		new TableSawDiamond(),//BCPFINRLT
 		new TableSawIron(),//BCPFINRLT
@@ -88,9 +97,32 @@ public class ModBlocks {
 		new FlowerTallStraightPeony(),//BCPFINRLT
 		new FlowerTallStraightRoseBush(),//BCPFINRLT
 		new FlowerTallStraightSunflower(),//BCPFINRLT
-		//Vanilla Blocks: Metal Smoker
-		new MetalSmoker(),//BCPFINRLT
 	};
+	
+	//Building Blocks: Plankss
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlanksColored.registry_name )
+	public static PlanksColored PLANKS_COLORED;
+	
+	//Building Blocks: Planks: Seamless
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlanksSeamlessAcacia.registry_name )
+	public static PlanksSeamlessAcacia PLANKS_SEAMLESS_ACACIA;
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlanksSeamlessBirch.registry_name )
+	public static PlanksSeamlessBirch PLANKS_SEAMLESS_BIRCH;
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlanksSeamlessDarkOak.registry_name )
+	public static PlanksSeamlessDarkOak PLANKS_SEAMLESS_DARK_OAK;
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlanksSeamlessJungle.registry_name )
+	public static PlanksSeamlessJungle PLANKS_SEAMLESS_JUNGLE;
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlanksSeamlessOak.registry_name )
+	public static PlanksSeamlessOak PLANKS_SEAMLESS_OAK;
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlanksSeamlessSpruce.registry_name )
+	public static PlanksSeamlessSpruce PLANKS_SEAMLESS_SPRUCE;
 	
 	//Building Blocks: Blocks: Rainbow
 	
@@ -152,7 +184,7 @@ public class ModBlocks {
 	public static WoodStrippedSmoothBirch WOOD_STRIPPED_SMOOTH_BIRCH;
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + WoodStrippedSmoothDarkOak.registry_name )
-	public static WoodStrippedSmoothDarkOak SMOOTH_STRIPPED_DARK_OAK_WOOD;
+	public static WoodStrippedSmoothDarkOak WOOD_STRIPPED_SMOOTH_DARK_OAK;
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + WoodStrippedSmoothJungle.registry_name )
 	public static WoodStrippedSmoothJungle WOOD_STRIPPED_SMOOTH_JUNGLE;
@@ -179,10 +211,10 @@ public class ModBlocks {
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + EndBlock.registry_name )
 	public static TileEntityType<EndBlockTile> END_BLOCK_TILE;
 	
-	//Mortal
+	//Mortar
 	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + Mortal.registry_name )
-	public static Mortal MORTAL;
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + Mortar.registry_name )
+	public static Mortar MORTAR;
 	
 	//Table Saws
 	
@@ -225,12 +257,4 @@ public class ModBlocks {
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + FlowerTallStraightSunflower.registry_name )
 	public static FlowerTallStraightSunflower FLOWER_TALL_STRAIGHT_SUNFLOWER;
-	
-	//Vanilla Blocks: Metal Smoker
-	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + MetalSmoker.registry_name )
-	public static MetalSmoker METAL_SMOKER;
-	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + MetalSmoker.registry_name )
-	public static TileEntityType<MetalSmokerTile> METAL_SMOKER_TILE;
 }

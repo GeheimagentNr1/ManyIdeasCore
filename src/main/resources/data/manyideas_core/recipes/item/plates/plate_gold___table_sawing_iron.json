@@ -1,0 +1,8 @@
+{
+	"type":       "manyideas_core:table_sawing_iron",
+	"ingredient": {
+		"item": "minecraft:gold_block"
+	},
+	"result":     "manyideas_core:plate_gold",
+	"count":      8
+}

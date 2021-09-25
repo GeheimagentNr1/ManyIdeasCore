@@ -66,7 +66,7 @@ Netty/All-in-One,null,4.1.25.Final,null,null,null,Apache License, Version 2.0,ht
 NightConfig core,Powerful, easy-to-use and multi-language configuration library for the JVM - core module,3.6.0,,https://github.com/TheElectronWill/Night-Config,null,GNU Lesser General Public License v3.0,https://www.gnu.org/licenses/lgpl-3.0.txt,com.electronwill.night-config:core:3.6.0
 NightConfig toml,Powerful, easy-to-use and multi-language configuration library for the JVM - toml module,3.6.0,,https://github.com/TheElectronWill/Night-Config,null,GNU Lesser General Public License v3.0,https://www.gnu.org/licenses/lgpl-3.0.txt,com.electronwill.night-config:toml:3.6.0
 oshi-core,null,1.1,null,null,null,null,null,oshi-project:oshi-core:1.1
-patchy,null,1.1,null,null,null,null,null,com.mojang:patchy:1.1
+patchy,null,1.2.3,null,null,null,null,null,com.mojang:patchy:1.2.3
 Plexus Common Utilities,A collection of various utility classes to ease working with strings, files, command lines, XML and
     more.,3.1.0,null,null,null,Apache License, Version 2.0,http://www.apache.org/licenses/LICENSE-2.0.txt,org.codehaus.plexus:plexus-utils:3.1.0
 TerminalConsoleAppender,JLine 3 appender for Log4j2, allows extending command line apps using colors and command completion,1.2.0,Minecrell,https://github.com/Minecrell/TerminalConsoleAppender,null,MIT License,https://opensource.org/licenses/MIT,net.minecrell:terminalconsoleappender:1.2.0

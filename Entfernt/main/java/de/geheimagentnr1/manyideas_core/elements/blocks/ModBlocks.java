@@ -10,7 +10,7 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCr
 import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableContainer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlock;
 import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlockTile;
-import de.geheimagentnr1.manyideas_core.elements.blocks.mortal.Mortal;
+import de.geheimagentnr1.manyideas_core.elements.blocks.mortar.Mortal;
 import de.geheimagentnr1.manyideas_core.elements.blocks.pottery_wheel.PotteryWheel;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamond;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondContainer;
@@ -18,12 +18,6 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSaw
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronContainer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStone;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneContainer;
-import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.normal.FlowerStraightAllium;
-import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.normal.FlowerStraightOrchidBlue;
-import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightLilac;
-import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightPeony;
-import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightRoseBush;
-import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightSunflower;
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.metal_smoker.MetalSmoker;
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.metal_smoker.MetalSmokerTile;
 import net.minecraft.block.Block;
@@ -51,6 +45,8 @@ public class ModBlocks {
 		//new CookingPot(),//BCPFINRLT//TODO: Function
 		//Pottery Wheel
 		//new PotteryWheel(),//BCPFINRLT//TODO: Function
+		//Vanilla Blocks: Metal Smoker
+		new MetalSmoker(),//BCPFINRLT
 	};
 	
 	//Cooking Pot
@@ -62,4 +58,12 @@ public class ModBlocks {
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + PotteryWheel.registry_name )
 	public static PotteryWheel POTTERY_WHEEL;
+	
+	//Vanilla Blocks: Metal Smoker
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + MetalSmoker.registry_name )
+	public static MetalSmoker METAL_SMOKER;
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + MetalSmoker.registry_name )
+	public static TileEntityType<MetalSmokerTile> METAL_SMOKER_TILE;
 }

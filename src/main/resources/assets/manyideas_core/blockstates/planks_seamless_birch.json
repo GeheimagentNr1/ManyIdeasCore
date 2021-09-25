@@ -1,0 +1,7 @@
+{
+	"variants": {
+		"axis=x": { "model": "manyideas_core:block/building_blocks/planks/seamless/planks_seamless_birch", "x": 90, "y": 90 },
+		"axis=y": { "model": "manyideas_core:block/building_blocks/planks/seamless/planks_seamless_birch" },
+		"axis=z": { "model": "manyideas_core:block/building_blocks/planks/seamless/planks_seamless_birch", "x": 90 }
+	}
+}

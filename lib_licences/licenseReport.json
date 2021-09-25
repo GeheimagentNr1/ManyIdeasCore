@@ -888,12 +888,12 @@
   {
     "project": "patchy",
     "description": null,
-    "version": "1.1",
+    "version": "1.2.3",
     "developers": [],
     "url": null,
     "year": null,
     "licenses": [],
-    "dependency": "com.mojang:patchy:1.1"
+    "dependency": "com.mojang:patchy:1.2.3"
   },
   {
     "project": "Plexus Common Utilities",

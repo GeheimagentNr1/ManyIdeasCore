@@ -23,6 +23,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
@@ -111,14 +112,15 @@ public abstract class TableSaw extends Block implements BlockItemInterface {
 			windowID,
 			playerInventory,
 			IWorldPosCallable.of( worldIn, pos )
-		), getNameTextComponent() );
+		), getContainerName() );
 	}
 	
-	//package-private
 	protected abstract Container getContainer(
 		int windowID,
 		PlayerInventory playerInventory,
 		IWorldPosCallable worldPosCallable );
+	
+	protected abstract ITextComponent getContainerName();
 	
 	@Override
 	protected void fillStateContainer( StateContainer.Builder<Block, BlockState> builder ) {

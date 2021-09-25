@@ -1,0 +1,13 @@
+{
+	"type":        "manyideas_core:dyed",
+	"shaped":      false,
+	"ingredients": [
+		{
+			"color_item": "manyideas_core:wood_colored"
+		}
+	],
+	"result":      {
+		"item":  "manyideas_core:planks_colored",
+		"count": 4
+	}
+}

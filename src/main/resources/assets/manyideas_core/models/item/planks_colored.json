@@ -1,0 +1,107 @@
+{
+	"parent":    "manyideas_core:block/building_blocks/planks/colored/planks_colored_white",
+	"overrides": [
+		{
+			"predicate": {
+				"color": 0
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_black"
+		},
+		{
+			"predicate": {
+				"color": 1
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_blue"
+		},
+		{
+			"predicate": {
+				"color": 2
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_brown"
+		},
+		{
+			"predicate": {
+				"color": 3
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_cyan"
+		},
+		{
+			"predicate": {
+				"color": 4
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_gray"
+		},
+		{
+			"predicate": {
+				"color": 5
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_green"
+		},
+		{
+			"predicate": {
+				"color": 6
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_light_blue"
+		},
+		{
+			"predicate": {
+				"color": 7
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_light_gray"
+		},
+		{
+			"predicate": {
+				"color": 8
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_lime"
+		},
+		{
+			"predicate": {
+				"color": 9
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_magenta"
+		},
+		{
+			"predicate": {
+				"color": 10
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_orange"
+		},
+		{
+			"predicate": {
+				"color": 11
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_pink"
+		},
+		{
+			"predicate": {
+				"color": 12
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_purple"
+		},
+		{
+			"predicate": {
+				"color": 13
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_rainbow"
+		},
+		{
+			"predicate": {
+				"color": 14
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_red"
+		},
+		{
+			"predicate": {
+				"color": 15
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_white"
+		},
+		{
+			"predicate": {
+				"color": 16
+			},
+			"model":     "manyideas_core:block/building_blocks/planks/colored/planks_colored_yellow"
+		}
+	]
+}

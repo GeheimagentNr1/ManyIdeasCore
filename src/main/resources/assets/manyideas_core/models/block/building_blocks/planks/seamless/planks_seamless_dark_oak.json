@@ -1,0 +1,6 @@
+{
+	"parent":   "minecraft:block/cube_all",
+	"textures": {
+		"all": "manyideas_core:block/building_blocks/planks/seamless/planks_seamless_dark_oak"
+	}
+}

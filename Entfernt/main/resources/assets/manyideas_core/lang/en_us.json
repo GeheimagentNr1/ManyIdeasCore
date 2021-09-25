@@ -4,5 +4,8 @@
 	"main_blocks_cooking_pot": "Blocks: Cooking Pot",
 	"block.manyideas_core.cooking_pot": "Cooking Pot",
 	"main_blocks_pottery_wheel": "Blocks: Pottery Wheel",
-	"block.manyideas_core.pottery_wheel": "Pottery Wheel"
+	"block.manyideas_core.pottery_wheel": "Pottery Wheel",
+	"main_blocks_vanilla_blocks_metal_smoker":                 "Vanilla Blocks: Metal Smoker",
+	"block.manyideas_core.metal_smoker":                       "Metal Smoker",
+	"container.manyideas_core.metal_smoker":                   "Metal Smoker"
 }

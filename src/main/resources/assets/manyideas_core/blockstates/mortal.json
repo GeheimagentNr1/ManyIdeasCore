@@ -1,8 +1,0 @@
-{
-	"variants": {
-		"facing=north": { "model": "manyideas_core:block/mortal", "y": 180 },
-		"facing=east":  { "model": "manyideas_core:block/mortal", "y": 270 },
-		"facing=south": { "model": "manyideas_core:block/mortal" },
-		"facing=west":  { "model": "manyideas_core:block/mortal", "y": 90 }
-	}
-}

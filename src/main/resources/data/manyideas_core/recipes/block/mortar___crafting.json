@@ -1,0 +1,15 @@
+{
+	"type":    "minecraft:crafting_shaped",
+	"pattern": [
+		"Q Q",
+		" Q "
+	],
+	"key":     {
+		"Q": {
+			"item": "manyideas_core:plate_quartz"
+		}
+	},
+	"result":  {
+		"item": "manyideas_core:mortar"
+	}
+}

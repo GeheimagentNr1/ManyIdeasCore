@@ -1,6 +1,6 @@
 {
 	"parent":   "minecraft:item/generated",
 	"textures": {
-		"layer0": "manyideas_core:item/planks_and_plates/plate_iron"
+		"layer0": "manyideas_core:item/plates/plate_iron"
 	}
 }
