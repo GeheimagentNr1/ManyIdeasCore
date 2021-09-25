@@ -11,6 +11,7 @@ import java.util.function.Supplier;
 
 public class RedstoneKeyStateUpdateMsg {
 	
+	
 	private final int stateIndex;
 	
 	public RedstoneKeyStateUpdateMsg( int _stateIndex ) {
@@ -30,7 +31,7 @@ public class RedstoneKeyStateUpdateMsg {
 		buffer.writeInt( stateIndex );
 	}
 	
-	public static void sendToServer(  int _stateIndex ) {
+	public static void sendToServer( int _stateIndex ) {
 		
 		Network.CHANNEL.send( PacketDistributor.SERVER.noArg(), new RedstoneKeyStateUpdateMsg( _stateIndex ) );
 	}

@@ -12,8 +12,10 @@ import java.util.function.Consumer;
 public class ToggleButton extends AbstractButton {
 	
 	
-	private static final ResourceLocation TOGGLE_BUTTON =
-		new ResourceLocation( ManyIdeasCore.MODID, "textures/gui/redstone_key/toggle_button.png" );
+	private static final ResourceLocation TOGGLE_BUTTON = new ResourceLocation(
+		ManyIdeasCore.MODID,
+		"textures/gui/redstone_key/toggle_button.png"
+	);
 	
 	private final ResourceLocation icon_textures;
 	
@@ -23,7 +25,12 @@ public class ToggleButton extends AbstractButton {
 	
 	private boolean selected;
 	
-	public ToggleButton( int _x, int _y, ResourceLocation _icon_textures, int _iconIndex, Consumer<Boolean> _onPress ) {
+	public ToggleButton(
+		int _x,
+		int _y,
+		ResourceLocation _icon_textures,
+		int _iconIndex,
+		Consumer<Boolean> _onPress ) {
 		
 		super( _x, _y, 22, 22, "" );
 		icon_textures = _icon_textures;
@@ -42,7 +49,7 @@ public class ToggleButton extends AbstractButton {
 			if( selected ) {
 				textureStartindex = 1;
 			} else {
-				if(isHovered()) {
+				if( isHovered() ) {
 					textureStartindex = 3;
 				}
 			}
@@ -57,7 +64,7 @@ public class ToggleButton extends AbstractButton {
 	@Override
 	public void onPress() {
 		
-		if(!selected) {
+		if( !selected ) {
 			selected = true;
 		}
 		onPress.accept( selected );

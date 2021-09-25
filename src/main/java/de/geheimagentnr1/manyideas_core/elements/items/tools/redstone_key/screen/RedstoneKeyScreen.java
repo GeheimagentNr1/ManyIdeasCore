@@ -17,8 +17,10 @@ import java.util.Objects;
 public class RedstoneKeyScreen extends ContainerScreen<RedstoneKeyContainer> {
 	
 	
-	private static final ResourceLocation REDSTONE_KEY_GUI_TEXTURE =
-		new ResourceLocation( ManyIdeasCore.MODID, "textures/gui/redstone_key/redstone_key_gui.png" );
+	private static final ResourceLocation REDSTONE_KEY_GUI_TEXTURE = new ResourceLocation(
+		ManyIdeasCore.MODID,
+		"textures/gui/redstone_key/redstone_key_gui.png"
+	);
 	
 	private final List<RedstoneKeyOption> optionsGui = new ArrayList<>();
 	

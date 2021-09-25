@@ -114,9 +114,9 @@ public class ModEventHandler {
 			inv
 		) ).setRegistryName( TableSawStone.registry_name ) );
 		
-		event.getRegistry().register(
-			IForgeContainerType.create( ( windowId, inv, data ) -> new RedstoneKeyContainer( windowId, data ) )
-				.setRegistryName( RedstoneKey.registry_name )
-		);
+		event.getRegistry().register( IForgeContainerType.create( ( windowId, inv, data ) -> new RedstoneKeyContainer(
+			windowId,
+			data
+		) ).setRegistryName( RedstoneKey.registry_name ) );
 	}
 }

@@ -1,6 +1,5 @@
 package de.geheimagentnr1.manyideas_core.util;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;

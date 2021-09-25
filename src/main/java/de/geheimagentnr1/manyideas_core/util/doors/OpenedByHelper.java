@@ -15,6 +15,7 @@ import java.util.List;
 
 public class OpenedByHelper {
 	
+	
 	public static final ITextComponent OPEN_BY_CONTAINER_TITLE =
 		TranslationKeyHelper.generateMessageTranslationTextComponent( ManyIdeasCore.MODID, "opened_by" );
 	
@@ -44,10 +45,7 @@ public class OpenedByHelper {
 		OpenedBy[] openedByValues = OpenedBy.values();
 		ArrayList<Option> options = new ArrayList<>();
 		for( OpenedBy openedBy : openedByValues ) {
-			options.add( new Option(
-				openedBy.getTitle(),
-				openedBy.getDescription()
-			) );
+			options.add( new Option( openedBy.getTitle(), openedBy.getDescription() ) );
 		}
 		return options;
 	}

@@ -50,10 +50,7 @@ public class RecipeSerializers {
 		//Dyed
 		DYED = register( DyedRecipe.registry_name, new DyedRecipeSerializer() );
 		//Grinding
-		GRINDING = register(
-			GrindingRecipe.registry_name,
-			new SingleItemRecipeSerializer<>( GrindingRecipe::new )
-		);
+		GRINDING = register( GrindingRecipe.registry_name, new SingleItemRecipeSerializer<>( GrindingRecipe::new ) );
 		//Tablesawing
 		TABLE_SAWING_DIAMOND = register(
 			TableSawDiamondRecipe.registry_name,

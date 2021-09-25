@@ -34,15 +34,10 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 		
 		super( properties );
 		setRegistryName( registry_name );
-		initDoubleDoorBlock(
-			material == Material.IRON ? OpenedBy.REDSTONE : OpenedBy.BOTH
-		);
+		initDoubleDoorBlock( material == Material.IRON ? OpenedBy.REDSTONE : OpenedBy.BOTH );
 	}
 	
-	protected DoubleDoorBlock(
-		Block.Properties properties,
-		String registry_name,
-		OpenedBy openedBy ) {
+	protected DoubleDoorBlock( Block.Properties properties, String registry_name, OpenedBy openedBy ) {
 		
 		super( properties );
 		setRegistryName( registry_name );
@@ -63,8 +58,8 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 		@Nonnull Hand handIn,
 		@Nonnull BlockRayTraceResult hit ) {
 		
-		if( player.getHeldItem( handIn ).getItem() != ModItems.RESTONE_KEY
-			&& OpenedByHelper.canBeOpened( state, true ) ) {
+		if( player.getHeldItem( handIn ).getItem() != ModItems.RESTONE_KEY &&
+			OpenedByHelper.canBeOpened( state, true ) ) {
 			boolean open = !state.get( OPEN );
 			worldIn.setBlockState( pos, state.with( OPEN, open ), 10 );
 			DoorsHelper.playDoorSound( worldIn, pos, material, player, state.get( OPEN ) );
@@ -142,7 +137,10 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	
 	@Override
 	public void setBlockStateValue(
-		World world, BlockState state, BlockPos pos, int stateIndex,
+		World world,
+		BlockState state,
+		BlockPos pos,
+		int stateIndex,
 		PlayerEntity player ) {
 		
 		OpenedBy[] openedByValues = OpenedBy.values();

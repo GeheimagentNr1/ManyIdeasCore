@@ -1,7 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen;
 
-import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces.RedstoneKeyable;
 import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
+import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces.RedstoneKeyable;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -37,7 +37,7 @@ public class RedstoneKeyContainer extends Container {
 		BlockPos _pos,
 		RedstoneKeyable _redstoneKeyableBlock,
 		List<Option> _options,
-		int _selectedIndex) {
+		int _selectedIndex ) {
 		
 		super( ModItems.RESTONE_KEY_CONTAINER, containerID );
 		icons = _icons;
@@ -56,10 +56,7 @@ public class RedstoneKeyContainer extends Container {
 		int optionsCount = data.readInt();
 		options = new ArrayList<>();
 		for( int i = 0; i < optionsCount; i++ ) {
-			options.add( new Option(
-				data.readString(),
-				data.readString()
-			) );
+			options.add( new Option( data.readString(), data.readString() ) );
 		}
 		selectedIndex = data.readInt();
 	}

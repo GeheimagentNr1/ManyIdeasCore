@@ -33,11 +33,11 @@ public class BigDoorsHelper {
 	public static boolean isNeighbor( BlockState state, BlockData neighborBlock ) {
 		
 		BlockState neighborState = neighborBlock.getState();
-		return neighborBlock.getZeroPos() != null
-			&& neighborBlock.getPos().equals( neighborBlock.getZeroPos() )
-			&& state.get( BlockStateProperties.HORIZONTAL_FACING ) ==
-			neighborState.get( BlockStateProperties.HORIZONTAL_FACING )
-			&& state.get( BlockStateProperties.DOOR_HINGE ) != neighborState.get( BlockStateProperties.DOOR_HINGE );
+		return neighborBlock.getZeroPos() != null &&
+			neighborBlock.getPos().equals( neighborBlock.getZeroPos() ) &&
+			state.get( BlockStateProperties.HORIZONTAL_FACING ) ==
+				neighborState.get( BlockStateProperties.HORIZONTAL_FACING ) &&
+			state.get( BlockStateProperties.DOOR_HINGE ) != neighborState.get( BlockStateProperties.DOOR_HINGE );
 	}
 	
 	private static Direction getDirectionToNeighborDoor( BlockState state ) {

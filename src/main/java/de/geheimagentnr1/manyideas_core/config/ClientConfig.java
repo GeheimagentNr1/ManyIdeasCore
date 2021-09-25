@@ -33,11 +33,10 @@ public class ClientConfig {
 		DEBUG = BUILDER.comment( "Activate Debug Blocks?" )
 			.worldRestart()
 			.define( "debug_blocks", false );
-		ALL_COLORS_IN_ITEM_GROUP = BUILDER.comment(
-			"Should all Colors of Dyed Blocks should be shown in the Creative Tabs?"
-		)
-			.worldRestart()
-			.define( "all_colors_in_item_group", true );
+		ALL_COLORS_IN_ITEM_GROUP =
+			BUILDER.comment( "Should all Colors of Dyed Blocks should be shown in the Creative Tabs?" )
+				.worldRestart()
+				.define( "all_colors_in_item_group", true );
 		
 		CONFIG = BUILDER.build();
 	}
@@ -45,9 +44,9 @@ public class ClientConfig {
 	public static void load() {
 		
 		CommentedFileConfig configData = CommentedFileConfig.builder(
-			FMLPaths.CONFIGDIR.get().resolve(
-				ManyIdeasCore.MODID + "-" + ModConfig.Type.CLIENT.name().toLowerCase( Locale.ENGLISH ) + ".toml"
-			) )
+				FMLPaths.CONFIGDIR.get().resolve(
+					ManyIdeasCore.MODID + "-" + ModConfig.Type.CLIENT.name().toLowerCase( Locale.ENGLISH ) + ".toml"
+				) )
 			.sync()
 			.autosave()
 			.writingMode( WritingMode.REPLACE )

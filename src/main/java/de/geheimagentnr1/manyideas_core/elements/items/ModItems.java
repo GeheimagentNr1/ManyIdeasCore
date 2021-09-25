@@ -2,8 +2,6 @@ package de.geheimagentnr1.manyideas_core.elements.items;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.items.dyes.DyeRainbow;
-import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.RedstoneKey;
-import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyContainer;
 import de.geheimagentnr1.manyideas_core.elements.items.planks.*;
 import de.geheimagentnr1.manyideas_core.elements.items.plates.PlateGold;
 import de.geheimagentnr1.manyideas_core.elements.items.plates.PlateIron;
@@ -12,6 +10,8 @@ import de.geheimagentnr1.manyideas_core.elements.items.saws.SawDiamond;
 import de.geheimagentnr1.manyideas_core.elements.items.saws.SawIron;
 import de.geheimagentnr1.manyideas_core.elements.items.saws.SawStone;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.MysteriousShears;
+import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.RedstoneKey;
+import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyContainer;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraftforge.registries.ObjectHolder;

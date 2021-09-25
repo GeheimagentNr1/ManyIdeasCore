@@ -143,8 +143,8 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 		@Nonnull Hand handIn,
 		@Nonnull BlockRayTraceResult hit ) {
 		
-		if( player.getHeldItem( handIn ).getItem() != ModItems.RESTONE_KEY
-			&& OpenedByHelper.canBeOpened( state, true ) ) {
+		if( player.getHeldItem( handIn ).getItem() != ModItems.RESTONE_KEY &&
+			OpenedByHelper.canBeOpened( state, true ) ) {
 			boolean open = !state.get( BlockStateProperties.OPEN );
 			Direction facing = state.get( BlockStateProperties.HORIZONTAL_FACING );
 			BlockPos zeroPos = getZeroPos( state, pos );
@@ -300,15 +300,19 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 				facing,
 				( x, y, z, blockPos ) -> world.setBlockState(
 					blockPos,
-					world.getBlockState( blockPos )
-						.with( ModBlockStateProperties.OPENED_BY, openedBy ),
+					world.getBlockState( blockPos ).with( ModBlockStateProperties.OPENED_BY, openedBy ),
 					3
 				),
 				true
 			);
 			
-			BlockData neighbor = BigDoorsHelper.getNeighborBlock( world, zeroPos, state, getZSize(),
-				this::getZeroPos );
+			BlockData neighbor = BigDoorsHelper.getNeighborBlock(
+				world,
+				zeroPos,
+				state,
+				getZSize(),
+				this::getZeroPos
+			);
 			if( doubleDoorActive && BigDoorsHelper.isNeighbor( state, neighbor ) ) {
 				runForBlocks(
 					world,
@@ -316,8 +320,7 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 					facing,
 					( x, y, z, blockPos ) -> world.setBlockState(
 						blockPos,
-						world.getBlockState( blockPos )
-							.with( ModBlockStateProperties.OPENED_BY, openedBy ),
+						world.getBlockState( blockPos ).with( ModBlockStateProperties.OPENED_BY, openedBy ),
 						3
 					),
 					true

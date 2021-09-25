@@ -32,25 +32,23 @@ public class GiveDBCommand {
 			return 1;
 		} );
 		givedbCommand.then( Commands.argument( "targets", EntityArgument.players() )
-			.then( Commands.argument( "dye_item", DyeItemArgument.dyeItem() ).then( Commands.argument(
-				"color",
-				ColorArgument.color()
-			)
-				.executes( context -> giveItem(
-					context.getSource(),
-					DyeItemArgument.getItem( context, "dye_item" ),
-					ColorArgument.getColor( context, "color" ),
-					EntityArgument.getPlayers( context, "targets" ),
-					1
-				) )
-				.then( Commands.argument( "count", IntegerArgumentType.integer( 1 ) )
+			.then( Commands.argument( "dye_item", DyeItemArgument.dyeItem() )
+				.then( Commands.argument( "color", ColorArgument.color() )
 					.executes( context -> giveItem(
 						context.getSource(),
 						DyeItemArgument.getItem( context, "dye_item" ),
 						ColorArgument.getColor( context, "color" ),
 						EntityArgument.getPlayers( context, "targets" ),
-						IntegerArgumentType.getInteger( context, "count" )
-					) ) ) ) ) );
+						1
+					) )
+					.then( Commands.argument( "count", IntegerArgumentType.integer( 1 ) )
+						.executes( context -> giveItem(
+							context.getSource(),
+							DyeItemArgument.getItem( context, "dye_item" ),
+							ColorArgument.getColor( context, "color" ),
+							EntityArgument.getPlayers( context, "targets" ),
+							IntegerArgumentType.getInteger( context, "count" )
+						) ) ) ) ) );
 		
 		dispatcher.register( givedbCommand );
 	}

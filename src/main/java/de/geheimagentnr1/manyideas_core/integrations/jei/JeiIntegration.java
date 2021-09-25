@@ -8,8 +8,8 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSaw
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneContainer;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.dyed.DyedRecipeCategory;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.dyed.JeiDyedRecipe;
-import de.geheimagentnr1.manyideas_core.integrations.jei.categories.grinding.JeiGrindingRecipe;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.grinding.GrindingRecipeCategory;
+import de.geheimagentnr1.manyideas_core.integrations.jei.categories.grinding.JeiGrindingRecipe;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.table_sawing.table_sawing_diamond.JeiTableSawDiamondRecipe;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.table_sawing.table_sawing_diamond.TableSawDiamondRecipeCategory;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.table_sawing.table_sawing_iron.JeiTableSawIronRecipe;
