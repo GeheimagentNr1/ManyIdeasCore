@@ -1,8 +1,0 @@
-{
-	"type":       "manyideas_core:table_sawing_stone",
-	"ingredient": {
-		"item": "manyideas_core:wood_stripped_smooth_birch"
-	},
-	"result":     "manyideas_core:plank_birch",
-	"count":      6
-}

@@ -1,0 +1,11 @@
+{
+	"replace": false,
+	"values":  [
+		"manyideas_core:panel_acacia",
+		"manyideas_core:panel_birch",
+		"manyideas_core:panel_dark_oak",
+		"manyideas_core:panel_jungle",
+		"manyideas_core:panel_oak",
+		"manyideas_core:panel_spruce"
+	]
+}

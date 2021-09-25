@@ -2,7 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.items;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.items.dyes.DyeRainbow;
-import de.geheimagentnr1.manyideas_core.elements.items.planks.*;
+import de.geheimagentnr1.manyideas_core.elements.items.panels.*;
 import de.geheimagentnr1.manyideas_core.elements.items.plates.PlateGold;
 import de.geheimagentnr1.manyideas_core.elements.items.plates.PlateIron;
 import de.geheimagentnr1.manyideas_core.elements.items.plates.PlateQuartz;
@@ -30,13 +30,13 @@ public class ModItems {
 	public static final Item[] ITEMS = {
 		//Dyes
 		new DyeRainbow(),//FINRT
-		//Planks
-		new PlankAcacia(),//FINRT
-		new PlankBirch(),//FINRT
-		new PlankDarkOak(),//FINRT
-		new PlankJungle(),//FINRT
-		new PlankOak(),//FINRT
-		new PlankSpruce(),//FINRT
+		//Panels
+		new PanelAcacia(),//FINRT
+		new PanelBirch(),//FINRT
+		new PanelDarkOak(),//FINRT
+		new PanelJungle(),//FINRT
+		new PanelOak(),//FINRT
+		new PanelSpruce(),//FINRT
 		//Plates
 		new PlateGold(),//FINRT
 		new PlateIron(),//FINRT
@@ -56,25 +56,25 @@ public class ModItems {
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + DyeRainbow.registry_name )
 	public static DyeRainbow DYE_RAINBOW;
 	
-	//Planks
+	//Panels
 	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlankAcacia.registry_name )
-	public static PlankAcacia PLANK_ACACIA;
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PanelAcacia.registry_name )
+	public static PanelAcacia PANEL_ACACIA;
 	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlankBirch.registry_name )
-	public static PlankBirch PLANK_BIRCH;
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PanelBirch.registry_name )
+	public static PanelBirch PANEL_BIRCH;
 	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlankDarkOak.registry_name )
-	public static PlankDarkOak PLANK_DARK_OAK;
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PanelDarkOak.registry_name )
+	public static PanelDarkOak PANEL_DARK_OAK;
 	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlankJungle.registry_name )
-	public static PlankJungle PLANK_JUNGLE;
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PanelJungle.registry_name )
+	public static PanelJungle PANEL_JUNGLE;
 	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlankOak.registry_name )
-	public static PlankOak PLANK_OAK;
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PanelOak.registry_name )
+	public static PanelOak PANEL_OAK;
 	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlankSpruce.registry_name )
-	public static PlankSpruce PLANK_SPRUCE;
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PanelSpruce.registry_name )
+	public static PanelSpruce PANEL_SPRUCE;
 	
 	//Plates
 	

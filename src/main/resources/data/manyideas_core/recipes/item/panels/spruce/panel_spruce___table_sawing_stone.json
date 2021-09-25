@@ -1,0 +1,8 @@
+{
+	"type":       "manyideas_core:table_sawing_stone",
+	"ingredient": {
+		"item": "minecraft:stripped_spruce_log"
+	},
+	"result":     "manyideas_core:panel_spruce",
+	"count":      4
+}

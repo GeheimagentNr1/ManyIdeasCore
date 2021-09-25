@@ -1,6 +1,0 @@
-{
-	"parent":   "minecraft:item/generated",
-	"textures": {
-		"layer0": "manyideas_core:item/planks/plank_dark_oak"
-	}
-}

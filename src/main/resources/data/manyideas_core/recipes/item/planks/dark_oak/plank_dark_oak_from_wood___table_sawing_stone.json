@@ -1,8 +1,0 @@
-{
-	"type":       "manyideas_core:table_sawing_stone",
-	"ingredient": {
-		"item": "minecraft:stripped_dark_oak_wood"
-	},
-	"result":     "manyideas_core:plank_dark_oak",
-	"count":      6
-}

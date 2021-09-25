@@ -1,0 +1,8 @@
+{
+	"type":       "manyideas_core:table_sawing_stone",
+	"ingredient": {
+		"item": "manyideas_core:wood_stripped_smooth_oak"
+	},
+	"result":     "manyideas_core:panel_oak",
+	"count":      6
+}
