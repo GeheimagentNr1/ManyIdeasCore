@@ -1,7 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.flowers_straight;
 
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.potion.Effect;
@@ -10,7 +9,7 @@ import javax.annotation.Nonnull;
 
 
 @SuppressWarnings( "AbstractClassExtendsConcreteClass" )
-public abstract class Flower extends FlowerBlock implements BlockItemInterface {
+public abstract class Flower extends FlowerBlock implements FlowerBlockItemInterface {
 	
 	
 	protected Flower( Effect effect, int duration, Block.Properties properties, String registry_name ) {

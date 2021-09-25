@@ -1,6 +1,5 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.flowers_straight;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import net.minecraft.block.Block;
 import net.minecraft.block.TallFlowerBlock;
 
@@ -8,7 +7,7 @@ import javax.annotation.Nonnull;
 
 
 @SuppressWarnings( "AbstractClassExtendsConcreteClass" )
-public abstract class TallFlower extends TallFlowerBlock implements BlockItemInterface {
+public abstract class TallFlower extends TallFlowerBlock implements FlowerBlockItemInterface {
 	
 	
 	protected TallFlower( Block.Properties properties, String registry_name ) {
