@@ -24,12 +24,12 @@ displayURL="https://www.curseforge.com/minecraft/mc-mods/many-ideas-core" #optio
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="manyideas_core.png" #optional
 # A text field displayed in the mod UI
-credits="Thanks for the logo goes to Muse31" #optional
+credits="Thanks for the logo, the models and the textures goes to Muse31" #optional
 # A text field displayed in the mod UI
 authors="GeheimagentNr1, Muse31" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Core Mod for the Many Ideas Mods
+Contains blocks, tools and items, that are needed in many of the Many Ideas Mods.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.manyideas_core]] #optional
