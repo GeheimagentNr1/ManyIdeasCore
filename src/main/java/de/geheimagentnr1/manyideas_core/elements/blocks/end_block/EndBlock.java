@@ -29,10 +29,6 @@ public class EndBlock extends Block implements BlockItemInterface, IEndBlock {
 		setRegistryName( registry_name );
 	}
 	
-	/**
-	 * Gets the render layer this block will render on. SOLID for solid blocks, CUTOUT or CUTOUT_MIPPED for on-off
-	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
-	 */
 	@Nonnull
 	@Override
 	public BlockRenderLayer getRenderLayer() {
@@ -40,10 +36,6 @@ public class EndBlock extends Block implements BlockItemInterface, IEndBlock {
 		return BlockRenderLayer.CUTOUT;
 	}
 	
-	/**
-	 * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
-	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
-	 */
 	@Deprecated
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
@@ -53,31 +45,12 @@ public class EndBlock extends Block implements BlockItemInterface, IEndBlock {
 		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 	
-	/**
-	 * Called throughout the code as a replacement for block instanceof BlockContainer
-	 * Moving this to the Block base class allows for mods that wish to extend vanilla
-	 * blocks, and also want to have a tile entity on that block, may.
-	 *
-	 * Return true from this function to specify this block has a tile entity.
-	 *
-	 * @param state State of the current block
-	 * @return True if block has a tile entity, false otherwise
-	 */
 	@Override
 	public boolean hasTileEntity( BlockState state ) {
 		
 		return true;
 	}
 	
-	/**
-	 * Called throughout the code as a replacement for ITileEntityProvider.createNewTileEntity
-	 * Return the same thing you would from that function.
-	 * This will fall back to ITileEntityProvider.createNewTileEntity(World) if this block is a ITileEntityProvider
-	 *
-	 * @param state The state of the current block
-	 * @param world The world to create the TE in
-	 * @return A instance of a class extending TileEntity
-	 */
 	@Nullable
 	@Override
 	public TileEntity createTileEntity( BlockState state, IBlockReader world ) {

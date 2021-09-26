@@ -63,10 +63,6 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 		doubleDoorActive = _doubleDoorActive;
 	}
 	
-	/**
-	 * Gets the render layer this block will render on. SOLID for solid blocks, CUTOUT or CUTOUT_MIPPED for on-off
-	 * transparency (glass, reeds), TRANSLUCENT for fully blended transparency (stained glass)
-	 */
 	@Nonnull
 	@Override
 	public BlockRenderLayer getRenderLayer() {

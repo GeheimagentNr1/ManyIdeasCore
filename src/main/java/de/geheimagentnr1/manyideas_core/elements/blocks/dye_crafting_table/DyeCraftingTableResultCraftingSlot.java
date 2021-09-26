@@ -39,19 +39,12 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 		craftingInventory = _craftingInventory;
 	}
 	
-	/**
-	 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
-	 */
 	@Override
 	public boolean isItemValid( @Nonnull ItemStack stack ) {
 		
 		return false;
 	}
 	
-	/**
-	 * Decrease the size of the stack in slot (first int arg) by the amount of the second int arg. Returns the new
-	 * stack.
-	 */
 	@Nonnull
 	@Override
 	public ItemStack decrStackSize( int amount ) {
@@ -63,10 +56,6 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 		return super.decrStackSize( amount );
 	}
 	
-	/**
-	 * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood. Typically increases an
-	 * internal count then calls onCrafting(item).
-	 */
 	@Override
 	protected void onCrafting( @Nonnull ItemStack stack, int amount ) {
 		
@@ -80,9 +69,6 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 		amountCrafted += amount;
 	}
 	
-	/**
-	 * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood.
-	 */
 	@Override
 	protected void onCrafting( @Nonnull ItemStack stack ) {
 		

@@ -18,8 +18,6 @@ public class DyeItemArgument implements ArgumentType<Item> {
 	
 	public static final String registry_name = "dye_item";
 	
-	private static final Collection<String> EXAMPLES = Arrays.asList( "stick", "minecraft:stick" );
-	
 	public static DyeItemArgument dyeItem() {
 		
 		return new DyeItemArgument();
@@ -53,11 +51,5 @@ public class DyeItemArgument implements ArgumentType<Item> {
 		} catch( CommandSyntaxException ignored ) {
 		}
 		return parser.fillSuggestions( builder );
-	}
-	
-	@Override
-	public Collection<String> getExamples() {
-		
-		return EXAMPLES;
 	}
 }

@@ -30,7 +30,7 @@ public class MysteriousShears extends CoreBaseItem {
 	
 	public static final String registry_name = "mysterious_shears";
 	
-	private static final ArrayList<Block> destroys_blocks = new ArrayList<>( Arrays.asList(
+	private static final ArrayList<Block> DESTROYS_BLOCKS = new ArrayList<>( Arrays.asList(
 		Blocks.COBWEB,
 		Blocks.GRASS,
 		Blocks.FERN,
@@ -64,7 +64,7 @@ public class MysteriousShears extends CoreBaseItem {
 		if( !worldIn.isRemote ) {
 			stack.damageItem( 1, entityLiving, entity -> entity.sendBreakAnimation( EquipmentSlotType.MAINHAND ) );
 		}
-		if( state.isIn( BlockTags.LEAVES ) || destroys_blocks.contains( state.getBlock() ) ||
+		if( state.isIn( BlockTags.LEAVES ) || DESTROYS_BLOCKS.contains( state.getBlock() ) ||
 			state.isIn( BlockTags.WOOL ) ) {
 			return true;
 		} else {

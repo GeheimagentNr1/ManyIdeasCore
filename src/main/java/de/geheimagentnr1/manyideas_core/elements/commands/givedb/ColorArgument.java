@@ -9,7 +9,6 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -17,8 +16,6 @@ public class ColorArgument implements ArgumentType<Color> {
 	
 	
 	public static final String registry_name = "color";
-	
-	private static final Collection<String> EXAMPLES = Collections.singletonList( "green" );
 	
 	public static ColorArgument color() {
 		
@@ -53,11 +50,5 @@ public class ColorArgument implements ArgumentType<Color> {
 		} catch( CommandSyntaxException ignored ) {
 		}
 		return parser.fillSuggestions( builder );
-	}
-	
-	@Override
-	public Collection<String> getExamples() {
-		
-		return EXAMPLES;
 	}
 }

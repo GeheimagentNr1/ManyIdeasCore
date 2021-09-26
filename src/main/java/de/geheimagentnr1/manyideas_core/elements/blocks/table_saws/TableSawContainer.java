@@ -27,39 +27,23 @@ import java.util.List;
 public abstract class TableSawContainer extends Container {
 	
 	
-	/**
-	 * The list of items that can be accepted into the input slot of the TableSawtter container.
-	 */
 	private final ImmutableList<Item> ACCEPTED_INPUT_ITEMS;
 	
 	private final IWorldPosCallable worldPosCallable;
 	
-	/**
-	 * The index of the selected recipe in the GUI.
-	 */
 	private final IntReferenceHolder selectedRecipe = IntReferenceHolder.single();
 	
 	private final World world;
 	
 	private List<TableSawRecipe> recipes = Lists.newArrayList();
 	
-	/**
-	 * The {ItemStack} set in the input slot by the player.
-	 */
 	private ItemStack itemStackInput = ItemStack.EMPTY;
 	
-	/**
-	 * Stores the game time of the last time the player took items from the the crafting result slot. This is used to
-	 * prevent the sound from being played multiple times on the same tick.
-	 */
 	//package-private
 	long lastOnTake;
 	
 	private final Slot inputInventorySlot;
 	
-	/**
-	 * The inventory slot that stores the output of the crafting recipe.
-	 */
 	private final Slot outputInventorySlot;
 	
 	private Runnable inventoryUpdateListener = () -> {
@@ -68,9 +52,6 @@ public abstract class TableSawContainer extends Container {
 	@SuppressWarnings( "ThisEscapedInObjectConstruction" )
 	private final IInventory inputInventory = new TableSawInputInventory( this );
 	
-	/**
-	 * The inventory that stores the output of the crafting recipe.
-	 */
 	private final CraftResultInventory resultI = new CraftResultInventory();
 	
 	protected TableSawContainer(
@@ -130,9 +111,6 @@ public abstract class TableSawContainer extends Container {
 	@SuppressWarnings( "rawtypes" )
 	protected abstract List<IRecipeType> getAcceptedRecipeTypes();
 	
-	/**
-	 * Returns the index of the selected recipe.
-	 */
 	@OnlyIn( Dist.CLIENT )
 	public int getSelectedRecipe() {
 		
@@ -157,9 +135,6 @@ public abstract class TableSawContainer extends Container {
 		return inputInventorySlot.getHasStack() && !recipes.isEmpty();
 	}
 	
-	/**
-	 * Determines whether supplied player can use this container
-	 */
 	@Override
 	public boolean canInteractWith( @Nonnull PlayerEntity playerIn ) {
 		
@@ -168,9 +143,6 @@ public abstract class TableSawContainer extends Container {
 	
 	protected abstract Block getCanInteractBlock();
 	
-	/**
-	 * Handles the given Button-click on the server, currently only used by enchanting. Name is for legacy.
-	 */
 	@Override
 	public boolean enchantItem( @Nonnull PlayerEntity playerIn, int id ) {
 		
@@ -181,9 +153,6 @@ public abstract class TableSawContainer extends Container {
 		return true;
 	}
 	
-	/**
-	 * Callback for when the crafting matrix is changed.
-	 */
 	@Override
 	public void onCraftMatrixChanged( @Nonnull IInventory inventoryIn ) {
 		
@@ -233,21 +202,12 @@ public abstract class TableSawContainer extends Container {
 		return inventoryUpdateListener;
 	}
 	
-	/**
-	 * Called to determine if the current slot is valid for the stack merging (double-click) code. The stack passed
-	 * in is
-	 * null for the initial slot that was double-clicked.
-	 */
 	@Override
 	public boolean canMergeSlot( @Nonnull ItemStack stack, @Nonnull Slot slotIn ) {
 		
 		return false;
 	}
 	
-	/**
-	 * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
-	 * inventory and the other inventory(s).
-	 */
 	@Nonnull
 	@Override
 	public ItemStack transferStackInSlot( @Nonnull PlayerEntity playerIn, int index ) {
@@ -300,9 +260,6 @@ public abstract class TableSawContainer extends Container {
 		return itemstack;
 	}
 	
-	/**
-	 * Called when the container is closed.
-	 */
 	@Override
 	public void onContainerClosed( @Nonnull PlayerEntity playerIn ) {
 		
