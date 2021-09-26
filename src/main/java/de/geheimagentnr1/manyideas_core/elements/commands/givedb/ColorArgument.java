@@ -8,7 +8,6 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 
-import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 

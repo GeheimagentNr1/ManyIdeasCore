@@ -64,10 +64,7 @@ public class ToggleButton extends AbstractButton {
 	@Override
 	public void onPress() {
 		
-		if( !selected ) {
-			selected = true;
-		}
-		onPress.accept( selected );//TODO
+		onPress.accept( selected );
 	}
 	
 	public void setSelected( boolean _selected ) {

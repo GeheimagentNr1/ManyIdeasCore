@@ -62,7 +62,7 @@ public class RedstoneKeyOption extends FocusableGui implements IRenderable {
 			icons,
 			stateIndex,
 			selected -> {
-				if( selected ) {
+				if( !selected ) {
 					parent.resetSelected();
 					parent.setSelected( stateIndex );
 					button.setSelected( true );
