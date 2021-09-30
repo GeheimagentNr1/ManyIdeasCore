@@ -25,7 +25,7 @@ public class PlanksColored extends DyeBlock {
 	public PlanksColored() {
 		
 		super(
-			Block.Properties.create( Material.WOOD ).hardnessAndResistance( 2.0F ).sound( SoundType.WOOD ),
+			Block.Properties.create( Material.WOOD ).hardnessAndResistance( 2.0F, 3.0F ).sound( SoundType.WOOD ),
 			registry_name
 		);
 	}

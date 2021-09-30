@@ -42,7 +42,7 @@ public class Mortar extends Block implements BlockItemInterface {
 	
 	public Mortar() {
 		
-		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 3.5F ).sound( SoundType.WOOD ) );
+		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 0.8F ).sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 	}
 	

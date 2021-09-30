@@ -1,5 +1,5 @@
 {
-	"parent":   "minecraft:block/cube_all",
+	"parent":   "manyideas_core:block/templates/cube_with_rotated_top_and_bottom",
 	"textures": {
 		"all": "manyideas_core:block/building_blocks/planks/seamless/planks_seamless_oak"
 	}
