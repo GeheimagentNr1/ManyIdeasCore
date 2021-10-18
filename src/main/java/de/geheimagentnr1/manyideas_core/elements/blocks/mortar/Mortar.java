@@ -1,6 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.mortar;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeMemory;
@@ -9,13 +10,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -30,7 +32,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 
 
-public class Mortar extends Block implements BlockItemInterface {
+public class Mortar extends Block implements BlockItemInterface, BlockRenderTypeInterface {
 	
 	
 	public static final String registry_name = "mortar";
@@ -46,11 +48,10 @@ public class Mortar extends Block implements BlockItemInterface {
 		setRegistryName( registry_name );
 	}
 	
-	@Nonnull
 	@Override
-	public BlockRenderLayer getRenderLayer() {
+	public RenderType getRenderType() {
 		
-		return BlockRenderLayer.CUTOUT;
+		return RenderType.getCutout();
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -66,8 +67,9 @@ public class Mortar extends Block implements BlockItemInterface {
 	}
 	
 	@SuppressWarnings( "deprecation" )
+	@Nonnull
 	@Override
-	public boolean onBlockActivated(
+	public ActionResultType onBlockActivated(
 		@Nonnull BlockState state,
 		World worldIn,
 		@Nonnull BlockPos pos,
@@ -89,9 +91,9 @@ public class Mortar extends Block implements BlockItemInterface {
 			if( !player.addItemStackToInventory( result_stack ) ) {
 				player.dropItem( result_stack, false );
 			}
-			return true;
+			return ActionResultType.SUCCESS;
 		}
-		return false;
+		return ActionResultType.PASS;
 	}
 	
 	@Nullable

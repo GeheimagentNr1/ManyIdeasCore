@@ -2,6 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.doors;
 
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.ModBlockStateProperties;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.OpenedBy;
+import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.multi_block.MultiBlock;
 import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces.RedstoneKeyable;
@@ -14,11 +15,12 @@ import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeMemory;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeVector;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoorHingeSide;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
@@ -36,7 +38,7 @@ import java.util.List;
 
 
 @SuppressWarnings( { "unused", "AbstractClassNeverImplemented" } )
-public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
+public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInterface, RedstoneKeyable {
 	
 	
 	private static final VoxelShapeMemory DOORS_SHAPES = VoxelShapeMemory.createHorizontalVoxelShapes(
@@ -54,7 +56,7 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 		OpenedBy openedBy,
 		boolean _doubleDoorActive ) {
 		
-		super( properties, registry_name );
+		super( properties.notSolid(), registry_name );
 		setDefaultState(
 			getDefaultState().with( BlockStateProperties.OPEN, false )
 				.with( BlockStateProperties.POWERED, false )
@@ -63,11 +65,10 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 		doubleDoorActive = _doubleDoorActive;
 	}
 	
-	@Nonnull
 	@Override
-	public BlockRenderLayer getRenderLayer() {
+	public RenderType getRenderType() {
 		
-		return BlockRenderLayer.CUTOUT;
+		return RenderType.getCutout();
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -130,8 +131,9 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 	}
 	
 	@SuppressWarnings( "deprecation" )
+	@Nonnull
 	@Override
-	public boolean onBlockActivated(
+	public ActionResultType onBlockActivated(
 		@Nonnull BlockState state,
 		@Nonnull World worldIn,
 		@Nonnull BlockPos pos,
@@ -178,9 +180,9 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 					);
 				}
 			}
-			return true;
+			return ActionResultType.SUCCESS;
 		}
-		return false;
+		return ActionResultType.PASS;
 	}
 	
 	@SuppressWarnings( "deprecation" )

@@ -15,6 +15,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.math.BlockPos;
@@ -77,8 +78,9 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	}
 	
 	@SuppressWarnings( "deprecation" )
+	@Nonnull
 	@Override
-	public boolean onBlockActivated(
+	public ActionResultType onBlockActivated(
 		BlockState state,
 		@Nonnull World worldIn,
 		@Nonnull BlockPos pos,
@@ -87,7 +89,7 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 		@Nonnull BlockRayTraceResult hit ) {
 		
 		player.openContainer( state.getContainer( worldIn, pos ) );
-		return true;
+		return ActionResultType.SUCCESS;
 	}
 	
 	@SuppressWarnings( "deprecation" )

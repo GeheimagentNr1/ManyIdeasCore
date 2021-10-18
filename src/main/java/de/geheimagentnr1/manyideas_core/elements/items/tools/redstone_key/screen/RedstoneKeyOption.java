@@ -75,11 +75,9 @@ public class RedstoneKeyOption extends FocusableGui implements IRenderable {
 	@Override
 	public void render( int p_render_1_, int p_render_2_, float p_render_3_ ) {
 		
-		RenderHelper.disableStandardItemLighting();
 		FontRenderer font = Minecraft.getInstance().fontRenderer;
 		font.drawString( title, x + 30, y + 2, Objects.requireNonNull( TextFormatting.DARK_GRAY.getColor() ) );
 		font.drawString( description, x + 30, y + 12, Objects.requireNonNull( TextFormatting.WHITE.getColor() ) );
-		RenderHelper.enableGUIStandardItemLighting();
 	}
 	
 	public void resetSelected() {

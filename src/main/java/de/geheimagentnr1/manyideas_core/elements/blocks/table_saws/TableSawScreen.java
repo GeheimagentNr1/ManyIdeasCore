@@ -110,7 +110,6 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 	
 	private void drawRecipesItems( int left, int top, int recipeIndexOffsetMax ) {
 		
-		RenderHelper.enableGUIStandardItemLighting();
 		List<TableSawRecipe> list = container.getRecipeList();
 		
 		for( int i = recipeIndexOffset; i < recipeIndexOffsetMax && i < container.getRecipeListSize(); ++i ) {
@@ -121,7 +120,6 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 			Objects.requireNonNull( minecraft ).getItemRenderer().renderItemAndEffectIntoGUI( list.get( i )
 				.getRecipeOutput(), k, i1 );
 		}
-		RenderHelper.disableStandardItemLighting();
 	}
 	
 	@Override

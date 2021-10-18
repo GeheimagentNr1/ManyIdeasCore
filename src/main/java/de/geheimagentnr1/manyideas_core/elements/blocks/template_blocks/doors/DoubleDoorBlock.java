@@ -15,6 +15,7 @@ import net.minecraft.block.DoorBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -32,7 +33,7 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	
 	protected DoubleDoorBlock( Block.Properties properties, String registry_name ) {
 		
-		super( properties );
+		super( properties.notSolid() );
 		setRegistryName( registry_name );
 		initDoubleDoorBlock( material == Material.IRON ? OpenedBy.REDSTONE : OpenedBy.BOTH );
 	}
@@ -49,8 +50,9 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 		setDefaultState( getDefaultState().with( ModBlockStateProperties.OPENED_BY, openedBy ) );
 	}
 	
+	@Nonnull
 	@Override
-	public boolean onBlockActivated(
+	public ActionResultType onBlockActivated(
 		@Nonnull BlockState state,
 		@Nonnull World worldIn,
 		@Nonnull BlockPos pos,
@@ -68,9 +70,9 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 			if( DoorsHelper.isNeighbor( state, neighbor ) ) {
 				worldIn.setBlockState( neighbor.getPos(), neighbor.getState().with( OPEN, open ), 2 );
 			}
-			return true;
+			return ActionResultType.SUCCESS;
 		}
-		return false;
+		return ActionResultType.PASS;
 	}
 	
 	@Override

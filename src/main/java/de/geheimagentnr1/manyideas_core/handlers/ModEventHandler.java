@@ -61,9 +61,11 @@ public class ModEventHandler {
 		
 		ScreenManager.registerFactory( ModItems.RESTONE_KEY_CONTAINER, RedstoneKeyScreen::new );
 		
-		ClientRegistry.bindTileEntitySpecialRenderer( EndBlockTile.class, new EndBlockTileRenderer() );
+		ClientRegistry.bindTileEntityRenderer( ModBlocks.END_BLOCK_TILE, EndBlockTileRenderer::new );
 		
 		PlayerDecorationManager.initDecorationList();
+		
+		BlockRegistrationHelper.registerBlockRenderTypes( ModBlocks.BLOCKS );
 	}
 	
 	@SubscribeEvent

@@ -1,22 +1,23 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.end_block;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
-public class EndBlock extends Block implements BlockItemInterface, IEndBlock {
+public class EndBlock extends Block implements BlockItemInterface, BlockRenderTypeInterface, IEndBlock {
 	
 	
 	public static final String registry_name = "end_block";
@@ -29,11 +30,10 @@ public class EndBlock extends Block implements BlockItemInterface, IEndBlock {
 		setRegistryName( registry_name );
 	}
 	
-	@Nonnull
 	@Override
-	public BlockRenderLayer getRenderLayer() {
+	public RenderType getRenderType() {
 		
-		return BlockRenderLayer.CUTOUT;
+		return RenderType.getCutout();
 	}
 	
 	@Deprecated

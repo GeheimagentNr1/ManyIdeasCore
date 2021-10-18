@@ -108,7 +108,7 @@ public class MysteriousShears extends CoreBaseItem {
 		}
 		if( target instanceof IShearable ) {
 			IShearable shear_target = (IShearable)target;
-			BlockPos pos = new BlockPos( target.posX, target.posY, target.posZ );
+			BlockPos pos = new BlockPos( target.getPosX(), target.getPosY(), target.getPosZ() );
 			if( shear_target.isShearable( stack, target.world, pos ) ) {
 				
 				List<ItemStack> drops;

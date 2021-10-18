@@ -1,6 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
@@ -47,7 +48,7 @@ public class DyeCraftingTableScreen extends ContainerScreen<DyeCraftingTableCont
 	protected void drawGuiContainerBackgroundLayer( float partialTicks, int mouseX, int mouseY ) {
 		
 		renderBackground();
-		GlStateManager.color4f( 1.0F, 1.0F, 1.0F, 1.0F );
+		RenderSystem.color4f( 1.0F, 1.0F, 1.0F, 1.0F );
 		Objects.requireNonNull( minecraft ).getTextureManager().bindTexture( CRAFTING_TABLE_GUI_TEXTURES );
 		blit( guiLeft, ( height - ySize ) / 2, 0, 0, xSize, ySize );
 	}

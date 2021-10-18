@@ -1,16 +1,19 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.rainbow;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.StainedGlassBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 
 
-public class RainbowStainedGlassBlock extends StainedGlassBlock implements BlockItemInterface {
+public class RainbowStainedGlassBlock extends StainedGlassBlock implements BlockItemInterface,
+	BlockRenderTypeInterface {
 	
 	
 	public static final String registry_name = "rainbow_stained_glass_block";
@@ -19,9 +22,15 @@ public class RainbowStainedGlassBlock extends StainedGlassBlock implements Block
 		
 		super(
 			DyeColor.WHITE,
-			Block.Properties.create( Material.GLASS ).hardnessAndResistance( 0.3F ).sound( SoundType.GLASS )
+			Block.Properties.create( Material.GLASS ).hardnessAndResistance( 0.3F ).notSolid().sound( SoundType.GLASS )
 		);
 		setRegistryName( registry_name );
+	}
+	
+	@Override
+	public RenderType getRenderType() {
+		
+		return RenderType.getTranslucent();
 	}
 	
 	@Override

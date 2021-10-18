@@ -1,10 +1,12 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -14,7 +16,7 @@ import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IWorldPosCallable;
@@ -32,7 +34,7 @@ import javax.annotation.Nullable;
 
 
 @SuppressWarnings( "AbstractClassExtendsConcreteClass" )
-public abstract class TableSaw extends Block implements BlockItemInterface {
+public abstract class TableSaw extends Block implements BlockItemInterface, BlockRenderTypeInterface {
 	
 	
 	private static final DamageSource SAW = new DamageSource( "table_saw" );
@@ -51,11 +53,10 @@ public abstract class TableSaw extends Block implements BlockItemInterface {
 		setRegistryName( registry_name );
 	}
 	
-	@Nonnull
 	@Override
-	public BlockRenderLayer getRenderLayer() {
+	public RenderType getRenderType() {
 		
-		return BlockRenderLayer.CUTOUT;
+		return RenderType.getCutout();
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -87,8 +88,9 @@ public abstract class TableSaw extends Block implements BlockItemInterface {
 	}
 	
 	@SuppressWarnings( "deprecation" )
+	@Nonnull
 	@Override
-	public boolean onBlockActivated(
+	public ActionResultType onBlockActivated(
 		BlockState state,
 		@Nonnull World worldIn,
 		@Nonnull BlockPos pos,
@@ -97,7 +99,7 @@ public abstract class TableSaw extends Block implements BlockItemInterface {
 		@Nonnull BlockRayTraceResult hit ) {
 		
 		player.openContainer( state.getContainer( worldIn, pos ) );
-		return true;
+		return ActionResultType.SUCCESS;
 	}
 	
 	@SuppressWarnings( "deprecation" )

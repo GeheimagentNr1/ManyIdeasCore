@@ -64,9 +64,9 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	}
 	
 	@Override
-	protected void onSwapCraft( int amount ) {
+	protected void onSwapCraft( int numItemsCrafted ) {
 		
-		amountCrafted += amount;
+		amountCrafted += numItemsCrafted;
 	}
 	
 	@Override

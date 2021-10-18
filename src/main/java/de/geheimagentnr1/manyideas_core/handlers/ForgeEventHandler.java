@@ -28,7 +28,12 @@ public class ForgeEventHandler {
 	public static void handlePreRenderPlayerEvent( RenderPlayerEvent.Pre event ) {
 		
 		if( event.getPlayer() != null ) {
-			PlayerDecorationManager.renderForPlayer( event.getPlayer(), event.getPartialRenderTick() );
+			PlayerDecorationManager.renderForPlayer(
+				event.getPlayer(),
+				event.getLight(),
+				event.getMatrixStack(),
+				event.getBuffers()
+			);
 		}
 	}
 }
