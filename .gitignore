@@ -3,5 +3,6 @@
 /build/
 /gradle/
 /run/
+/logs/
 /gradlew
 /gradlew.bat
