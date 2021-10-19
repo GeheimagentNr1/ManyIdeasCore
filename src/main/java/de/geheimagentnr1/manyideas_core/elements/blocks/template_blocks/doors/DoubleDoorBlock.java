@@ -3,6 +3,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.doors;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.ModBlockStateProperties;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.OpenedBy;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces.RedstoneKeyable;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
@@ -13,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.ActionResultType;
@@ -28,7 +30,8 @@ import java.util.List;
 
 
 @SuppressWarnings( { "AbstractClassExtendsConcreteClass", "unused", "AbstractClassNeverImplemented" } )
-public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyable, BlockItemInterface {
+public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyable, BlockItemInterface,
+	BlockRenderTypeInterface {
 	
 	
 	protected DoubleDoorBlock( Block.Properties properties, String registry_name ) {
@@ -40,7 +43,7 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	
 	protected DoubleDoorBlock( Block.Properties properties, String registry_name, OpenedBy openedBy ) {
 		
-		super( properties );
+		super( properties.notSolid() );
 		setRegistryName( registry_name );
 		initDoubleDoorBlock( openedBy );
 	}
@@ -48,6 +51,12 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	private void initDoubleDoorBlock( OpenedBy openedBy ) {
 		
 		setDefaultState( getDefaultState().with( ModBlockStateProperties.OPENED_BY, openedBy ) );
+	}
+	
+	@Override
+	public RenderType getRenderType() {
+		
+		return RenderType.getCutout();
 	}
 	
 	@Nonnull
