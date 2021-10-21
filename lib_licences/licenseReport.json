@@ -103,12 +103,7 @@
     ],
     "url": "http://commons.apache.org/proper/commons-io/",
     "year": "2002",
-    "licenses": [
-      {
-        "license": "Apache License, Version 2.0",
-        "license_url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
-      }
-    ],
+    "licenses": [],
     "dependency": "commons-io:commons-io:2.5"
   },
   {

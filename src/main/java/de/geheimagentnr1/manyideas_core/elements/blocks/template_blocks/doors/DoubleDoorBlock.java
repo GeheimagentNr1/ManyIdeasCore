@@ -59,6 +59,13 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 		return RenderType.getCutout();
 	}
 	
+	@SuppressWarnings( "deprecation" )
+	@Override
+	public boolean isTransparent( @Nonnull BlockState state ) {
+		
+		return true;
+	}
+	
 	@Nonnull
 	@Override
 	public ActionResultType onBlockActivated(
