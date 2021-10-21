@@ -14,7 +14,7 @@ public enum BlockSide implements IStringSerializable {
 	
 	@Nonnull
 	@Override
-	public String getName() {
+	public String getSerializedName() {
 		
 		return name().toLowerCase( Locale.ENGLISH );
 	}

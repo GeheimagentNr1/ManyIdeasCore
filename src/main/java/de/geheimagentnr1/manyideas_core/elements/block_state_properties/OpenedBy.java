@@ -15,7 +15,7 @@ public enum OpenedBy implements RedstoneKeyableState {
 	
 	@Nonnull
 	@Override
-	public String getName() {
+	public String getSerializedName() {
 		
 		return name().toLowerCase( Locale.ENGLISH );
 	}

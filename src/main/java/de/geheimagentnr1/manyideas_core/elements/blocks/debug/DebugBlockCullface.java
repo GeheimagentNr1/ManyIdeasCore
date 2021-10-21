@@ -32,7 +32,7 @@ public class DebugBlockCullface extends Block implements BlockItemInterface {
 	
 	public DebugBlockCullface() {
 		
-		super( Block.Properties.create( Material.EARTH ) );
+		super( Properties.create( Material.EARTH ) );
 		setRegistryName( registry_name );
 	}
 	
