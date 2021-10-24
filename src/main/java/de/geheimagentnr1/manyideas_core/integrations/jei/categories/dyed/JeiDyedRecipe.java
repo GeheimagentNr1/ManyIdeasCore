@@ -45,7 +45,7 @@ public class JeiDyedRecipe {
 							itemStacks.add( colorStack );
 						}
 					} else {
-						ItemStack[] matchingStacks = ingredient.getMatchingStacks();
+						ItemStack[] matchingStacks = ingredient.getItems();
 						if( matchingStacks.length == 1 && matchingStacks[0].getItem() instanceof DyeBlockItem ) {
 							for( Color matchingStackColor : Color.values() ) {
 								itemStacks.add( DyeBlockHelper.setColorToItemStack(
@@ -54,7 +54,7 @@ public class JeiDyedRecipe {
 								) );
 							}
 						} else {
-							itemStacks.addAll( Arrays.asList( ingredient.getMatchingStacks() ) );
+							itemStacks.addAll( Arrays.asList( ingredient.getItems() ) );
 						}
 					}
 					inputs.add( itemStacks );
@@ -67,7 +67,7 @@ public class JeiDyedRecipe {
 	
 	public static List<JeiDyedRecipe> getRecipes() {
 		
-		ClientWorld world = Minecraft.getInstance().world;
+		ClientWorld world = Minecraft.getInstance().level;
 		ArrayList<JeiDyedRecipe> jeiDyedRecipes = new ArrayList<>();
 		world.getRecipeManager().getRecipes().forEach( iRecipe -> {
 			if( iRecipe.getType() == RecipeTypes.DYED ) {

@@ -45,7 +45,7 @@ public class ColorTagList implements ColorList {
 	
 	@Nonnull
 	@Override
-	public Collection<ItemStack> getStacks() {
+	public Collection<ItemStack> getItems() {
 		
 		return stacks.keySet();
 	}
@@ -60,7 +60,7 @@ public class ColorTagList implements ColorList {
 		stacks.forEach( ( stack, stackColor ) -> {
 			JsonObject item = new JsonObject();
 			item.addProperty(
-				stackColor.getName(),
+				stackColor.getSerializedName(),
 				Objects.requireNonNull( stack.getItem().getRegistryName() ).toString()
 			);
 			items.add( item );
@@ -68,7 +68,7 @@ public class ColorTagList implements ColorList {
 		} );
 		for( Color color : colors ) {
 			JsonObject item = new JsonObject();
-			item.addProperty( color.getName(), "" );
+			item.addProperty( color.getSerializedName(), "" );
 			items.add( item );
 		}
 		jsonobject.add( "color_tag", items );

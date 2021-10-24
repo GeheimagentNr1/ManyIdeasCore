@@ -29,18 +29,17 @@ public class EndBlockTile extends EndPortalTileEntity {
 	@Override
 	public boolean shouldRenderFace( @Nonnull Direction face ) {
 		
-		if( world == null ) {
+		if( level == null ) {
 			return true;
 		}
-		BlockPos direction_pos = pos.offset( face );
-		BlockState direction_state = world.getBlockState( direction_pos );
-		if( direction_state.getRenderType() == BlockRenderType.INVISIBLE ) {
+		BlockPos direction_pos = worldPosition.relative( face );
+		BlockState direction_state = level.getBlockState( direction_pos );
+		if( direction_state.getRenderShape() == BlockRenderType.INVISIBLE ) {
 			return true;
 		}
 		if( direction_state.getBlock() instanceof IEndBlock ) {
 			return false;
 		}
-		return !direction_state.isSolid() || !Block.hasSolidSide( direction_state, world, direction_pos,
-			face.getOpposite() );
+		return !Block.isFaceFull( direction_state.getShape( level, direction_pos ), face.getOpposite() );
 	}
 }

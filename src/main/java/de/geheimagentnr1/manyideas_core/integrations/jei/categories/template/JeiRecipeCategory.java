@@ -26,7 +26,7 @@ public abstract class JeiRecipeCategory<R> implements IRecipeCategory<R> {
 	@Override
 	public String getTitle() {
 		
-		return block.getNameTextComponent().getFormattedText();
+		return block.getName().getString();
 	}
 	
 	@Nonnull

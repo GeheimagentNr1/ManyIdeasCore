@@ -56,10 +56,10 @@ public class RedstoneKeyNamedContainerProvider implements INamedContainerProvide
 	@Nullable
 	@Override
 	public Container createMenu(
-		int containerID,
+		int menuId,
 		@Nonnull PlayerInventory playerInventory,
 		@Nonnull PlayerEntity player ) {
 		
-		return new RedstoneKeyContainer( containerID, icons, pos, redstoneKeyableBlock, options, selectedIndex );
+		return new RedstoneKeyContainer( menuId, icons, pos, redstoneKeyableBlock, options, selectedIndex );
 	}
 }

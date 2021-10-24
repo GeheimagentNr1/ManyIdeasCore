@@ -19,10 +19,10 @@ public class FlowerStraightAllium extends Flower {
 		super(
 			Effects.FIRE_RESISTANCE,
 			4,
-			Block.Properties.create( Material.PLANTS )
-				.doesNotBlockMovement()
-				.hardnessAndResistance( 0.0F )
-				.sound( SoundType.PLANT ),
+			Properties.of( Material.PLANT )
+				.noCollission()
+				.instabreak()
+				.sound( SoundType.GRASS ),
 			registry_name
 		);
 	}

@@ -40,27 +40,27 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	}
 	
 	@Override
-	public boolean isItemValid( @Nonnull ItemStack stack ) {
+	public boolean mayPlace( @Nonnull ItemStack stack ) {
 		
 		return false;
 	}
 	
 	@Nonnull
 	@Override
-	public ItemStack decrStackSize( int amount ) {
+	public ItemStack remove( int amount ) {
 		
-		if( getHasStack() ) {
-			amountCrafted += Math.min( amount, getStack().getCount() );
+		if( hasItem() ) {
+			amountCrafted += Math.min( amount, getItem().getCount() );
 		}
 		
-		return super.decrStackSize( amount );
+		return super.remove( amount );
 	}
 	
 	@Override
-	protected void onCrafting( @Nonnull ItemStack stack, int amount ) {
+	protected void onQuickCraft( @Nonnull ItemStack stack, int amount ) {
 		
 		amountCrafted += amount;
-		onCrafting( stack );
+		checkTakeAchievements( stack );
 	}
 	
 	@Override
@@ -70,51 +70,51 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	}
 	
 	@Override
-	protected void onCrafting( @Nonnull ItemStack stack ) {
+	protected void checkTakeAchievements( @Nonnull ItemStack stack ) {
 		
 		if( amountCrafted > 0 ) {
-			stack.onCrafting( player.world, player, amountCrafted );
+			stack.onCraftedBy( player.level, player, amountCrafted );
 			BasicEventHooks.firePlayerCraftingEvent( player, stack, craftingInventory );
 		}
-		if( inventory instanceof IRecipeHolder ) {
-			( (IRecipeHolder)inventory ).onCrafting( player );
+		if( container instanceof IRecipeHolder ) {
+			( (IRecipeHolder)container ).awardUsedRecipes( player );
 		}
 		amountCrafted = 0;
 	}
 	
 	@Nonnull
 	@Override
-	public ItemStack onTake( @Nonnull PlayerEntity thePlayer, @Nonnull ItemStack stack ) {
+	public ItemStack onTake( @Nonnull PlayerEntity player, @Nonnull ItemStack stack ) {
 		
-		onCrafting( stack );
-		ForgeHooks.setCraftingPlayer( thePlayer );
-		NonNullList<ItemStack> ingredients = thePlayer.world.getRecipeManager().getRecipeNonNull(
+		checkTakeAchievements( stack );
+		ForgeHooks.setCraftingPlayer( player );
+		NonNullList<ItemStack> ingredients = player.level.getRecipeManager().getRemainingItemsFor(
 			RecipeTypes.DYED,
 			craftingInventory,
-			thePlayer.world
+			player.level
 		);
 		ForgeHooks.setCraftingPlayer( null );
 		for( int i = 0; i < ingredients.size(); ++i ) {
-			ItemStack crafting_stack = craftingInventory.getStackInSlot( i );
+			ItemStack crafting_stack = craftingInventory.getItem( i );
 			ItemStack ingredient = ingredients.get( i );
 			if( !crafting_stack.isEmpty() ) {
-				craftingInventory.decrStackSize( i, 1 );
-				crafting_stack = craftingInventory.getStackInSlot( i );
+				craftingInventory.removeItem( i, 1 );
+				crafting_stack = craftingInventory.getItem( i );
 			}
 			
 			if( !ingredient.isEmpty() ) {
 				if( crafting_stack.isEmpty() ) {
-					craftingInventory.setInventorySlotContents( i, ingredient );
+					craftingInventory.setItem( i, ingredient );
 				} else {
-					if( ItemStack.areItemsEqual( crafting_stack, ingredient ) && ItemStack.areItemStackTagsEqual(
+					if( ItemStack.isSame( crafting_stack, ingredient ) && ItemStack.tagMatches(
 						crafting_stack,
 						ingredient
 					) ) {
 						ingredient.grow( crafting_stack.getCount() );
-						craftingInventory.setInventorySlotContents( i, ingredient );
+						craftingInventory.setItem( i, ingredient );
 					} else {
-						if( !player.inventory.addItemStackToInventory( ingredient ) ) {
-							player.dropItem( ingredient, false );
+						if( !this.player.inventory.add( ingredient ) ) {
+							this.player.drop( ingredient, false );
 						}
 					}
 				}

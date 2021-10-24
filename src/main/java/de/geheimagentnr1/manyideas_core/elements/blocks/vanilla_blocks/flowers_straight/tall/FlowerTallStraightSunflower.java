@@ -15,10 +15,13 @@ public class FlowerTallStraightSunflower extends TallFlower {
 	
 	public FlowerTallStraightSunflower() {
 		
-		super( Block.Properties.create( Material.TALL_PLANTS )
-			.doesNotBlockMovement()
-			.hardnessAndResistance( 0.0F )
-			.sound( SoundType.PLANT ), registry_name );
+		super(
+			Properties.of( Material.REPLACEABLE_PLANT )
+				.noCollission()
+				.instabreak()
+				.sound( SoundType.GRASS ),
+			registry_name
+		);
 	}
 	
 	@Override

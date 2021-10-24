@@ -46,7 +46,8 @@ public class TableSawStoneContainer extends TableSawContainer {
 	@Override
 	public List<TableSawRecipe> getAvaiableRecipes( IInventory inventoryIn, World _world ) {
 		
-		return new ArrayList<>( _world.getRecipeManager()
-			.getRecipes( RecipeTypes.TABLE_SAWING_STONE, inventoryIn, _world ) );
+		return new ArrayList<>(
+			_world.getRecipeManager().getRecipesFor( RecipeTypes.TABLE_SAWING_STONE, inventoryIn, _world )
+		);
 	}
 }

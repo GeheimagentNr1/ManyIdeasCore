@@ -1,18 +1,15 @@
 package de.geheimagentnr1.manyideas_core.special.decoration_renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerModelPart;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3f;
 
 
 //package-private
@@ -33,12 +30,12 @@ class PlayerDecorationRenderer {
 	//package-private
 	void renderItemStack( PlayerEntity player, int light, MatrixStack matrixStack, IRenderTypeBuffer buffer ) {
 		
-		if( player.isInvisible() || !player.isWearing( PlayerModelPart.CAPE ) || player.isElytraFlying() ) {
+		if( player.isInvisible() || !player.isModelPartShown( PlayerModelPart.CAPE ) || player.isFallFlying() ) {
 			return;
 		}
-		matrixStack.push();
-		matrixStack.translate( 0.0D, 2.4 - ( player.isSneaking() ? 0.3D : 0.0D ), 0.0D );
-		matrixStack.push();
+		matrixStack.pushPose();
+		matrixStack.translate( 0.0D, 2.4 - ( player.isCrouching() ? 0.3D : 0.0D ), 0.0D );
+		matrixStack.pushPose();
 		float size;
 		if( isBlock ) {
 			size = 0.5F;
@@ -46,16 +43,16 @@ class PlayerDecorationRenderer {
 			size = 0.4F;
 		}
 		matrixStack.scale( size, size, size );
-		matrixStack.push();
+		matrixStack.pushPose();
 		double bouncing = ( System.currentTimeMillis() & Long.MAX_VALUE ) / 1000.0D;
 		matrixStack.translate( 0.0D, StrictMath.sin( bouncing % ( 2 * Math.PI ) ) * 0.25, 0.0D );
-		matrixStack.push();
-		matrixStack.rotate( Vector3f.YP.rotationDegrees( (float)( bouncing * 40.0D % 360 ) ) );
-		Minecraft.getInstance().getItemRenderer().renderItem( stack, ItemCameraTransforms.TransformType.FIXED, light,
+		matrixStack.pushPose();
+		matrixStack.mulPose( Vector3f.YP.rotationDegrees( (float)( bouncing * 40.0D % 360 ) ) );
+		Minecraft.getInstance().getItemRenderer().renderStatic( stack, ItemCameraTransforms.TransformType.FIXED, light,
 			OverlayTexture.NO_OVERLAY, matrixStack, buffer );
-		matrixStack.pop();
-		matrixStack.pop();
-		matrixStack.pop();
-		matrixStack.pop();
+		matrixStack.popPose();
+		matrixStack.popPose();
+		matrixStack.popPose();
+		matrixStack.popPose();
 	}
 }

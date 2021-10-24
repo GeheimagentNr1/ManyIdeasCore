@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 public abstract class AxisBlock extends Block implements BlockItemInterface {
 	
 	
-	protected AxisBlock( Block.Properties properties, String registry_name ) {
+	protected AxisBlock( Properties properties, String registry_name ) {
 		
 		super( properties );
 		setRegistryName( registry_name );
@@ -24,11 +24,11 @@ public abstract class AxisBlock extends Block implements BlockItemInterface {
 	@Override
 	public BlockState getStateForPlacement( BlockItemUseContext context ) {
 		
-		return getDefaultState().with( BlockStateProperties.AXIS, context.getFace().getAxis() );
+		return defaultBlockState().setValue( BlockStateProperties.AXIS, context.getClickedFace().getAxis() );
 	}
 	
 	@Override
-	protected void fillStateContainer( StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {
 		
 		builder.add( BlockStateProperties.AXIS );
 	}

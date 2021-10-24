@@ -22,7 +22,7 @@ public class BigDoorsHelper {
 		int zSize,
 		Function<BlockData, BlockPos> zeroPosCalculator ) {
 		
-		BlockPos neighborPos = zeroPos.offset( getDirectionToNeighborDoor( state ), zSize );
+		BlockPos neighborPos = zeroPos.relative( getDirectionToNeighborDoor( state ), zSize );
 		BlockState neighborState = world.getBlockState( neighborPos );
 		BlockPos neighborZeroPos = neighborState.getBlock() instanceof BigDoor
 			? zeroPosCalculator.apply( new BlockData( neighborPos, neighborState ) )
@@ -35,16 +35,16 @@ public class BigDoorsHelper {
 		BlockState neighborState = neighborBlock.getState();
 		return neighborBlock.getZeroPos() != null &&
 			neighborBlock.getPos().equals( neighborBlock.getZeroPos() ) &&
-			state.get( BlockStateProperties.HORIZONTAL_FACING ) ==
-				neighborState.get( BlockStateProperties.HORIZONTAL_FACING ) &&
-			state.get( BlockStateProperties.DOOR_HINGE ) != neighborState.get( BlockStateProperties.DOOR_HINGE );
+			state.getValue( BlockStateProperties.HORIZONTAL_FACING ) ==
+				neighborState.getValue( BlockStateProperties.HORIZONTAL_FACING ) &&
+			state.getValue( BlockStateProperties.DOOR_HINGE ) != neighborState.getValue( BlockStateProperties.DOOR_HINGE );
 	}
 	
 	private static Direction getDirectionToNeighborDoor( BlockState state ) {
 		
-		Direction facing = state.get( DoorBlock.FACING );
-		return state.get( BlockStateProperties.DOOR_HINGE ) == DoorHingeSide.LEFT
-			? facing.rotateY()
-			: facing.rotateYCCW();
+		Direction facing = state.getValue( DoorBlock.FACING );
+		return state.getValue( BlockStateProperties.DOOR_HINGE ) == DoorHingeSide.LEFT
+			? facing.getClockWise()
+			: facing.getCounterClockWise();
 	}
 }

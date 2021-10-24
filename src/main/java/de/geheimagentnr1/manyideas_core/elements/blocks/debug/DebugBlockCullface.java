@@ -32,7 +32,7 @@ public class DebugBlockCullface extends Block implements BlockItemInterface {
 	
 	public DebugBlockCullface() {
 		
-		super( Properties.create( Material.EARTH ) );
+		super( Properties.of( Material.DIRT ) );
 		setRegistryName( registry_name );
 	}
 	
@@ -45,18 +45,20 @@ public class DebugBlockCullface extends Block implements BlockItemInterface {
 		@Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
-		return SHAPES.getShapeFromFacing( state.get( BlockStateProperties.FACING ) );
+		return SHAPES.getShapeFromFacing( state.getValue( BlockStateProperties.FACING ) );
 	}
 	
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement( BlockItemUseContext context ) {
 		
-		return getDefaultState().with( BlockStateProperties.FACING, context.getFace().getOpposite() );
+		return defaultBlockState().setValue( BlockStateProperties.FACING, context.getClickedFace().getOpposite() );
 	}
 	
+	
+	
 	@Override
-	protected void fillStateContainer( StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {
 		
 		builder.add( BlockStateProperties.FACING );
 	}

@@ -12,7 +12,7 @@ public abstract class Wood extends AxisBlock {
 	protected Wood( String registry_name ) {
 		
 		super(
-			Block.Properties.create( Material.WOOD ).hardnessAndResistance( 2.0F ).sound( SoundType.WOOD ),
+			Properties.of( Material.WOOD ).strength( 2.0F ).sound( SoundType.WOOD ),
 			registry_name
 		);
 	}

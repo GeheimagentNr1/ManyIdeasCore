@@ -19,7 +19,7 @@ public class ManyIdeasCoreItemGroup extends ItemGroup {
 	
 	@Nonnull
 	@Override
-	public ItemStack createIcon() {
+	public ItemStack makeIcon() {
 		
 		return new ItemStack( ModBlocks.TABLE_SAW_DIAMOND );
 	}

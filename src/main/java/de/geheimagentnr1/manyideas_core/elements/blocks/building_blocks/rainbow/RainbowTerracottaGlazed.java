@@ -16,7 +16,7 @@ public class RainbowTerracottaGlazed extends GlazedTerracottaBlock implements Bl
 	
 	public RainbowTerracottaGlazed() {
 		
-		super( Block.Properties.create( Material.ROCK ).hardnessAndResistance( 1.4F ).sound( SoundType.STONE ) );
+		super( Properties.of( Material.STONE ).strength( 1.4F ).sound( SoundType.STONE ) );
 		setRegistryName( registry_name );
 	}
 	

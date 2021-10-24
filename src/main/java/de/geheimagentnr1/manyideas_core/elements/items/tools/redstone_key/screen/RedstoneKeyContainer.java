@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class RedstoneKeyContainer extends Container {
@@ -52,17 +53,19 @@ public class RedstoneKeyContainer extends Container {
 		super( ModItems.RESTONE_KEY_CONTAINER, containerID );
 		icons = data.readResourceLocation();
 		pos = data.readBlockPos();
-		redstoneKeyableBlock = (RedstoneKeyable)Minecraft.getInstance().world.getBlockState( pos ).getBlock();
+		redstoneKeyableBlock = (RedstoneKeyable)Objects.requireNonNull( Minecraft.getInstance().level )
+			.getBlockState( pos )
+			.getBlock();
 		int optionsCount = data.readInt();
 		options = new ArrayList<>();
 		for( int i = 0; i < optionsCount; i++ ) {
-			options.add( new Option( data.readString(), data.readString() ) );
+			options.add( new Option( data.readUtf(), data.readUtf() ) );
 		}
 		selectedIndex = data.readInt();
 	}
 	
 	@Override
-	public boolean canInteractWith( @Nonnull PlayerEntity playerIn ) {
+	public boolean stillValid( @Nonnull PlayerEntity player ) {
 		
 		return true;
 	}

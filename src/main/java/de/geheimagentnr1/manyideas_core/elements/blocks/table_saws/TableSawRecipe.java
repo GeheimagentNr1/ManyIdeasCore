@@ -29,10 +29,10 @@ public abstract class TableSawRecipe extends SingleItemRecipe {
 	@Override
 	public boolean matches( IInventory inv, @Nonnull World worldIn ) {
 		
-		return ingredient.test( inv.getStackInSlot( 0 ) );
+		return ingredient.test( inv.getItem( 0 ) );
 	}
 	
 	@Nonnull
 	@Override
-	public abstract ItemStack getIcon();
+	public abstract ItemStack getToastSymbol();
 }

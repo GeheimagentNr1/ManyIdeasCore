@@ -34,31 +34,28 @@ class TableSawOutputSlot extends Slot {
 		inputInventorySlot = _inputInventorySlot;
 	}
 	
-	/**
-	 * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
-	 */
 	@Override
-	public boolean isItemValid( @Nonnull ItemStack stack ) {
+	public boolean mayPlace( @Nonnull ItemStack stack ) {
 		
 		return false;
 	}
 	
 	@Nonnull
 	@Override
-	public ItemStack onTake( @Nonnull PlayerEntity thePlayer, @Nonnull ItemStack stack ) {
+	public ItemStack onTake( @Nonnull PlayerEntity player, @Nonnull ItemStack stack ) {
 		
-		ItemStack itemstack = inputInventorySlot.decrStackSize( 1 );
+		ItemStack itemstack = inputInventorySlot.remove( 1 );
 		if( !itemstack.isEmpty() ) {
 			tableSawContainer.updateRecipeResultSlot();
 		}
-		stack.getItem().onCreated( stack, thePlayer.world, thePlayer );
-		worldPosCallableIn.consume( ( world, pos ) -> {
+		stack.getItem().onCraftedBy( stack, player.level, player );
+		worldPosCallableIn.execute( ( world, pos ) -> {
 			long l = world.getGameTime();
 			if( tableSawContainer.lastOnTake != l ) {
 				world.playSound( null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.BLOCKS, 1.0F, 1.0F );
 				tableSawContainer.lastOnTake = l;
 			}
 		} );
-		return super.onTake( thePlayer, stack );
+		return super.onTake( player, stack );
 	}
 }

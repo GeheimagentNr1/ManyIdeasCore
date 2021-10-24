@@ -3,13 +3,16 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.rainbow
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.StainedGlassBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 
 
 public class RainbowStainedGlassBlock extends StainedGlassBlock implements BlockItemInterface,
@@ -22,7 +25,14 @@ public class RainbowStainedGlassBlock extends StainedGlassBlock implements Block
 		
 		super(
 			DyeColor.WHITE,
-			Block.Properties.create( Material.GLASS ).hardnessAndResistance( 0.3F ).notSolid().sound( SoundType.GLASS )
+			Properties.of( Material.GLASS )
+				.strength( 0.3F )
+				.noOcclusion()
+				.isValidSpawn( ( p_test_1_, p_test_2_, p_test_3_, p_test_4_ ) -> false )
+				.isRedstoneConductor( ( p_test_1_, p_test_2_, p_test_3_ ) -> false )
+				.isSuffocating( ( p_test_1_, p_test_2_, p_test_3_ ) -> false )
+				.isViewBlocking( ( p_test_1_, p_test_2_, p_test_3_ ) -> false )
+				.sound( SoundType.GLASS )
 		);
 		setRegistryName( registry_name );
 	}
@@ -30,7 +40,7 @@ public class RainbowStainedGlassBlock extends StainedGlassBlock implements Block
 	@Override
 	public RenderType getRenderType() {
 		
-		return RenderType.getTranslucent();
+		return RenderType.translucent();
 	}
 	
 	@Override

@@ -20,7 +20,7 @@ public interface RedstoneKeyableState extends IStringSerializable {
 		
 		return TranslationKeyHelper.generateMessageTranslationKey(
 			modId,
-			getName().toLowerCase( Locale.ROOT ) + ".title"
+			getSerializedName().toLowerCase( Locale.ROOT ) + ".title"
 		);
 	}
 	
@@ -29,7 +29,7 @@ public interface RedstoneKeyableState extends IStringSerializable {
 		
 		return TranslationKeyHelper.generateMessageTranslationKey(
 			modId,
-			getName().toLowerCase( Locale.ROOT ) + ".description"
+			getSerializedName().toLowerCase( Locale.ROOT ) + ".description"
 		);
 	}
 }

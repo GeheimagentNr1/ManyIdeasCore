@@ -20,7 +20,7 @@ class MortarCraftingInventory implements IInventory {
 	}
 	
 	@Override
-	public int getSizeInventory() {
+	public int getContainerSize() {
 		
 		return 1;
 	}
@@ -33,43 +33,43 @@ class MortarCraftingInventory implements IInventory {
 	
 	@Nonnull
 	@Override
-	public ItemStack getStackInSlot( int index ) {
+	public ItemStack getItem( int index ) {
 		
 		return crafting_stack;
 	}
 	
 	@Nonnull
 	@Override
-	public ItemStack decrStackSize( int index, int count ) {
+	public ItemStack removeItem( int index, int count ) {
 		
 		return crafting_stack;
 	}
 	
 	@Nonnull
 	@Override
-	public ItemStack removeStackFromSlot( int index ) {
+	public ItemStack removeItemNoUpdate( int index ) {
 		
 		return crafting_stack;
 	}
 	
 	@Override
-	public void setInventorySlotContents( int index, @Nonnull ItemStack stack ) {
-		
+	public void setItem( int index, @Nonnull ItemStack stack ) {
+	
 	}
 	
 	@Override
-	public void markDirty() {
-		
+	public void setChanged() {
+	
 	}
 	
 	@Override
-	public boolean isUsableByPlayer( @Nonnull PlayerEntity player ) {
+	public boolean stillValid( @Nonnull PlayerEntity p_70300_1_ ) {
 		
 		return true;
 	}
 	
 	@Override
-	public void clear() {
+	public void clearContent() {
 		
 		crafting_stack = null;
 	}

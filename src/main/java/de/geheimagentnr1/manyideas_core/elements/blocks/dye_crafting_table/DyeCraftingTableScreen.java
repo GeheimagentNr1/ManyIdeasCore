@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
@@ -21,35 +21,24 @@ public class DyeCraftingTableScreen extends ContainerScreen<DyeCraftingTableCont
 		"textures/gui/container/crafting_table.png"
 	);
 	
-	public DyeCraftingTableScreen(
-		DyeCraftingTableContainer _container,
-		PlayerInventory inv,
-		ITextComponent titleIn ) {
+	public DyeCraftingTableScreen( DyeCraftingTableContainer _container, PlayerInventory inv, ITextComponent _title ) {
 		
-		super( _container, inv, titleIn );
-	}
-	
-	@SuppressWarnings( "ParameterNameDiffersFromOverriddenParameter" )
-	@Override
-	public void render( int mouseX, int mouseY, float partialTicks ) {
-		
-		super.render( mouseX, mouseY, partialTicks );
-		renderHoveredToolTip( mouseX, mouseY );
+		super( _container, inv, _title );
+		titleLabelX = 38;
 	}
 	
 	@Override
-	protected void drawGuiContainerForegroundLayer( int mouseX, int mouseY ) {
+	public void render( MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks ) {
 		
-		font.drawString( title.getFormattedText(), 28.0F, 6.0F, 4210752 );
-		font.drawString( playerInventory.getDisplayName().getFormattedText(), 8.0F, ySize - 96 + 2, 4210752 );
+		super.render( matrixStack, mouseX, mouseY, partialTicks );
+		renderTooltip( matrixStack, mouseX, mouseY );
 	}
 	
 	@Override
-	protected void drawGuiContainerBackgroundLayer( float partialTicks, int mouseX, int mouseY ) {
+	protected void renderBg( MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY ) {
 		
-		renderBackground();
 		RenderSystem.color4f( 1.0F, 1.0F, 1.0F, 1.0F );
-		Objects.requireNonNull( minecraft ).getTextureManager().bindTexture( CRAFTING_TABLE_GUI_TEXTURES );
-		blit( guiLeft, ( height - ySize ) / 2, 0, 0, xSize, ySize );
+		Objects.requireNonNull( minecraft ).getTextureManager().bind( CRAFTING_TABLE_GUI_TEXTURES );
+		blit( matrixStack, leftPos, ( height - imageHeight ) / 2, 0, 0, imageWidth, imageHeight );
 	}
 }

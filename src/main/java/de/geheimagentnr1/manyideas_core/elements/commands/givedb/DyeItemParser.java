@@ -78,7 +78,7 @@ class DyeItemParser {
 	@SuppressWarnings( "deprecation" )
 	private Optional<Item> getItemForRegistry( ResourceLocation resourceLocation ) {
 		
-		Optional<Item> optional = Registry.ITEM.getValue( resourceLocation );
+		Optional<Item> optional = Registry.ITEM.getOptional( resourceLocation );
 		
 		if( optional.isPresent() ) {
 			if( optional.get() instanceof DyeBlockItem ) {
@@ -109,7 +109,7 @@ class DyeItemParser {
 	
 	private CompletableFuture<Suggestions> suggestTagOrItem( SuggestionsBuilder builder ) {
 		
-		return ISuggestionProvider.suggestIterable( KEY_SET, builder );
+		return ISuggestionProvider.suggestResource( KEY_SET, builder );
 	}
 	
 	//package-private

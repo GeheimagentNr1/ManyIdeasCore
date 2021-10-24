@@ -28,23 +28,23 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 	
 	@Nonnull
 	@Override
-	public DyedRecipe read( @Nonnull ResourceLocation recipeId, @Nonnull JsonObject json ) {
+	public DyedRecipe fromJson( @Nonnull ResourceLocation recipeId, @Nonnull JsonObject json ) {
 		
-		boolean shaped = JSONUtils.getBoolean( json, "shaped" );
+		boolean shaped = JSONUtils.getAsBoolean( json, "shaped" );
 		NonNullList<Ingredient> ingredients = NonNullList.create();
 		int recipeWidth;
 		int recipeHeight;
 		if( shaped ) {
-			String[][] pattern = patternFromJson( JSONUtils.getJsonArray( json, "pattern" ) );
+			String[][] pattern = patternFromJson( JSONUtils.getAsJsonArray( json, "pattern" ) );
 			recipeWidth = 3;
 			recipeHeight = 3;
-			deserializeShapedIngredients( ingredients, pattern, JSONUtils.getJsonObject( json, "keys" ) );
+			deserializeShapedIngredients( ingredients, pattern, JSONUtils.getAsJsonObject( json, "keys" ) );
 		} else {
-			deserializeNonShapedIngredients( ingredients, JSONUtils.getJsonArray( json, "ingredients" ) );
+			deserializeNonShapedIngredients( ingredients, JSONUtils.getAsJsonArray( json, "ingredients" ) );
 			recipeWidth = ingredients.size();
 			recipeHeight = 1;
 		}
-		ItemStack result = deserializeResult( JSONUtils.getJsonObject( json, "result" ) );
+		ItemStack result = deserializeResult( JSONUtils.getAsJsonObject( json, "result" ) );
 		return new DyedRecipe(
 			recipeId,
 			RecipeSerializers.DYED,
@@ -133,14 +133,14 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 		if( ingredient.has( "color_tag" ) ) {
 			return deserializeColorTagList( ingredient );
 		}
-		return Ingredient.fromItemListStream( Stream.of( Ingredient.deserializeItemList( ingredient ) ) );
+		return Ingredient.fromValues( Stream.of( Ingredient.valueFromJson( ingredient ) ) );
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	private Ingredient deserializeColorStackList( JsonObject ingredient ) {
 		
-		ResourceLocation location = new ResourceLocation( JSONUtils.getString( ingredient, "color_item" ) );
-		Item item = Registry.ITEM.getValue( location ).orElseThrow( () -> new JsonSyntaxException(
+		ResourceLocation location = new ResourceLocation( JSONUtils.getAsString( ingredient, "color_item" ) );
+		Item item = Registry.ITEM.getOptional( location ).orElseThrow( () -> new JsonSyntaxException(
 			"Unknown item '" + location + "'" ) );
 		if( !( item instanceof DyeBlockItem ) ) {
 			throw new JsonSyntaxException( location + " is not a DyeBlockItem" );
@@ -151,15 +151,15 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 	@SuppressWarnings( "deprecation" )
 	private Ingredient deserializeColorTagList( JsonObject ingredient ) {
 		
-		JsonObject color_tag = JSONUtils.getJsonObject( ingredient, "color_tag" );
+		JsonObject color_tag = JSONUtils.getAsJsonObject( ingredient, "color_tag" );
 		TreeMap<ItemStack, Color> stacks =
 			new TreeMap<>( Comparator.comparing( o -> Objects.requireNonNull( o.getItem()
 				.getRegistryName() ) ) );
 		for( Color color : Color.values() ) {
-			String registry_key = JSONUtils.getString( color_tag, color.getName(), "" );
+			String registry_key = JSONUtils.getAsString( color_tag, color.getSerializedName(), "" );
 			if( !registry_key.isEmpty() ) {
 				ResourceLocation location = new ResourceLocation( registry_key );
-				stacks.put( new ItemStack( Registry.ITEM.getValue( location )
+				stacks.put( new ItemStack( Registry.ITEM.getOptional( location )
 					.orElseThrow( () -> new JsonSyntaxException( "Unknown item '" + location + "'" ) ) ), color );
 			}
 		}
@@ -169,28 +169,28 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 	@SuppressWarnings( "deprecation" )
 	private ItemStack deserializeResult( JsonObject result ) {
 		
-		String registry_key = JSONUtils.getString( result, "item" );
+		String registry_key = JSONUtils.getAsString( result, "item" );
 		Item item =
-			Registry.ITEM.getValue( new ResourceLocation( registry_key ) ).orElseThrow( () -> new JsonSyntaxException(
+			Registry.ITEM.getOptional( new ResourceLocation( registry_key ) ).orElseThrow( () -> new JsonSyntaxException(
 				"Unknown item '" + registry_key + "'" ) );
 		if( !( item instanceof DyeBlockItem ) ) {
 			throw new JsonParseException( "Unallowed Recipe Result" );
 		}
-		return new ItemStack( item, JSONUtils.getInt( result, "count", 1 ) );
+		return new ItemStack( item, JSONUtils.getAsInt( result, "count", 1 ) );
 	}
 	
 	@Nullable
 	@Override
-	public DyedRecipe read( @Nonnull ResourceLocation recipeId, @Nonnull PacketBuffer buffer ) {
+	public DyedRecipe fromNetwork( @Nonnull ResourceLocation recipeId, @Nonnull PacketBuffer buffer ) {
 		
 		boolean shaped = buffer.readBoolean();
 		int recipeWidth = buffer.readVarInt();
 		int recipeHeight = buffer.readVarInt();
 		NonNullList<Ingredient> ingredients = NonNullList.create();
 		for( int k = 0; k < recipeWidth * recipeHeight; ++k ) {
-			ingredients.add( Ingredient.read( buffer ) );
+			ingredients.add( Ingredient.fromNetwork( buffer ) );
 		}
-		ItemStack result = buffer.readItemStack();
+		ItemStack result = buffer.readItem();
 		return new DyedRecipe(
 			recipeId,
 			RecipeSerializers.DYED,
@@ -203,14 +203,14 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 	}
 	
 	@Override
-	public void write( @Nonnull PacketBuffer buffer, @Nonnull DyedRecipe recipe ) {
+	public void toNetwork( @Nonnull PacketBuffer buffer, @Nonnull DyedRecipe recipe ) {
 		
 		buffer.writeBoolean( recipe.isShaped() );
 		buffer.writeVarInt( recipe.getRecipeWidth() );
 		buffer.writeVarInt( recipe.getRecipeHeight() );
 		for( Ingredient ingredient : recipe.getIngredients() ) {
-			ingredient.write( buffer );
+			ingredient.toNetwork( buffer );
 		}
-		buffer.writeItemStack( recipe.getResult() );
+		buffer.writeItem( recipe.getResult() );
 	}
 }

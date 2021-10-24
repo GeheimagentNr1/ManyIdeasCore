@@ -85,7 +85,7 @@ public class VoxelShapeMemory {
 			case X:
 				return east;
 		}
-		return VoxelShapes.fullCube();
+		return VoxelShapes.block();
 	}
 	
 	public VoxelShape getShapeFromHorizontalFacing( Direction horizontal_facing ) {
@@ -100,7 +100,7 @@ public class VoxelShapeMemory {
 			case WEST:
 				return west;
 		}
-		return VoxelShapes.fullCube();
+		return VoxelShapes.block();
 	}
 	
 	public VoxelShape getShapeFromFacing( Direction facing ) {
@@ -119,6 +119,6 @@ public class VoxelShapeMemory {
 			case DOWN:
 				return down;
 		}
-		return VoxelShapes.fullCube();
+		return VoxelShapes.block();
 	}
 }

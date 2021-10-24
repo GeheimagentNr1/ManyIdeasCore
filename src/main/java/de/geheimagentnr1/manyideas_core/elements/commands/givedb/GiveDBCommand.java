@@ -25,10 +25,10 @@ public class GiveDBCommand {
 	public static void register( CommandDispatcher<CommandSource> dispatcher ) {
 		
 		LiteralArgumentBuilder<CommandSource> givedbCommand =
-			Commands.literal( "givedb" ).requires( commandSource -> commandSource.hasPermissionLevel( 2 ) );
+			Commands.literal( "givedb" ).requires( commandSource -> commandSource.hasPermission( 2 ) );
 		givedbCommand.executes( command -> {
 			command.getSource()
-				.sendFeedback( new StringTextComponent( "/givedb <target> <name of a dye block> <color>" ), true );
+				.sendSuccess( new StringTextComponent( "/givedb <target> <name of a dye block> <color>" ), true );
 			return 1;
 		} );
 		givedbCommand.then( Commands.argument( "targets", EntityArgument.players() )
@@ -61,28 +61,28 @@ public class GiveDBCommand {
 		int count ) {
 		
 		for( ServerPlayerEntity player : targets ) {
-			player.addItemStackToInventory( DyeBlockHelper.setColorToItemStack(
+			player.addItem( DyeBlockHelper.setColorToItemStack(
 				new ItemStack( item, count ),
 				color
 			) );
 			player.playSound(
-				SoundEvents.ENTITY_ITEM_PICKUP,
+				SoundEvents.ITEM_PICKUP,
 				0.2F,
-				( ( player.getRNG().nextFloat() - player.getRNG().nextFloat() ) * 0.7F + 1.0F ) * 2.0F
+				( ( player.getRandom().nextFloat() - player.getRandom().nextFloat() ) * 0.7F + 1.0F ) * 2.0F
 			);
 		}
 		if( targets.size() == 1 ) {
-			source.sendFeedback( new TranslationTextComponent(
+			source.sendSuccess( new TranslationTextComponent(
 				"commands.give.success.single",
 				count,
-				DyeBlockHelper.setColorToItemStack( new ItemStack( item, count ), color ).getTextComponent(),
+				DyeBlockHelper.setColorToItemStack( new ItemStack( item, count ), color ).getDisplayName(),
 				targets.iterator().next().getDisplayName()
 			), true );
 		} else {
-			source.sendFeedback( new TranslationTextComponent(
+			source.sendSuccess( new TranslationTextComponent(
 				"commands.give.success.single",
 				count,
-				DyeBlockHelper.setColorToItemStack( new ItemStack( item, count ), color ).getTextComponent(),
+				DyeBlockHelper.setColorToItemStack( new ItemStack( item, count ), color ).getDisplayName(),
 				targets.size()
 			), true );
 		}

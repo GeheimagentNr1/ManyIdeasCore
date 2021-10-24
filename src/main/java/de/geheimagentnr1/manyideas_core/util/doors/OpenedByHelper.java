@@ -26,7 +26,7 @@ public class OpenedByHelper {
 	
 	public static boolean canBeOpened( BlockState state, boolean onActivated ) {
 		
-		switch( state.get( ModBlockStateProperties.OPENED_BY ) ) {
+		switch( state.getValue( ModBlockStateProperties.OPENED_BY ) ) {
 			case NOTHING:
 				return false;
 			case HAND:
@@ -52,6 +52,6 @@ public class OpenedByHelper {
 	
 	public static int getStateIndex( BlockState state ) {
 		
-		return state.get( ModBlockStateProperties.OPENED_BY ).ordinal();
+		return state.getValue( ModBlockStateProperties.OPENED_BY ).ordinal();
 	}
 }

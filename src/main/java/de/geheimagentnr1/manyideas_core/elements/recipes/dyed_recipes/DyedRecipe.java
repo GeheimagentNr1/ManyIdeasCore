@@ -64,16 +64,16 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 		}
 		if( shaped ) {
 			for( int i = 0; i < ingredients.size(); i++ ) {
-				if( !ingredients.get( i ).test( inv.getStackInSlot( i ) ) ) {
+				if( !ingredients.get( i ).test( inv.getItem( i ) ) ) {
 					return false;
 				}
 			}
 			return true;
 		} else {
 			ArrayList<ItemStack> inputItems = new ArrayList<>();
-			for( int i = 0; i < inv.getSizeInventory(); i++ ) {
-				if( !inv.getStackInSlot( i ).isEmpty() ) {
-					inputItems.add( inv.getStackInSlot( i ) );
+			for( int i = 0; i < inv.getContainerSize(); i++ ) {
+				if( !inv.getItem( i ).isEmpty() ) {
+					inputItems.add( inv.getItem( i ) );
 				}
 			}
 			int found = 0;
@@ -95,10 +95,10 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 		Color color = null;
 		for( Ingredient ingredient : ingredients ) {
 			if( ingredient instanceof ColorIngredient ) {
-				for( int j = 0; j < inv.getSizeInventory(); j++ ) {
-					if( ingredient.test( inv.getStackInSlot( j ) ) ) {
+				for( int j = 0; j < inv.getContainerSize(); j++ ) {
+					if( ingredient.test( inv.getItem( j ) ) ) {
 						ColorIngredient colorIngredient = (ColorIngredient)ingredient;
-						Color newColor = colorIngredient.getColor( inv.getStackInSlot( j ) );
+						Color newColor = colorIngredient.getColor( inv.getItem( j ) );
 						if( newColor == null ) {
 							return Optional.empty();
 						}
@@ -119,7 +119,7 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 	
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult( @Nonnull CraftingInventory inv ) {
+	public ItemStack assemble( @Nonnull CraftingInventory inv ) {
 		
 		Optional<Color> color = findMatchingColor( inv );
 		return color.map( value -> DyeBlockHelper.setColorToItemStack( result.copy(), value ) )
@@ -130,7 +130,7 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 	 * Used to determine if this recipe can fit in a grid of the given width/height
 	 */
 	@Override
-	public boolean canFit( int width, int height ) {
+	public boolean canCraftInDimensions( int width, int height ) {
 		
 		if( shaped ) {
 			return width >= recipeWidth && height >= recipeHeight;
@@ -145,7 +145,7 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 	 */
 	@Nonnull
 	@Override
-	public ItemStack getRecipeOutput() {
+	public ItemStack getResultItem() {
 		
 		return ItemStack.EMPTY;
 	}

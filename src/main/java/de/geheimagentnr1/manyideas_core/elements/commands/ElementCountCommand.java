@@ -31,14 +31,14 @@ public class ElementCountCommand {
 			countItems( names, item_counts, block_item_counts );
 			
 			for( String name : names ) {
-				command.getSource().sendFeedback( new StringTextComponent( name ), false );
-				command.getSource().sendFeedback(
+				command.getSource().sendSuccess( new StringTextComponent( name ), false );
+				command.getSource().sendSuccess(
 					new StringTextComponent( "block count: " + block_counts.get( name ) ),
 					false
 				);
-				command.getSource().sendFeedback( new StringTextComponent(
+				command.getSource().sendSuccess( new StringTextComponent(
 					"block item count: " + block_item_counts.get( name ) ), false );
-				command.getSource().sendFeedback(
+				command.getSource().sendSuccess(
 					new StringTextComponent( "item count: " + item_counts.get( name ) ),
 					false
 				);

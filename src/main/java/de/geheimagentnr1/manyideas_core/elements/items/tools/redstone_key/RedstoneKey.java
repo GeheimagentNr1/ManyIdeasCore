@@ -33,16 +33,16 @@ public class RedstoneKey extends CoreBaseItem {
 	
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse( ItemUseContext context ) {
+	public ActionResultType useOn( ItemUseContext context ) {
 		
-		World world = context.getWorld();
-		BlockPos pos = context.getPos();
+		World world = context.getLevel();
+		BlockPos pos = context.getClickedPos();
 		BlockState state = world.getBlockState( pos );
 		Block block = state.getBlock();
 		PlayerEntity player = context.getPlayer();
 		if( block instanceof RedstoneKeyable ) {
 			RedstoneKeyable redstoneKeyableBlock = (RedstoneKeyable)block;
-			if( !world.isRemote && player != null ) {
+			if( !world.isClientSide && player != null ) {
 				ITextComponent title = redstoneKeyableBlock.getTitle();
 				ResourceLocation icons = redstoneKeyableBlock.getIconTextures();
 				List<Option> options = redstoneKeyableBlock.getOptions();
@@ -63,8 +63,8 @@ public class RedstoneKey extends CoreBaseItem {
 						packetBuffer.writeBlockPos( pos );
 						packetBuffer.writeInt( options.size() );
 						options.forEach( option -> {
-							packetBuffer.writeString( option.getTitle() );
-							packetBuffer.writeString( option.getDescription() );
+							packetBuffer.writeUtf( option.getTitle() );
+							packetBuffer.writeUtf( option.getDescription() );
 						} );
 						packetBuffer.writeInt( stateIndex );
 					}

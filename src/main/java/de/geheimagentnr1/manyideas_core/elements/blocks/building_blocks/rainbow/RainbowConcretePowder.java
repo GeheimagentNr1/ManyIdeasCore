@@ -21,7 +21,7 @@ public class RainbowConcretePowder extends ConcretePowderBlock implements BlockI
 		
 		super(
 			CONCRETE_BLOCK,
-			Block.Properties.create( Material.SAND ).hardnessAndResistance( 0.5F ).sound( SoundType.SAND )
+			Properties.of( Material.SAND ).strength( 0.5F ).sound( SoundType.SAND )
 		);
 		setRegistryName( registry_name );
 	}

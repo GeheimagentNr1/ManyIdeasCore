@@ -1,6 +1,8 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -34,9 +36,9 @@ public class RedstoneKeyScreen extends ContainerScreen<RedstoneKeyContainer> {
 		
 		super.init();
 		
-		int xStart = guiLeft + 15;
-		int yStart = guiTop + 20;
-		List<Option> options = container.getOptions();
+		int xStart = leftPos + 15;
+		int yStart = topPos + 20;
+		List<Option> options = menu.getOptions();
 		optionsGui.clear();
 		for( int index = 0; index < options.size(); index++ ) {
 			Option option = options.get( index );
@@ -44,40 +46,39 @@ public class RedstoneKeyScreen extends ContainerScreen<RedstoneKeyContainer> {
 				this,
 				xStart,
 				yStart + index * 30,
-				container.getIcons(),
+				menu.getIcons(),
 				index,
-				I18n.format( option.getTitle() ),
-				I18n.format( option.getDescription() )
+				I18n.get( option.getTitle() ),
+				I18n.get( option.getDescription() )
 			);
 			optionsGui.add( optionGui );
 			addButton( optionGui.getButton() );
 			children.add( optionGui );
 		}
-		optionsGui.get( container.getSelectedIndex() ).setSelected();
+		optionsGui.get( menu.getSelectedIndex() ).setSelected();
 	}
 	
 	@Override
-	public void render( int mouseX, int mouseY, float partialTicks ) {
+	public void render( MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks ) {
 		
-		renderBackground();
-		super.render( mouseX, mouseY, partialTicks );
-		optionsGui.forEach( optionGui -> optionGui.render( mouseX, mouseY, partialTicks ) );
+		super.render( matrixStack, mouseX, mouseY, partialTicks );
+		optionsGui.forEach( optionGui -> optionGui.render( matrixStack, mouseX, mouseY, partialTicks ) );
 	}
 	
 	@Override
-	protected void drawGuiContainerBackgroundLayer( float partialTicks, int mouseX, int mouseY ) {
+	protected void renderLabels( MatrixStack matrixStack, int p_230451_2_, int p_230451_3_ ) {
+		
+		int titleStartX = width / 2 - leftPos - font.width( title.getString() ) / 2;
+		font.draw( matrixStack, title.getString(), titleStartX, 5, 4210752 );
+	}
+	
+	@Override
+	protected void renderBg( MatrixStack matrixStack, float p_230450_2_, int p_230450_3_, int p_230450_4_ ) {
 		
 		Objects.requireNonNull( minecraft );
-		GlStateManager.color4f( 1.0F, 1.0F, 1.0F, 1.0F );
-		minecraft.getTextureManager().bindTexture( REDSTONE_KEY_GUI_TEXTURE );
-		blit( guiLeft, ( height - ySize ) / 2, 0, 0, xSize, ySize );
-	}
-	
-	@Override
-	protected void drawGuiContainerForegroundLayer( int mouseX, int mouseY ) {
-		
-		int titleStartX = width / 2 - guiLeft - font.getStringWidth( title.getFormattedText() ) / 2;
-		font.drawString( title.getFormattedText(), titleStartX, 5, 4210752 );
+		RenderSystem.color4f( 1.0F, 1.0F, 1.0F, 1.0F );
+		minecraft.getTextureManager().bind( REDSTONE_KEY_GUI_TEXTURE );
+		blit( matrixStack, leftPos, ( height - imageHeight ) / 2, 0, 0, imageWidth, imageHeight );
 	}
 	
 	public void resetSelected() {
@@ -87,6 +88,6 @@ public class RedstoneKeyScreen extends ContainerScreen<RedstoneKeyContainer> {
 	
 	public void setSelected( int selectedIndex ) {
 		
-		container.setSelectedIndex( selectedIndex );
+		menu.setSelectedIndex( selectedIndex );
 	}
 }

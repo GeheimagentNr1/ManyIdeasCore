@@ -3,10 +3,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.end_block;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.item.Item;
@@ -24,23 +21,20 @@ public class EndBlock extends Block implements BlockItemInterface, BlockRenderTy
 	
 	public EndBlock() {
 		
-		super( Block.Properties.create( Material.ROCK )
-			.hardnessAndResistance( 50.0F, 1200.0F )
-			.sound( SoundType.GLASS ) );
+		super( Properties.of( Material.STONE ).strength( 50.0F, 1200.0F ).sound( SoundType.GLASS ) );
 		setRegistryName( registry_name );
 	}
 	
 	@Override
 	public RenderType getRenderType() {
 		
-		return RenderType.getCutout();
+		return RenderType.cutout();
 	}
 	
-	@Deprecated
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public BlockRenderType getRenderType( @Nonnull BlockState state ) {
+	public BlockRenderType getRenderShape( @Nonnull BlockState state ) {
 		
 		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}

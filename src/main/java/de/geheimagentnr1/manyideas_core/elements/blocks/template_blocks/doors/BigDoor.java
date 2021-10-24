@@ -51,16 +51,20 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	private final boolean doubleDoorActive;
 	
 	protected BigDoor(
-		Block.Properties properties,
+		Properties properties,
 		String registry_name,
 		OpenedBy openedBy,
 		boolean _doubleDoorActive ) {
 		
-		super( properties.notSolid(), registry_name );
-		setDefaultState(
-			getDefaultState().with( BlockStateProperties.OPEN, false )
-				.with( BlockStateProperties.POWERED, false )
-				.with( ModBlockStateProperties.OPENED_BY, openedBy )
+		super(
+			properties.noOcclusion()
+				.isViewBlocking( ( p_test_1_, p_test_2_, p_test_3_ ) -> false ),
+			registry_name
+		);
+		registerDefaultState(
+			defaultBlockState().setValue( BlockStateProperties.OPEN, false )
+				.setValue( BlockStateProperties.POWERED, false )
+				.setValue( ModBlockStateProperties.OPENED_BY, openedBy )
 		);
 		doubleDoorActive = _doubleDoorActive;
 	}
@@ -68,39 +72,32 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	@Override
 	public RenderType getRenderType() {
 		
-		return RenderType.getCutout();
-	}
-	
-	@SuppressWarnings( "deprecation" )
-	@Override
-	public boolean isTransparent( @Nonnull BlockState state ) {
-		
-		return true;
+		return RenderType.cutout();
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
 	public VoxelShape getShape(
-		BlockState state,
+		@Nonnull BlockState state,
 		@Nonnull IBlockReader worldIn,
 		@Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
-		Direction facing = state.get( BlockStateProperties.HORIZONTAL_FACING );
-		if( state.get( BlockStateProperties.OPEN ) ) {
-			int z = state.get( Z_SIZE );
-			if( state.get( BlockStateProperties.DOOR_HINGE ) == DoorHingeSide.LEFT ) {
+		Direction facing = state.getValue( BlockStateProperties.HORIZONTAL_FACING );
+		if( state.getValue( BlockStateProperties.OPEN ) ) {
+			int z = state.getValue( Z_SIZE );
+			if( state.getValue( BlockStateProperties.DOOR_HINGE ) == DoorHingeSide.LEFT ) {
 				if( z == 0 ) {
-					return DOORS_SHAPES.getShapeFromHorizontalFacing( facing.rotateY() );
+					return DOORS_SHAPES.getShapeFromHorizontalFacing( facing.getClockWise() );
 				}
 			} else {
 				if( z == getZSize() - 1 ) {
-					return DOORS_SHAPES.getShapeFromHorizontalFacing( facing.rotateYCCW() );
+					return DOORS_SHAPES.getShapeFromHorizontalFacing( facing.getCounterClockWise() );
 				}
 			}
 		} else {
-			if( state.get( X_SIZE ) == 0 ) {
+			if( state.getValue( X_SIZE ) == 0 ) {
 				return DOORS_SHAPES.getShapeFromHorizontalFacing( facing );
 			}
 		}
@@ -126,7 +123,7 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	@Override
 	protected BlockState getDefaultState( boolean left_sided ) {
 		
-		return getDefaultState().with(
+		return defaultBlockState().setValue(
 			BlockStateProperties.DOOR_HINGE,
 			left_sided ? DoorHingeSide.LEFT : DoorHingeSide.RIGHT
 		);
@@ -140,7 +137,7 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public ActionResultType onBlockActivated(
+	public ActionResultType use(
 		@Nonnull BlockState state,
 		@Nonnull World worldIn,
 		@Nonnull BlockPos pos,
@@ -148,18 +145,18 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 		@Nonnull Hand handIn,
 		@Nonnull BlockRayTraceResult hit ) {
 		
-		if( player.getHeldItem( handIn ).getItem() != ModItems.RESTONE_KEY &&
+		if( player.getItemInHand( handIn ).getItem() != ModItems.RESTONE_KEY &&
 			OpenedByHelper.canBeOpened( state, true ) ) {
-			boolean open = !state.get( BlockStateProperties.OPEN );
-			Direction facing = state.get( BlockStateProperties.HORIZONTAL_FACING );
+			boolean open = !state.getValue( BlockStateProperties.OPEN );
+			Direction facing = state.getValue( BlockStateProperties.HORIZONTAL_FACING );
 			BlockPos zeroPos = getZeroPos( state, pos );
 			runForBlocks(
 				worldIn,
 				zeroPos,
 				facing,
-				( x, y, z, blockPos ) -> worldIn.setBlockState(
+				( x, y, z, blockPos ) -> worldIn.setBlock(
 					blockPos,
-					worldIn.getBlockState( blockPos ).with( BlockStateProperties.OPEN, open ),
+					worldIn.getBlockState( blockPos ).setValue( BlockStateProperties.OPEN, open ),
 					3
 				),
 				true
@@ -178,9 +175,9 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 						worldIn,
 						neighbor.getZeroPos(),
 						facing,
-						( x, y, z, blockPos ) -> worldIn.setBlockState(
+						( x, y, z, blockPos ) -> worldIn.setBlock(
 							blockPos,
-							worldIn.getBlockState( blockPos ).with( BlockStateProperties.OPEN, open ),
+							worldIn.getBlockState( blockPos ).setValue( BlockStateProperties.OPEN, open ),
 							3
 						),
 						true
@@ -204,7 +201,7 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 		
 		if( blockIn != this && OpenedByHelper.canBeOpened( state, false ) ) {
 			BlockPos zeroPos = getZeroPos( state, pos );
-			Direction facing = state.get( BlockStateProperties.HORIZONTAL_FACING );
+			Direction facing = state.getValue( BlockStateProperties.HORIZONTAL_FACING );
 			BlockData neighbor = BigDoorsHelper.getNeighborBlock(
 				worldIn,
 				zeroPos,
@@ -216,19 +213,19 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 			boolean isDoorPowered = isPowered( worldIn, zeroPos, facing ) ||
 				isNeighbor && isPowered( worldIn, neighbor.getZeroPos(), facing );
 			
-			if( isDoorPowered != state.get( BlockStateProperties.POWERED ) ) {
-				if( state.get( BlockStateProperties.OPEN ) != isDoorPowered ) {
+			if( isDoorPowered != state.getValue( BlockStateProperties.POWERED ) ) {
+				if( state.getValue( BlockStateProperties.OPEN ) != isDoorPowered ) {
 					DoorsHelper.playDoorSound( worldIn, pos, material, null, isDoorPowered );
 				}
 				runForBlocks(
 					worldIn,
 					zeroPos,
 					facing,
-					( x, y, z, blockPos ) -> worldIn.setBlockState(
+					( x, y, z, blockPos ) -> worldIn.setBlock(
 						blockPos,
 						worldIn.getBlockState( blockPos )
-							.with( BlockStateProperties.POWERED, isDoorPowered )
-							.with( BlockStateProperties.OPEN, isDoorPowered ),
+							.setValue( BlockStateProperties.POWERED, isDoorPowered )
+							.setValue( BlockStateProperties.OPEN, isDoorPowered ),
 						3
 					),
 					true
@@ -238,11 +235,11 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 						worldIn,
 						neighbor.getZeroPos(),
 						facing,
-						( x, y, z, blockPos ) -> worldIn.setBlockState(
+						( x, y, z, blockPos ) -> worldIn.setBlock(
 							blockPos,
 							worldIn.getBlockState( blockPos )
-								.with( BlockStateProperties.POWERED, isDoorPowered )
-								.with( BlockStateProperties.OPEN, isDoorPowered ),
+								.setValue( BlockStateProperties.POWERED, isDoorPowered )
+								.setValue( BlockStateProperties.OPEN, isDoorPowered ),
 							3
 						),
 						true
@@ -253,9 +250,9 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	}
 	
 	@Override
-	protected void fillStateContainer( StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {
 		
-		super.fillStateContainer( builder );
+		super.createBlockStateDefinition( builder );
 		builder.add(
 			BlockStateProperties.DOOR_HINGE,
 			BlockStateProperties.OPEN,
@@ -298,14 +295,14 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 			OpenedBy openedBy = openedByValues[stateIndex];
 			
 			BlockPos zeroPos = getZeroPos( state, pos );
-			Direction facing = state.get( BlockStateProperties.HORIZONTAL_FACING );
+			Direction facing = state.getValue( BlockStateProperties.HORIZONTAL_FACING );
 			runForBlocks(
 				world,
 				zeroPos,
 				facing,
-				( x, y, z, blockPos ) -> world.setBlockState(
+				( x, y, z, blockPos ) -> world.setBlock(
 					blockPos,
-					world.getBlockState( blockPos ).with( ModBlockStateProperties.OPENED_BY, openedBy ),
+					world.getBlockState( blockPos ).setValue( ModBlockStateProperties.OPENED_BY, openedBy ),
 					3
 				),
 				true
@@ -323,9 +320,9 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 					world,
 					neighbor.getZeroPos(),
 					facing,
-					( x, y, z, blockPos ) -> world.setBlockState(
+					( x, y, z, blockPos ) -> world.setBlock(
 						blockPos,
-						world.getBlockState( blockPos ).with( ModBlockStateProperties.OPENED_BY, openedBy ),
+						world.getBlockState( blockPos ).setValue( ModBlockStateProperties.OPENED_BY, openedBy ),
 						3
 					),
 					true

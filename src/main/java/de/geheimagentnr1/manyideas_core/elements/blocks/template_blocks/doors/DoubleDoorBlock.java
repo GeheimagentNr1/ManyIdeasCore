@@ -34,41 +34,40 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	BlockRenderTypeInterface {
 	
 	
-	protected DoubleDoorBlock( Block.Properties properties, String registry_name ) {
+	protected DoubleDoorBlock( Properties properties, String registry_name ) {
 		
-		super( properties.notSolid() );
+		super(
+			properties.noOcclusion()
+				.isViewBlocking( ( p_test_1_, p_test_2_, p_test_3_ ) -> false )
+		);
 		setRegistryName( registry_name );
-		initDoubleDoorBlock( material == Material.IRON ? OpenedBy.REDSTONE : OpenedBy.BOTH );
+		initDoubleDoorBlock( material == Material.METAL ? OpenedBy.REDSTONE : OpenedBy.BOTH );
 	}
 	
-	protected DoubleDoorBlock( Block.Properties properties, String registry_name, OpenedBy openedBy ) {
+	protected DoubleDoorBlock( Properties properties, String registry_name, OpenedBy openedBy ) {
 		
-		super( properties.notSolid() );
+		super(
+			properties.noOcclusion()
+				.isViewBlocking( ( p_test_1_, p_test_2_, p_test_3_ ) -> false )
+		);
 		setRegistryName( registry_name );
 		initDoubleDoorBlock( openedBy );
 	}
 	
 	private void initDoubleDoorBlock( OpenedBy openedBy ) {
 		
-		setDefaultState( getDefaultState().with( ModBlockStateProperties.OPENED_BY, openedBy ) );
+		registerDefaultState( defaultBlockState().setValue( ModBlockStateProperties.OPENED_BY, openedBy ) );
 	}
 	
 	@Override
 	public RenderType getRenderType() {
 		
-		return RenderType.getCutout();
-	}
-	
-	@SuppressWarnings( "deprecation" )
-	@Override
-	public boolean isTransparent( @Nonnull BlockState state ) {
-		
-		return true;
+		return RenderType.cutoutMipped();
 	}
 	
 	@Nonnull
 	@Override
-	public ActionResultType onBlockActivated(
+	public ActionResultType use(
 		@Nonnull BlockState state,
 		@Nonnull World worldIn,
 		@Nonnull BlockPos pos,
@@ -76,15 +75,15 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 		@Nonnull Hand handIn,
 		@Nonnull BlockRayTraceResult hit ) {
 		
-		if( player.getHeldItem( handIn ).getItem() != ModItems.RESTONE_KEY &&
+		if( player.getItemInHand( handIn ).getItem() != ModItems.RESTONE_KEY &&
 			OpenedByHelper.canBeOpened( state, true ) ) {
-			boolean open = !state.get( OPEN );
-			worldIn.setBlockState( pos, state.with( OPEN, open ), 10 );
-			DoorsHelper.playDoorSound( worldIn, pos, material, player, state.get( OPEN ) );
+			boolean open = !state.getValue( OPEN );
+			worldIn.setBlock( pos, state.setValue( OPEN, open ), 10 );
+			DoorsHelper.playDoorSound( worldIn, pos, material, player, state.getValue( OPEN ) );
 			
 			BlockData neighbor = DoorsHelper.getNeighborBlock( worldIn, pos, state );
 			if( DoorsHelper.isNeighbor( state, neighbor ) ) {
-				worldIn.setBlockState( neighbor.getPos(), neighbor.getState().with( OPEN, open ), 2 );
+				worldIn.setBlock( neighbor.getPos(), neighbor.getState().setValue( OPEN, open ), 2 );
 			}
 			return ActionResultType.SUCCESS;
 		}
@@ -106,15 +105,15 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 			boolean isDoorPowered = DoorsHelper.isDoorPowered( worldIn, pos, state ) ||
 				isNeighbor && DoorsHelper.isDoorPowered( worldIn, neighbor.getPos(), neighbor.getState() );
 			
-			if( isDoorPowered != state.get( POWERED ) ) {
-				if( state.get( OPEN ) != isDoorPowered ) {
+			if( isDoorPowered != state.getValue( POWERED ) ) {
+				if( state.getValue( OPEN ) != isDoorPowered ) {
 					DoorsHelper.playDoorSound( worldIn, pos, material, null, isDoorPowered );
 				}
-				worldIn.setBlockState( pos, state.with( POWERED, isDoorPowered ).with( OPEN, isDoorPowered ), 2 );
+				worldIn.setBlock( pos, state.setValue( POWERED, isDoorPowered ).setValue( OPEN, isDoorPowered ), 2 );
 				if( isNeighbor ) {
-					worldIn.setBlockState(
+					worldIn.setBlock(
 						neighbor.getPos(),
-						neighbor.getState().with( POWERED, isDoorPowered ).with( OPEN, isDoorPowered ),
+						neighbor.getState().setValue( POWERED, isDoorPowered ).setValue( OPEN, isDoorPowered ),
 						2
 					);
 				}
@@ -123,9 +122,9 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	}
 	
 	@Override
-	protected void fillStateContainer( @Nonnull StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( @Nonnull StateContainer.Builder<Block, BlockState> builder ) {
 		
-		super.fillStateContainer( builder );
+		super.createBlockStateDefinition( builder );
 		builder.add( ModBlockStateProperties.OPENED_BY );
 	}
 	
@@ -165,27 +164,27 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 		if( stateIndex >= 0 && stateIndex < openedByValues.length ) {
 			OpenedBy openedBy = openedByValues[stateIndex];
 			
-			world.setBlockState( pos, state.with( ModBlockStateProperties.OPENED_BY, openedBy ), 2 );
+			world.setBlock( pos, state.setValue( ModBlockStateProperties.OPENED_BY, openedBy ), 2 );
 			
 			BlockData other = DoorsHelper.getOtherBlock( world, pos, state );
-			world.setBlockState(
+			world.setBlock(
 				other.getPos(),
-				other.getState().with( ModBlockStateProperties.OPENED_BY, openedBy ),
+				other.getState().setValue( ModBlockStateProperties.OPENED_BY, openedBy ),
 				2
 			);
 			
 			BlockData neighbor = DoorsHelper.getNeighborBlock( world, pos, state );
 			if( DoorsHelper.isNeighbor( state, neighbor ) ) {
-				world.setBlockState(
+				world.setBlock(
 					neighbor.getPos(),
-					neighbor.getState().with( ModBlockStateProperties.OPENED_BY, openedBy ),
+					neighbor.getState().setValue( ModBlockStateProperties.OPENED_BY, openedBy ),
 					2
 				);
 				
 				BlockData otherNeighbor = DoorsHelper.getOtherBlock( world, neighbor.getPos(), neighbor.getState() );
-				world.setBlockState(
+				world.setBlock(
 					otherNeighbor.getPos(),
-					otherNeighbor.getState().with( ModBlockStateProperties.OPENED_BY, openedBy ),
+					otherNeighbor.getState().setValue( ModBlockStateProperties.OPENED_BY, openedBy ),
 					2
 				);
 			}

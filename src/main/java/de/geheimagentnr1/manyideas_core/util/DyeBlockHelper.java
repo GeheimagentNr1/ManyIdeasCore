@@ -20,13 +20,13 @@ public class DyeBlockHelper {
 	
 	private static String getColorNameFromStack( ItemStack stack ) {
 		
-		return stack.getOrCreateChildTag( dyeNBTname ).getString( colorNBTname );
+		return stack.getOrCreateTagElement( dyeNBTname ).getString( colorNBTname );
 	}
 	
 	public static String getColorName( ItemStack stack ) {
 		
 		String color = getColorNameFromStack( stack );
-		return color.isEmpty() ? Color.WHITE.getName() : color;
+		return color.isEmpty() ? Color.WHITE.getSerializedName() : color;
 	}
 	
 	public static Color getColor( ItemStack stack ) {
@@ -38,7 +38,7 @@ public class DyeBlockHelper {
 		Color resultColor = Color.WHITE;
 		
 		for( Color color : Color.values() ) {
-			if( color.getName().equals( colorName ) ) {
+			if( color.getSerializedName().equals( colorName ) ) {
 				resultColor = color;
 				break;
 			}
@@ -48,23 +48,23 @@ public class DyeBlockHelper {
 	
 	public static ItemStack setColorToItemStack( ItemStack stack, Color dyeColor ) {
 		
-		stack.getOrCreateChildTag( dyeNBTname ).putString( colorNBTname, dyeColor.getName() );
+		stack.getOrCreateTagElement( dyeNBTname ).putString( colorNBTname, dyeColor.getSerializedName() );
 		return stack;
 	}
 	
 	public static BlockState getStateForPlacement( DyeBlock block, BlockItemUseContext context ) {
 		
-		return block.getDefaultState().with( ModBlockStateProperties.COLOR, getColor( context.getItem() ) );
+		return block.defaultBlockState().setValue( ModBlockStateProperties.COLOR, getColor( context.getItemInHand() ) );
 	}
 	
-	public static void fillStateContainer( StateContainer.Builder<Block, BlockState> builder ) {
+	public static void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {
 		
 		builder.add( ModBlockStateProperties.COLOR );
 	}
 	
 	public static ItemStack getItem( DyeBlock block, BlockState state ) {
 		
-		return setColorToItemStack( new ItemStack( block ), state.get( ModBlockStateProperties.COLOR ) );
+		return setColorToItemStack( new ItemStack( block ), state.getValue( ModBlockStateProperties.COLOR ) );
 	}
 	
 	public static ItemStack createItemStackOfItem( Item item, Color color ) {

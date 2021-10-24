@@ -20,10 +20,10 @@ public class ModSetup {
 		
 		ModArgumentTypes.registerArgumentTypes();
 		RecipeTypes.init();
-		RecipeSerializers.init();
+		/*RecipeSerializers.init();
 		CraftingHelper.register(
 			new ResourceLocation( ManyIdeasCore.MODID + ":" + "color" ),
 			ColorIngredientSerializer.INSTANCE
-		);
+		);*/
 	}
 }

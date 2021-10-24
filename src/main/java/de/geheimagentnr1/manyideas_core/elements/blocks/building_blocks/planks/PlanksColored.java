@@ -25,7 +25,7 @@ public class PlanksColored extends DyeBlock {
 	public PlanksColored() {
 		
 		super(
-			Block.Properties.create( Material.WOOD ).hardnessAndResistance( 2.0F, 3.0F ).sound( SoundType.WOOD ),
+			Properties.of( Material.WOOD ).strength( 2.0F, 3.0F ).sound( SoundType.WOOD ),
 			registry_name
 		);
 	}
@@ -35,13 +35,13 @@ public class PlanksColored extends DyeBlock {
 	public BlockState getStateForPlacement( @Nonnull BlockItemUseContext context ) {
 		
 		BlockState place_state = Objects.requireNonNull( super.getStateForPlacement( context ) );
-		return place_state.with( BlockStateProperties.AXIS, context.getFace().getAxis() );
+		return place_state.setValue( BlockStateProperties.AXIS, context.getClickedFace().getAxis() );
 	}
 	
 	@Override
-	protected void fillStateContainer( @Nonnull StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( @Nonnull StateContainer.Builder<Block, BlockState> builder ) {
 		
-		super.fillStateContainer( builder );
+		super.createBlockStateDefinition( builder );
 		builder.add( BlockStateProperties.AXIS );
 	}
 	

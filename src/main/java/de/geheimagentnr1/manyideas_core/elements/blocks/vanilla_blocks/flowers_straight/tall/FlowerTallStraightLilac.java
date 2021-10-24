@@ -2,7 +2,6 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.flowers_straight.TallFlower;
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -15,10 +14,13 @@ public class FlowerTallStraightLilac extends TallFlower {
 	
 	public FlowerTallStraightLilac() {
 		
-		super( Block.Properties.create( Material.TALL_PLANTS )
-			.doesNotBlockMovement()
-			.hardnessAndResistance( 0.0F )
-			.sound( SoundType.PLANT ), registry_name );
+		super(
+			Properties.of( Material.REPLACEABLE_PLANT )
+				.noCollission()
+				.instabreak()
+				.sound( SoundType.GRASS ),
+			registry_name
+		);
 	}
 	
 	@Override

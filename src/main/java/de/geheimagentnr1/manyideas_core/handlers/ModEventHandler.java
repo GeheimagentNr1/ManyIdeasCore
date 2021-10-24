@@ -16,10 +16,12 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSaw
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronContainer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStone;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneContainer;
+import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlockItemPropertyGetter;
 import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.RedstoneKey;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyContainer;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyScreen;
+import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeSerializers;
 import de.geheimagentnr1.manyideas_core.network.Network;
 import de.geheimagentnr1.manyideas_core.special.decoration_renderer.PlayerDecorationManager;
 import de.geheimagentnr1.manyideas_core.util.BlockRegistrationHelper;
@@ -27,9 +29,13 @@ import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemModelsProperties;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -54,12 +60,12 @@ public class ModEventHandler {
 	@SubscribeEvent
 	public static void handleClientSetupEvent( FMLClientSetupEvent event ) {
 		
-		ScreenManager.registerFactory( ModBlocks.DYE_CRAFTING_TABLE_CONTAINER, DyeCraftingTableScreen::new );
-		ScreenManager.registerFactory( ModBlocks.TABLE_SAW_STONE_CONTAINER, TableSawScreen::new );
-		ScreenManager.registerFactory( ModBlocks.TABLE_SAW_IRON_CONTAINER, TableSawScreen::new );
-		ScreenManager.registerFactory( ModBlocks.TABLE_SAW_DIAMOND_CONTAINER, TableSawScreen::new );
+		ScreenManager.register( ModBlocks.DYE_CRAFTING_TABLE_CONTAINER, DyeCraftingTableScreen::new );
+		ScreenManager.register( ModBlocks.TABLE_SAW_STONE_CONTAINER, TableSawScreen::new );
+		ScreenManager.register( ModBlocks.TABLE_SAW_IRON_CONTAINER, TableSawScreen::new );
+		ScreenManager.register( ModBlocks.TABLE_SAW_DIAMOND_CONTAINER, TableSawScreen::new );
 		
-		ScreenManager.registerFactory( ModItems.RESTONE_KEY_CONTAINER, RedstoneKeyScreen::new );
+		ScreenManager.register( ModItems.RESTONE_KEY_CONTAINER, RedstoneKeyScreen::new );
 		
 		ClientRegistry.bindTileEntityRenderer( ModBlocks.END_BLOCK_TILE, EndBlockTileRenderer::new );
 		
@@ -78,7 +84,7 @@ public class ModEventHandler {
 	@SubscribeEvent
 	public static void onItemsRegistry( RegistryEvent.Register<Item> itemRegistryEvent ) {
 		
-		Item.Properties properties = new Item.Properties().group( ManyIdeasCore.setup.manyIdeasCoreItemGroup );
+		Item.Properties properties = new Item.Properties().tab( ManyIdeasCore.setup.manyIdeasCoreItemGroup );
 		
 		BlockRegistrationHelper.registerBlockItems( itemRegistryEvent, ModBlocks.BLOCKS, properties );
 		BlockRegistrationHelper.registerBlockItems( itemRegistryEvent, ModBlocksDebug.BLOCKS, properties );
@@ -89,7 +95,7 @@ public class ModEventHandler {
 	@SubscribeEvent
 	public static void onTileEntityRegistry( RegistryEvent.Register<TileEntityType<?>> event ) {
 		
-		event.getRegistry().register( TileEntityType.Builder.create( EndBlockTile::new, ModBlocks.END_BLOCK )
+		event.getRegistry().register( TileEntityType.Builder.of( EndBlockTile::new, ModBlocks.END_BLOCK )
 			.build( null )
 			.setRegistryName( EndBlock.registry_name ) );
 	}
@@ -120,5 +126,14 @@ public class ModEventHandler {
 			windowId,
 			data
 		) ).setRegistryName( RedstoneKey.registry_name ) );
+	}
+	
+	@SubscribeEvent
+	public static void handleRegisterRecipeSerialzierEvent( RegistryEvent.Register<IRecipeSerializer<?>> event ) {
+		
+		/*for( IngredientSerializer<? extends Ingredient> ingredientSerializer : IngredientSerializers.INGREDIENTS ) {
+			CraftingHelper.register( ingredientSerializer.getRegistryNameRL(), ingredientSerializer );
+		}*/
+		event.getRegistry().registerAll( RecipeSerializers.RECIPE_SERIALIZERS );
 	}
 }

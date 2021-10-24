@@ -40,9 +40,9 @@ public class RedstoneKeyStateUpdateMsg {
 	void handle( Supplier<NetworkEvent.Context> context ) {
 		
 		Optional.ofNullable( context.get().getSender() ).ifPresent( player -> {
-			if( player.openContainer instanceof RedstoneKeyContainer ) {
-				RedstoneKeyContainer redstoneKeyContainer = (RedstoneKeyContainer)player.openContainer;
-				redstoneKeyContainer.setBlockStateValue( player.getEntityWorld(), stateIndex, player );
+			if( player.containerMenu instanceof RedstoneKeyContainer ) {
+				RedstoneKeyContainer redstoneKeyContainer = (RedstoneKeyContainer)player.containerMenu;
+				redstoneKeyContainer.setBlockStateValue( player.getLevel(), stateIndex, player );
 			}
 		} );
 		context.get().setPacketHandled( true );

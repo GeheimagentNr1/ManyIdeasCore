@@ -15,7 +15,7 @@ public class RainbowWool extends Block implements BlockItemInterface {
 	
 	public RainbowWool() {
 		
-		super( Block.Properties.create( Material.WOOL ).hardnessAndResistance( 0.8F ).sound( SoundType.CLOTH ) );
+		super( Properties.of( Material.WOOL ).strength( 0.8F ).sound( SoundType.WOOL ) );
 		setRegistryName( registry_name );
 	}
 	

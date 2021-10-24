@@ -42,7 +42,7 @@ public class ColorStackList implements ColorList {
 	
 	@Nonnull
 	@Override
-	public Collection<ItemStack> getStacks() {
+	public Collection<ItemStack> getItems() {
 		
 		return Collections.singletonList( itemStack );
 	}

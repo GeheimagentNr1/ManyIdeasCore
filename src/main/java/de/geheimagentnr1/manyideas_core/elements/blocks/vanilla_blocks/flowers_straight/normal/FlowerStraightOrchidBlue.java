@@ -19,10 +19,10 @@ public class FlowerStraightOrchidBlue extends Flower {
 		super(
 			Effects.SATURATION,
 			7,
-			Block.Properties.create( Material.PLANTS )
-				.doesNotBlockMovement()
-				.hardnessAndResistance( 0.0F )
-				.sound( SoundType.PLANT ),
+			Properties.of( Material.PLANT )
+				.noCollission()
+				.instabreak()
+				.sound( SoundType.GRASS ),
 			registry_name
 		);
 	}

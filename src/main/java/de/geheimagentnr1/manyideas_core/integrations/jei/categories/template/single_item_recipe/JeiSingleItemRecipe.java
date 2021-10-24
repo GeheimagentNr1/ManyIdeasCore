@@ -23,8 +23,8 @@ public abstract class JeiSingleItemRecipe<T extends SingleItemRecipe> {
 	
 	protected JeiSingleItemRecipe( T recipe ) {
 		
-		input = Arrays.asList( recipe.getIngredient().getMatchingStacks() );
-		result = recipe.getRecipeOutput();
+		input = Arrays.asList( recipe.getIngredient().getItems() );
+		result = recipe.getResultItem();
 	}
 	
 	@SuppressWarnings( "unchecked" )
@@ -32,7 +32,7 @@ public abstract class JeiSingleItemRecipe<T extends SingleItemRecipe> {
 		IRecipeType<R> recipeType,
 		Function<R, J> jeiRecipeBuilder ) {
 		
-		ClientWorld world = Minecraft.getInstance().world;
+		ClientWorld world = Minecraft.getInstance().level;
 		ArrayList<J> jeiRecipes = new ArrayList<>();
 		world.getRecipeManager().getRecipes().stream().filter( iRecipe -> iRecipe.getType() == recipeType ).forEach(
 			iRecipe -> jeiRecipes.add( jeiRecipeBuilder.apply( (R)iRecipe ) ) );

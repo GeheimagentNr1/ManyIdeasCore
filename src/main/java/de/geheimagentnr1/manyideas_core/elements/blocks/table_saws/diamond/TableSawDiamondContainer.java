@@ -55,13 +55,15 @@ public class TableSawDiamondContainer extends TableSawContainer {
 		
 		ArrayList<TableSawRecipe> recipes = new ArrayList<>();
 		
-		recipes.addAll( _world.getRecipeManager().getRecipes( RecipeTypes.TABLE_SAWING_STONE, inventoryIn, _world ) );
-		recipes.addAll( _world.getRecipeManager().getRecipes( RecipeTypes.TABLE_SAWING_IRON, inventoryIn, _world ) );
-		recipes.addAll( _world.getRecipeManager().getRecipes(
-			RecipeTypes.TABLE_SAWING_DIAMOND,
-			inventoryIn,
-			_world
-		) );
+		recipes.addAll(
+			_world.getRecipeManager().getRecipesFor( RecipeTypes.TABLE_SAWING_STONE, inventoryIn, _world )
+		);
+		recipes.addAll(
+			_world.getRecipeManager().getRecipesFor( RecipeTypes.TABLE_SAWING_IRON, inventoryIn, _world )
+		);
+		recipes.addAll(
+			_world.getRecipeManager().getRecipesFor( RecipeTypes.TABLE_SAWING_DIAMOND, inventoryIn, _world )
+		);
 		return recipes;
 	}
 }

@@ -37,24 +37,24 @@ public class DoorsHelper {
 	
 	private static SoundEvent getCloseDoorSound( Material material ) {
 		
-		return material == Material.IRON ? SoundEvents.BLOCK_IRON_DOOR_OPEN : SoundEvents.BLOCK_WOODEN_DOOR_OPEN;
+		return material == Material.METAL ? SoundEvents.IRON_DOOR_OPEN : SoundEvents.WOODEN_DOOR_OPEN;
 	}
 	
 	private static SoundEvent getOpenDoorSound( Material material ) {
 		
-		return material == Material.IRON ? SoundEvents.BLOCK_IRON_DOOR_CLOSE : SoundEvents.BLOCK_WOODEN_DOOR_CLOSE;
+		return material == Material.METAL ? SoundEvents.IRON_DOOR_CLOSE : SoundEvents.WOODEN_DOOR_CLOSE;
 	}
 	
 	public static BlockData getOtherBlock( World world, BlockPos pos, BlockState state ) {
 		
-		BlockPos otherPos = state.get( DoorBlock.HALF ) == DoubleBlockHalf.LOWER ? pos.up() : pos.down();
+		BlockPos otherPos = state.getValue( DoorBlock.HALF ) == DoubleBlockHalf.LOWER ? pos.above() : pos.below();
 		BlockState otherState = world.getBlockState( otherPos );
 		return new BlockData( otherPos, otherState );
 	}
 	
 	public static BlockData getNeighborBlock( World world, BlockPos pos, BlockState state ) {
 		
-		BlockPos neighborPos = pos.offset( getDirectionToNeighborDoor( state ) );
+		BlockPos neighborPos = pos.relative( getDirectionToNeighborDoor( state ) );
 		BlockState neighborState = world.getBlockState( neighborPos );
 		return new BlockData( neighborPos, neighborState );
 	}
@@ -63,20 +63,20 @@ public class DoorsHelper {
 		
 		BlockState neighborState = neighborBlock.getState();
 		return neighborState.getBlock() instanceof DoubleDoorBlock &&
-			state.get( DoorBlock.FACING ) == neighborState.get( DoorBlock.FACING ) &&
-			state.get( DoorBlock.HINGE ) != neighborState.get( DoorBlock.HINGE ) &&
-			state.get( DoorBlock.HALF ) == neighborState.get( DoorBlock.HALF );
+			state.getValue( DoorBlock.FACING ) == neighborState.getValue( DoorBlock.FACING ) &&
+			state.getValue( DoorBlock.HINGE ) != neighborState.getValue( DoorBlock.HINGE ) &&
+			state.getValue( DoorBlock.HALF ) == neighborState.getValue( DoorBlock.HALF );
 	}
 	
 	public static boolean isDoorPowered( World world, BlockPos pos, BlockState state ) {
 		
-		return world.isBlockPowered( pos ) || world.isBlockPowered( pos.offset(
-			state.get( DoorBlock.HALF ) == DoubleBlockHalf.LOWER ? Direction.UP : Direction.DOWN ) );
+		return world.hasNeighborSignal( pos ) || world.hasNeighborSignal( pos.relative(
+			state.getValue( DoorBlock.HALF ) == DoubleBlockHalf.LOWER ? Direction.UP : Direction.DOWN ) );
 	}
 	
 	private static Direction getDirectionToNeighborDoor( BlockState state ) {
 		
-		Direction facing = state.get( DoorBlock.FACING );
-		return state.get( DoorBlock.HINGE ) == DoorHingeSide.LEFT ? facing.rotateY() : facing.rotateYCCW();
+		Direction facing = state.getValue( DoorBlock.FACING );
+		return state.getValue( DoorBlock.HINGE ) == DoorHingeSide.LEFT ? facing.getClockWise() : facing.getCounterClockWise();
 	}
 }

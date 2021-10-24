@@ -47,7 +47,7 @@ class ColorParser {
 		Set<String> keySet = new TreeSet<>();
 		
 		for( Color dyeColor : Color.values() ) {
-			keySet.add( dyeColor.getName() );
+			keySet.add( dyeColor.getSerializedName() );
 		}
 		return keySet;
 	}

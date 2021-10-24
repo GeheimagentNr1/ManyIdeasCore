@@ -81,7 +81,7 @@ public class PlayerDecorationManager {
 	                                    IRenderTypeBuffer buffer ) {
 		
 		PlayerDecorationRenderer playerDecorationRenderer = DECORATION_LIST.get(
-			player.getName().getUnformattedComponentText() );
+			player.getName().getString() );
 		
 		if( playerDecorationRenderer != null ) {
 			playerDecorationRenderer.renderItemStack( player, light, matrixStack, buffer );

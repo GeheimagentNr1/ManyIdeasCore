@@ -40,23 +40,23 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	private static final DamageSource SAW = new DamageSource( "table_saw" );
 	
 	private static final VoxelShape SHAPE = VoxelShapes.or(
-		Block.makeCuboidShape( 0.0, 14.0, 0.0, 16.0, 15.75, 16.0 ),
-		Block.makeCuboidShape( 0.0, 0.0, 0.0, 2.0, 14.0, 2.0 ),
-		Block.makeCuboidShape( 14.0, 0.0, 0.0, 16.0, 14.0, 2.0 ),
-		Block.makeCuboidShape( 14.0, 0.0, 14.0, 16.0, 14.0, 16.0 ),
-		Block.makeCuboidShape( 0.0, 0.0, 14.0, 2.0, 14.0, 16.0 )
+		Block.box( 0.0, 14.0, 0.0, 16.0, 15.75, 16.0 ),
+		Block.box( 0.0, 0.0, 0.0, 2.0, 14.0, 2.0 ),
+		Block.box( 14.0, 0.0, 0.0, 16.0, 14.0, 2.0 ),
+		Block.box( 14.0, 0.0, 14.0, 16.0, 14.0, 16.0 ),
+		Block.box( 0.0, 0.0, 14.0, 2.0, 14.0, 16.0 )
 	);
 	
 	protected TableSaw( String registry_name ) {
 		
-		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 2.5F ).sound( SoundType.WOOD ) );
+		super( Properties.of( Material.WOOD ).strength( 2.5F ).sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 	}
 	
 	@Override
 	public RenderType getRenderType() {
 		
-		return RenderType.getCutout();
+		return RenderType.cutout();
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -73,39 +73,41 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement( BlockItemUseContext context ) {
+	public BlockState getStateForPlacement( @Nonnull BlockItemUseContext context ) {
 		
-		return getDefaultState().with(
+		return defaultBlockState().setValue(
 			BlockStateProperties.HORIZONTAL_FACING,
-			context.getPlacementHorizontalFacing()
+			context.getHorizontalDirection()
 		);
 	}
 	
+	
+	
 	@Override
-	public void onEntityWalk( @Nonnull World worldIn, @Nonnull BlockPos pos, Entity entityIn ) {
+	public void stepOn( @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Entity entity ) {
 		
-		entityIn.attackEntityFrom( SAW, 1.0F );
+		entity.hurt( SAW, 1.0F );
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public ActionResultType onBlockActivated(
-		BlockState state,
+	public ActionResultType use(
+		@Nonnull BlockState state,
 		@Nonnull World worldIn,
 		@Nonnull BlockPos pos,
-		PlayerEntity player,
-		@Nonnull Hand handIn,
+		@Nonnull PlayerEntity player,
+		@Nonnull Hand hand,
 		@Nonnull BlockRayTraceResult hit ) {
 		
-		player.openContainer( state.getContainer( worldIn, pos ) );
+		player.openMenu( state.getMenuProvider( worldIn, pos ) );
 		return ActionResultType.SUCCESS;
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Nullable
 	@Override
-	public INamedContainerProvider getContainer(
+	public INamedContainerProvider getMenuProvider(
 		@Nonnull BlockState state,
 		@Nonnull World worldIn,
 		@Nonnull BlockPos pos ) {
@@ -113,7 +115,7 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 		return new SimpleNamedContainerProvider( ( windowID, playerInventory, player ) -> getContainer(
 			windowID,
 			playerInventory,
-			IWorldPosCallable.of( worldIn, pos )
+			IWorldPosCallable.create( worldIn, pos )
 		), getContainerName() );
 	}
 	
@@ -125,7 +127,7 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	protected abstract ITextComponent getContainerName();
 	
 	@Override
-	protected void fillStateContainer( StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {
 		
 		builder.add( BlockStateProperties.HORIZONTAL_FACING );
 	}

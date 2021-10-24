@@ -22,13 +22,13 @@ public class ColorIngredientSerializer implements IIngredientSerializer<ColorIng
 	public ColorIngredient parse( @Nonnull PacketBuffer buffer ) {
 		
 		if( buffer.readInt() == 0 ) {
-			return new ColorIngredient( new ColorStackList( buffer.readItemStack() ) );
+			return new ColorIngredient( new ColorStackList( buffer.readItem() ) );
 		} else {
 			TreeMap<ItemStack, Color> colorStacks =
 				new TreeMap<>( Comparator.comparing( o -> Objects.requireNonNull( o.getItem().getRegistryName() ) ) );
 			int count = buffer.readInt();
 			for( int i = 0; i < count; i++ ) {
-				colorStacks.put( buffer.readItemStack(), Color.values()[buffer.readInt()] );
+				colorStacks.put( buffer.readItem(), Color.values()[buffer.readInt()] );
 			}
 			return new ColorIngredient( new ColorTagList( colorStacks ) );
 		}
@@ -47,13 +47,13 @@ public class ColorIngredientSerializer implements IIngredientSerializer<ColorIng
 		ColorList colorList = ingredient.getIngrediant();
 		if( colorList instanceof ColorStackList ) {
 			buffer.writeInt( 0 );
-			buffer.writeItemStack( ( (ColorStackList)colorList ).getItemStack() );
+			buffer.writeItem( ( (ColorStackList)colorList ).getItemStack() );
 		} else {
 			buffer.writeInt( 1 );
 			TreeMap<ItemStack, Color> colorStacks = ( (ColorTagList)colorList ).getColorStacks();
 			buffer.writeInt( colorStacks.size() );
 			colorStacks.forEach( ( stack, color ) -> {
-				buffer.writeItemStack( stack );
+				buffer.writeItem( stack );
 				buffer.writeInt( color.ordinal() );
 			} );
 		}

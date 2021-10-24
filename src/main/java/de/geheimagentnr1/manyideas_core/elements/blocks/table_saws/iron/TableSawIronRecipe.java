@@ -23,7 +23,7 @@ public class TableSawIronRecipe extends TableSawRecipe {
 	
 	@Nonnull
 	@Override
-	public ItemStack getIcon() {
+	public ItemStack getToastSymbol() {
 		
 		return new ItemStack( ModBlocks.TABLE_SAW_IRON );
 	}

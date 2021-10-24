@@ -153,7 +153,7 @@ public class VoxelShapeHelper {
 		
 		ArrayList<VoxelShape> shapes = new ArrayList<>();
 		for( VoxelShapeVector vector : vectors ) {
-			shapes.add( Block.makeCuboidShape( vector.x1, vector.y1, vector.z1, vector.x2, vector.y2, vector.z2 ) );
+			shapes.add( Block.box( vector.x1, vector.y1, vector.z1, vector.x2, vector.y2, vector.z2 ) );
 		}
 		return VoxelShapes.or( VoxelShapes.empty(), shapes.toArray( new VoxelShape[0] ) );
 	}

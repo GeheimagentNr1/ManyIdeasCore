@@ -15,7 +15,7 @@ public class RainbowConcrete extends Block implements BlockItemInterface {
 	
 	public RainbowConcrete() {
 		
-		super( Block.Properties.create( Material.ROCK ).hardnessAndResistance( 1.8F ).sound( SoundType.STONE ) );
+		super( Properties.of( Material.STONE ).strength( 1.8F ).sound( SoundType.STONE ) );
 		setRegistryName( registry_name );
 		initConcretePowder();
 	}

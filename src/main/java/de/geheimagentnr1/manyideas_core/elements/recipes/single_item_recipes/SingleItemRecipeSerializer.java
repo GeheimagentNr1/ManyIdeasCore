@@ -27,40 +27,40 @@ public class SingleItemRecipeSerializer<T extends SingleItemRecipe> extends Forg
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public T read( @Nonnull ResourceLocation recipeId, @Nonnull JsonObject json ) {
+	public T fromJson( @Nonnull ResourceLocation recipeId, @Nonnull JsonObject json ) {
 		
-		String group = JSONUtils.getString( json, "group", "" );
+		String group = JSONUtils.getAsString( json, "group", "" );
 		Ingredient ingredient;
-		if( JSONUtils.isJsonArray( json, "ingredient" ) ) {
-			ingredient = Ingredient.deserialize( JSONUtils.getJsonArray( json, "ingredient" ) );
+		if( JSONUtils.isArrayNode( json, "ingredient" ) ) {
+			ingredient = Ingredient.fromJson( JSONUtils.getAsJsonArray( json, "ingredient" ) );
 		} else {
-			ingredient = Ingredient.deserialize( JSONUtils.getJsonObject( json, "ingredient" ) );
+			ingredient = Ingredient.fromJson( JSONUtils.getAsJsonObject( json, "ingredient" ) );
 		}
 		
-		String resultName = JSONUtils.getString( json, "result" );
-		int resultCount = JSONUtils.hasField( json, "count" ) ? JSONUtils.getInt( json, "count" ) : 1;
+		String resultName = JSONUtils.getAsString( json, "result" );
+		int resultCount = json.has( "count" ) ? JSONUtils.getAsInt( json, "count" ) : 1;
 		ItemStack result = new ItemStack(
-			Registry.ITEM.getOrDefault( new ResourceLocation( resultName ) ),
+			Registry.ITEM.get( new ResourceLocation( resultName ) ),
 			resultCount
 		);
 		return factory.create( recipeId, group, ingredient, result );
 	}
 	
 	@Override
-	public T read( @Nonnull ResourceLocation recipeId, PacketBuffer buffer ) {
+	public T fromNetwork( @Nonnull ResourceLocation recipeId, PacketBuffer buffer ) {
 		
-		String group = buffer.readString( 32767 );
-		Ingredient ingredient = Ingredient.read( buffer );
-		ItemStack result = buffer.readItemStack();
+		String group = buffer.readUtf( 32767 );
+		Ingredient ingredient = Ingredient.fromNetwork( buffer );
+		ItemStack result = buffer.readItem();
 		return factory.create( recipeId, group, ingredient, result );
 	}
 	
 	@Override
-	public void write( PacketBuffer buffer, T recipe ) {
+	public void toNetwork( PacketBuffer buffer, T recipe ) {
 		
-		buffer.writeString( recipe.getGroup() );
-		recipe.ingredient.write( buffer );
-		buffer.writeItemStack( recipe.result );
+		buffer.writeUtf( recipe.getGroup() );
+		recipe.ingredient.toNetwork( buffer );
+		buffer.writeItem( recipe.result );
 	}
 	
 }

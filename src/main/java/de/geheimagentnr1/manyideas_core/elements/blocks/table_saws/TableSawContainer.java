@@ -31,7 +31,7 @@ public abstract class TableSawContainer extends Container {
 	
 	private final IWorldPosCallable worldPosCallable;
 	
-	private final IntReferenceHolder selectedRecipe = IntReferenceHolder.single();
+	private final IntReferenceHolder selectedRecipe = IntReferenceHolder.standalone();
 	
 	private final World world;
 	
@@ -59,7 +59,7 @@ public abstract class TableSawContainer extends Container {
 		int windowIdIn,
 		PlayerInventory playerInventoryIn ) {
 		
-		this( tableSawContainerType, windowIdIn, playerInventoryIn, IWorldPosCallable.DUMMY );
+		this( tableSawContainerType, windowIdIn, playerInventoryIn, IWorldPosCallable.NULL );
 	}
 	
 	@SuppressWarnings( {
@@ -77,7 +77,7 @@ public abstract class TableSawContainer extends Container {
 		
 		super( tableSawContainerType, windowIdIn );
 		worldPosCallable = worldPosCallableIn;
-		world = playerInventoryIn.player.world;
+		world = playerInventoryIn.player.level;
 		inputInventorySlot = addSlot( new Slot( inputInventory, 0, 20, 33 ) );
 		outputInventorySlot = addSlot( new TableSawOutputSlot(
 			this,
@@ -93,13 +93,13 @@ public abstract class TableSawContainer extends Container {
 		for( int k = 0; k < 9; ++k ) {
 			addSlot( new Slot( playerInventoryIn, k, 8 + k * 18, 142 ) );
 		}
-		trackInt( selectedRecipe );
+		addDataSlot( selectedRecipe );
 		HashSet<Item> acceptable_input = new HashSet<>();
 		List<IRecipeType> acceptedRecipeTypes = getAcceptedRecipeTypes();
 		world.getRecipeManager().getRecipes().forEach( iRecipe -> {
 			if( acceptedRecipeTypes.contains( iRecipe.getType() ) ) {
 				TableSawRecipe tableSawRecipe = (TableSawRecipe)iRecipe;
-				ItemStack[] itemStacks = tableSawRecipe.getIngredients().get( 0 ).getMatchingStacks();
+				ItemStack[] itemStacks = tableSawRecipe.getIngredients().get( 0 ).getItems();
 				for( ItemStack itemStack : itemStacks ) {
 					acceptable_input.add( itemStack.getItem() );
 				}
@@ -112,39 +112,39 @@ public abstract class TableSawContainer extends Container {
 	protected abstract List<IRecipeType> getAcceptedRecipeTypes();
 	
 	@OnlyIn( Dist.CLIENT )
-	public int getSelectedRecipe() {
+	public int getSelectedRecipeIndex() {
 		
 		return selectedRecipe.get();
 	}
 	
 	@OnlyIn( Dist.CLIENT )
-	public List<TableSawRecipe> getRecipeList() {
+	public List<TableSawRecipe> getRecipes() {
 		
 		return recipes;
 	}
 	
 	@OnlyIn( Dist.CLIENT )
-	public int getRecipeListSize() {
+	public int getNumRecipes() {
 		
 		return recipes.size();
 	}
 	
 	@OnlyIn( Dist.CLIENT )
-	public boolean hasItemsinInputSlot() {
+	public boolean hasInputItem() {
 		
-		return inputInventorySlot.getHasStack() && !recipes.isEmpty();
+		return inputInventorySlot.hasItem() && !recipes.isEmpty();
 	}
 	
 	@Override
-	public boolean canInteractWith( @Nonnull PlayerEntity playerIn ) {
+	public boolean stillValid( @Nonnull PlayerEntity player ) {
 		
-		return isWithinUsableDistance( worldPosCallable, playerIn, getCanInteractBlock() );
+		return stillValid( worldPosCallable, player, getCanInteractBlock() );
 	}
 	
 	protected abstract Block getCanInteractBlock();
 	
 	@Override
-	public boolean enchantItem( @Nonnull PlayerEntity playerIn, int id ) {
+	public boolean clickMenuButton( @Nonnull PlayerEntity player, int id ) {
 		
 		if( id >= 0 && id < recipes.size() ) {
 			selectedRecipe.set( id );
@@ -154,12 +154,12 @@ public abstract class TableSawContainer extends Container {
 	}
 	
 	@Override
-	public void onCraftMatrixChanged( @Nonnull IInventory inventoryIn ) {
+	public void slotsChanged( @Nonnull IInventory inventory ) {
 		
-		ItemStack itemstack = inputInventorySlot.getStack();
+		ItemStack itemstack = inputInventorySlot.getItem();
 		if( itemstack.getItem() != itemStackInput.getItem() ) {
 			itemStackInput = itemstack.copy();
-			updateAvailableRecipes( inventoryIn, itemstack );
+			updateAvailableRecipes( inventory, itemstack );
 		}
 		
 	}
@@ -168,7 +168,7 @@ public abstract class TableSawContainer extends Container {
 		
 		recipes.clear();
 		selectedRecipe.set( -1 );
-		outputInventorySlot.putStack( ItemStack.EMPTY );
+		outputInventorySlot.set( ItemStack.EMPTY );
 		if( !stack.isEmpty() ) {
 			recipes = getAvaiableRecipes( inventoryIn, world );
 		}
@@ -180,13 +180,12 @@ public abstract class TableSawContainer extends Container {
 	void updateRecipeResultSlot() {
 		
 		if( recipes.isEmpty() ) {
-			outputInventorySlot.putStack( ItemStack.EMPTY );
+			outputInventorySlot.set( ItemStack.EMPTY );
 		} else {
 			TableSawRecipe tableSawRecipe = recipes.get( selectedRecipe.get() );
-			outputInventorySlot.putStack( tableSawRecipe.getCraftingResult( inputInventory ) );
+			outputInventorySlot.set( tableSawRecipe.assemble( inputInventory ) );
 		}
-		
-		detectAndSendChanges();
+		broadcastChanges();
 	}
 	
 	//package-private
@@ -203,44 +202,44 @@ public abstract class TableSawContainer extends Container {
 	}
 	
 	@Override
-	public boolean canMergeSlot( @Nonnull ItemStack stack, @Nonnull Slot slotIn ) {
+	public boolean canTakeItemForPickAll( @Nonnull ItemStack stack, @Nonnull Slot slot ) {
 		
 		return false;
 	}
 	
 	@Nonnull
 	@Override
-	public ItemStack transferStackInSlot( @Nonnull PlayerEntity playerIn, int index ) {
+	public ItemStack quickMoveStack( @Nonnull PlayerEntity player, int index ) {
 		
 		ItemStack itemstack = ItemStack.EMPTY;
-		Slot slot = inventorySlots.get( index );
-		if( slot != null && slot.getHasStack() ) {
-			ItemStack itemstack1 = slot.getStack();
+		Slot slot = slots.get( index );
+		if( slot != null && slot.hasItem() ) {
+			ItemStack itemstack1 = slot.getItem();
 			Item item = itemstack1.getItem();
 			itemstack = itemstack1.copy();
 			if( index == 1 ) {
-				item.onCreated( itemstack1, playerIn.world, playerIn );
-				if( !mergeItemStack( itemstack1, 2, 38, true ) ) {
+				item.onCraftedBy( itemstack1, player.level, player );
+				if( !moveItemStackTo( itemstack1, 2, 38, true ) ) {
 					return ItemStack.EMPTY;
 				}
-				slot.onSlotChange( itemstack1, itemstack );
+				slot.onQuickCraft( itemstack1, itemstack );
 			} else {
 				if( index == 0 ) {
-					if( !mergeItemStack( itemstack1, 2, 38, false ) ) {
+					if( !moveItemStackTo( itemstack1, 2, 38, false ) ) {
 						return ItemStack.EMPTY;
 					}
 				} else {
 					if( ACCEPTED_INPUT_ITEMS.contains( item ) ) {
-						if( !mergeItemStack( itemstack1, 0, 1, false ) ) {
+						if( !moveItemStackTo( itemstack1, 0, 1, false ) ) {
 							return ItemStack.EMPTY;
 						}
 					} else {
 						if( index < 29 ) {
-							if( !mergeItemStack( itemstack1, 29, 38, false ) ) {
+							if( !moveItemStackTo( itemstack1, 29, 38, false ) ) {
 								return ItemStack.EMPTY;
 							}
 						} else {
-							if( index < 38 && !mergeItemStack( itemstack1, 2, 29, false ) ) {
+							if( index < 38 && !moveItemStackTo( itemstack1, 2, 29, false ) ) {
 								return ItemStack.EMPTY;
 							}
 						}
@@ -248,23 +247,23 @@ public abstract class TableSawContainer extends Container {
 				}
 			}
 			if( itemstack1.isEmpty() ) {
-				slot.putStack( ItemStack.EMPTY );
+				slot.set( ItemStack.EMPTY );
 			}
-			slot.onSlotChanged();
+			slot.setChanged();
 			if( itemstack1.getCount() == itemstack.getCount() ) {
 				return ItemStack.EMPTY;
 			}
-			slot.onTake( playerIn, itemstack1 );
-			detectAndSendChanges();
+			slot.onTake( player, itemstack1 );
+			broadcastChanges();
 		}
 		return itemstack;
 	}
 	
 	@Override
-	public void onContainerClosed( @Nonnull PlayerEntity playerIn ) {
+	public void removed( @Nonnull PlayerEntity player ) {
 		
-		super.onContainerClosed( playerIn );
-		resultI.removeStackFromSlot( 1 );
-		worldPosCallable.consume( ( worldIn, pos ) -> clearContainer( playerIn, playerIn.world, inputInventory ) );
+		super.removed( player );
+		resultI.removeItemNoUpdate( 1 );
+		worldPosCallable.execute( ( worldIn, pos ) -> clearContainer( player, player.level, inputInventory ) );
 	}
 }

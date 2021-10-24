@@ -2,7 +2,6 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.rainbow
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
-import net.minecraft.block.Block;
 import net.minecraft.block.CarpetBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -19,7 +18,7 @@ public class RainbowCarpet extends CarpetBlock implements BlockItemInterface {
 		
 		super(
 			DyeColor.WHITE,
-			Block.Properties.create( Material.CARPET ).hardnessAndResistance( 0.1F ).sound( SoundType.CLOTH )
+			Properties.of( Material.CLOTH_DECORATION ).strength( 0.1F ).sound( SoundType.WOOL )
 		);
 		setRegistryName( registry_name );
 	}

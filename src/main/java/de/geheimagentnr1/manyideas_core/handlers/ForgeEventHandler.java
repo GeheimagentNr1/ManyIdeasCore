@@ -6,6 +6,7 @@ import de.geheimagentnr1.manyideas_core.special.decoration_renderer.PlayerDecora
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
@@ -17,10 +18,10 @@ public class ForgeEventHandler {
 	
 	
 	@SubscribeEvent
-	public static void handlerServerStartEvent( FMLServerStartingEvent event ) {
+	public static void handleRegisterCommandsEvent( RegisterCommandsEvent event ) {
 		
-		ElementCountCommand.register( event.getCommandDispatcher() );
-		GiveDBCommand.register( event.getCommandDispatcher() );
+		ElementCountCommand.register( event.getDispatcher() );
+		GiveDBCommand.register( event.getDispatcher() );
 	}
 	
 	@OnlyIn( Dist.CLIENT )

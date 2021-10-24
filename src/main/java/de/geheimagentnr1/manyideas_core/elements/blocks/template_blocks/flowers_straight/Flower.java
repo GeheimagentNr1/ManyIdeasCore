@@ -23,7 +23,7 @@ public abstract class Flower extends FlowerBlock implements FlowerBlockItemInter
 	@Override
 	public RenderType getRenderType() {
 		
-		return RenderType.getCutout();
+		return RenderType.cutout();
 	}
 	
 	@Nonnull

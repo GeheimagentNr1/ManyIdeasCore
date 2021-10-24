@@ -22,7 +22,7 @@ public class RainbowStainedGlassPane extends StainedGlassPaneBlock implements Bl
 		
 		super(
 			DyeColor.WHITE,
-			Block.Properties.create( Material.GLASS ).hardnessAndResistance( 0.3F ).sound( SoundType.GLASS )
+			Properties.of( Material.GLASS ).strength( 0.3F ).sound( SoundType.GLASS )
 		);
 		setRegistryName( registry_name );
 	}
@@ -30,7 +30,7 @@ public class RainbowStainedGlassPane extends StainedGlassPaneBlock implements Bl
 	@Override
 	public RenderType getRenderType() {
 		
-		return RenderType.getTranslucent();
+		return RenderType.translucent();
 	}
 	
 	@Override

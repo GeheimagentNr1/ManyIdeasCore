@@ -32,16 +32,16 @@ public class DyeCraftingTableContainer extends Container {
 	
 	private final PlayerEntity player;
 	
-	public DyeCraftingTableContainer( int windowID, PlayerInventory playerInventory ) {
+	public DyeCraftingTableContainer( int containerID, PlayerInventory playerInventory ) {
 		
-		this( windowID, playerInventory, IWorldPosCallable.DUMMY );
+		this( containerID, playerInventory, IWorldPosCallable.NULL );
 	}
 	
 	//package-private
 	@SuppressWarnings( { "OverridableMethodCallDuringObjectConstruction", "ThisEscapedInObjectConstruction" } )
-	DyeCraftingTableContainer( int windowID, PlayerInventory playerInventory, IWorldPosCallable _worldPosCallable ) {
+	DyeCraftingTableContainer( int containerID, PlayerInventory playerInventory, IWorldPosCallable _worldPosCallable ) {
 		
-		super( ModBlocks.DYE_CRAFTING_TABLE_CONTAINER, windowID );
+		super( ModBlocks.DYE_CRAFTING_TABLE_CONTAINER, containerID );
 		craftingInventory = new CraftingInventory( this, 3, 3 );
 		resultInventory = new CraftResultInventory();
 		worldPosCallable = _worldPosCallable;
@@ -76,29 +76,29 @@ public class DyeCraftingTableContainer extends Container {
 		CraftingInventory craftingInventory,
 		CraftResultInventory resultInventory ) {
 		
-		if( !world.isRemote ) {
+		if( !world.isClientSide() ) {
 			ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
 			ItemStack stack = ItemStack.EMPTY;
 			Optional<DyedRecipe> recipeOptional =
-				Objects.requireNonNull( world.getServer() ).getRecipeManager().getRecipe(
+				Objects.requireNonNull( world.getServer() ).getRecipeManager().getRecipeFor(
 					RecipeTypes.DYED,
 					craftingInventory,
 					world
 				);
 			if( recipeOptional.isPresent() ) {
 				DyedRecipe recipe = recipeOptional.get();
-				stack = recipe.getCraftingResult( craftingInventory );
+				stack = recipe.assemble( craftingInventory );
 			}
-			resultInventory.setInventorySlotContents( 0, stack );
-			serverPlayer.connection.sendPacket( new SSetSlotPacket( windowId, 0, stack ) );
+			resultInventory.setItem( 0, stack );
+			serverPlayer.connection.send( new SSetSlotPacket( windowId, 0, stack ) );
 		}
 	}
 	
 	@Override
-	public void onCraftMatrixChanged( @Nonnull IInventory inventoryIn ) {
+	public void slotsChanged( @Nonnull IInventory inventory ) {
 		
-		worldPosCallable.consume( ( world, pos ) -> changeCaftingSlot(
-			windowId,
+		worldPosCallable.execute( ( world, pos ) -> changeCaftingSlot(
+			containerId,
 			world,
 			player,
 			craftingInventory,
@@ -107,69 +107,69 @@ public class DyeCraftingTableContainer extends Container {
 	}
 	
 	@Override
-	public void onContainerClosed( @Nonnull PlayerEntity playerIn ) {
+	public void removed( @Nonnull PlayerEntity player ) {
 		
-		super.onContainerClosed( playerIn );
-		worldPosCallable.consume( ( world, pos ) -> clearContainer( playerIn, world, craftingInventory ) );
+		super.removed( player );
+		worldPosCallable.execute( ( world, pos ) -> clearContainer( player, world, craftingInventory ) );
 	}
 	
 	@Override
-	public boolean canInteractWith( @Nonnull PlayerEntity playerIn ) {
+	public boolean stillValid( PlayerEntity player ) {
 		
-		return isWithinUsableDistance( worldPosCallable, playerIn, ModBlocks.DYE_CRAFTING_TABLE );
+		return stillValid( worldPosCallable, player, ModBlocks.DYE_CRAFTING_TABLE );
 	}
 	
 	@Nonnull
 	@Override
-	public ItemStack transferStackInSlot( @Nonnull PlayerEntity playerIn, int index ) {
+	public ItemStack quickMoveStack( @Nonnull PlayerEntity player, int index ) {
 		
 		ItemStack resultStack = ItemStack.EMPTY;
-		Slot slot = inventorySlots.get( index );
-		if( slot != null && slot.getHasStack() ) {
-			ItemStack stack = slot.getStack();
+		Slot slot = slots.get( index );
+		if( slot != null && slot.hasItem() ) {
+			ItemStack stack = slot.getItem();
 			resultStack = stack.copy();
 			if( index == 0 ) {
-				worldPosCallable.consume( ( world, pos ) -> stack.getItem().onCreated( stack, world, playerIn ) );
-				if( !mergeItemStack( stack, 10, 46, true ) ) {
+				worldPosCallable.execute( ( world, pos ) -> stack.getItem().onCraftedBy( stack, world, player ) );
+				if( !moveItemStackTo( stack, 10, 46, true ) ) {
 					return ItemStack.EMPTY;
 				}
-				slot.onSlotChange( stack, resultStack );
+				slot.onQuickCraft( stack, resultStack );
 			} else {
 				if( index >= 10 && index < 37 ) {
-					if( !mergeItemStack( stack, 37, 46, false ) ) {
+					if( !moveItemStackTo( stack, 37, 46, false ) ) {
 						return ItemStack.EMPTY;
 					}
 				} else {
 					if( index >= 37 && index < 46 ) {
-						if( !mergeItemStack( stack, 10, 37, false ) ) {
+						if( !moveItemStackTo( stack, 10, 37, false ) ) {
 							return ItemStack.EMPTY;
 						}
 					} else {
-						if( !mergeItemStack( stack, 10, 46, false ) ) {
+						if( !moveItemStackTo( stack, 10, 46, false ) ) {
 							return ItemStack.EMPTY;
 						}
 					}
 				}
 			}
 			if( stack.isEmpty() ) {
-				slot.putStack( ItemStack.EMPTY );
+				slot.set( ItemStack.EMPTY );
 			} else {
-				slot.onSlotChanged();
+				slot.setChanged();
 			}
 			if( stack.getCount() == resultStack.getCount() ) {
 				return ItemStack.EMPTY;
 			}
-			ItemStack dropStack = slot.onTake( playerIn, stack );
+			ItemStack dropStack = slot.onTake( player, stack );
 			if( index == 0 ) {
-				playerIn.dropItem( dropStack, false );
+				player.drop( dropStack, false );
 			}
 		}
 		return resultStack;
 	}
 	
 	@Override
-	public boolean canMergeSlot( @Nonnull ItemStack stack, Slot slotIn ) {
+	public boolean canTakeItemForPickAll( @Nonnull ItemStack stack, Slot slot ) {
 		
-		return slotIn.inventory != resultInventory;
+		return slot.container != resultInventory;
 	}
 }

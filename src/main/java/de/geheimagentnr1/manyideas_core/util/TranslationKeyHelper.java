@@ -12,7 +12,7 @@ public class TranslationKeyHelper {
 	
 	public static String generateContainerTranslationKey( String modid, String registry_name ) {
 		
-		return Util.makeTranslationKey( "container", new ResourceLocation( modid, registry_name ) );
+		return Util.makeDescriptionId( "container", new ResourceLocation( modid, registry_name ) );
 	}
 	
 	public static TranslationTextComponent generateContainerTranslationText( String modid, String registry_name ) {
@@ -27,7 +27,7 @@ public class TranslationKeyHelper {
 	
 	public static String generateMessageTranslationKey( String modid, String registry_name ) {
 		
-		return Util.makeTranslationKey( "message", new ResourceLocation( modid, registry_name ) );
+		return Util.makeDescriptionId( "message", new ResourceLocation( modid, registry_name ) );
 	}
 	
 	public static ITextComponent generateMessageTranslationTextComponent( String modid, String registry_name ) {

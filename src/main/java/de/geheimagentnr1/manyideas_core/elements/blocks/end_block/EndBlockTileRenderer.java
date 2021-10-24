@@ -7,9 +7,9 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 public class EndBlockTileRenderer extends EndPortalTileEntityRenderer<EndBlockTile> {
 	
 	
-	public EndBlockTileRenderer( TileEntityRendererDispatcher rendererDispatcherIn ) {
+	public EndBlockTileRenderer( TileEntityRendererDispatcher rendererDispatcher ) {
 		
-		super( rendererDispatcherIn );
+		super( rendererDispatcher );
 	}
 	
 	@Override

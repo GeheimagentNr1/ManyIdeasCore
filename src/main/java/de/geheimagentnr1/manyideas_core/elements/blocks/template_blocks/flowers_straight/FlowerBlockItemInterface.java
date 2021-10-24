@@ -17,7 +17,7 @@ public interface FlowerBlockItemInterface extends BlockItemInterface {
 	default Item createBlockItem( Block block, Item.Properties properties, String registry_name ) {
 		
 		Item item = BlockItemInterface.super.createBlockItem( block, properties, registry_name );
-		ComposterBlock.CHANCES.put( item, 0.65F );
+		ComposterBlock.COMPOSTABLES.put( item, 0.65F );
 		return item;
 	}
 }

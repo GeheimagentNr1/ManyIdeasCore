@@ -44,52 +44,52 @@ public class Mortar extends Block implements BlockItemInterface, BlockRenderType
 	
 	public Mortar() {
 		
-		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 0.8F ).sound( SoundType.WOOD ) );
+		super( Properties.of( Material.WOOD ).strength( 0.8F ).sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 	}
 	
 	@Override
 	public RenderType getRenderType() {
 		
-		return RenderType.getCutout();
+		return RenderType.cutout();
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
 	public VoxelShape getShape(
-		BlockState state,
+		@Nonnull BlockState state,
 		@Nonnull IBlockReader worldIn,
 		@Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
-		return SHAPES.getShapeFromHorizontalFacing( state.get( BlockStateProperties.HORIZONTAL_FACING ) );
+		return SHAPES.getShapeFromHorizontalFacing( state.getValue( BlockStateProperties.HORIZONTAL_FACING ) );
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public ActionResultType onBlockActivated(
+	public ActionResultType use(
 		@Nonnull BlockState state,
-		World worldIn,
+		@Nonnull World worldIn,
 		@Nonnull BlockPos pos,
-		PlayerEntity player,
+		@Nonnull PlayerEntity player,
 		@Nonnull Hand handIn,
 		@Nonnull BlockRayTraceResult hit ) {
 		
-		ItemStack crafting_stack = player.getHeldItem( handIn );
+		ItemStack crafting_stack = player.getItemInHand( handIn );
 		MortarCraftingInventory craftingInventory = new MortarCraftingInventory( crafting_stack );
-		Optional<GrindingRecipe> recipe = worldIn.getRecipeManager().getRecipe(
+		Optional<GrindingRecipe> recipe = worldIn.getRecipeManager().getRecipeFor(
 			RecipeTypes.GRINDING,
 			craftingInventory,
 			worldIn
 		);
 		
 		if( recipe.isPresent() ) {
-			ItemStack result_stack = recipe.get().getCraftingResult( craftingInventory );
+			ItemStack result_stack = recipe.get().assemble( craftingInventory );
 			crafting_stack.shrink( 1 );
-			if( !player.addItemStackToInventory( result_stack ) ) {
-				player.dropItem( result_stack, false );
+			if( !player.addItem( result_stack ) ) {
+				player.drop( result_stack, false );
 			}
 			return ActionResultType.SUCCESS;
 		}
@@ -100,14 +100,14 @@ public class Mortar extends Block implements BlockItemInterface, BlockRenderType
 	@Override
 	public BlockState getStateForPlacement( BlockItemUseContext context ) {
 		
-		return getDefaultState().with(
+		return defaultBlockState().setValue(
 			BlockStateProperties.HORIZONTAL_FACING,
-			context.getPlacementHorizontalFacing()
+			context.getHorizontalDirection()
 		);
 	}
 	
 	@Override
-	protected void fillStateContainer( StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {
 		
 		builder.add( BlockStateProperties.HORIZONTAL_FACING );
 	}

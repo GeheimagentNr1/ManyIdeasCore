@@ -42,16 +42,16 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	);
 	
 	private static final VoxelShape SHAPE = VoxelShapes.or(
-		Block.makeCuboidShape( 0.0, 14.0, 0.0, 16.0, 15.75, 16.0 ),
-		Block.makeCuboidShape( 0.0, 0.0, 0.0, 2.0, 14.0, 2.0 ),
-		Block.makeCuboidShape( 14.0, 0.0, 0.0, 16.0, 14.0, 2.0 ),
-		Block.makeCuboidShape( 14.0, 0.0, 14.0, 16.0, 14.0, 16.0 ),
-		Block.makeCuboidShape( 0.0, 0.0, 14.0, 2.0, 14.0, 16.0 )
+		Block.box( 0.0, 14.0, 0.0, 16.0, 15.75, 16.0 ),
+		Block.box( 0.0, 0.0, 0.0, 2.0, 14.0, 2.0 ),
+		Block.box( 14.0, 0.0, 0.0, 16.0, 14.0, 2.0 ),
+		Block.box( 14.0, 0.0, 14.0, 16.0, 14.0, 16.0 ),
+		Block.box( 0.0, 0.0, 14.0, 2.0, 14.0, 16.0 )
 	);
 	
 	public DyeCraftingTable() {
 		
-		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 2.5F ).sound( SoundType.WOOD ) );
+		super( Properties.of( Material.WOOD ).strength( 2.5F ).sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 	}
 	
@@ -71,16 +71,17 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	@Override
 	public BlockState getStateForPlacement( BlockItemUseContext context ) {
 		
-		return getDefaultState().with(
+		return defaultBlockState().setValue(
 			BlockStateProperties.HORIZONTAL_FACING,
-			context.getPlacementHorizontalFacing()
+			context.getHorizontalDirection()
 		);
 	}
+	
 	
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public ActionResultType onBlockActivated(
+	public ActionResultType use(
 		BlockState state,
 		@Nonnull World worldIn,
 		@Nonnull BlockPos pos,
@@ -88,13 +89,13 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 		@Nonnull Hand handIn,
 		@Nonnull BlockRayTraceResult hit ) {
 		
-		player.openContainer( state.getContainer( worldIn, pos ) );
+		player.openMenu( state.getMenuProvider( worldIn, pos ) );
 		return ActionResultType.SUCCESS;
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public INamedContainerProvider getContainer(
+	public INamedContainerProvider getMenuProvider(
 		@Nonnull BlockState state,
 		@Nonnull World worldIn,
 		@Nonnull BlockPos pos ) {
@@ -102,12 +103,12 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 		return new SimpleNamedContainerProvider( ( windowID, playerInventory, playerEntity ) -> new DyeCraftingTableContainer(
 			windowID,
 			playerInventory,
-			IWorldPosCallable.of( worldIn, pos )
+			IWorldPosCallable.create( worldIn, pos )
 		), CONTAINER_TITLE );
 	}
 	
 	@Override
-	protected void fillStateContainer( StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {
 		
 		builder.add( BlockStateProperties.HORIZONTAL_FACING );
 	}
