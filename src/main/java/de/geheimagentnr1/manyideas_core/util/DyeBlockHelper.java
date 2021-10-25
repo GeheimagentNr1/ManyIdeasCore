@@ -54,7 +54,8 @@ public class DyeBlockHelper {
 	
 	public static BlockState getStateForPlacement( DyeBlock block, BlockItemUseContext context ) {
 		
-		return block.defaultBlockState().setValue( ModBlockStateProperties.COLOR, getColor( context.getItemInHand() ) );
+		return block.defaultBlockState().setValue( ModBlockStateProperties.COLOR,
+			getColor( context.getItemInHand() ) );
 	}
 	
 	public static void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {

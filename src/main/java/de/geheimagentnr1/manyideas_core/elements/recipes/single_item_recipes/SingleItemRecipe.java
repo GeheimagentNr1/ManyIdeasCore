@@ -8,7 +8,6 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
@@ -101,7 +100,6 @@ public abstract class SingleItemRecipe implements IRecipe<IInventory> {
 		
 		return result.copy();
 	}
-	
 	
 	
 	public Ingredient getIngredient() {

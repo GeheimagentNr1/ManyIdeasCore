@@ -2,7 +2,6 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.flowers_straight.Flower;
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;

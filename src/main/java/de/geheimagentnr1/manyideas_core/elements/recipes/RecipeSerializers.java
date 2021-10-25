@@ -4,7 +4,6 @@ import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.blocks.mortar.GrindingRecipe;
 import de.geheimagentnr1.manyideas_core.elements.blocks.mortar.GrindingRecipeSerializer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondRecipe;
-import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIron;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondRecipeSerializer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronRecipe;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronRecipeSerializer;
@@ -12,7 +11,6 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSa
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneRecipeSerializer;
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedRecipe;
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedRecipeSerializer;
-import de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes.SingleItemRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraftforge.registries.ObjectHolder;
 

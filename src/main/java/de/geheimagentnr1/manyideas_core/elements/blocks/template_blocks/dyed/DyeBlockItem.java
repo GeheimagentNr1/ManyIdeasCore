@@ -2,7 +2,6 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed;
 
 import de.geheimagentnr1.manyideas_core.config.ClientConfig;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
-import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
 import net.minecraft.block.Block;
 import net.minecraft.item.*;
@@ -21,7 +20,8 @@ public class DyeBlockItem extends BlockItem {
 		super( block, _properties );
 		setRegistryName( registry_name );
 		ItemModelsProperties.register( this,
-			DyeBlockItemPropertyGetter.registry_name, new DyeBlockItemPropertyGetter() );
+			DyeBlockItemPropertyGetter.registry_name, new DyeBlockItemPropertyGetter()
+		);
 	}
 	
 	@Nonnull

@@ -49,7 +49,8 @@ class PlayerDecorationRenderer {
 		matrixStack.pushPose();
 		matrixStack.mulPose( Vector3f.YP.rotationDegrees( (float)( bouncing * 40.0D % 360 ) ) );
 		Minecraft.getInstance().getItemRenderer().renderStatic( stack, ItemCameraTransforms.TransformType.FIXED, light,
-			OverlayTexture.NO_OVERLAY, matrixStack, buffer );
+			OverlayTexture.NO_OVERLAY, matrixStack, buffer
+		);
 		matrixStack.popPose();
 		matrixStack.popPose();
 		matrixStack.popPose();

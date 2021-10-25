@@ -37,7 +37,8 @@ public class BigDoorsHelper {
 			neighborBlock.getPos().equals( neighborBlock.getZeroPos() ) &&
 			state.getValue( BlockStateProperties.HORIZONTAL_FACING ) ==
 				neighborState.getValue( BlockStateProperties.HORIZONTAL_FACING ) &&
-			state.getValue( BlockStateProperties.DOOR_HINGE ) != neighborState.getValue( BlockStateProperties.DOOR_HINGE );
+			state.getValue( BlockStateProperties.DOOR_HINGE ) !=
+				neighborState.getValue( BlockStateProperties.DOOR_HINGE );
 	}
 	
 	private static Direction getDirectionToNeighborDoor( BlockState state ) {

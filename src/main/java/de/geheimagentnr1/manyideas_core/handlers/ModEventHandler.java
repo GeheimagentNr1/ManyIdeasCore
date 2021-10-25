@@ -22,6 +22,7 @@ import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.Redsto
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyContainer;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyScreen;
 import de.geheimagentnr1.manyideas_core.elements.recipes.IngredientSerializer;
+import de.geheimagentnr1.manyideas_core.elements.recipes.IngredientSerializers;
 import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeSerializers;
 import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
 import de.geheimagentnr1.manyideas_core.network.Network;
@@ -138,14 +139,5 @@ public class ModEventHandler {
 			windowId,
 			data
 		) ).setRegistryName( RedstoneKey.registry_name ) );
-	}
-	
-	@SubscribeEvent
-	public static void handleRegisterRecipeSerialzierEvent( RegistryEvent.Register<IRecipeSerializer<?>> event ) {
-		
-		/*for( IngredientSerializer<? extends Ingredient> ingredientSerializer : IngredientSerializers.INGREDIENTS ) {
-			CraftingHelper.register( ingredientSerializer.getRegistryNameRL(), ingredientSerializer );
-		}*/
-		event.getRegistry().registerAll( RecipeSerializers.RECIPE_SERIALIZERS );
 	}
 }

@@ -77,6 +77,8 @@ public class DoorsHelper {
 	private static Direction getDirectionToNeighborDoor( BlockState state ) {
 		
 		Direction facing = state.getValue( DoorBlock.FACING );
-		return state.getValue( DoorBlock.HINGE ) == DoorHingeSide.LEFT ? facing.getClockWise() : facing.getCounterClockWise();
+		return state.getValue( DoorBlock.HINGE ) == DoorHingeSide.LEFT
+			? facing.getClockWise()
+			: facing.getCounterClockWise();
 	}
 }

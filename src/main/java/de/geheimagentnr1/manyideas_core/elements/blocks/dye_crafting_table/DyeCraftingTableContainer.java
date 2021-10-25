@@ -39,7 +39,8 @@ public class DyeCraftingTableContainer extends Container {
 	
 	//package-private
 	@SuppressWarnings( { "OverridableMethodCallDuringObjectConstruction", "ThisEscapedInObjectConstruction" } )
-	DyeCraftingTableContainer( int containerID, PlayerInventory playerInventory, IWorldPosCallable _worldPosCallable ) {
+	DyeCraftingTableContainer( int containerID, PlayerInventory playerInventory,
+	                           IWorldPosCallable _worldPosCallable ) {
 		
 		super( ModBlocks.DYE_CRAFTING_TABLE_CONTAINER, containerID );
 		craftingInventory = new CraftingInventory( this, 3, 3 );

@@ -82,7 +82,6 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	}
 	
 	
-	
 	@Override
 	public void stepOn( @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Entity entity ) {
 		

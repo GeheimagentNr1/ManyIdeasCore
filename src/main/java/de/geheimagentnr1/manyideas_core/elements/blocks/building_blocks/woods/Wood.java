@@ -1,7 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.AxisBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 

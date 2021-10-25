@@ -2,7 +2,6 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.rainbow
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
-import net.minecraft.block.Block;
 import net.minecraft.block.GlazedTerracottaBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

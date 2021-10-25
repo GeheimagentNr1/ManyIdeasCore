@@ -56,7 +56,6 @@ public class DebugBlockCullface extends Block implements BlockItemInterface {
 	}
 	
 	
-	
 	@Override
 	protected void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {
 		

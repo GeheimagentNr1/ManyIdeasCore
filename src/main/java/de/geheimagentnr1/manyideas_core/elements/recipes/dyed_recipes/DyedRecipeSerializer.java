@@ -176,8 +176,9 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 		
 		String registry_key = JSONUtils.getAsString( result, "item" );
 		Item item =
-			Registry.ITEM.getOptional( new ResourceLocation( registry_key ) ).orElseThrow( () -> new JsonSyntaxException(
-				"Unknown item '" + registry_key + "'" ) );
+			Registry.ITEM.getOptional( new ResourceLocation( registry_key ) )
+				.orElseThrow( () -> new JsonSyntaxException(
+					"Unknown item '" + registry_key + "'" ) );
 		if( !( item instanceof DyeBlockItem ) ) {
 			throw new JsonParseException( "Unallowed Recipe Result" );
 		}

@@ -1,7 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import net.minecraft.client.Minecraft;
