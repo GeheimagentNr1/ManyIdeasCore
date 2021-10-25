@@ -26,6 +26,11 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 	implements IRecipeSerializer<DyedRecipe> {
 	
 	
+	public DyedRecipeSerializer() {
+		
+		setRegistryName( DyedRecipe.registry_name );
+	}
+	
 	@Nonnull
 	@Override
 	public DyedRecipe fromJson( @Nonnull ResourceLocation recipeId, @Nonnull JsonObject json ) {

@@ -19,9 +19,10 @@ public class SingleItemRecipeSerializer<T extends SingleItemRecipe> extends Forg
 	
 	private final ISingleItemRecipeFactory<T> factory;
 	
-	public SingleItemRecipeSerializer( ISingleItemRecipeFactory<T> _factory ) {
+	public SingleItemRecipeSerializer( ISingleItemRecipeFactory<T> _factory, String registry_name ) {
 		
 		factory = _factory;
+		setRegistryName( registry_name );
 	}
 	
 	@SuppressWarnings( "deprecation" )

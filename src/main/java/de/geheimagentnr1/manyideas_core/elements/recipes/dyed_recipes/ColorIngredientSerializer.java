@@ -2,9 +2,9 @@ package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
 import com.google.gson.JsonObject;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
+import de.geheimagentnr1.manyideas_core.elements.recipes.IngredientSerializer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.common.crafting.IIngredientSerializer;
 
 import javax.annotation.Nonnull;
 import java.util.Comparator;
@@ -12,10 +12,16 @@ import java.util.Objects;
 import java.util.TreeMap;
 
 
-public class ColorIngredientSerializer implements IIngredientSerializer<ColorIngredient> {
+public class ColorIngredientSerializer implements IngredientSerializer<ColorIngredient> {
 	
 	
 	public static final ColorIngredientSerializer INSTANCE = new ColorIngredientSerializer();
+	
+	@Override
+	public String getRegistryName() {
+		
+		return ColorIngredient.registry_name;
+	}
 	
 	@Nonnull
 	@Override

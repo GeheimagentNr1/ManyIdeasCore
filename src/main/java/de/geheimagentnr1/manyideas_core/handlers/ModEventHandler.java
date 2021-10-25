@@ -1,6 +1,5 @@
 package de.geheimagentnr1.manyideas_core.handlers;
 
-import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksDebug;
 import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTable;
@@ -16,12 +15,15 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSaw
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronContainer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStone;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneContainer;
-import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlockItemPropertyGetter;
+import de.geheimagentnr1.manyideas_core.elements.commands.ModArgumentTypes;
+import de.geheimagentnr1.manyideas_core.elements.item_groups.ModItemGroups;
 import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.RedstoneKey;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyContainer;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyScreen;
+import de.geheimagentnr1.manyideas_core.elements.recipes.IngredientSerializer;
 import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeSerializers;
+import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
 import de.geheimagentnr1.manyideas_core.network.Network;
 import de.geheimagentnr1.manyideas_core.special.decoration_renderer.PlayerDecorationManager;
 import de.geheimagentnr1.manyideas_core.util.BlockRegistrationHelper;
@@ -29,7 +31,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tileentity.TileEntityType;
@@ -53,7 +54,18 @@ public class ModEventHandler {
 	@SubscribeEvent
 	public static void handleCommonSetupEvent( FMLCommonSetupEvent event ) {
 		
+		ModArgumentTypes.registerArgumentTypes();
+		RecipeTypes.init();
 		Network.registerPackets();
+	}
+	
+	@SubscribeEvent
+	public static void handleRegisterRecipeSerialzierEvent( RegistryEvent.Register<IRecipeSerializer<?>> event ) {
+		
+		for( IngredientSerializer<? extends Ingredient> ingredientSerializer : IngredientSerializers.INGREDIENTS ) {
+			CraftingHelper.register( ingredientSerializer.getRegistryNameRL(), ingredientSerializer );
+		}
+		event.getRegistry().registerAll( RecipeSerializers.RECIPE_SERIALIZERS );
 	}
 	
 	@OnlyIn( Dist.CLIENT )
@@ -84,7 +96,7 @@ public class ModEventHandler {
 	@SubscribeEvent
 	public static void onItemsRegistry( RegistryEvent.Register<Item> itemRegistryEvent ) {
 		
-		Item.Properties properties = new Item.Properties().tab( ManyIdeasCore.setup.manyIdeasCoreItemGroup );
+		Item.Properties properties = new Item.Properties().tab( ModItemGroups.MANYIDEAS_CORE_ITEM_GROUP );
 		
 		BlockRegistrationHelper.registerBlockItems( itemRegistryEvent, ModBlocks.BLOCKS, properties );
 		BlockRegistrationHelper.registerBlockItems( itemRegistryEvent, ModBlocksDebug.BLOCKS, properties );

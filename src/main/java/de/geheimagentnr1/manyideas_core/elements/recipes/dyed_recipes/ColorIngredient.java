@@ -13,6 +13,9 @@ import java.util.stream.Stream;
 public class ColorIngredient extends Ingredient {
 	
 	
+	//package-private
+	static final String registry_name = "color";
+	
 	private final ColorList ingrediant;
 	
 	//package-private
