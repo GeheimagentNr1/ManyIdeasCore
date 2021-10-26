@@ -72,13 +72,6 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	}
 	
 	@SuppressWarnings( "deprecation" )
-	@Override
-	public boolean isTransparent( @Nonnull BlockState state ) {
-		
-		return true;
-	}
-	
-	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
 	public VoxelShape getShape(
