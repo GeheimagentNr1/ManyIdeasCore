@@ -15,8 +15,6 @@ import java.util.TreeMap;
 public class ColorIngredientSerializer implements IngredientSerializer<ColorIngredient> {
 	
 	
-	public static final ColorIngredientSerializer INSTANCE = new ColorIngredientSerializer();
-	
 	@Override
 	public String getRegistryName() {
 		
