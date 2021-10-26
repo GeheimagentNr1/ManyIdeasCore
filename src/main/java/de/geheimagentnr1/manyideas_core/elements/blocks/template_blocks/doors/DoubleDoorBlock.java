@@ -62,7 +62,7 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	@Override
 	public RenderType getRenderType() {
 		
-		return RenderType.cutoutMipped();
+		return RenderType.cutout();
 	}
 	
 	@Nonnull
