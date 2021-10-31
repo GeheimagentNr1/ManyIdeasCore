@@ -50,10 +50,12 @@ public class ModBlocks {
 		//Building Blocks: Planks: Seamless
 		new PlanksSeamlessAcacia(),//BCPFINRLT
 		new PlanksSeamlessBirch(),//BCPFINRLT
+		new PlanksSeamlessCrimson(),//BCPFINRLT
 		new PlanksSeamlessDarkOak(),//BCPFINRLT
 		new PlanksSeamlessJungle(),//BCPFINRLT
 		new PlanksSeamlessOak(),//BCPFINRLT
 		new PlanksSeamlessSpruce(),//BCPFINRLT
+		new PlanksSeamlessWarped(),//BCPFINRLT
 		//Building Blocks: Blocks: Rainbow
 		new RainbowCarpet(),//BCPFINRLT
 		new RainbowConcrete(),//BCPFINRLT//Kein Rezept
@@ -68,17 +70,21 @@ public class ModBlocks {
 		//Building Blocks: Woods: Logs Stripped Smooth
 		new LogStrippedSmoothAcacia(),//BCPFINRLT
 		new LogStrippedSmoothBirch(),//BCPFINRLT
+		new LogStrippedSmoothCrimson(),//BCPFINRLT
 		new LogStrippedSmoothDarkOak(),//BCPFINRLT
 		new LogStrippedSmoothJungle(),//BCPFINRLT
 		new LogStrippedSmoothOak(),//BCPFINRLT
 		new LogStrippedSmoothSpruce(),//BCPFINRLT
+		new LogStrippedSmoothWarped(),//BCPFINRLT
 		//Building Blocks: Woods: Woods Stripped Smooth
 		new WoodStrippedSmoothAcacia(),//BCPFINRLT
 		new WoodStrippedSmoothBirch(),//BCPFINRLT
+		new WoodStrippedSmoothCrimson(),//BCPFINRLT
 		new WoodStrippedSmoothDarkOak(),//BCPFINRLT
 		new WoodStrippedSmoothJungle(),//BCPFINRLT
 		new WoodStrippedSmoothOak(),//BCPFINRLT
 		new WoodStrippedSmoothSpruce(),//BCPFINRLT
+		new WoodStrippedSmoothWarped(),//BCPFINRLT
 		//Dye Crafting Table
 		new DyeCraftingTable(),//BCPFINRLT
 		//End Block
@@ -112,6 +118,9 @@ public class ModBlocks {
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlanksSeamlessBirch.registry_name )
 	public static PlanksSeamlessBirch PLANKS_SEAMLESS_BIRCH;
 	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlanksSeamlessCrimson.registry_name )
+	public static PlanksSeamlessCrimson PLANKS_SEAMLESS_CRIMSON;
+	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlanksSeamlessDarkOak.registry_name )
 	public static PlanksSeamlessDarkOak PLANKS_SEAMLESS_DARK_OAK;
 	
@@ -123,6 +132,9 @@ public class ModBlocks {
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlanksSeamlessSpruce.registry_name )
 	public static PlanksSeamlessSpruce PLANKS_SEAMLESS_SPRUCE;
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlanksSeamlessWarped.registry_name )
+	public static PlanksSeamlessWarped PLANKS_SEAMLESS_WARPED;
 	
 	//Building Blocks: Blocks: Rainbow
 	
@@ -163,6 +175,9 @@ public class ModBlocks {
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + LogStrippedSmoothBirch.registry_name )
 	public static LogStrippedSmoothBirch LOG_STRIPPED_SMOOTH_BIRCH;
 	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + LogStrippedSmoothCrimson.registry_name )
+	public static LogStrippedSmoothCrimson LOG_STRIPPED_SMOOTH_CRIMSON;
+	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + LogStrippedSmoothDarkOak.registry_name )
 	public static LogStrippedSmoothDarkOak LOG_STRIPPED_SMOOTH_DARK_OAK;
 	
@@ -175,6 +190,9 @@ public class ModBlocks {
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + LogStrippedSmoothSpruce.registry_name )
 	public static LogStrippedSmoothSpruce LOG_STRIPPED_SMOOTH_SPRUCE;
 	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + LogStrippedSmoothWarped.registry_name )
+	public static LogStrippedSmoothWarped LOG_STRIPPED_SMOOTH_WARPED;
+	
 	//Building Blocks: Woods: Woods Stripped Smooth
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + WoodStrippedSmoothAcacia.registry_name )
@@ -182,6 +200,9 @@ public class ModBlocks {
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + WoodStrippedSmoothBirch.registry_name )
 	public static WoodStrippedSmoothBirch WOOD_STRIPPED_SMOOTH_BIRCH;
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + WoodStrippedSmoothCrimson.registry_name )
+	public static WoodStrippedSmoothCrimson WOOD_STRIPPED_SMOOTH_CRIMSON;
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + WoodStrippedSmoothDarkOak.registry_name )
 	public static WoodStrippedSmoothDarkOak WOOD_STRIPPED_SMOOTH_DARK_OAK;
@@ -194,6 +215,9 @@ public class ModBlocks {
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + WoodStrippedSmoothSpruce.registry_name )
 	public static WoodStrippedSmoothSpruce WOOD_STRIPPED_SMOOTH_SPRUCE;
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + WoodStrippedSmoothWarped.registry_name )
+	public static WoodStrippedSmoothWarped WOOD_STRIPPED_SMOOTH_WARPED;
 	
 	//Dye Crafting Table
 	

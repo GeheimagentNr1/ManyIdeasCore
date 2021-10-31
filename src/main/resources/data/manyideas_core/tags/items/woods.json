@@ -7,6 +7,9 @@
 		"minecraft:birch_wood",
 		"minecraft:stripped_birch_wood",
 		"manyideas_core:wood_stripped_smooth_birch",
+		"minecraft:crimson_hyphae",
+		"minecraft:stripped_crimson_hyphae",
+		"manyideas_core:wood_stripped_smooth_crimson",
 		"minecraft:dark_oak_wood",
 		"minecraft:stripped_dark_oak_wood",
 		"manyideas_core:wood_stripped_smooth_dark_oak",
@@ -18,6 +21,9 @@
 		"manyideas_core:wood_stripped_smooth_oak",
 		"minecraft:spruce_wood",
 		"minecraft:stripped_spruce_wood",
-		"manyideas_core:wood_stripped_smooth_spruce"
+		"manyideas_core:wood_stripped_smooth_spruce",
+		"minecraft:warped_hyphae",
+		"minecraft:stripped_warped_hyphae",
+		"manyideas_core:wood_stripped_smooth_warped"
 	]
 }

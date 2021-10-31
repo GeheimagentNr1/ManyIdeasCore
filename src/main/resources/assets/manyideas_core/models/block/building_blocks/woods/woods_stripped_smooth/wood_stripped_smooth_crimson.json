@@ -1,0 +1,6 @@
+{
+	"parent":   "minecraft:block/cube_all",
+	"textures": {
+		"all": "manyideas_core:block/building_blocks/woods/log_stripped_smooth/log_stripped_smooth_crimson"
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"parent":   "minecraft:block/cube_column",
+	"textures": {
+		"end":  "minecraft:block/stripped_crimson_stem_top",
+		"side": "manyideas_core:block/building_blocks/woods/log_stripped_smooth/log_stripped_smooth_crimson"
+	}
+}

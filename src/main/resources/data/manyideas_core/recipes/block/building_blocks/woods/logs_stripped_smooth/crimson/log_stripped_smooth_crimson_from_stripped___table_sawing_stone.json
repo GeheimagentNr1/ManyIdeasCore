@@ -1,0 +1,7 @@
+{
+	"type":       "manyideas_core:table_sawing_stone",
+	"ingredient": {
+		"item": "minecraft:stripped_crimson_stem"
+	},
+	"result":     "manyideas_core:log_stripped_smooth_crimson"
+}

@@ -33,10 +33,12 @@ public class ModItems {
 		//Panels
 		new PanelAcacia(),//FINRT
 		new PanelBirch(),//FINRT
+		new PanelCrimson(),//FINRT
 		new PanelDarkOak(),//FINRT
 		new PanelJungle(),//FINRT
 		new PanelOak(),//FINRT
 		new PanelSpruce(),//FINRT
+		new PanelWarped(),//FINRT
 		//Plates
 		new PlateGold(),//FINRT
 		new PlateIron(),//FINRT
@@ -64,6 +66,9 @@ public class ModItems {
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + PanelBirch.registry_name )
 	public static PanelBirch PANEL_BIRCH;
 	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PanelCrimson.registry_name )
+	public static PanelCrimson PANEL_CRIMSON;
+	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + PanelDarkOak.registry_name )
 	public static PanelDarkOak PANEL_DARK_OAK;
 	
@@ -75,6 +80,9 @@ public class ModItems {
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + PanelSpruce.registry_name )
 	public static PanelSpruce PANEL_SPRUCE;
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PanelWarped.registry_name )
+	public static PanelWarped PANEL_WARPED;
 	
 	//Plates
 	
