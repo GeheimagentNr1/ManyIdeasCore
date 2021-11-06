@@ -33,7 +33,7 @@ public abstract class JeiSingleItemRecipe<T extends SingleItemRecipe> {
 			.orElseGet( ArrayList::new )
 			.stream()
 			.map( jeiRecipeBuilder )
-			.collect( Collectors.toList());
+			.collect( Collectors.toList() );
 	}
 	
 	//package-private
