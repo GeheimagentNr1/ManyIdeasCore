@@ -24,7 +24,7 @@ public class GrindingRecipe extends SingleItemRecipe {
 	}
 	
 	@Override
-	public boolean matches( IInventory inv, @Nonnull World world ) {
+	public boolean matches( IInventory inv, @Nonnull World level ) {
 		
 		return ingredient.test( inv.getItem( 0 ) );
 	}

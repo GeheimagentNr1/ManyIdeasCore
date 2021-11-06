@@ -1,6 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.items.plates;
 
 import de.geheimagentnr1.manyideas_core.elements.items.CoreBaseItem;
+import net.minecraft.item.Item;
 
 
 public class PlateQuartz extends CoreBaseItem {
@@ -10,6 +11,6 @@ public class PlateQuartz extends CoreBaseItem {
 	
 	public PlateQuartz() {
 		
-		super( new Properties(), registry_name );
+		super( new Item.Properties(), registry_name );
 	}
 }

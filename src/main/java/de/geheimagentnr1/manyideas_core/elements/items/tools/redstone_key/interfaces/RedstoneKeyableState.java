@@ -6,6 +6,7 @@ import net.minecraft.util.IStringSerializable;
 import java.util.Locale;
 
 
+@SuppressWarnings( { "InterfaceWithOnlyOneDirectInheritor", "unused" } )
 public interface RedstoneKeyableState extends IStringSerializable {
 	
 	

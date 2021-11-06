@@ -28,11 +28,11 @@ public class TableSawIron extends TableSaw {
 	
 	@Override
 	protected Container getContainer(
-		int windowID,
+		int menuId,
 		PlayerInventory playerInventory,
 		IWorldPosCallable worldPosCallable ) {
 		
-		return new TableSawIronContainer( windowID, playerInventory, worldPosCallable );
+		return new TableSawIronContainer( menuId, playerInventory, worldPosCallable );
 	}
 	
 	@Override
@@ -42,8 +42,8 @@ public class TableSawIron extends TableSaw {
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( ModBlocks.TABLE_SAW_IRON, properties, registry_name );
+		return createBlockItem( ModBlocks.TABLE_SAW_IRON, _properties, registry_name );
 	}
 }

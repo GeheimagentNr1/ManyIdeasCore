@@ -3,6 +3,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.rainbow
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.StainedGlassPaneBlock;
 import net.minecraft.block.material.Material;
@@ -21,7 +22,7 @@ public class RainbowStainedGlassPane extends StainedGlassPaneBlock implements Bl
 		
 		super(
 			DyeColor.WHITE,
-			Properties.of( Material.GLASS ).strength( 0.3F ).sound( SoundType.GLASS )
+			AbstractBlock.Properties.of( Material.GLASS ).strength( 0.3F ).sound( SoundType.GLASS )
 		);
 		setRegistryName( registry_name );
 	}
@@ -33,8 +34,8 @@ public class RainbowStainedGlassPane extends StainedGlassPaneBlock implements Bl
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( ModBlocks.RAINBOW_STAINED_GLASS_PANE, properties, registry_name );
+		return createBlockItem( ModBlocks.RAINBOW_STAINED_GLASS_PANE, _properties, registry_name );
 	}
 }

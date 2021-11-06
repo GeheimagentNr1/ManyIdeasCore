@@ -3,6 +3,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlock;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlockItem;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -25,7 +26,7 @@ public class WoodColored extends DyeBlock {
 	public WoodColored() {
 		
 		super(
-			Properties.of( Material.WOOD ).strength( 2.0F ).sound( SoundType.WOOD ),
+			AbstractBlock.Properties.of( Material.WOOD ).strength( 2.0F ).sound( SoundType.WOOD ),
 			registry_name
 		);
 	}
@@ -34,8 +35,8 @@ public class WoodColored extends DyeBlock {
 	@Override
 	public BlockState getStateForPlacement( @Nonnull BlockItemUseContext context ) {
 		
-		BlockState place_state = Objects.requireNonNull( super.getStateForPlacement( context ) );
-		return place_state.setValue( BlockStateProperties.AXIS, context.getClickedFace().getAxis() );
+		BlockState state = Objects.requireNonNull( super.getStateForPlacement( context ) );
+		return state.setValue( BlockStateProperties.AXIS, context.getClickedFace().getAxis() );
 	}
 	
 	@Override
@@ -46,8 +47,8 @@ public class WoodColored extends DyeBlock {
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return new DyeBlockItem( ModBlocks.WOOD_COLORED, properties, registry_name );
+		return new DyeBlockItem( ModBlocks.WOOD_COLORED, _properties, registry_name );
 	}
 }

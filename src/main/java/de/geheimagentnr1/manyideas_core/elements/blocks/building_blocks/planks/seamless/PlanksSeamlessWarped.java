@@ -16,8 +16,8 @@ public class PlanksSeamlessWarped extends Planks {
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( ModBlocks.PLANKS_SEAMLESS_WARPED, properties, registry_name );
+		return createBlockItem( ModBlocks.PLANKS_SEAMLESS_WARPED, _properties, registry_name );
 	}
 }

@@ -2,6 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -49,7 +50,7 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	
 	protected TableSaw( String registry_name ) {
 		
-		super( Properties.of( Material.WOOD ).strength( 2.5F ).sound( SoundType.WOOD ) );
+		super( AbstractBlock.Properties.of( Material.WOOD ).strength( 2.5F ).sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 	}
 	
@@ -64,7 +65,7 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	@Override
 	public VoxelShape getShape(
 		@Nonnull BlockState state,
-		@Nonnull IBlockReader worldIn,
+		@Nonnull IBlockReader level,
 		@Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
@@ -83,7 +84,7 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	
 	
 	@Override
-	public void stepOn( @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Entity entity ) {
+	public void stepOn( @Nonnull World level, @Nonnull BlockPos pos, @Nonnull Entity entity ) {
 		
 		entity.hurt( SAW, 1.0F );
 	}
@@ -93,13 +94,13 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	@Override
 	public ActionResultType use(
 		@Nonnull BlockState state,
-		@Nonnull World worldIn,
+		@Nonnull World level,
 		@Nonnull BlockPos pos,
 		@Nonnull PlayerEntity player,
 		@Nonnull Hand hand,
-		@Nonnull BlockRayTraceResult hit ) {
+		@Nonnull BlockRayTraceResult hitResult ) {
 		
-		player.openMenu( state.getMenuProvider( worldIn, pos ) );
+		player.openMenu( state.getMenuProvider( level, pos ) );
 		return ActionResultType.SUCCESS;
 	}
 	
@@ -108,18 +109,18 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	@Override
 	public INamedContainerProvider getMenuProvider(
 		@Nonnull BlockState state,
-		@Nonnull World worldIn,
+		@Nonnull World level,
 		@Nonnull BlockPos pos ) {
 		
 		return new SimpleNamedContainerProvider( ( windowID, playerInventory, player ) -> getContainer(
 			windowID,
 			playerInventory,
-			IWorldPosCallable.create( worldIn, pos )
+			IWorldPosCallable.create( level, pos )
 		), getContainerName() );
 	}
 	
 	protected abstract Container getContainer(
-		int windowID,
+		int menuId,
 		PlayerInventory playerInventory,
 		IWorldPosCallable worldPosCallable );
 	

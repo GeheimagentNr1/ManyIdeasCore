@@ -40,19 +40,19 @@ public abstract class JeiSingleItemRecipeCategory<R extends JeiSingleItemRecipe<
 	}
 	
 	@Override
-	public void setIngredients( R recipe, IIngredients iIngredients ) {
+	public void setIngredients( R recipe, IIngredients ingredients ) {
 		
-		iIngredients.setInputLists( VanillaTypes.ITEM, recipe.getInputs() );
-		iIngredients.setOutput( VanillaTypes.ITEM, recipe.getResult() );
+		ingredients.setInputLists( VanillaTypes.ITEM, recipe.getInputs() );
+		ingredients.setOutput( VanillaTypes.ITEM, recipe.getResult() );
 	}
 	
 	@Override
-	public void setRecipe( IRecipeLayout iRecipeLayout, @Nonnull R r, @Nonnull IIngredients iIngredients ) {
+	public void setRecipe( IRecipeLayout recipeLayout, @Nonnull R recipe, @Nonnull IIngredients ingredients ) {
 		
-		IGuiItemStackGroup itemStacks = iRecipeLayout.getItemStacks();
+		IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
 		
 		itemStacks.init( 0, true, 19, 18 );
 		itemStacks.init( 1, false, 79, 18 );
-		itemStacks.set( iIngredients );
+		itemStacks.set( ingredients );
 	}
 }

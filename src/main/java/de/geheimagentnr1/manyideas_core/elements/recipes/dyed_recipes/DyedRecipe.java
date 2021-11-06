@@ -57,7 +57,7 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 	}
 	
 	@Override
-	public boolean matches( @Nonnull CraftingInventory inv, @Nonnull World worldIn ) {
+	public boolean matches( @Nonnull CraftingInventory inv, @Nonnull World level ) {
 		
 		if( !findMatchingColor( inv ).isPresent() ) {
 			return false;

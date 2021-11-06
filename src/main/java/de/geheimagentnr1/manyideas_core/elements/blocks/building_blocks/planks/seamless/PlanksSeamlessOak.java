@@ -16,8 +16,8 @@ public class PlanksSeamlessOak extends Planks {
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( ModBlocks.PLANKS_SEAMLESS_OAK, properties, registry_name );
+		return createBlockItem( ModBlocks.PLANKS_SEAMLESS_OAK, _properties, registry_name );
 	}
 }

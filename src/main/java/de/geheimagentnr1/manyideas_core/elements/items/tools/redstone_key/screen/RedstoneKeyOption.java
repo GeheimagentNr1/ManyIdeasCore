@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 
+@SuppressWarnings( "WeakerAccess" )
 public class RedstoneKeyOption extends FocusableGui implements IRenderable {
 	
 	
@@ -73,7 +74,7 @@ public class RedstoneKeyOption extends FocusableGui implements IRenderable {
 	}
 	
 	@Override
-	public void render( MatrixStack matrixStack, int p_230430_2_, int p_230430_3_, float p_230430_4_ ) {
+	public void render( @Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks ) {
 		
 		FontRenderer font = Minecraft.getInstance().font;
 		font.draw( matrixStack, title, x + 30, y + 2, Objects.requireNonNull( TextFormatting.DARK_GRAY.getColor() ) );

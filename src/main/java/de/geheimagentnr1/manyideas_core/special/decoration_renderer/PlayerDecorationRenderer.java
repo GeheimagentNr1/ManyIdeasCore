@@ -48,8 +48,13 @@ class PlayerDecorationRenderer {
 		matrixStack.translate( 0.0D, StrictMath.sin( bouncing % ( 2 * Math.PI ) ) * 0.25, 0.0D );
 		matrixStack.pushPose();
 		matrixStack.mulPose( Vector3f.YP.rotationDegrees( (float)( bouncing * 40.0D % 360 ) ) );
-		Minecraft.getInstance().getItemRenderer().renderStatic( stack, ItemCameraTransforms.TransformType.FIXED, light,
-			OverlayTexture.NO_OVERLAY, matrixStack, buffer
+		Minecraft.getInstance().getItemRenderer().renderStatic(
+			stack,
+			ItemCameraTransforms.TransformType.FIXED,
+			light,
+			OverlayTexture.NO_OVERLAY,
+			matrixStack,
+			buffer
 		);
 		matrixStack.popPose();
 		matrixStack.popPose();

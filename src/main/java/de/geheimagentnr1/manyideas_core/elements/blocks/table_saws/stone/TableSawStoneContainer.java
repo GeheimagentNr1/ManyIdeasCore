@@ -19,15 +19,15 @@ import java.util.List;
 public class TableSawStoneContainer extends TableSawContainer {
 	
 	
-	public TableSawStoneContainer( int windowIdIn, PlayerInventory playerInventoryIn ) {
+	public TableSawStoneContainer( int menuId, PlayerInventory playerInventory ) {
 		
-		super( ModBlocks.TABLE_SAW_STONE_CONTAINER, windowIdIn, playerInventoryIn );
+		super( ModBlocks.TABLE_SAW_STONE_CONTAINER, menuId, playerInventory );
 	}
 	
 	//package-private
-	TableSawStoneContainer( int windowIdIn, PlayerInventory playerInventoryIn, IWorldPosCallable worldPosCallableIn ) {
+	TableSawStoneContainer( int menuId, PlayerInventory playerInventory, IWorldPosCallable worldPosCallable ) {
 		
-		super( ModBlocks.TABLE_SAW_STONE_CONTAINER, windowIdIn, playerInventoryIn, worldPosCallableIn );
+		super( ModBlocks.TABLE_SAW_STONE_CONTAINER, menuId, playerInventory, worldPosCallable );
 	}
 	
 	@SuppressWarnings( "rawtypes" )
@@ -44,10 +44,10 @@ public class TableSawStoneContainer extends TableSawContainer {
 	}
 	
 	@Override
-	public List<TableSawRecipe> getAvaiableRecipes( IInventory inventoryIn, World _world ) {
+	public List<TableSawRecipe> getAvaiableRecipes( IInventory inventory, World level ) {
 		
 		return new ArrayList<>(
-			_world.getRecipeManager().getRecipesFor( RecipeTypes.TABLE_SAWING_STONE, inventoryIn, _world )
+			level.getRecipeManager().getRecipesFor( RecipeTypes.TABLE_SAWING_STONE, inventory, level )
 		);
 	}
 }

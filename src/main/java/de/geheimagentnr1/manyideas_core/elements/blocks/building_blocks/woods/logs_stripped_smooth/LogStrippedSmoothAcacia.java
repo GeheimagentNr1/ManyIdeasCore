@@ -16,8 +16,8 @@ public class LogStrippedSmoothAcacia extends Wood {
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( ModBlocks.LOG_STRIPPED_SMOOTH_ACACIA, properties, registry_name );
+		return createBlockItem( ModBlocks.LOG_STRIPPED_SMOOTH_ACACIA, _properties, registry_name );
 	}
 }

@@ -1,6 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.items.plates;
 
 import de.geheimagentnr1.manyideas_core.elements.items.CoreBaseItem;
+import net.minecraft.item.Item;
 
 
 public class PlateGold extends CoreBaseItem {
@@ -10,6 +11,6 @@ public class PlateGold extends CoreBaseItem {
 	
 	public PlateGold() {
 		
-		super( new Properties(), registry_name );
+		super( new Item.Properties(), registry_name );
 	}
 }

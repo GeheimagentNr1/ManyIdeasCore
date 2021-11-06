@@ -117,26 +117,26 @@ public class ModEventHandler {
 	public static void onContainerRegistry( RegistryEvent.Register<ContainerType<?>> event ) {
 		
 		event.getRegistry()
-			.register( IForgeContainerType.create( ( windowId, inv, data ) -> new DyeCraftingTableContainer(
-				windowId,
+			.register( IForgeContainerType.create( ( menuId, inv, data ) -> new DyeCraftingTableContainer(
+				menuId,
 				inv
 			) ).setRegistryName( DyeCraftingTable.registry_name ) );
 		event.getRegistry()
-			.register( IForgeContainerType.create( ( windowId, inv, data ) -> new TableSawDiamondContainer(
-				windowId,
+			.register( IForgeContainerType.create( ( menuId, inv, data ) -> new TableSawDiamondContainer(
+				menuId,
 				inv
 			) ).setRegistryName( TableSawDiamond.registry_name ) );
-		event.getRegistry().register( IForgeContainerType.create( ( windowId, inv, data ) -> new TableSawIronContainer(
-			windowId,
+		event.getRegistry().register( IForgeContainerType.create( ( menuId, inv, data ) -> new TableSawIronContainer(
+			menuId,
 			inv
 		) ).setRegistryName( TableSawIron.registry_name ) );
-		event.getRegistry().register( IForgeContainerType.create( ( windowId, inv, data ) -> new TableSawStoneContainer(
-			windowId,
+		event.getRegistry().register( IForgeContainerType.create( ( menuId, inv, data ) -> new TableSawStoneContainer(
+			menuId,
 			inv
 		) ).setRegistryName( TableSawStone.registry_name ) );
 		
-		event.getRegistry().register( IForgeContainerType.create( ( windowId, inv, data ) -> new RedstoneKeyContainer(
-			windowId,
+		event.getRegistry().register( IForgeContainerType.create( ( menuId, inv, data ) -> new RedstoneKeyContainer(
+			menuId,
 			data
 		) ).setRegistryName( RedstoneKey.registry_name ) );
 	}

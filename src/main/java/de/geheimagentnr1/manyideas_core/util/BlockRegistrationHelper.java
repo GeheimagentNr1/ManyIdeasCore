@@ -22,14 +22,14 @@ public class BlockRegistrationHelper {
 	}
 	
 	public static void registerBlockItems(
-		RegistryEvent.Register<Item> itemRegistryEvent,
+		RegistryEvent.Register<Item> event,
 		Block[] blocks,
 		Item.Properties properties ) {
 		
 		for( Block block : blocks ) {
 			if( block instanceof BlockItemInterface ) {
 				BlockItemInterface blockItem = (BlockItemInterface)block;
-				itemRegistryEvent.getRegistry().register( blockItem.getBlockItem( properties ) );
+				event.getRegistry().register( blockItem.getBlockItem( properties ) );
 			}
 		}
 	}

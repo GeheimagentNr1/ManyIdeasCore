@@ -1,16 +1,17 @@
 package de.geheimagentnr1.manyideas_core.integrations.jei.item_subtypes;
 
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
-import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter;
+import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
+import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.item.ItemStack;
 
 
-public class DyeBlockItemSubtypeInterpreter implements ISubtypeInterpreter {
+public class DyeBlockItemSubtypeInterpreter implements IIngredientSubtypeInterpreter<ItemStack> {
 	
 	
 	@Override
-	public String apply( ItemStack itemStack ) {
+	public String apply( ItemStack ingredient, UidContext context ) {
 		
-		return DyeBlockHelper.getColorName( itemStack );
+		return DyeBlockHelper.getColorName( ingredient );
 	}
 }

@@ -9,6 +9,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 
 
@@ -21,23 +22,31 @@ public class DyeCraftingTableScreen extends ContainerScreen<DyeCraftingTableCont
 		"textures/gui/container/crafting_table.png"
 	);
 	
-	public DyeCraftingTableScreen( DyeCraftingTableContainer _container, PlayerInventory inv, ITextComponent _title ) {
+	public DyeCraftingTableScreen(
+		DyeCraftingTableContainer _menu,
+		PlayerInventory _inventory,
+		ITextComponent _title ) {
 		
-		super( _container, inv, _title );
+		super( _menu, _inventory, _title );
+		initData();
+	}
+	
+	private void initData() {
+		
 		titleLabelX = 38;
 	}
 	
 	@Override
-	public void render( MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks ) {
+	public void render( @Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks ) {
 		
 		super.render( matrixStack, mouseX, mouseY, partialTicks );
 		renderTooltip( matrixStack, mouseX, mouseY );
 	}
 	
 	@Override
-	protected void renderBg( MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY ) {
+	protected void renderBg( @Nonnull MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY ) {
 		
-		RenderSystem.color4f( 1.0F, 1.0F, 1.0F, 1.0F );
+		RenderSystem.blendColor( 1.0F, 1.0F, 1.0F, 1.0F );
 		Objects.requireNonNull( minecraft ).getTextureManager().bind( CRAFTING_TABLE_GUI_TEXTURES );
 		blit( matrixStack, leftPos, ( height - imageHeight ) / 2, 0, 0, imageWidth, imageHeight );
 	}

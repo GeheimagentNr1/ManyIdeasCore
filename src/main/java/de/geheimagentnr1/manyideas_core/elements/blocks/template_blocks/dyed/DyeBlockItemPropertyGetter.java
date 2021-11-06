@@ -12,13 +12,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
+@SuppressWarnings( "WeakerAccess" )
 public class DyeBlockItemPropertyGetter implements IItemPropertyGetter {
 	
 	
 	public static final ResourceLocation registry_name = new ResourceLocation( "color" );
 	
 	@Override
-	public float call( @Nonnull ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity livingEntity ) {
+	public float call( @Nonnull ItemStack stack, @Nullable ClientWorld level, @Nullable LivingEntity livingEntity ) {
 		
 		Color[] colors = Color.values();
 		String color = DyeBlockHelper.getColorName( stack );

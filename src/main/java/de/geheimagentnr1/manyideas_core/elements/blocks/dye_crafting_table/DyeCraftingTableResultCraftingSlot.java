@@ -47,26 +47,26 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	
 	@Nonnull
 	@Override
-	public ItemStack remove( int amount ) {
+	public ItemStack remove( int count ) {
 		
 		if( hasItem() ) {
-			amountCrafted += Math.min( amount, getItem().getCount() );
+			amountCrafted += Math.min( count, getItem().getCount() );
 		}
 		
-		return super.remove( amount );
+		return super.remove( count );
 	}
 	
 	@Override
-	protected void onQuickCraft( @Nonnull ItemStack stack, int amount ) {
+	protected void onQuickCraft( @Nonnull ItemStack stack, int count ) {
 		
-		amountCrafted += amount;
+		amountCrafted += count;
 		checkTakeAchievements( stack );
 	}
 	
 	@Override
-	protected void onSwapCraft( int numItemsCrafted ) {
+	protected void onSwapCraft( int count ) {
 		
-		amountCrafted += numItemsCrafted;
+		amountCrafted += count;
 	}
 	
 	@Override
@@ -84,14 +84,14 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	
 	@Nonnull
 	@Override
-	public ItemStack onTake( @Nonnull PlayerEntity player, @Nonnull ItemStack stack ) {
+	public ItemStack onTake( @Nonnull PlayerEntity _player, @Nonnull ItemStack stack ) {
 		
 		checkTakeAchievements( stack );
-		ForgeHooks.setCraftingPlayer( player );
-		NonNullList<ItemStack> ingredients = player.level.getRecipeManager().getRemainingItemsFor(
+		ForgeHooks.setCraftingPlayer( _player );
+		NonNullList<ItemStack> ingredients = _player.level.getRecipeManager().getRemainingItemsFor(
 			RecipeTypes.DYED,
 			craftingInventory,
-			player.level
+			_player.level
 		);
 		ForgeHooks.setCraftingPlayer( null );
 		for( int i = 0; i < ingredients.size(); ++i ) {
@@ -113,8 +113,8 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 						ingredient.grow( crafting_stack.getCount() );
 						craftingInventory.setItem( i, ingredient );
 					} else {
-						if( !this.player.inventory.add( ingredient ) ) {
-							this.player.drop( ingredient, false );
+						if( !player.inventory.add( ingredient ) ) {
+							player.drop( ingredient, false );
 						}
 					}
 				}

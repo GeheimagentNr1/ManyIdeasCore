@@ -2,6 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.rainbow
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.ConcretePowderBlock;
 import net.minecraft.block.SoundType;
@@ -21,14 +22,14 @@ public class RainbowConcretePowder extends ConcretePowderBlock implements BlockI
 		
 		super(
 			CONCRETE_BLOCK,
-			Properties.of( Material.SAND ).strength( 0.5F ).sound( SoundType.SAND )
+			AbstractBlock.Properties.of( Material.SAND ).strength( 0.5F ).sound( SoundType.SAND )
 		);
 		setRegistryName( registry_name );
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( ModBlocks.RAINBOW_CONCRETE_POWDER, properties, registry_name );
+		return createBlockItem( ModBlocks.RAINBOW_CONCRETE_POWDER, _properties, registry_name );
 	}
 }

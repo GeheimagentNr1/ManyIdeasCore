@@ -2,15 +2,12 @@ package de.geheimagentnr1.manyideas_core.integrations.jei.categories.template.si
 
 import de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes.SingleItemRecipe;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 @SuppressWarnings( "AbstractClassWithoutAbstractMethods" )
@@ -27,16 +24,16 @@ public abstract class JeiSingleItemRecipe<T extends SingleItemRecipe> {
 		result = recipe.getResultItem();
 	}
 	
-	@SuppressWarnings( "unchecked" )
 	protected static <R extends SingleItemRecipe, J extends JeiSingleItemRecipe<R>> List<J> getRecipes(
-		IRecipeType<R> recipeType,
+		IRecipeType<R> recipe,
 		Function<R, J> jeiRecipeBuilder ) {
 		
-		ClientWorld world = Minecraft.getInstance().level;
-		ArrayList<J> jeiRecipes = new ArrayList<>();
-		world.getRecipeManager().getRecipes().stream().filter( iRecipe -> iRecipe.getType() == recipeType ).forEach(
-			iRecipe -> jeiRecipes.add( jeiRecipeBuilder.apply( (R)iRecipe ) ) );
-		return jeiRecipes;
+		return Optional.ofNullable( Minecraft.getInstance().level )
+			.map( level -> level.getRecipeManager().getAllRecipesFor( recipe ) )
+			.orElseGet( ArrayList::new )
+			.stream()
+			.map( jeiRecipeBuilder )
+			.collect( Collectors.toList());
 	}
 	
 	//package-private

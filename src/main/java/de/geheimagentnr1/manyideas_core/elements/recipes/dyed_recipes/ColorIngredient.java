@@ -26,6 +26,7 @@ public class ColorIngredient extends Ingredient {
 		ingrediant = _ingrediant;
 	}
 	
+	@Nonnull
 	@Override
 	public JsonElement toJson() {
 		

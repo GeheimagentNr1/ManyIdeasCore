@@ -7,13 +7,14 @@ import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.ColorIngre
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedRecipe;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 public class JeiDyedRecipe {
@@ -67,18 +68,13 @@ public class JeiDyedRecipe {
 	
 	public static List<JeiDyedRecipe> getRecipes() {
 		
-		ClientWorld world = Minecraft.getInstance().level;
-		ArrayList<JeiDyedRecipe> jeiDyedRecipes = new ArrayList<>();
-		world.getRecipeManager().getRecipes().forEach( iRecipe -> {
-			if( iRecipe.getType() == RecipeTypes.DYED ) {
-				DyedRecipe recipe = (DyedRecipe)iRecipe;
-				ArrayList<JeiDyedRecipe> recipes = create( recipe );
-				if( !recipes.isEmpty() ) {
-					jeiDyedRecipes.addAll( recipes );
-				}
-			}
-		} );
-		return jeiDyedRecipes;
+		return Optional.ofNullable( Minecraft.getInstance().level )
+			.map( clientWorld -> clientWorld.getRecipeManager().getAllRecipesFor( RecipeTypes.DYED ) )
+			.orElseGet( ArrayList::new )
+			.stream()
+			.map( JeiDyedRecipe::create )
+			.flatMap( List::stream )
+			.collect( Collectors.toList() );
 	}
 	
 	//package-private

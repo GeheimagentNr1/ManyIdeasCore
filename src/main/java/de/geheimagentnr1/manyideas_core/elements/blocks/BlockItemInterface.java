@@ -10,7 +10,7 @@ public interface BlockItemInterface {
 	
 	
 	//public
-	Item getBlockItem( Item.Properties properties );
+	Item getBlockItem( Item.Properties _properties );
 	
 	//public
 	default Item createBlockItem( Block block, Item.Properties properties, String registry_name ) {

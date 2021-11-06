@@ -2,6 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.flowers_straight.TallFlower;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -15,7 +16,7 @@ public class FlowerTallStraightRoseBush extends TallFlower {
 	public FlowerTallStraightRoseBush() {
 		
 		super(
-			Properties.of( Material.REPLACEABLE_PLANT )
+			AbstractBlock.Properties.of( Material.REPLACEABLE_PLANT )
 				.noCollission()
 				.instabreak()
 				.sound( SoundType.GRASS ),
@@ -24,8 +25,8 @@ public class FlowerTallStraightRoseBush extends TallFlower {
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( ModBlocks.FLOWER_TALL_STRAIGHT_ROSE_BUSH, properties, registry_name );
+		return createBlockItem( ModBlocks.FLOWER_TALL_STRAIGHT_ROSE_BUSH, _properties, registry_name );
 	}
 }

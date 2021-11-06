@@ -36,10 +36,15 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 	
 	private boolean displayRecipes;
 	
-	public TableSawScreen( TableSawContainer containerIn, PlayerInventory inv, ITextComponent title ) {
+	public TableSawScreen( TableSawContainer _menu, PlayerInventory _inventory, ITextComponent _title ) {
 		
-		super( containerIn, inv, title );
-		containerIn.setInventoryUpdateListener( this::containerChanged );
+		super( _menu, _inventory, _title );
+		_menu.setInventoryUpdateListener( this::containerChanged );
+		initData();
+	}
+	
+	private void initData() {
+		
 		--titleLabelY;
 	}
 	
@@ -52,6 +57,7 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 	protected void renderBg( @Nonnull MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY ) {
 		
 		renderBackground( matrixStack );
+		//noinspection deprecation
 		RenderSystem.color4f( 1.0F, 1.0F, 1.0F, 1.0F );
 		Objects.requireNonNull( minecraft ).getTextureManager().bind( BACKGROUND_TEXTURE );
 		int i = leftPos;
@@ -141,7 +147,7 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 			for( int l = startIndex; l < k; ++l ) {
 				int i1 = l - startIndex;
 				double d0 = p_231044_1_ - ( i + ( i1 % 4 << 4 ) );
-				double d1 = p_231044_3_ - ( j + i1 / 4 * 18 );
+				double d1 = p_231044_3_ - ( j + i1 / 4.0 * 18 );
 				if( d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D &&
 					menu.clickMenuButton( Objects.requireNonNull( Objects.requireNonNull( minecraft ).player ), l ) ) {
 					Minecraft.getInstance()
@@ -152,10 +158,10 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 				}
 			}
 			
-			i = leftPos + 119;
-			j = topPos + 9;
-			if( p_231044_1_ >= i && p_231044_1_ < ( i + 12 ) && p_231044_3_ >= j &&
-				p_231044_3_ < ( j + 54 ) ) {
+			int i1 = leftPos + 119;
+			int i2 = topPos + 9;
+			if( p_231044_1_ >= i1 && p_231044_1_ < ( i1 + 12 ) && p_231044_3_ >= i2 &&
+				p_231044_3_ < ( i2 + 54 ) ) {
 				scrolling = true;
 			}
 		}
@@ -186,7 +192,7 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 		
 		if( isScrollBarActive() ) {
 			int i = getOffscreenRows();
-			scrollOffs = (float)( scrollOffs - p_231043_5_ / i );
+			scrollOffs -= p_231043_5_ / i;
 			scrollOffs = MathHelper.clamp( scrollOffs, 0.0F, 1.0F );
 			startIndex = (int)( ( scrollOffs * i ) + 0.5D ) << 2;
 		}

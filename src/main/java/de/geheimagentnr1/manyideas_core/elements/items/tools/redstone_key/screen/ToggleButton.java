@@ -8,6 +8,7 @@ import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 
+import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
 
@@ -41,9 +42,10 @@ public class ToggleButton extends AbstractButton {
 	}
 	
 	@Override
-	public void renderButton( MatrixStack matrixStack, int mouseX, int mouseY, float partial ) {
+	public void renderButton( @Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partial ) {
 		
 		Minecraft.getInstance().getTextureManager().bind( TOGGLE_BUTTON );
+		//noinspection deprecation
 		RenderSystem.color4f( 1.0f, 1.0f, 1.0f, 1.0f );
 		int textureStartindex = 0;
 		

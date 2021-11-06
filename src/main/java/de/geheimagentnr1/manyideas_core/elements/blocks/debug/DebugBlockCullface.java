@@ -3,6 +3,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.debug;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeMemory;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeVector;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
@@ -32,7 +33,7 @@ public class DebugBlockCullface extends Block implements BlockItemInterface {
 	
 	public DebugBlockCullface() {
 		
-		super( Properties.of( Material.DIRT ) );
+		super( AbstractBlock.Properties.of( Material.DIRT ) );
 		setRegistryName( registry_name );
 	}
 	
@@ -41,7 +42,7 @@ public class DebugBlockCullface extends Block implements BlockItemInterface {
 	@Override
 	public VoxelShape getShape(
 		BlockState state,
-		@Nonnull IBlockReader worldIn,
+		@Nonnull IBlockReader level,
 		@Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
@@ -63,8 +64,8 @@ public class DebugBlockCullface extends Block implements BlockItemInterface {
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( this, properties, registry_name );
+		return createBlockItem( this, _properties, registry_name );
 	}
 }

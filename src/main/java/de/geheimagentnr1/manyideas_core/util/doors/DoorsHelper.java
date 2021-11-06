@@ -19,13 +19,13 @@ public class DoorsHelper {
 	
 	
 	public static void playDoorSound(
-		World world,
+		World level,
 		BlockPos pos,
 		Material material,
 		PlayerEntity player,
 		boolean open ) {
 		
-		world.playSound(
+		level.playSound(
 			player,
 			pos,
 			open ? getOpenDoorSound( material ) : getCloseDoorSound( material ),
@@ -45,17 +45,17 @@ public class DoorsHelper {
 		return material == Material.METAL ? SoundEvents.IRON_DOOR_CLOSE : SoundEvents.WOODEN_DOOR_CLOSE;
 	}
 	
-	public static BlockData getOtherBlock( World world, BlockPos pos, BlockState state ) {
+	public static BlockData getOtherBlock( World level, BlockPos pos, BlockState state ) {
 		
 		BlockPos otherPos = state.getValue( DoorBlock.HALF ) == DoubleBlockHalf.LOWER ? pos.above() : pos.below();
-		BlockState otherState = world.getBlockState( otherPos );
+		BlockState otherState = level.getBlockState( otherPos );
 		return new BlockData( otherPos, otherState );
 	}
 	
-	public static BlockData getNeighborBlock( World world, BlockPos pos, BlockState state ) {
+	public static BlockData getNeighborBlock( World level, BlockPos pos, BlockState state ) {
 		
 		BlockPos neighborPos = pos.relative( getDirectionToNeighborDoor( state ) );
-		BlockState neighborState = world.getBlockState( neighborPos );
+		BlockState neighborState = level.getBlockState( neighborPos );
 		return new BlockData( neighborPos, neighborState );
 	}
 	
@@ -68,9 +68,9 @@ public class DoorsHelper {
 			state.getValue( DoorBlock.HALF ) == neighborState.getValue( DoorBlock.HALF );
 	}
 	
-	public static boolean isDoorPowered( World world, BlockPos pos, BlockState state ) {
+	public static boolean isDoorPowered( World level, BlockPos pos, BlockState state ) {
 		
-		return world.hasNeighborSignal( pos ) || world.hasNeighborSignal( pos.relative(
+		return level.hasNeighborSignal( pos ) || level.hasNeighborSignal( pos.relative(
 			state.getValue( DoorBlock.HALF ) == DoubleBlockHalf.LOWER ? Direction.UP : Direction.DOWN ) );
 	}
 	

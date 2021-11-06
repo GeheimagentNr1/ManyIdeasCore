@@ -6,6 +6,7 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeMemory;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeVector;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -44,7 +45,7 @@ public class Mortar extends Block implements BlockItemInterface, BlockRenderType
 	
 	public Mortar() {
 		
-		super( Properties.of( Material.WOOD ).strength( 0.8F ).sound( SoundType.WOOD ) );
+		super( AbstractBlock.Properties.of( Material.WOOD ).strength( 0.8F ).sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 	}
 	
@@ -59,7 +60,7 @@ public class Mortar extends Block implements BlockItemInterface, BlockRenderType
 	@Override
 	public VoxelShape getShape(
 		@Nonnull BlockState state,
-		@Nonnull IBlockReader worldIn,
+		@Nonnull IBlockReader level,
 		@Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
@@ -71,18 +72,18 @@ public class Mortar extends Block implements BlockItemInterface, BlockRenderType
 	@Override
 	public ActionResultType use(
 		@Nonnull BlockState state,
-		@Nonnull World worldIn,
+		@Nonnull World level,
 		@Nonnull BlockPos pos,
 		@Nonnull PlayerEntity player,
-		@Nonnull Hand handIn,
-		@Nonnull BlockRayTraceResult hit ) {
+		@Nonnull Hand hand,
+		@Nonnull BlockRayTraceResult hitResult ) {
 		
-		ItemStack crafting_stack = player.getItemInHand( handIn );
+		ItemStack crafting_stack = player.getItemInHand( hand );
 		MortarCraftingInventory craftingInventory = new MortarCraftingInventory( crafting_stack );
-		Optional<GrindingRecipe> recipe = worldIn.getRecipeManager().getRecipeFor(
+		Optional<GrindingRecipe> recipe = level.getRecipeManager().getRecipeFor(
 			RecipeTypes.GRINDING,
 			craftingInventory,
-			worldIn
+			level
 		);
 		
 		if( recipe.isPresent() ) {
@@ -113,8 +114,8 @@ public class Mortar extends Block implements BlockItemInterface, BlockRenderType
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( ModBlocks.MORTAR, properties, registry_name );
+		return createBlockItem( ModBlocks.MORTAR, _properties, registry_name );
 	}
 }

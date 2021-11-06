@@ -35,14 +35,14 @@ public class RedstoneKey extends CoreBaseItem {
 	@Override
 	public ActionResultType useOn( ItemUseContext context ) {
 		
-		World world = context.getLevel();
+		World level = context.getLevel();
 		BlockPos pos = context.getClickedPos();
-		BlockState state = world.getBlockState( pos );
+		BlockState state = level.getBlockState( pos );
 		Block block = state.getBlock();
 		PlayerEntity player = context.getPlayer();
 		if( block instanceof RedstoneKeyable ) {
 			RedstoneKeyable redstoneKeyableBlock = (RedstoneKeyable)block;
-			if( !world.isClientSide && player != null ) {
+			if( !level.isClientSide && player != null ) {
 				ITextComponent title = redstoneKeyableBlock.getTitle();
 				ResourceLocation icons = redstoneKeyableBlock.getIconTextures();
 				List<Option> options = redstoneKeyableBlock.getOptions();

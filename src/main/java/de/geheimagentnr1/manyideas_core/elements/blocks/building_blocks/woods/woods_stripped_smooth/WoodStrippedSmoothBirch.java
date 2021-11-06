@@ -16,8 +16,8 @@ public class WoodStrippedSmoothBirch extends Wood {
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( ModBlocks.WOOD_STRIPPED_SMOOTH_BIRCH, properties, registry_name );
+		return createBlockItem( ModBlocks.WOOD_STRIPPED_SMOOTH_BIRCH, _properties, registry_name );
 	}
 }

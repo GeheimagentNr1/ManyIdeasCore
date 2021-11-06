@@ -4,6 +4,7 @@ import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.util.TranslationKeyHelper;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -51,7 +52,7 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	
 	public DyeCraftingTable() {
 		
-		super( Properties.of( Material.WOOD ).strength( 2.5F ).sound( SoundType.WOOD ) );
+		super( AbstractBlock.Properties.of( Material.WOOD ).strength( 2.5F ).sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 	}
 	
@@ -60,7 +61,7 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	@Override
 	public VoxelShape getShape(
 		@Nonnull BlockState state,
-		@Nonnull IBlockReader worldIn,
+		@Nonnull IBlockReader level,
 		@Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
@@ -83,13 +84,13 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	@Override
 	public ActionResultType use(
 		BlockState state,
-		@Nonnull World worldIn,
+		@Nonnull World level,
 		@Nonnull BlockPos pos,
 		PlayerEntity player,
-		@Nonnull Hand handIn,
-		@Nonnull BlockRayTraceResult hit ) {
+		@Nonnull Hand hand,
+		@Nonnull BlockRayTraceResult hitResult ) {
 		
-		player.openMenu( state.getMenuProvider( worldIn, pos ) );
+		player.openMenu( state.getMenuProvider( level, pos ) );
 		return ActionResultType.SUCCESS;
 	}
 	
@@ -97,13 +98,13 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	@Override
 	public INamedContainerProvider getMenuProvider(
 		@Nonnull BlockState state,
-		@Nonnull World worldIn,
+		@Nonnull World level,
 		@Nonnull BlockPos pos ) {
 		
 		return new SimpleNamedContainerProvider( ( windowID, playerInventory, playerEntity ) -> new DyeCraftingTableContainer(
 			windowID,
 			playerInventory,
-			IWorldPosCallable.create( worldIn, pos )
+			IWorldPosCallable.create( level, pos )
 		), CONTAINER_TITLE );
 	}
 	
@@ -114,8 +115,8 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( ModBlocks.DYE_CRAFTING_TABLE, properties, registry_name );
+		return createBlockItem( ModBlocks.DYE_CRAFTING_TABLE, _properties, registry_name );
 	}
 }

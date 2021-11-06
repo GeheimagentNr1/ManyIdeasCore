@@ -63,7 +63,7 @@ class MortarCraftingInventory implements IInventory {
 	}
 	
 	@Override
-	public boolean stillValid( @Nonnull PlayerEntity p_70300_1_ ) {
+	public boolean stillValid( @Nonnull PlayerEntity player ) {
 		
 		return true;
 	}

@@ -2,6 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.rainbow
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.GlazedTerracottaBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -15,13 +16,13 @@ public class RainbowTerracottaGlazed extends GlazedTerracottaBlock implements Bl
 	
 	public RainbowTerracottaGlazed() {
 		
-		super( Properties.of( Material.STONE ).strength( 1.4F ).sound( SoundType.STONE ) );
+		super( AbstractBlock.Properties.of( Material.STONE ).strength( 1.4F ).sound( SoundType.STONE ) );
 		setRegistryName( registry_name );
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( ModBlocks.RAINBOW_TERRACOTTA_GLAZED, properties, registry_name );
+		return createBlockItem( ModBlocks.RAINBOW_TERRACOTTA_GLAZED, _properties, registry_name );
 	}
 }

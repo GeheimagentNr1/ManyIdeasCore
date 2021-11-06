@@ -3,6 +3,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.planks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlock;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlockItem;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -25,7 +26,7 @@ public class PlanksColored extends DyeBlock {
 	public PlanksColored() {
 		
 		super(
-			Properties.of( Material.WOOD ).strength( 2.0F, 3.0F ).sound( SoundType.WOOD ),
+			AbstractBlock.Properties.of( Material.WOOD ).strength( 2.0F, 3.0F ).sound( SoundType.WOOD ),
 			registry_name
 		);
 	}
@@ -46,8 +47,8 @@ public class PlanksColored extends DyeBlock {
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return new DyeBlockItem( ModBlocks.PLANKS_COLORED, properties, registry_name );
+		return new DyeBlockItem( ModBlocks.PLANKS_COLORED, _properties, registry_name );
 	}
 }

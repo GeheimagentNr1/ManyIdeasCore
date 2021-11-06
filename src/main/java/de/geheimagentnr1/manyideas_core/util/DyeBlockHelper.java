@@ -46,16 +46,18 @@ public class DyeBlockHelper {
 		return resultColor;
 	}
 	
-	public static ItemStack setColorToItemStack( ItemStack stack, Color dyeColor ) {
+	public static ItemStack setColorToItemStack( ItemStack stack, Color color ) {
 		
-		stack.getOrCreateTagElement( dyeNBTname ).putString( colorNBTname, dyeColor.getSerializedName() );
+		stack.getOrCreateTagElement( dyeNBTname ).putString( colorNBTname, color.getSerializedName() );
 		return stack;
 	}
 	
 	public static BlockState getStateForPlacement( DyeBlock block, BlockItemUseContext context ) {
 		
-		return block.defaultBlockState().setValue( ModBlockStateProperties.COLOR,
-			getColor( context.getItemInHand() ) );
+		return block.defaultBlockState().setValue(
+			ModBlockStateProperties.COLOR,
+			getColor( context.getItemInHand() )
+		);
 	}
 	
 	public static void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {

@@ -16,9 +16,11 @@ public interface RedstoneKeyable {
 	
 	
 	//public
+	@SuppressWarnings( "SameReturnValue" )
 	ITextComponent getTitle();
 	
 	//public
+	@SuppressWarnings( "SameReturnValue" )
 	ResourceLocation getIconTextures();
 	
 	//public
@@ -28,5 +30,5 @@ public interface RedstoneKeyable {
 	int getStateIndex( BlockState state );
 	
 	//public
-	void setBlockStateValue( World world, BlockState state, BlockPos pos, int stateIndex, PlayerEntity player );
+	void setBlockStateValue( World level, BlockState state, BlockPos pos, int stateIndex, PlayerEntity player );
 }

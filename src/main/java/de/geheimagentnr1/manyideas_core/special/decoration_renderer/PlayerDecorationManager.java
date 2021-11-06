@@ -78,7 +78,9 @@ public class PlayerDecorationManager {
 	}
 	
 	public static void renderForPlayer(
-		PlayerEntity player, int light, MatrixStack matrixStack,
+		PlayerEntity player,
+		int light,
+		MatrixStack matrixStack,
 		IRenderTypeBuffer buffer ) {
 		
 		PlayerDecorationRenderer playerDecorationRenderer = DECORATION_LIST.get(

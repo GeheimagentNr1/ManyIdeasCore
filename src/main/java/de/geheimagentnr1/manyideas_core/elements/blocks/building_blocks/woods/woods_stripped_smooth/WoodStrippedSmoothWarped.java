@@ -16,8 +16,8 @@ public class WoodStrippedSmoothWarped extends Wood {
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( ModBlocks.WOOD_STRIPPED_SMOOTH_WARPED, properties, registry_name );
+		return createBlockItem( ModBlocks.WOOD_STRIPPED_SMOOTH_WARPED, _properties, registry_name );
 	}
 }

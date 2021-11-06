@@ -33,14 +33,14 @@ public class RedstoneKeyContainer extends Container {
 	private int selectedIndex;
 	
 	public RedstoneKeyContainer(
-		int containerID,
+		int menuId,
 		ResourceLocation _icons,
 		BlockPos _pos,
 		RedstoneKeyable _redstoneKeyableBlock,
 		List<Option> _options,
 		int _selectedIndex ) {
 		
-		super( ModItems.RESTONE_KEY_CONTAINER, containerID );
+		super( ModItems.RESTONE_KEY_CONTAINER, menuId );
 		icons = _icons;
 		pos = _pos;
 		redstoneKeyableBlock = _redstoneKeyableBlock;
@@ -48,9 +48,9 @@ public class RedstoneKeyContainer extends Container {
 		selectedIndex = _selectedIndex;
 	}
 	
-	public RedstoneKeyContainer( int containerID, PacketBuffer data ) {
+	public RedstoneKeyContainer( int menuId, PacketBuffer data ) {
 		
-		super( ModItems.RESTONE_KEY_CONTAINER, containerID );
+		super( ModItems.RESTONE_KEY_CONTAINER, menuId );
 		icons = data.readResourceLocation();
 		pos = data.readBlockPos();
 		redstoneKeyableBlock = (RedstoneKeyable)Objects.requireNonNull( Minecraft.getInstance().level )
@@ -75,11 +75,6 @@ public class RedstoneKeyContainer extends Container {
 		return icons;
 	}
 	
-	public BlockPos getPos() {
-		
-		return pos;
-	}
-	
 	public List<Option> getOptions() {
 		
 		return options;
@@ -95,13 +90,13 @@ public class RedstoneKeyContainer extends Container {
 		selectedIndex = _selected;
 	}
 	
-	public void setBlockStateValue( World world, int stateIndex, PlayerEntity player ) {
+	public void setBlockStateValue( World level, int stateIndex, PlayerEntity player ) {
 		
 		selectedIndex = stateIndex;
-		BlockState state = world.getBlockState( pos );
+		BlockState state = level.getBlockState( pos );
 		Block block = state.getBlock();
 		if( block == redstoneKeyableBlock ) {
-			redstoneKeyableBlock.setBlockStateValue( world, state, pos, stateIndex, player );
+			redstoneKeyableBlock.setBlockStateValue( level, state, pos, stateIndex, player );
 		}
 	}
 }

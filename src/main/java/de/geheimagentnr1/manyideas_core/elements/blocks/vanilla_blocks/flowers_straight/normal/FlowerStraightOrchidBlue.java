@@ -2,6 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.flowers_straight.Flower;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -18,17 +19,14 @@ public class FlowerStraightOrchidBlue extends Flower {
 		super(
 			Effects.SATURATION,
 			7,
-			Properties.of( Material.PLANT )
-				.noCollission()
-				.instabreak()
-				.sound( SoundType.GRASS ),
+			AbstractBlock.Properties.of( Material.PLANT ).noCollission().instabreak().sound( SoundType.GRASS ),
 			registry_name
 		);
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( ModBlocks.FLOWER_STRAIGHT_ORCHID_BLUE, properties, registry_name );
+		return createBlockItem( ModBlocks.FLOWER_STRAIGHT_ORCHID_BLUE, _properties, registry_name );
 	}
 }

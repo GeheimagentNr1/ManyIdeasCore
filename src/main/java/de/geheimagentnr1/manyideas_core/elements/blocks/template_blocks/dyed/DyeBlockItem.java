@@ -19,6 +19,11 @@ public class DyeBlockItem extends BlockItem {
 		
 		super( block, _properties );
 		setRegistryName( registry_name );
+		init();
+	}
+	
+	private void init() {
+		
 		ItemModelsProperties.register( this,
 			DyeBlockItemPropertyGetter.registry_name, new DyeBlockItemPropertyGetter()
 		);
@@ -32,9 +37,9 @@ public class DyeBlockItem extends BlockItem {
 	}
 	
 	@Override
-	public void fillItemCategory( @Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items ) {
+	public void fillItemCategory( @Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> items ) {
 		
-		if( allowdedIn( group ) ) {
+		if( allowdedIn( tab ) ) {
 			if( ClientConfig.ALL_COLORS_IN_ITEM_GROUP.get() ) {
 				for( Color color : Color.values() ) {
 					items.add( DyeBlockHelper.createItemStackOfItem( this, color ) );

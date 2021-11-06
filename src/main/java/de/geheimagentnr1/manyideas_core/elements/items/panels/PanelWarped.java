@@ -1,6 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.items.panels;
 
 import de.geheimagentnr1.manyideas_core.elements.items.CoreBaseItem;
+import net.minecraft.item.Item;
 
 
 public class PanelWarped extends CoreBaseItem {
@@ -10,6 +11,6 @@ public class PanelWarped extends CoreBaseItem {
 	
 	public PanelWarped() {
 		
-		super( new Properties(), registry_name );
+		super( new Item.Properties(), registry_name );
 	}
 }

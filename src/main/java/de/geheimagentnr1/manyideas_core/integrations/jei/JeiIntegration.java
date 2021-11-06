@@ -145,7 +145,10 @@ public class JeiIntegration implements IModPlugin {
 			new ItemStack( ModBlocks.DYE_CRAFTING_TABLE ),
 			DyedRecipeCategory.registry_key
 		);
-		registration.addRecipeCatalyst( new ItemStack( ModBlocks.MORTAR ), GrindingRecipeCategory.registry_key );
+		registration.addRecipeCatalyst(
+			new ItemStack( ModBlocks.MORTAR ),
+			GrindingRecipeCategory.registry_key
+		);
 		registration.addRecipeCatalyst(
 			new ItemStack( ModBlocks.TABLE_SAW_DIAMOND ),
 			TableSawDiamondRecipeCategory.registry_key

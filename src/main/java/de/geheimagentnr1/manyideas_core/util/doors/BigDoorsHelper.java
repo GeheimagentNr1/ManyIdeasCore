@@ -16,14 +16,14 @@ public class BigDoorsHelper {
 	
 	
 	public static BlockData getNeighborBlock(
-		World world,
+		World level,
 		BlockPos zeroPos,
 		BlockState state,
 		int zSize,
 		Function<BlockData, BlockPos> zeroPosCalculator ) {
 		
 		BlockPos neighborPos = zeroPos.relative( getDirectionToNeighborDoor( state ), zSize );
-		BlockState neighborState = world.getBlockState( neighborPos );
+		BlockState neighborState = level.getBlockState( neighborPos );
 		BlockPos neighborZeroPos = neighborState.getBlock() instanceof BigDoor
 			? zeroPosCalculator.apply( new BlockData( neighborPos, neighborState ) )
 			: null;

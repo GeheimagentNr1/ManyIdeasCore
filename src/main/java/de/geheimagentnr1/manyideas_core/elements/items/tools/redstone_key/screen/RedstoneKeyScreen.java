@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,9 +26,9 @@ public class RedstoneKeyScreen extends ContainerScreen<RedstoneKeyContainer> {
 	
 	private final List<RedstoneKeyOption> optionsGui = new ArrayList<>();
 	
-	public RedstoneKeyScreen( RedstoneKeyContainer screenContainer, PlayerInventory inv, ITextComponent titleIn ) {
+	public RedstoneKeyScreen( RedstoneKeyContainer _menu, PlayerInventory _inventory, ITextComponent _title ) {
 		
-		super( screenContainer, inv, titleIn );
+		super( _menu, _inventory, _title );
 	}
 	
 	@Override
@@ -58,23 +59,24 @@ public class RedstoneKeyScreen extends ContainerScreen<RedstoneKeyContainer> {
 	}
 	
 	@Override
-	public void render( MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks ) {
+	public void render( @Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks ) {
 		
 		super.render( matrixStack, mouseX, mouseY, partialTicks );
 		optionsGui.forEach( optionGui -> optionGui.render( matrixStack, mouseX, mouseY, partialTicks ) );
 	}
 	
 	@Override
-	protected void renderLabels( MatrixStack matrixStack, int p_230451_2_, int p_230451_3_ ) {
+	protected void renderLabels( @Nonnull MatrixStack matrixStack, int mouseX, int mouseY ) {
 		
 		int titleStartX = width / 2 - leftPos - font.width( title.getString() ) / 2;
 		font.draw( matrixStack, title.getString(), titleStartX, 5, 4210752 );
 	}
 	
 	@Override
-	protected void renderBg( MatrixStack matrixStack, float p_230450_2_, int p_230450_3_, int p_230450_4_ ) {
+	protected void renderBg( @Nonnull MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY ) {
 		
 		Objects.requireNonNull( minecraft );
+		//noinspection deprecation
 		RenderSystem.color4f( 1.0F, 1.0F, 1.0F, 1.0F );
 		minecraft.getTextureManager().bind( REDSTONE_KEY_GUI_TEXTURE );
 		blit( matrixStack, leftPos, ( height - imageHeight ) / 2, 0, 0, imageWidth, imageHeight );

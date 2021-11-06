@@ -16,8 +16,8 @@ public class PlanksSeamlessCrimson extends Planks {
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( ModBlocks.PLANKS_SEAMLESS_CRIMSON, properties, registry_name );
+		return createBlockItem( ModBlocks.PLANKS_SEAMLESS_CRIMSON, _properties, registry_name );
 	}
 }

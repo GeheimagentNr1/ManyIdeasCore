@@ -56,10 +56,10 @@ public abstract class TableSawContainer extends Container {
 	
 	protected TableSawContainer(
 		ContainerType<? extends TableSawContainer> tableSawContainerType,
-		int windowIdIn,
-		PlayerInventory playerInventoryIn ) {
+		int menuId,
+		PlayerInventory playerInventory ) {
 		
-		this( tableSawContainerType, windowIdIn, playerInventoryIn, IWorldPosCallable.NULL );
+		this( tableSawContainerType, menuId, playerInventory, IWorldPosCallable.NULL );
 	}
 	
 	@SuppressWarnings( {
@@ -71,27 +71,27 @@ public abstract class TableSawContainer extends Container {
 	} )
 	protected TableSawContainer(
 		ContainerType<? extends TableSawContainer> tableSawContainerType,
-		int windowIdIn,
-		PlayerInventory playerInventoryIn,
-		IWorldPosCallable worldPosCallableIn ) {
+		int menuId,
+		PlayerInventory playerInventory,
+		IWorldPosCallable _worldPosCallable ) {
 		
-		super( tableSawContainerType, windowIdIn );
-		worldPosCallable = worldPosCallableIn;
-		world = playerInventoryIn.player.level;
+		super( tableSawContainerType, menuId );
+		worldPosCallable = _worldPosCallable;
+		world = playerInventory.player.level;
 		inputInventorySlot = addSlot( new Slot( inputInventory, 0, 20, 33 ) );
 		outputInventorySlot = addSlot( new TableSawOutputSlot(
 			this,
-			worldPosCallableIn,
+			_worldPosCallable,
 			inputInventorySlot,
 			resultI
 		) );
 		for( int i = 0; i < 3; ++i ) {
 			for( int j = 0; j < 9; ++j ) {
-				addSlot( new Slot( playerInventoryIn, j + i * 9 + 9, 8 + j * 18, 84 + i * 18 ) );
+				addSlot( new Slot( playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18 ) );
 			}
 		}
 		for( int k = 0; k < 9; ++k ) {
-			addSlot( new Slot( playerInventoryIn, k, 8 + k * 18, 142 ) );
+			addSlot( new Slot( playerInventory, k, 8 + k * 18, 142 ) );
 		}
 		addDataSlot( selectedRecipe );
 		HashSet<Item> acceptable_input = new HashSet<>();
@@ -164,17 +164,17 @@ public abstract class TableSawContainer extends Container {
 		
 	}
 	
-	private void updateAvailableRecipes( IInventory inventoryIn, ItemStack stack ) {
+	private void updateAvailableRecipes( IInventory inventory, ItemStack stack ) {
 		
 		recipes.clear();
 		selectedRecipe.set( -1 );
 		outputInventorySlot.set( ItemStack.EMPTY );
 		if( !stack.isEmpty() ) {
-			recipes = getAvaiableRecipes( inventoryIn, world );
+			recipes = getAvaiableRecipes( inventory, world );
 		}
 	}
 	
-	protected abstract List<TableSawRecipe> getAvaiableRecipes( IInventory inventoryIn, World _world );
+	protected abstract List<TableSawRecipe> getAvaiableRecipes( IInventory inventory, World level );
 	
 	//package-private
 	void updateRecipeResultSlot() {
@@ -190,9 +190,9 @@ public abstract class TableSawContainer extends Container {
 	
 	//package-private
 	@OnlyIn( Dist.CLIENT )
-	void setInventoryUpdateListener( Runnable listenerIn ) {
+	void setInventoryUpdateListener( Runnable listener ) {
 		
-		inventoryUpdateListener = listenerIn;
+		inventoryUpdateListener = listener;
 	}
 	
 	//package-private

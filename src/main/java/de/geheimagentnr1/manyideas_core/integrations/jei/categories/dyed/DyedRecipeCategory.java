@@ -55,19 +55,19 @@ public class DyedRecipeCategory extends JeiRecipeCategory<JeiDyedRecipe> {
 	}
 	
 	@Override
-	public void setIngredients( @Nonnull JeiDyedRecipe jeiDyedRecipe, @Nonnull IIngredients iIngredients ) {
+	public void setIngredients( @Nonnull JeiDyedRecipe recipe, @Nonnull IIngredients ingredients ) {
 		
-		iIngredients.setInputLists( VanillaTypes.ITEM, jeiDyedRecipe.getInputs() );
-		iIngredients.setOutput( VanillaTypes.ITEM, jeiDyedRecipe.getResult() );
+		ingredients.setInputLists( VanillaTypes.ITEM, recipe.getInputs() );
+		ingredients.setOutput( VanillaTypes.ITEM, recipe.getResult() );
 	}
 	
 	@Override
 	public void setRecipe(
-		IRecipeLayout iRecipeLayout,
-		@Nonnull JeiDyedRecipe jeiDyedRecipe,
-		@Nonnull IIngredients iIngredients ) {
+		IRecipeLayout recipeLayout,
+		@Nonnull JeiDyedRecipe recipe,
+		@Nonnull IIngredients ingredients ) {
 		
-		IGuiItemStackGroup itemStacks = iRecipeLayout.getItemStacks();
+		IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
 		
 		for( int i = 0; i < 3; i++ ) {
 			for( int j = 0; j < 3; j++ ) {
@@ -75,6 +75,6 @@ public class DyedRecipeCategory extends JeiRecipeCategory<JeiDyedRecipe> {
 			}
 		}
 		itemStacks.init( 10, false, 94, 18 );
-		itemStacks.set( iIngredients );
+		itemStacks.set( ingredients );
 	}
 }

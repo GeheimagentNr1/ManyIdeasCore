@@ -2,6 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,10 +21,9 @@ import javax.annotation.Nullable;
 public abstract class DyeBlock extends Block implements BlockItemInterface {
 	
 	
-	@SuppressWarnings( "SameParameterValue" )
-	protected DyeBlock( Block.Properties properties, String registry_name ) {
+	protected DyeBlock( AbstractBlock.Properties _properties, String registry_name ) {
 		
-		super( properties );
+		super( _properties );
 		setRegistryName( registry_name );
 	}
 	

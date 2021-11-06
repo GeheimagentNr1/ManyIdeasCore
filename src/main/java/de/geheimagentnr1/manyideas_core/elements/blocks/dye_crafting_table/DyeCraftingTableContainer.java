@@ -39,8 +39,10 @@ public class DyeCraftingTableContainer extends Container {
 	
 	//package-private
 	@SuppressWarnings( { "OverridableMethodCallDuringObjectConstruction", "ThisEscapedInObjectConstruction" } )
-	DyeCraftingTableContainer( int containerID, PlayerInventory playerInventory,
-	                           IWorldPosCallable _worldPosCallable ) {
+	DyeCraftingTableContainer(
+		int containerID,
+		PlayerInventory playerInventory,
+		IWorldPosCallable _worldPosCallable ) {
 		
 		super( ModBlocks.DYE_CRAFTING_TABLE_CONTAINER, containerID );
 		craftingInventory = new CraftingInventory( this, 3, 3 );
@@ -108,21 +110,21 @@ public class DyeCraftingTableContainer extends Container {
 	}
 	
 	@Override
-	public void removed( @Nonnull PlayerEntity player ) {
+	public void removed( @Nonnull PlayerEntity _player ) {
 		
-		super.removed( player );
-		worldPosCallable.execute( ( world, pos ) -> clearContainer( player, world, craftingInventory ) );
+		super.removed( _player );
+		worldPosCallable.execute( ( world, pos ) -> clearContainer( _player, world, craftingInventory ) );
 	}
 	
 	@Override
-	public boolean stillValid( PlayerEntity player ) {
+	public boolean stillValid( @Nonnull PlayerEntity _player ) {
 		
-		return stillValid( worldPosCallable, player, ModBlocks.DYE_CRAFTING_TABLE );
+		return stillValid( worldPosCallable, _player, ModBlocks.DYE_CRAFTING_TABLE );
 	}
 	
 	@Nonnull
 	@Override
-	public ItemStack quickMoveStack( @Nonnull PlayerEntity player, int index ) {
+	public ItemStack quickMoveStack( @Nonnull PlayerEntity _player, int index ) {
 		
 		ItemStack resultStack = ItemStack.EMPTY;
 		Slot slot = slots.get( index );
@@ -130,7 +132,7 @@ public class DyeCraftingTableContainer extends Container {
 			ItemStack stack = slot.getItem();
 			resultStack = stack.copy();
 			if( index == 0 ) {
-				worldPosCallable.execute( ( world, pos ) -> stack.getItem().onCraftedBy( stack, world, player ) );
+				worldPosCallable.execute( ( world, pos ) -> stack.getItem().onCraftedBy( stack, world, _player ) );
 				if( !moveItemStackTo( stack, 10, 46, true ) ) {
 					return ItemStack.EMPTY;
 				}
@@ -160,9 +162,9 @@ public class DyeCraftingTableContainer extends Container {
 			if( stack.getCount() == resultStack.getCount() ) {
 				return ItemStack.EMPTY;
 			}
-			ItemStack dropStack = slot.onTake( player, stack );
+			ItemStack dropStack = slot.onTake( _player, stack );
 			if( index == 0 ) {
-				player.drop( dropStack, false );
+				_player.drop( dropStack, false );
 			}
 		}
 		return resultStack;

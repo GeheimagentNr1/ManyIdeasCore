@@ -16,8 +16,8 @@ public class PlanksSeamlessJungle extends Planks {
 	}
 	
 	@Override
-	public Item getBlockItem( Item.Properties properties ) {
+	public Item getBlockItem( Item.Properties _properties ) {
 		
-		return createBlockItem( ModBlocks.PLANKS_SEAMLESS_JUNGLE, properties, registry_name );
+		return createBlockItem( ModBlocks.PLANKS_SEAMLESS_JUNGLE, _properties, registry_name );
 	}
 }

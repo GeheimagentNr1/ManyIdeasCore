@@ -57,19 +57,19 @@ public class MysteriousShears extends CoreBaseItem {
 	@Override
 	public boolean mineBlock(
 		@Nonnull ItemStack stack,
-		World worldIn,
+		World level,
 		@Nonnull BlockState state,
 		@Nonnull BlockPos pos,
-		@Nonnull LivingEntity entityLiving ) {
+		@Nonnull LivingEntity livingEntity ) {
 		
-		if( !worldIn.isClientSide ) {
-			stack.hurtAndBreak( 1, entityLiving, entity -> entity.broadcastBreakEvent( EquipmentSlotType.MAINHAND ) );
+		if( !level.isClientSide ) {
+			stack.hurtAndBreak( 1, livingEntity, entity -> entity.broadcastBreakEvent( EquipmentSlotType.MAINHAND ) );
 		}
 		if( state.is( BlockTags.LEAVES ) || DESTROYS_BLOCKS.contains( state.getBlock() ) ||
 			state.is( BlockTags.WOOL ) ) {
 			return true;
 		} else {
-			return super.mineBlock( stack, worldIn, state, pos, entityLiving );
+			return super.mineBlock( stack, level, state, pos, livingEntity );
 		}
 	}
 	
@@ -77,9 +77,9 @@ public class MysteriousShears extends CoreBaseItem {
 	 * Check whether this Item can harvest the given Block
 	 */
 	@Override
-	public boolean isCorrectToolForDrops( BlockState blockIn ) {
+	public boolean isCorrectToolForDrops( BlockState state ) {
 		
-		Block block = blockIn.getBlock();
+		Block block = state.getBlock();
 		return block == Blocks.COBWEB || block == Blocks.REDSTONE_WIRE || block == Blocks.TRIPWIRE;
 	}
 	
@@ -96,10 +96,11 @@ public class MysteriousShears extends CoreBaseItem {
 	/**
 	 * Returns true if the item can be used on the given entity, e.g. shears on sheep.
 	 */
+	@Nonnull
 	@Override
 	public ActionResultType interactLivingEntity(
 		@Nonnull ItemStack stack,
-		@Nonnull PlayerEntity playerIn,
+		@Nonnull PlayerEntity player,
 		LivingEntity target,
 		@Nonnull Hand hand ) {
 		
@@ -122,7 +123,7 @@ public class MysteriousShears extends CoreBaseItem {
 					target.playSound( SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F );
 				} else {
 					drops = shear_target.onSheared(
-						playerIn,
+						player,
 						stack,
 						target.level,
 						pos,

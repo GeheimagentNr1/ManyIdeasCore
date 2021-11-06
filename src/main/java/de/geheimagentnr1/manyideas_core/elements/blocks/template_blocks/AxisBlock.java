@@ -1,6 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItemUseContext;
@@ -14,9 +15,9 @@ import javax.annotation.Nullable;
 public abstract class AxisBlock extends Block implements BlockItemInterface {
 	
 	
-	protected AxisBlock( Properties properties, String registry_name ) {
+	protected AxisBlock( AbstractBlock.Properties _properties, String registry_name ) {
 		
-		super( properties );
+		super( _properties );
 		setRegistryName( registry_name );
 	}
 	
