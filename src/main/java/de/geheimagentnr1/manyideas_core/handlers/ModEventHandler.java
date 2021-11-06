@@ -88,25 +88,25 @@ public class ModEventHandler {
 	}
 	
 	@SubscribeEvent
-	public static void onBlocksRegistry( RegistryEvent.Register<Block> blockRegistryEvent ) {
+	public static void handleBlockRegistryEvent( RegistryEvent.Register<Block> event ) {
 		
-		blockRegistryEvent.getRegistry().registerAll( ModBlocks.BLOCKS );
-		blockRegistryEvent.getRegistry().registerAll( ModBlocksDebug.BLOCKS );
+		event.getRegistry().registerAll( ModBlocks.BLOCKS );
+		event.getRegistry().registerAll( ModBlocksDebug.BLOCKS );
 	}
 	
 	@SubscribeEvent
-	public static void onItemsRegistry( RegistryEvent.Register<Item> itemRegistryEvent ) {
+	public static void handleItemRegistryEvent( RegistryEvent.Register<Item> event ) {
 		
 		Item.Properties properties = new Item.Properties().tab( ModItemGroups.MANYIDEAS_CORE_ITEM_GROUP );
 		
-		BlockRegistrationHelper.registerBlockItems( itemRegistryEvent, ModBlocks.BLOCKS, properties );
-		BlockRegistrationHelper.registerBlockItems( itemRegistryEvent, ModBlocksDebug.BLOCKS, properties );
-		itemRegistryEvent.getRegistry().registerAll( ModItems.ITEMS );
+		BlockRegistrationHelper.registerBlockItems( event, ModBlocks.BLOCKS, properties );
+		BlockRegistrationHelper.registerBlockItems( event, ModBlocksDebug.BLOCKS, properties );
+		event.getRegistry().registerAll( ModItems.ITEMS );
 	}
 	
 	@SuppressWarnings( "ConstantConditions" )
 	@SubscribeEvent
-	public static void onTileEntityRegistry( RegistryEvent.Register<TileEntityType<?>> event ) {
+	public static void handleTileEntityRegistryEvent( RegistryEvent.Register<TileEntityType<?>> event ) {
 		
 		event.getRegistry().register( TileEntityType.Builder.of( EndBlockTile::new, ModBlocks.END_BLOCK )
 			.build( null )
@@ -114,7 +114,7 @@ public class ModEventHandler {
 	}
 	
 	@SubscribeEvent
-	public static void onContainerRegistry( RegistryEvent.Register<ContainerType<?>> event ) {
+	public static void handleContainerRegistryEvent( RegistryEvent.Register<ContainerType<?>> event ) {
 		
 		event.getRegistry()
 			.register( IForgeContainerType.create( ( menuId, inv, data ) -> new DyeCraftingTableContainer(
