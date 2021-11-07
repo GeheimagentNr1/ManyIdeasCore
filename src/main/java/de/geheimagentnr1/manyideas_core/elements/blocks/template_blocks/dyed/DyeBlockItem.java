@@ -8,8 +8,12 @@ import net.minecraft.item.*;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.DistExecutor;
 
 import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 
 public class DyeBlockItem extends BlockItem {
@@ -19,13 +23,20 @@ public class DyeBlockItem extends BlockItem {
 		
 		super( block, _properties );
 		setRegistryName( registry_name );
-		init();
+		//noinspection Convert2MethodRef
+		DistExecutor.unsafeRunWhenOn(
+			Dist.CLIENT,
+			() -> () -> init()
+		);
 	}
 	
+	@OnlyIn( Dist.CLIENT )
 	private void init() {
 		
-		ItemModelsProperties.register( this,
-			DyeBlockItemPropertyGetter.registry_name, new DyeBlockItemPropertyGetter()
+		ItemModelsProperties.register(
+			this,
+			DyeBlockItemPropertyGetter.registry_name,
+			new DyeBlockItemPropertyGetter()
 		);
 	}
 	
