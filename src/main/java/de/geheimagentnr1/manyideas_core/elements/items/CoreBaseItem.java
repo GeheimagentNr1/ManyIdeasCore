@@ -1,7 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.items;
 
 import de.geheimagentnr1.manyideas_core.elements.item_groups.ModItemGroups;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 
 public abstract class CoreBaseItem extends BaseItem {

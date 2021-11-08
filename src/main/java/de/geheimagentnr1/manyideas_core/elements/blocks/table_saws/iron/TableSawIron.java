@@ -4,11 +4,11 @@ import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSaw;
 import de.geheimagentnr1.manyideas_core.util.TranslationKeyHelper;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.Item;
-import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.Item;
 
 
 public class TableSawIron extends TableSaw {
@@ -16,7 +16,7 @@ public class TableSawIron extends TableSaw {
 	
 	public static final String registry_name = "table_saw_iron";
 	
-	private static final ITextComponent CONTAINER_TITLE = TranslationKeyHelper.generateContainerTranslationText(
+	private static final Component CONTAINER_TITLE = TranslationKeyHelper.generateContainerTranslationText(
 		ManyIdeasCore.MODID,
 		registry_name
 	);
@@ -26,17 +26,16 @@ public class TableSawIron extends TableSaw {
 		super( registry_name );
 	}
 	
-	@Override
-	protected Container getContainer(
+	protected AbstractContainerMenu getMenu(
 		int menuId,
-		PlayerInventory playerInventory,
-		IWorldPosCallable worldPosCallable ) {
+		Inventory inventory,
+		ContainerLevelAccess containerLevelAccess ) {
 		
-		return new TableSawIronContainer( menuId, playerInventory, worldPosCallable );
+		return new TableSawIronMenu( menuId, inventory, containerLevelAccess );
 	}
 	
 	@Override
-	protected ITextComponent getContainerName() {
+	protected Component getContainerName() {
 		
 		return CONTAINER_TITLE;
 	}

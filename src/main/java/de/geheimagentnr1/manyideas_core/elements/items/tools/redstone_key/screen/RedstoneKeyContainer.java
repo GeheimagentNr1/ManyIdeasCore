@@ -3,15 +3,15 @@ package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.scree
 import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces.RedstoneKeyable;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class RedstoneKeyContainer extends Container {
+public class RedstoneKeyContainer extends AbstractContainerMenu {
 	
 	
 	private final ResourceLocation icons;
@@ -48,7 +48,7 @@ public class RedstoneKeyContainer extends Container {
 		selectedIndex = _selectedIndex;
 	}
 	
-	public RedstoneKeyContainer( int menuId, PacketBuffer data ) {
+	public RedstoneKeyContainer( int menuId, FriendlyByteBuf data ) {
 		
 		super( ModItems.RESTONE_KEY_CONTAINER, menuId );
 		icons = data.readResourceLocation();
@@ -65,7 +65,7 @@ public class RedstoneKeyContainer extends Container {
 	}
 	
 	@Override
-	public boolean stillValid( @Nonnull PlayerEntity player ) {
+	public boolean stillValid( @Nonnull Player player ) {
 		
 		return true;
 	}
@@ -90,7 +90,7 @@ public class RedstoneKeyContainer extends Container {
 		selectedIndex = _selected;
 	}
 	
-	public void setBlockStateValue( World level, int stateIndex, PlayerEntity player ) {
+	public void setBlockStateValue( Level level, int stateIndex, Player player ) {
 		
 		selectedIndex = stateIndex;
 		BlockState state = level.getBlockState( pos );

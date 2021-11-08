@@ -4,11 +4,11 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeSerializers;
 import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
 import de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes.SingleItemRecipe;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 
@@ -24,7 +24,7 @@ public class GrindingRecipe extends SingleItemRecipe {
 	}
 	
 	@Override
-	public boolean matches( IInventory inv, @Nonnull World level ) {
+	public boolean matches( Container inv, @Nonnull Level level ) {
 		
 		return ingredient.test( inv.getItem( 0 ) );
 	}

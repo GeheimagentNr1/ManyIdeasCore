@@ -1,12 +1,12 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces;
 
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface RedstoneKeyable {
 	
 	//public
 	@SuppressWarnings( "SameReturnValue" )
-	ITextComponent getTitle();
+	Component getTitle();
 	
 	//public
 	@SuppressWarnings( "SameReturnValue" )
@@ -30,5 +30,5 @@ public interface RedstoneKeyable {
 	int getStateIndex( BlockState state );
 	
 	//public
-	void setBlockStateValue( World level, BlockState state, BlockPos pos, int stateIndex, PlayerEntity player );
+	void setBlockStateValue( Level level, BlockState state, BlockPos pos, int stateIndex, Player player );
 }

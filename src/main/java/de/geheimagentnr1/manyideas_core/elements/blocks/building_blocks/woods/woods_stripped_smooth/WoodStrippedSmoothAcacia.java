@@ -2,7 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.w
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.Wood;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 
 public class WoodStrippedSmoothAcacia extends Wood {

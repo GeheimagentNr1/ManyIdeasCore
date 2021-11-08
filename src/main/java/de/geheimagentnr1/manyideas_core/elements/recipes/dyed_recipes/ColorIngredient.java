@@ -3,8 +3,8 @@ package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 import com.google.gson.JsonElement;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.elements.recipes.IngredientSerializers;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
 
 import javax.annotation.Nonnull;

@@ -1,12 +1,12 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -15,21 +15,21 @@ import javax.annotation.Nonnull;
 class TableSawOutputSlot extends Slot {
 	
 	
-	private final TableSawContainer tableSawContainer;
+	private final TableSawMenu tableSawMenu;
 	
-	private final IWorldPosCallable worldPosCallable;
+	private final ContainerLevelAccess worldPosCallable;
 	
 	private final Slot inputInventorySlot;
 	
 	//package-private
 	TableSawOutputSlot(
-		TableSawContainer _tableSawContainer,
-		IWorldPosCallable _worldPosCallable,
+		TableSawMenu _tableSawMenu,
+		ContainerLevelAccess _worldPosCallable,
 		Slot _inputInventorySlot,
-		IInventory inventory ) {
+		Container _container ) {
 		
-		super( inventory, 1, 143, 33 );
-		tableSawContainer = _tableSawContainer;
+		super( _container, 1, 143, 33 );
+		tableSawMenu = _tableSawMenu;
 		worldPosCallable = _worldPosCallable;
 		inputInventorySlot = _inputInventorySlot;
 	}
@@ -40,22 +40,23 @@ class TableSawOutputSlot extends Slot {
 		return false;
 	}
 	
-	@Nonnull
 	@Override
-	public ItemStack onTake( @Nonnull PlayerEntity player, @Nonnull ItemStack stack ) {
+	public void onTake( @Nonnull Player player, @Nonnull ItemStack stack ) {
 		
+		stack.onCraftedBy( player.level, player, stack.getCount() );
+		tableSawMenu.getResultContainer().awardUsedRecipes( player );
 		ItemStack itemstack = inputInventorySlot.remove( 1 );
 		if( !itemstack.isEmpty() ) {
-			tableSawContainer.updateRecipeResultSlot();
+			tableSawMenu.updateRecipeResultSlot();
 		}
 		stack.getItem().onCraftedBy( stack, player.level, player );
 		worldPosCallable.execute( ( world, pos ) -> {
 			long l = world.getGameTime();
-			if( tableSawContainer.lastOnTake != l ) {
-				world.playSound( null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundCategory.BLOCKS, 1.0F, 1.0F );
-				tableSawContainer.lastOnTake = l;
+			if( tableSawMenu.lastOnTake != l ) {
+				world.playSound( null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, 1.0F );
+				tableSawMenu.lastOnTake = l;
 			}
 		} );
-		return super.onTake( player, stack );
+		super.onTake( player, stack );
 	}
 }

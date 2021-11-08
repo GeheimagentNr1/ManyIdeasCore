@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.block_state_properties;
 
-import net.minecraft.state.EnumProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 
 public class ModBlockStateProperties {

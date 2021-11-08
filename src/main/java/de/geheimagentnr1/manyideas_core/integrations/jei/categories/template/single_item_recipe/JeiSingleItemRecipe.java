@@ -2,8 +2,8 @@ package de.geheimagentnr1.manyideas_core.integrations.jei.categories.template.si
 
 import de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes.SingleItemRecipe;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
 
 import java.util.*;
 import java.util.function.Function;
@@ -25,7 +25,7 @@ public abstract class JeiSingleItemRecipe<T extends SingleItemRecipe> {
 	}
 	
 	protected static <R extends SingleItemRecipe, J extends JeiSingleItemRecipe<R>> List<J> getRecipes(
-		IRecipeType<R> recipe,
+		RecipeType<R> recipe,
 		Function<R, J> jeiRecipeBuilder ) {
 		
 		return Optional.ofNullable( Minecraft.getInstance().level )

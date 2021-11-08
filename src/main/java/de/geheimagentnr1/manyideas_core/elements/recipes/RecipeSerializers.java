@@ -11,7 +11,7 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSa
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneRecipeSerializer;
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedRecipe;
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.registries.ObjectHolder;
 
 
@@ -19,7 +19,7 @@ import net.minecraftforge.registries.ObjectHolder;
 public class RecipeSerializers {
 	
 	
-	public static final IRecipeSerializer<?>[] RECIPE_SERIALIZERS = new IRecipeSerializer[] {
+	public static final RecipeSerializer<?>[] RECIPE_SERIALIZERS = new RecipeSerializer[] {
 		//Dyed
 		new DyedRecipeSerializer(),
 		//Grinding

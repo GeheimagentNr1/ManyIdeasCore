@@ -1,35 +1,35 @@
 package de.geheimagentnr1.manyideas_core.util.doors;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.doors.DoubleDoorBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.DoorBlock;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.state.properties.DoorHingeSide;
-import net.minecraft.state.properties.DoubleBlockHalf;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoorHingeSide;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.material.Material;
 
 
 public class DoorsHelper {
 	
 	
 	public static void playDoorSound(
-		World level,
+		Level level,
 		BlockPos pos,
 		Material material,
-		PlayerEntity player,
+		Player player,
 		boolean open ) {
 		
 		level.playSound(
 			player,
 			pos,
 			open ? getOpenDoorSound( material ) : getCloseDoorSound( material ),
-			SoundCategory.BLOCKS,
+			SoundSource.BLOCKS,
 			1.0F,
 			1.0F
 		);
@@ -45,14 +45,14 @@ public class DoorsHelper {
 		return material == Material.METAL ? SoundEvents.IRON_DOOR_CLOSE : SoundEvents.WOODEN_DOOR_CLOSE;
 	}
 	
-	public static BlockData getOtherBlock( World level, BlockPos pos, BlockState state ) {
+	public static BlockData getOtherBlock( Level level, BlockPos pos, BlockState state ) {
 		
 		BlockPos otherPos = state.getValue( DoorBlock.HALF ) == DoubleBlockHalf.LOWER ? pos.above() : pos.below();
 		BlockState otherState = level.getBlockState( otherPos );
 		return new BlockData( otherPos, otherState );
 	}
 	
-	public static BlockData getNeighborBlock( World level, BlockPos pos, BlockState state ) {
+	public static BlockData getNeighborBlock( Level level, BlockPos pos, BlockState state ) {
 		
 		BlockPos neighborPos = pos.relative( getDirectionToNeighborDoor( state ) );
 		BlockState neighborState = level.getBlockState( neighborPos );
@@ -68,7 +68,7 @@ public class DoorsHelper {
 			state.getValue( DoorBlock.HALF ) == neighborState.getValue( DoorBlock.HALF );
 	}
 	
-	public static boolean isDoorPowered( World level, BlockPos pos, BlockState state ) {
+	public static boolean isDoorPowered( Level level, BlockPos pos, BlockState state ) {
 		
 		return level.hasNeighborSignal( pos ) || level.hasNeighborSignal( pos.relative(
 			state.getValue( DoorBlock.HALF ) == DoubleBlockHalf.LOWER ? Direction.UP : Direction.DOWN ) );

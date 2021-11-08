@@ -3,12 +3,12 @@ package de.geheimagentnr1.manyideas_core.util;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.ModBlockStateProperties;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateContainer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 
 
 public class DyeBlockHelper {
@@ -52,7 +52,7 @@ public class DyeBlockHelper {
 		return stack;
 	}
 	
-	public static BlockState getStateForPlacement( DyeBlock block, BlockItemUseContext context ) {
+	public static BlockState getStateForPlacement( DyeBlock block, BlockPlaceContext context ) {
 		
 		return block.defaultBlockState().setValue(
 			ModBlockStateProperties.COLOR,
@@ -60,7 +60,7 @@ public class DyeBlockHelper {
 		);
 	}
 	
-	public static void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {
+	public static void createBlockStateDefinition( StateDefinition.Builder<Block, BlockState> builder ) {
 		
 		builder.add( ModBlockStateProperties.COLOR );
 	}

@@ -1,9 +1,9 @@
 package de.geheimagentnr1.manyideas_core.util.voxel_shapes;
 
-import net.minecraft.block.Block;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.ArrayList;
 
@@ -60,35 +60,25 @@ public class VoxelShapeHelper {
 	private static double cos( double degree ) {
 		
 		degree = ( degree + ( degree < 0 ? 360 : 0 ) ) % 360.0;
-		switch( (int)degree ) {
-			case 0:
-				return 1;
-			case 90:
-				return 0;
-			case 180:
-				return -1;
-			case 270:
-				return 0;
-			default:
-				return 1;
-		}
+		return switch( (int)degree ) {
+			case 0 -> 1;
+			case 90 -> 0;
+			case 180 -> -1;
+			case 270 -> 0;
+			default -> 1;
+		};
 	}
 	
 	private static double sin( double degree ) {
 		
 		degree = ( degree + ( degree < 0 ? 360 : 0 ) ) % 360.0;
-		switch( (int)degree ) {
-			case 0:
-				return 0;
-			case 90:
-				return 1;
-			case 180:
-				return 0;
-			case 270:
-				return -1;
-			default:
-				return 1;
-		}
+		return switch( (int)degree ) {
+			case 0 -> 0;
+			case 90 -> 1;
+			case 180 -> 0;
+			case 270 -> -1;
+			default -> 1;
+		};
 	}
 	
 	private static VoxelShapeVector[] turnVoxelShapeVectors( VoxelShapeVector[] vectors, double[][] turn_matrix ) {
@@ -153,8 +143,15 @@ public class VoxelShapeHelper {
 		
 		ArrayList<VoxelShape> shapes = new ArrayList<>();
 		for( VoxelShapeVector vector : vectors ) {
-			shapes.add( Block.box( vector.x1, vector.y1, vector.z1, vector.x2, vector.y2, vector.z2 ) );
+			shapes.add( Block.box(
+				Math.min( vector.x1, vector.x2 ),
+				Math.min( vector.y1, vector.y2 ),
+				Math.min( vector.z1, vector.z2 ),
+				Math.max( vector.x1, vector.x2 ),
+				Math.max( vector.y1, vector.y2 ),
+				Math.max( vector.z1, vector.z2 )
+			) );
 		}
-		return VoxelShapes.or( VoxelShapes.empty(), shapes.toArray( new VoxelShape[0] ) );
+		return Shapes.or( Shapes.empty(), shapes.toArray( new VoxelShape[0] ) );
 	}
 }

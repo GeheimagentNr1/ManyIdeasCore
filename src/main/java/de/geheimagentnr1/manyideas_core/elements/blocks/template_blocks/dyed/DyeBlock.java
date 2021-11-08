@@ -2,16 +2,16 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.HitResult;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 public abstract class DyeBlock extends Block implements BlockItemInterface {
 	
 	
-	protected DyeBlock( AbstractBlock.Properties _properties, String registry_name ) {
+	protected DyeBlock( BlockBehaviour.Properties _properties, String registry_name ) {
 		
 		super( _properties );
 		setRegistryName( registry_name );
@@ -29,25 +29,24 @@ public abstract class DyeBlock extends Block implements BlockItemInterface {
 	
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement( @Nonnull BlockItemUseContext context ) {
+	public BlockState getStateForPlacement( @Nonnull BlockPlaceContext context ) {
 		
 		return DyeBlockHelper.getStateForPlacement( this, context );
 	}
 	
 	@Override
-	protected void createBlockStateDefinition( @Nonnull StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( @Nonnull StateDefinition.Builder<Block, BlockState> builder ) {
 		
 		DyeBlockHelper.createBlockStateDefinition( builder );
 	}
 	
-	@Nonnull
 	@Override
 	public ItemStack getPickBlock(
-		@Nonnull BlockState state,
-		@Nonnull RayTraceResult target,
-		@Nonnull IBlockReader world,
-		@Nonnull BlockPos pos,
-		@Nonnull PlayerEntity player ) {
+		BlockState state,
+		HitResult target,
+		BlockGetter world,
+		BlockPos pos,
+		Player player ) {
 		
 		return DyeBlockHelper.getItem( this, state );
 	}

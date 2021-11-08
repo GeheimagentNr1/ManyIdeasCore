@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.multi_block;
 
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 
 
 @SuppressWarnings( { "WeakerAccess", "RedundantSuppression" } )

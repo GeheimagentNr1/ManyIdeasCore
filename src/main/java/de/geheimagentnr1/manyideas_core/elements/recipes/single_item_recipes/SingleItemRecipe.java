@@ -1,18 +1,18 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 
 import javax.annotation.Nonnull;
 
 
-public abstract class SingleItemRecipe implements IRecipe<IInventory> {
+public abstract class SingleItemRecipe implements Recipe<Container> {
 	
 	
 	protected final Ingredient ingredient;
@@ -20,17 +20,17 @@ public abstract class SingleItemRecipe implements IRecipe<IInventory> {
 	//package-private
 	final ItemStack result;
 	
-	private final IRecipeType<?> type;
+	private final RecipeType<?> type;
 	
-	private final IRecipeSerializer<?> serializer;
+	private final RecipeSerializer<?> serializer;
 	
 	private final ResourceLocation id;
 	
 	private final String group;
 	
 	protected SingleItemRecipe(
-		IRecipeType<?> _type,
-		IRecipeSerializer<?> _serializer,
+		RecipeType<?> _type,
+		RecipeSerializer<?> _serializer,
 		ResourceLocation _id,
 		String _group,
 		Ingredient _ingredient,
@@ -46,14 +46,14 @@ public abstract class SingleItemRecipe implements IRecipe<IInventory> {
 	
 	@Nonnull
 	@Override
-	public IRecipeType<?> getType() {
+	public RecipeType<?> getType() {
 		
 		return type;
 	}
 	
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		
 		return serializer;
 	}
@@ -96,7 +96,7 @@ public abstract class SingleItemRecipe implements IRecipe<IInventory> {
 	
 	@Nonnull
 	@Override
-	public ItemStack assemble( @Nonnull IInventory inv ) {
+	public ItemStack assemble( @Nonnull Container inv ) {
 		
 		return result.copy();
 	}

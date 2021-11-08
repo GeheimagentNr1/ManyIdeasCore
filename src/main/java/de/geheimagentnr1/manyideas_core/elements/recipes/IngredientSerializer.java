@@ -1,8 +1,8 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
 
 

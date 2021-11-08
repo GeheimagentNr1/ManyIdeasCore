@@ -1,8 +1,8 @@
 package de.geheimagentnr1.manyideas_core.special.json;
 
 import com.google.gson.*;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocationException;
+import net.minecraft.ResourceLocationException;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

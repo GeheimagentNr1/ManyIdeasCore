@@ -1,16 +1,17 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -20,7 +21,7 @@ import java.util.Objects;
 
 
 @OnlyIn( Dist.CLIENT )
-public class TableSawScreen extends ContainerScreen<TableSawContainer> {
+public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 	
 	
 	private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(
@@ -36,7 +37,7 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 	
 	private boolean displayRecipes;
 	
-	public TableSawScreen( TableSawContainer _menu, PlayerInventory _inventory, ITextComponent _title ) {
+	public TableSawScreen( TableSawMenu _menu, Inventory _inventory, Component _title ) {
 		
 		super( _menu, _inventory, _title );
 		_menu.setInventoryUpdateListener( this::containerChanged );
@@ -48,33 +49,33 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 		--titleLabelY;
 	}
 	
-	public void render( @Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks ) {
+	public void render( @Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks ) {
 		
-		super.render( matrixStack, mouseX, mouseY, partialTicks );
-		renderTooltip( matrixStack, mouseX, mouseY );
+		super.render( poseStack, mouseX, mouseY, partialTicks );
+		renderTooltip( poseStack, mouseX, mouseY );
 	}
 	
-	protected void renderBg( @Nonnull MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY ) {
+	protected void renderBg( @Nonnull PoseStack poseStack, float partialTicks, int mouseX, int mouseY ) {
 		
-		renderBackground( matrixStack );
-		//noinspection deprecation
-		RenderSystem.color4f( 1.0F, 1.0F, 1.0F, 1.0F );
-		Objects.requireNonNull( minecraft ).getTextureManager().bind( BACKGROUND_TEXTURE );
+		renderBackground( poseStack );
+		RenderSystem.setShader( GameRenderer::getPositionTexShader );
+		RenderSystem.setShaderColor( 1.0F, 1.0F, 1.0F, 1.0F );
+		RenderSystem.setShaderTexture( 0, BACKGROUND_TEXTURE );
 		int i = leftPos;
 		int j = topPos;
-		blit( matrixStack, i, j, 0, 0, imageWidth, imageHeight );
+		blit( poseStack, i, j, 0, 0, imageWidth, imageHeight );
 		int k = (int)( 41.0F * scrollOffs );
-		blit( matrixStack, i + 119, j + 15 + k, 176 + ( isScrollBarActive() ? 0 : 12 ), 0, 12, 15 );
+		blit( poseStack, i + 119, j + 15 + k, 176 + ( isScrollBarActive() ? 0 : 12 ), 0, 12, 15 );
 		int l = leftPos + 52;
 		int i1 = topPos + 14;
 		int j1 = startIndex + 12;
-		renderButtons( matrixStack, mouseX, mouseY, l, i1, j1 );
+		renderButtons( poseStack, mouseX, mouseY, l, i1, j1 );
 		renderRecipes( l, i1, j1 );
 	}
 	
-	protected void renderTooltip( @Nonnull MatrixStack matrixStack, int mouseX, int mouseY ) {
+	protected void renderTooltip( @Nonnull PoseStack poseStack, int mouseX, int mouseY ) {
 		
-		super.renderTooltip( matrixStack, mouseX, mouseY );
+		super.renderTooltip( poseStack, mouseX, mouseY );
 		if( displayRecipes ) {
 			int i = leftPos + 52;
 			int j = topPos + 14;
@@ -86,7 +87,7 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 				int j1 = i + ( i1 % 4 << 4 );
 				int k1 = j + i1 / 4 * 18 + 2;
 				if( mouseX >= j1 && mouseX < j1 + 16 && mouseY >= k1 && mouseY < k1 + 18 ) {
-					renderTooltip( matrixStack, list.get( l ).getResultItem(), mouseX, mouseY );
+					renderTooltip( poseStack, list.get( l ).getResultItem(), mouseX, mouseY );
 				}
 			}
 		}
@@ -94,7 +95,7 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 	}
 	
 	private void renderButtons(
-		MatrixStack matrixStack,
+		PoseStack poseStack,
 		int mouseX,
 		int mouseY,
 		int left,
@@ -115,7 +116,7 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 				}
 			}
 			
-			blit( matrixStack, k, i1 - 1, 0, j1, 16, 18 );
+			blit( poseStack, k, i1 - 1, 0, j1, 16, 18 );
 		}
 		
 	}
@@ -152,7 +153,7 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 					menu.clickMenuButton( Objects.requireNonNull( Objects.requireNonNull( minecraft ).player ), l ) ) {
 					Minecraft.getInstance()
 						.getSoundManager()
-						.play( SimpleSound.forUI( SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F ) );
+						.play( SimpleSoundInstance.forUI( SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F ) );
 					Objects.requireNonNull( minecraft.gameMode ).handleInventoryButtonClick( ( menu ).containerId, l );
 					return true;
 				}
@@ -180,7 +181,7 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 			int i = topPos + 14;
 			int j = i + 54;
 			scrollOffs = ( (float)p_231045_3_ - i - 7.5F ) / ( ( j - i ) - 15.0F );
-			scrollOffs = MathHelper.clamp( scrollOffs, 0.0F, 1.0F );
+			scrollOffs = Mth.clamp( scrollOffs, 0.0F, 1.0F );
 			startIndex = (int)( ( scrollOffs * getOffscreenRows() ) + 0.5D ) << 2;
 			return true;
 		} else {
@@ -193,7 +194,7 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 		if( isScrollBarActive() ) {
 			int i = getOffscreenRows();
 			scrollOffs -= p_231043_5_ / i;
-			scrollOffs = MathHelper.clamp( scrollOffs, 0.0F, 1.0F );
+			scrollOffs = Mth.clamp( scrollOffs, 0.0F, 1.0F );
 			startIndex = (int)( ( scrollOffs * i ) + 0.5D ) << 2;
 		}
 		

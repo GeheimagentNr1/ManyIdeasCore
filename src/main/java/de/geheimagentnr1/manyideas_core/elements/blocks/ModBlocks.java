@@ -8,25 +8,25 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.Wo
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.logs_stripped_smooth.*;
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.woods_stripped_smooth.*;
 import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTable;
-import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableContainer;
+import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableMenu;
 import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlock;
-import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlockTile;
+import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlockEntity;
 import de.geheimagentnr1.manyideas_core.elements.blocks.mortar.Mortar;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamond;
-import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondContainer;
+import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondMenu;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIron;
-import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronContainer;
+import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronMenu;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStone;
-import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneContainer;
+import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneMenu;
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.normal.FlowerStraightAllium;
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.normal.FlowerStraightOrchidBlue;
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightLilac;
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightPeony;
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightRoseBush;
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightSunflower;
-import net.minecraft.block.Block;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 
 
@@ -225,7 +225,7 @@ public class ModBlocks {
 	public static DyeCraftingTable DYE_CRAFTING_TABLE;
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + DyeCraftingTable.registry_name )
-	public static ContainerType<DyeCraftingTableContainer> DYE_CRAFTING_TABLE_CONTAINER;
+	public static MenuType<DyeCraftingTableMenu> DYE_CRAFTING_TABLE_CONTAINER;
 	
 	//End Block
 	
@@ -233,7 +233,7 @@ public class ModBlocks {
 	public static EndBlock END_BLOCK;
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + EndBlock.registry_name )
-	public static TileEntityType<EndBlockTile> END_BLOCK_TILE;
+	public static BlockEntityType<EndBlockEntity> END_BLOCK_TILE;
 	
 	//Mortar
 	
@@ -246,19 +246,19 @@ public class ModBlocks {
 	public static TableSawDiamond TABLE_SAW_DIAMOND;
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + TableSawDiamond.registry_name )
-	public static ContainerType<TableSawDiamondContainer> TABLE_SAW_DIAMOND_CONTAINER;
+	public static MenuType<TableSawDiamondMenu> TABLE_SAW_DIAMOND_CONTAINER;
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + TableSawIron.registry_name )
 	public static TableSawIron TABLE_SAW_IRON;
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + TableSawIron.registry_name )
-	public static ContainerType<TableSawIronContainer> TABLE_SAW_IRON_CONTAINER;
+	public static MenuType<TableSawIronMenu> TABLE_SAW_IRON_CONTAINER;
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + TableSawStone.registry_name )
 	public static TableSawStone TABLE_SAW_STONE;
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + TableSawStone.registry_name )
-	public static ContainerType<TableSawStoneContainer> TABLE_SAW_STONE_CONTAINER;
+	public static MenuType<TableSawStoneMenu> TABLE_SAW_STONE_CONTAINER;
 	
 	//Vanilla Blocks: Flowers: Normal
 	

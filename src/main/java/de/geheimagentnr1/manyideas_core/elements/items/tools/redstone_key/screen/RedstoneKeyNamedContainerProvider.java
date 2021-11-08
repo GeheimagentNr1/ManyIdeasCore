@@ -2,23 +2,23 @@ package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.scree
 
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces.RedstoneKeyable;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
 
-public class RedstoneKeyNamedContainerProvider implements INamedContainerProvider {
+public class RedstoneKeyNamedContainerProvider implements MenuProvider {
 	
 	
-	private final ITextComponent displayName;
+	private final Component displayName;
 	
 	private final ResourceLocation icons;
 	
@@ -31,7 +31,7 @@ public class RedstoneKeyNamedContainerProvider implements INamedContainerProvide
 	private final int selectedIndex;
 	
 	public RedstoneKeyNamedContainerProvider(
-		ITextComponent _displayName,
+		Component _displayName,
 		ResourceLocation _icons,
 		BlockPos _pos,
 		RedstoneKeyable _redstoneKeyableBlock,
@@ -48,17 +48,17 @@ public class RedstoneKeyNamedContainerProvider implements INamedContainerProvide
 	
 	@Nonnull
 	@Override
-	public ITextComponent getDisplayName() {
+	public Component getDisplayName() {
 		
 		return displayName;
 	}
 	
 	@Nullable
 	@Override
-	public Container createMenu(
+	public AbstractContainerMenu createMenu(
 		int menuId,
-		@Nonnull PlayerInventory playerInventory,
-		@Nonnull PlayerEntity player ) {
+		@Nonnull Inventory inventory,
+		@Nonnull Player player ) {
 		
 		return new RedstoneKeyContainer( menuId, icons, pos, redstoneKeyableBlock, options, selectedIndex );
 	}

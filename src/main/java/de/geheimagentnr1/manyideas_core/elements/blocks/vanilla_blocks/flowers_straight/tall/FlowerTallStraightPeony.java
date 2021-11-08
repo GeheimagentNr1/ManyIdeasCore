@@ -2,10 +2,10 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.flowers_straight.TallFlower;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
 
 
 public class FlowerTallStraightPeony extends TallFlower {
@@ -16,7 +16,7 @@ public class FlowerTallStraightPeony extends TallFlower {
 	public FlowerTallStraightPeony() {
 		
 		super(
-			AbstractBlock.Properties.of( Material.REPLACEABLE_PLANT )
+			BlockBehaviour.Properties.of( Material.REPLACEABLE_PLANT )
 				.noCollission()
 				.instabreak()
 				.sound( SoundType.GRASS ),

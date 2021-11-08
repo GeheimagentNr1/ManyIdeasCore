@@ -3,29 +3,29 @@ package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Optional;
 
 
-public class DyedRecipe implements IRecipe<CraftingInventory> {
+public class DyedRecipe implements Recipe<CraftingContainer> {
 	
 	
 	public static final String registry_name = "dyed";
 	
 	private final ResourceLocation id;
 	
-	private final IRecipeSerializer<?> serializer;
+	private final RecipeSerializer<?> serializer;
 	
 	private final boolean shaped;
 	
@@ -40,7 +40,7 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 	//package-private
 	DyedRecipe(
 		ResourceLocation _id,
-		IRecipeSerializer<?> _serializer,
+		RecipeSerializer<?> _serializer,
 		boolean _shaped,
 		NonNullList<Ingredient> _ingredients,
 		ItemStack _result,
@@ -57,9 +57,9 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 	}
 	
 	@Override
-	public boolean matches( @Nonnull CraftingInventory inv, @Nonnull World level ) {
+	public boolean matches( @Nonnull CraftingContainer inv, @Nonnull Level level ) {
 		
-		if( !findMatchingColor( inv ).isPresent() ) {
+		if( findMatchingColor( inv ).isEmpty() ) {
 			return false;
 		}
 		if( shaped ) {
@@ -90,7 +90,7 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 		}
 	}
 	
-	private Optional<Color> findMatchingColor( CraftingInventory inv ) {
+	private Optional<Color> findMatchingColor( CraftingContainer inv ) {
 		
 		Color color = null;
 		for( Ingredient ingredient : ingredients ) {
@@ -119,7 +119,7 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 	
 	@Nonnull
 	@Override
-	public ItemStack assemble( @Nonnull CraftingInventory inv ) {
+	public ItemStack assemble( @Nonnull CraftingContainer inv ) {
 		
 		Optional<Color> color = findMatchingColor( inv );
 		return color.map( value -> DyeBlockHelper.setColorToItemStack( result.copy(), value ) )
@@ -152,7 +152,7 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 	
 	@Nonnull
 	@Override
-	public IRecipeType<?> getType() {
+	public RecipeType<?> getType() {
 		
 		return RecipeTypes.DYED;
 	}
@@ -166,7 +166,7 @@ public class DyedRecipe implements IRecipe<CraftingInventory> {
 	
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		
 		return serializer;
 	}

@@ -2,12 +2,11 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.rainbow
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.CarpetBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.CarpetBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
 
 
 public class RainbowCarpet extends CarpetBlock implements BlockItemInterface {
@@ -17,10 +16,7 @@ public class RainbowCarpet extends CarpetBlock implements BlockItemInterface {
 	
 	public RainbowCarpet() {
 		
-		super(
-			DyeColor.WHITE,
-			AbstractBlock.Properties.of( Material.CLOTH_DECORATION ).strength( 0.1F ).sound( SoundType.WOOL )
-		);
+		super( BlockBehaviour.Properties.of( Material.CLOTH_DECORATION ).strength( 0.1F ).sound( SoundType.WOOL ) );
 		setRegistryName( registry_name );
 	}
 	

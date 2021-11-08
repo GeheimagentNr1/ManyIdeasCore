@@ -3,11 +3,11 @@ package de.geheimagentnr1.manyideas_core.special.decoration_renderer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.geheimagentnr1.manyideas_core.special.json.JSONUtil;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -78,16 +78,16 @@ public class PlayerDecorationManager {
 	}
 	
 	public static void renderForPlayer(
-		PlayerEntity player,
+		Player player,
 		int light,
-		MatrixStack matrixStack,
-		IRenderTypeBuffer buffer ) {
+		PoseStack poseStack,
+		MultiBufferSource buffer ) {
 		
 		PlayerDecorationRenderer playerDecorationRenderer = DECORATION_LIST.get(
 			player.getName().getString() );
 		
 		if( playerDecorationRenderer != null ) {
-			playerDecorationRenderer.renderItemStack( player, light, matrixStack, buffer );
+			playerDecorationRenderer.renderItemStack( player, light, poseStack, buffer );
 		}
 	}
 }

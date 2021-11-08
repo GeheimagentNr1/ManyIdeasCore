@@ -1,20 +1,26 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.end_block;
 
-import net.minecraft.client.renderer.tileentity.EndPortalTileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
 
 
-public class EndBlockTileRenderer extends EndPortalTileEntityRenderer<EndBlockTile> {
+public class EndBlockTileRenderer extends TheEndPortalRenderer<EndBlockEntity> {
 	
 	
-	public EndBlockTileRenderer( TileEntityRendererDispatcher dispatcher ) {
+	public EndBlockTileRenderer( BlockEntityRendererProvider.Context context ) {
 		
-		super( dispatcher );
+		super( context );
 	}
 	
 	@Override
-	protected float getOffset() {
+	protected float getOffsetUp() {
 		
-		return 1.0F;
+		return 1;
+	}
+	
+	@Override
+	protected float getOffsetDown() {
+		
+		return 0;
 	}
 }

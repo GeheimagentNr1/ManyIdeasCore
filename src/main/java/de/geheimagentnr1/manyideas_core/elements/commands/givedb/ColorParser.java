@@ -6,9 +6,9 @@ import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
-import net.minecraft.command.ISuggestionProvider;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -23,7 +23,7 @@ class ColorParser {
 	
 	
 	private static final DynamicCommandExceptionType COLOR_INVALID =
-		new DynamicCommandExceptionType( function -> new TranslationTextComponent(
+		new DynamicCommandExceptionType( function -> new TranslatableComponent(
 			"argument.color.invalid",
 			function
 		) );
@@ -94,7 +94,7 @@ class ColorParser {
 	
 	private CompletableFuture<Suggestions> suggestColor( SuggestionsBuilder builder ) {
 		
-		return ISuggestionProvider.suggest( COLORS, builder );
+		return SharedSuggestionProvider.suggest( COLORS, builder );
 	}
 	
 	//package-private

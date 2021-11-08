@@ -4,9 +4,9 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSawRecipe;
 import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeSerializers;
 import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import javax.annotation.Nonnull;
 

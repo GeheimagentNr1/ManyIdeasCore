@@ -2,7 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks;
 
 import de.geheimagentnr1.manyideas_core.config.ClientConfig;
 import de.geheimagentnr1.manyideas_core.elements.blocks.debug.DebugBlockCullface;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 
 
 @SuppressWarnings( { "PublicStaticArrayField", "unused" } )

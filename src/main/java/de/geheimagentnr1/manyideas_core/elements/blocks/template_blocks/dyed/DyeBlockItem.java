@@ -3,17 +3,20 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed;
 import de.geheimagentnr1.manyideas_core.config.ClientConfig;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
-import net.minecraft.block.Block;
-import net.minecraft.item.*;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
 
 import javax.annotation.Nonnull;
-import java.util.function.Supplier;
 
 
 public class DyeBlockItem extends BlockItem {
@@ -33,7 +36,7 @@ public class DyeBlockItem extends BlockItem {
 	@OnlyIn( Dist.CLIENT )
 	private void init() {
 		
-		ItemModelsProperties.register(
+		ItemProperties.register(
 			this,
 			DyeBlockItemPropertyGetter.registry_name,
 			new DyeBlockItemPropertyGetter()
@@ -42,13 +45,13 @@ public class DyeBlockItem extends BlockItem {
 	
 	@Nonnull
 	@Override
-	public ITextComponent getName( @Nonnull ItemStack stack ) {
+	public Component getName( @Nonnull ItemStack stack ) {
 		
-		return new TranslationTextComponent( getDescriptionId( stack ) + "_" + DyeBlockHelper.getColorName( stack ) );
+		return new TranslatableComponent( getDescriptionId( stack ) + "_" + DyeBlockHelper.getColorName( stack ) );
 	}
 	
 	@Override
-	public void fillItemCategory( @Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> items ) {
+	public void fillItemCategory( @Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> items ) {
 		
 		if( allowdedIn( tab ) ) {
 			if( ClientConfig.ALL_COLORS_IN_ITEM_GROUP.get() ) {

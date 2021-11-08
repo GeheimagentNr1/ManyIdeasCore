@@ -1,19 +1,19 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 
-import net.minecraft.inventory.Inventory;
+import net.minecraft.world.SimpleContainer;
 
 
 //package-private
-class TableSawInputInventory extends Inventory {
+class TableSawInputContainer extends SimpleContainer {
 	
 	
-	private final TableSawContainer tableSawContainer;
+	private final TableSawMenu tableSawMenu;
 	
 	//package-private
-	TableSawInputInventory( TableSawContainer _tableSawContainer ) {
+	TableSawInputContainer( TableSawMenu _tableSawMenu ) {
 		
 		super( 1 );
-		tableSawContainer = _tableSawContainer;
+		tableSawMenu = _tableSawMenu;
 	}
 	
 	/**
@@ -25,7 +25,7 @@ class TableSawInputInventory extends Inventory {
 	public void setChanged() {
 		
 		super.setChanged();
-		tableSawContainer.slotsChanged( this );
-		tableSawContainer.getInventoryUpdateListener().run();
+		tableSawMenu.slotsChanged( this );
+		tableSawMenu.getInventoryUpdateListener().run();
 	}
 }

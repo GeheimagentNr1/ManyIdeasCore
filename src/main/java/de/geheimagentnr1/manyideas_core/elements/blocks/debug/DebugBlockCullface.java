@@ -3,19 +3,19 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.debug;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeMemory;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeVector;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,7 +33,7 @@ public class DebugBlockCullface extends Block implements BlockItemInterface {
 	
 	public DebugBlockCullface() {
 		
-		super( AbstractBlock.Properties.of( Material.DIRT ) );
+		super( BlockBehaviour.Properties.of( Material.DIRT ) );
 		setRegistryName( registry_name );
 	}
 	
@@ -41,24 +41,23 @@ public class DebugBlockCullface extends Block implements BlockItemInterface {
 	@Nonnull
 	@Override
 	public VoxelShape getShape(
-		BlockState state,
-		@Nonnull IBlockReader level,
+		@Nonnull BlockState state,
+		@Nonnull BlockGetter level,
 		@Nonnull BlockPos pos,
-		@Nonnull ISelectionContext context ) {
+		@Nonnull CollisionContext context ) {
 		
 		return SHAPES.getShapeFromFacing( state.getValue( BlockStateProperties.FACING ) );
 	}
 	
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement( BlockItemUseContext context ) {
+	public BlockState getStateForPlacement( BlockPlaceContext context ) {
 		
 		return defaultBlockState().setValue( BlockStateProperties.FACING, context.getClickedFace().getOpposite() );
 	}
 	
-	
 	@Override
-	protected void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( StateDefinition.Builder<Block, BlockState> builder ) {
 		
 		builder.add( BlockStateProperties.FACING );
 	}

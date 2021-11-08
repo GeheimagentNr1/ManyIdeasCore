@@ -3,8 +3,9 @@ package de.geheimagentnr1.manyideas_core.integrations.jei.categories.template;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 
 import javax.annotation.Nonnull;
 
@@ -24,9 +25,9 @@ public abstract class JeiRecipeCategory<R> implements IRecipeCategory<R> {
 	
 	@Nonnull
 	@Override
-	public String getTitle() {
+	public Component getTitle() {
 		
-		return block.getName().getString();
+		return block.getName();
 	}
 	
 	@Nonnull

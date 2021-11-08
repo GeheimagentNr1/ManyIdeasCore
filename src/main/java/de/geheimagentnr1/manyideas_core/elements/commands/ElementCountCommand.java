@@ -2,14 +2,14 @@ package de.geheimagentnr1.manyideas_core.elements.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.core.Registry;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.TreeMap;
@@ -20,9 +20,9 @@ public class ElementCountCommand {
 	
 	
 	@SuppressWarnings( "SameReturnValue" )
-	public static void register( CommandDispatcher<CommandSource> dispatcher ) {
+	public static void register( CommandDispatcher<CommandSourceStack> dispatcher ) {
 		
-		LiteralArgumentBuilder<CommandSource> elementCountCommand = Commands.literal( "element_count" );
+		LiteralArgumentBuilder<CommandSourceStack> elementCountCommand = Commands.literal( "element_count" );
 		elementCountCommand.executes( command -> {
 			TreeSet<String> names = new TreeSet<>();
 			TreeMap<String, Integer> block_item_counts = new TreeMap<>();
@@ -31,15 +31,15 @@ public class ElementCountCommand {
 			countItems( names, item_counts, block_item_counts );
 			
 			for( String name : names ) {
-				command.getSource().sendSuccess( new StringTextComponent( name ), false );
+				command.getSource().sendSuccess( new TextComponent( name ), false );
 				command.getSource().sendSuccess(
-					new StringTextComponent( "block count: " + block_counts.get( name ) ),
+					new TextComponent( "block count: " + block_counts.get( name ) ),
 					false
 				);
-				command.getSource().sendSuccess( new StringTextComponent(
+				command.getSource().sendSuccess( new TextComponent(
 					"block item count: " + block_item_counts.get( name ) ), false );
 				command.getSource().sendSuccess(
-					new StringTextComponent( "item count: " + item_counts.get( name ) ),
+					new TextComponent( "item count: " + item_counts.get( name ) ),
 					false
 				);
 			}

@@ -1,20 +1,20 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
 
 
 @OnlyIn( Dist.CLIENT )
-public class DyeCraftingTableScreen extends ContainerScreen<DyeCraftingTableContainer> {
+public class DyeCraftingTableScreen extends AbstractContainerScreen<DyeCraftingTableMenu> {
 	
 	
 	private static final ResourceLocation CRAFTING_TABLE_GUI_TEXTURES = new ResourceLocation(
@@ -23,9 +23,9 @@ public class DyeCraftingTableScreen extends ContainerScreen<DyeCraftingTableCont
 	);
 	
 	public DyeCraftingTableScreen(
-		DyeCraftingTableContainer _menu,
-		PlayerInventory _inventory,
-		ITextComponent _title ) {
+		DyeCraftingTableMenu _menu,
+		Inventory _inventory,
+		Component _title ) {
 		
 		super( _menu, _inventory, _title );
 		initData();
@@ -37,17 +37,18 @@ public class DyeCraftingTableScreen extends ContainerScreen<DyeCraftingTableCont
 	}
 	
 	@Override
-	public void render( @Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks ) {
+	public void render( @Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks ) {
 		
-		super.render( matrixStack, mouseX, mouseY, partialTicks );
-		renderTooltip( matrixStack, mouseX, mouseY );
+		super.render( poseStack, mouseX, mouseY, partialTicks );
+		renderTooltip( poseStack, mouseX, mouseY );
 	}
 	
 	@Override
-	protected void renderBg( @Nonnull MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY ) {
+	protected void renderBg( @Nonnull PoseStack matrixStack, float partialTicks, int mouseX, int mouseY ) {
 		
-		RenderSystem.blendColor( 1.0F, 1.0F, 1.0F, 1.0F );
-		Objects.requireNonNull( minecraft ).getTextureManager().bind( CRAFTING_TABLE_GUI_TEXTURES );
+		RenderSystem.setShader( GameRenderer::getPositionTexShader );
+		RenderSystem.setShaderColor( 1.0F, 1.0F, 1.0F, 1.0F );
+		RenderSystem.setShaderTexture( 0, CRAFTING_TABLE_GUI_TEXTURES );
 		blit( matrixStack, leftPos, ( height - imageHeight ) / 2, 0, 0, imageWidth, imageHeight );
 	}
 }

@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core.util.voxel_shapes;
 
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

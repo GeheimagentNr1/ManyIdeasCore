@@ -2,11 +2,11 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.flowers_straight.Flower;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.Item;
-import net.minecraft.potion.Effects;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
 
 
 public class FlowerStraightOrchidBlue extends Flower {
@@ -17,9 +17,9 @@ public class FlowerStraightOrchidBlue extends Flower {
 	public FlowerStraightOrchidBlue() {
 		
 		super(
-			Effects.SATURATION,
+			MobEffects.SATURATION,
 			7,
-			AbstractBlock.Properties.of( Material.PLANT ).noCollission().instabreak().sound( SoundType.GRASS ),
+			BlockBehaviour.Properties.of( Material.PLANT ).noCollission().instabreak().sound( SoundType.GRASS ),
 			registry_name
 		);
 	}

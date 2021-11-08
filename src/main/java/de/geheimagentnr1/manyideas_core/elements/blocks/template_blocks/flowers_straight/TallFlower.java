@@ -1,9 +1,9 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.flowers_straight;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import javax.annotation.Nonnull;
 
@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 public abstract class TallFlower extends TallFlowerBlock implements FlowerBlockItemInterface, BlockRenderTypeInterface {
 	
 	
-	protected TallFlower( AbstractBlock.Properties _properties, String registry_name ) {
+	protected TallFlower( BlockBehaviour.Properties _properties, String registry_name ) {
 		
 		super( _properties );
 		setRegistryName( registry_name );
@@ -26,8 +26,8 @@ public abstract class TallFlower extends TallFlowerBlock implements FlowerBlockI
 	
 	@Nonnull
 	@Override
-	public OffsetType getOffsetType() {
+	public BlockBehaviour.OffsetType getOffsetType() {
 		
-		return OffsetType.NONE;
+		return BlockBehaviour.OffsetType.NONE;
 	}
 }

@@ -1,8 +1,8 @@
 package de.geheimagentnr1.manyideas_core.util.voxel_shapes;
 
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.core.Direction;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 
 @SuppressWarnings( "unused" )
@@ -79,46 +79,33 @@ public class VoxelShapeMemory {
 	
 	public VoxelShape getShapeFromHorizontalAxis( Direction.Axis horizontal_axis ) {
 		
-		switch( horizontal_axis ) {
-			case Z:
-				return north;
-			case X:
-				return east;
-		}
-		return VoxelShapes.block();
+		return switch( horizontal_axis ) {
+			case Z -> north;
+			case X -> east;
+			default -> Shapes.block();
+		};
 	}
 	
 	public VoxelShape getShapeFromHorizontalFacing( Direction horizontal_facing ) {
 		
-		switch( horizontal_facing ) {
-			case NORTH:
-				return north;
-			case EAST:
-				return east;
-			case SOUTH:
-				return south;
-			case WEST:
-				return west;
-		}
-		return VoxelShapes.block();
+		return switch( horizontal_facing ) {
+			case NORTH -> north;
+			case EAST -> east;
+			case SOUTH -> south;
+			case WEST -> west;
+			default -> Shapes.block();
+		};
 	}
 	
 	public VoxelShape getShapeFromFacing( Direction facing ) {
 		
-		switch( facing ) {
-			case NORTH:
-				return north;
-			case EAST:
-				return east;
-			case SOUTH:
-				return south;
-			case WEST:
-				return west;
-			case UP:
-				return up;
-			case DOWN:
-				return down;
-		}
-		return VoxelShapes.block();
+		return switch( facing ) {
+			case NORTH -> north;
+			case EAST -> east;
+			case SOUTH -> south;
+			case WEST -> west;
+			case UP -> up;
+			case DOWN -> down;
+		};
 	}
 }

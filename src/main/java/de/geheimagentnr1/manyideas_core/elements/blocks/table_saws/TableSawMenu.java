@@ -2,20 +2,15 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.CraftResultInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.IntReferenceHolder;
-import net.minecraft.world.World;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -24,16 +19,16 @@ import java.util.HashSet;
 import java.util.List;
 
 
-public abstract class TableSawContainer extends Container {
+public abstract class TableSawMenu extends AbstractContainerMenu {
 	
 	
 	private final ImmutableList<Item> ACCEPTED_INPUT_ITEMS;
 	
-	private final IWorldPosCallable worldPosCallable;
+	private final ContainerLevelAccess containerLevelAccess;
 	
-	private final IntReferenceHolder selectedRecipe = IntReferenceHolder.standalone();
+	private final DataSlot selectedRecipe = DataSlot.standalone();
 	
-	private final World world;
+	private final Level level;
 	
 	private List<TableSawRecipe> recipes = Lists.newArrayList();
 	
@@ -50,16 +45,16 @@ public abstract class TableSawContainer extends Container {
 	};
 	
 	@SuppressWarnings( "ThisEscapedInObjectConstruction" )
-	private final IInventory inputInventory = new TableSawInputInventory( this );
+	private final Container inputInventory = new TableSawInputContainer( this );
 	
-	private final CraftResultInventory resultI = new CraftResultInventory();
+	private final ResultContainer resultContainer = new ResultContainer();
 	
-	protected TableSawContainer(
-		ContainerType<? extends TableSawContainer> tableSawContainerType,
+	protected TableSawMenu(
+		MenuType<? extends TableSawMenu> tableSawContainerType,
 		int menuId,
-		PlayerInventory playerInventory ) {
+		Inventory inventory ) {
 		
-		this( tableSawContainerType, menuId, playerInventory, IWorldPosCallable.NULL );
+		this( tableSawContainerType, menuId, inventory, ContainerLevelAccess.NULL );
 	}
 	
 	@SuppressWarnings( {
@@ -69,34 +64,34 @@ public abstract class TableSawContainer extends Container {
 		"ThisEscapedInObjectConstruction",
 		"rawtypes"
 	} )
-	protected TableSawContainer(
-		ContainerType<? extends TableSawContainer> tableSawContainerType,
+	protected TableSawMenu(
+		MenuType<? extends TableSawMenu> tableSawMenu,
 		int menuId,
-		PlayerInventory playerInventory,
-		IWorldPosCallable _worldPosCallable ) {
+		Inventory inventory,
+		ContainerLevelAccess _worldPosCallable ) {
 		
-		super( tableSawContainerType, menuId );
-		worldPosCallable = _worldPosCallable;
-		world = playerInventory.player.level;
+		super( tableSawMenu, menuId );
+		containerLevelAccess = _worldPosCallable;
+		level = inventory.player.level;
 		inputInventorySlot = addSlot( new Slot( inputInventory, 0, 20, 33 ) );
 		outputInventorySlot = addSlot( new TableSawOutputSlot(
 			this,
 			_worldPosCallable,
 			inputInventorySlot,
-			resultI
+			resultContainer
 		) );
 		for( int i = 0; i < 3; ++i ) {
 			for( int j = 0; j < 9; ++j ) {
-				addSlot( new Slot( playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18 ) );
+				addSlot( new Slot( inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18 ) );
 			}
 		}
 		for( int k = 0; k < 9; ++k ) {
-			addSlot( new Slot( playerInventory, k, 8 + k * 18, 142 ) );
+			addSlot( new Slot( inventory, k, 8 + k * 18, 142 ) );
 		}
 		addDataSlot( selectedRecipe );
 		HashSet<Item> acceptable_input = new HashSet<>();
-		List<IRecipeType> acceptedRecipeTypes = getAcceptedRecipeTypes();
-		world.getRecipeManager().getRecipes().forEach( iRecipe -> {
+		List<RecipeType> acceptedRecipeTypes = getAcceptedRecipeTypes();
+		level.getRecipeManager().getRecipes().forEach( iRecipe -> {
 			if( acceptedRecipeTypes.contains( iRecipe.getType() ) ) {
 				TableSawRecipe tableSawRecipe = (TableSawRecipe)iRecipe;
 				ItemStack[] itemStacks = tableSawRecipe.getIngredients().get( 0 ).getItems();
@@ -109,7 +104,7 @@ public abstract class TableSawContainer extends Container {
 	}
 	
 	@SuppressWarnings( "rawtypes" )
-	protected abstract List<IRecipeType> getAcceptedRecipeTypes();
+	protected abstract List<RecipeType> getAcceptedRecipeTypes();
 	
 	@OnlyIn( Dist.CLIENT )
 	public int getSelectedRecipeIndex() {
@@ -136,15 +131,15 @@ public abstract class TableSawContainer extends Container {
 	}
 	
 	@Override
-	public boolean stillValid( @Nonnull PlayerEntity player ) {
+	public boolean stillValid( @Nonnull Player player ) {
 		
-		return stillValid( worldPosCallable, player, getCanInteractBlock() );
+		return stillValid( containerLevelAccess, player, getCanInteractBlock() );
 	}
 	
 	protected abstract Block getCanInteractBlock();
 	
 	@Override
-	public boolean clickMenuButton( @Nonnull PlayerEntity player, int id ) {
+	public boolean clickMenuButton( @Nonnull Player player, int id ) {
 		
 		if( id >= 0 && id < recipes.size() ) {
 			selectedRecipe.set( id );
@@ -154,27 +149,27 @@ public abstract class TableSawContainer extends Container {
 	}
 	
 	@Override
-	public void slotsChanged( @Nonnull IInventory inventory ) {
+	public void slotsChanged( @Nonnull Container container ) {
 		
 		ItemStack itemstack = inputInventorySlot.getItem();
 		if( itemstack.getItem() != itemStackInput.getItem() ) {
 			itemStackInput = itemstack.copy();
-			updateAvailableRecipes( inventory, itemstack );
+			updateAvailableRecipes( container, itemstack );
 		}
 		
 	}
 	
-	private void updateAvailableRecipes( IInventory inventory, ItemStack stack ) {
+	private void updateAvailableRecipes( Container inventory, ItemStack stack ) {
 		
 		recipes.clear();
 		selectedRecipe.set( -1 );
 		outputInventorySlot.set( ItemStack.EMPTY );
 		if( !stack.isEmpty() ) {
-			recipes = getAvaiableRecipes( inventory, world );
+			recipes = getAvaiableRecipes( inventory, level );
 		}
 	}
 	
-	protected abstract List<TableSawRecipe> getAvaiableRecipes( IInventory inventory, World level );
+	protected abstract List<TableSawRecipe> getAvaiableRecipes( Container container, Level _level );
 	
 	//package-private
 	void updateRecipeResultSlot() {
@@ -209,11 +204,11 @@ public abstract class TableSawContainer extends Container {
 	
 	@Nonnull
 	@Override
-	public ItemStack quickMoveStack( @Nonnull PlayerEntity player, int index ) {
+	public ItemStack quickMoveStack( @Nonnull Player player, int index ) {
 		
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = slots.get( index );
-		if( slot != null && slot.hasItem() ) {
+		if( slot.hasItem() ) {
 			ItemStack itemstack1 = slot.getItem();
 			Item item = itemstack1.getItem();
 			itemstack = itemstack1.copy();
@@ -260,10 +255,15 @@ public abstract class TableSawContainer extends Container {
 	}
 	
 	@Override
-	public void removed( @Nonnull PlayerEntity player ) {
+	public void removed( @Nonnull Player player ) {
 		
 		super.removed( player );
-		resultI.removeItemNoUpdate( 1 );
-		worldPosCallable.execute( ( worldIn, pos ) -> clearContainer( player, player.level, inputInventory ) );
+		resultContainer.removeItemNoUpdate( 1 );
+		containerLevelAccess.execute( ( worldIn, pos ) -> clearContainer( player, inputInventory ) );
+	}
+	
+	public ResultContainer getResultContainer() {
+		
+		return resultContainer;
 	}
 }

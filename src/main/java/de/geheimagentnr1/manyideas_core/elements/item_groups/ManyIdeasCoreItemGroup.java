@@ -3,13 +3,13 @@ package de.geheimagentnr1.manyideas_core.elements.item_groups;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
 
-public class ManyIdeasCoreItemGroup extends ItemGroup {
+public class ManyIdeasCoreItemGroup extends CreativeModeTab {
 	
 	
 	public ManyIdeasCoreItemGroup() {

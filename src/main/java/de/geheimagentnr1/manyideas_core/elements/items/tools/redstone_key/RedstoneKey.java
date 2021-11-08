@@ -4,18 +4,18 @@ import de.geheimagentnr1.manyideas_core.elements.items.CoreBaseItem;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces.RedstoneKeyable;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyNamedContainerProvider;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -33,23 +33,22 @@ public class RedstoneKey extends CoreBaseItem {
 	
 	@Nonnull
 	@Override
-	public ActionResultType useOn( ItemUseContext context ) {
+	public InteractionResult useOn( @Nonnull UseOnContext context ) {
 		
-		World level = context.getLevel();
+		Level level = context.getLevel();
 		BlockPos pos = context.getClickedPos();
 		BlockState state = level.getBlockState( pos );
 		Block block = state.getBlock();
-		PlayerEntity player = context.getPlayer();
-		if( block instanceof RedstoneKeyable ) {
-			RedstoneKeyable redstoneKeyableBlock = (RedstoneKeyable)block;
+		Player player = context.getPlayer();
+		if( block instanceof RedstoneKeyable redstoneKeyableBlock ) {
 			if( !level.isClientSide && player != null ) {
-				ITextComponent title = redstoneKeyableBlock.getTitle();
+				Component title = redstoneKeyableBlock.getTitle();
 				ResourceLocation icons = redstoneKeyableBlock.getIconTextures();
 				List<Option> options = redstoneKeyableBlock.getOptions();
 				int stateIndex = redstoneKeyableBlock.getStateIndex( state );
 				
 				NetworkHooks.openGui(
-					(ServerPlayerEntity)player,
+					(ServerPlayer)player,
 					new RedstoneKeyNamedContainerProvider(
 						title,
 						icons,
@@ -70,8 +69,8 @@ public class RedstoneKey extends CoreBaseItem {
 					}
 				);
 			}
-			return ActionResultType.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return ActionResultType.PASS;
+		return InteractionResult.PASS;
 	}
 }

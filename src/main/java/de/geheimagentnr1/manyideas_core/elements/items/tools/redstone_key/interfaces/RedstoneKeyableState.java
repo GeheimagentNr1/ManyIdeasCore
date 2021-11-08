@@ -1,13 +1,13 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces;
 
 import de.geheimagentnr1.manyideas_core.util.TranslationKeyHelper;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 
 import java.util.Locale;
 
 
 @SuppressWarnings( { "InterfaceWithOnlyOneDirectInheritor", "unused" } )
-public interface RedstoneKeyableState extends IStringSerializable {
+public interface RedstoneKeyableState extends StringRepresentable {
 	
 	
 	//public

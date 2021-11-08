@@ -1,14 +1,14 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import de.geheimagentnr1.manyideas_core.network.RedstoneKeyStateUpdateMsg;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FocusableGui;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.IGuiEventListener;
-import net.minecraft.client.gui.IRenderable;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.events.AbstractContainerEventHandler;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -17,7 +17,7 @@ import java.util.Objects;
 
 
 @SuppressWarnings( "WeakerAccess" )
-public class RedstoneKeyOption extends FocusableGui implements IRenderable {
+public class RedstoneKeyOption extends AbstractContainerEventHandler implements Widget {
 	
 	
 	private final RedstoneKeyScreen parent;
@@ -74,16 +74,16 @@ public class RedstoneKeyOption extends FocusableGui implements IRenderable {
 	}
 	
 	@Override
-	public void render( @Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks ) {
+	public void render( @Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks ) {
 		
-		FontRenderer font = Minecraft.getInstance().font;
-		font.draw( matrixStack, title, x + 30, y + 2, Objects.requireNonNull( TextFormatting.DARK_GRAY.getColor() ) );
+		Font font = Minecraft.getInstance().font;
+		font.draw( poseStack, title, x + 30, y + 2, Objects.requireNonNull( ChatFormatting.DARK_GRAY.getColor() ) );
 		font.draw(
-			matrixStack,
+			poseStack,
 			description,
 			x + 30,
 			y + 12,
-			Objects.requireNonNull( TextFormatting.WHITE.getColor() )
+			Objects.requireNonNull( ChatFormatting.WHITE.getColor() )
 		);
 	}
 	
@@ -94,7 +94,7 @@ public class RedstoneKeyOption extends FocusableGui implements IRenderable {
 	
 	@Nonnull
 	@Override
-	public List<? extends IGuiEventListener> children() {
+	public List<? extends GuiEventListener> children() {
 		
 		return Collections.singletonList( button );
 	}

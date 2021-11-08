@@ -5,9 +5,9 @@ import de.geheimagentnr1.manyideas_core.elements.block_state_properties.ModBlock
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.OpenedBy;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
 import de.geheimagentnr1.manyideas_core.util.TranslationKeyHelper;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 public class OpenedByHelper {
 	
 	
-	public static final ITextComponent OPEN_BY_CONTAINER_TITLE =
+	public static final Component OPEN_BY_CONTAINER_TITLE =
 		TranslationKeyHelper.generateMessageTranslationTextComponent( ManyIdeasCore.MODID, "opened_by" );
 	
 	public static final ResourceLocation ICON_TEXTURES = new ResourceLocation(
@@ -26,18 +26,12 @@ public class OpenedByHelper {
 	
 	public static boolean canBeOpened( BlockState state, boolean onActivated ) {
 		
-		switch( state.getValue( ModBlockStateProperties.OPENED_BY ) ) {
-			case NOTHING:
-				return false;
-			case HAND:
-				return onActivated;
-			case REDSTONE:
-				return !onActivated;
-			case BOTH:
-				return true;
-			default:
-				throw new IllegalStateException( "Illegal \"can_be_opened_by\" State" );
-		}
+		return switch( state.getValue( ModBlockStateProperties.OPENED_BY ) ) {
+			case NOTHING -> false;
+			case HAND -> onActivated;
+			case REDSTONE -> !onActivated;
+			case BOTH -> true;
+		};
 	}
 	
 	public static List<Option> buildOptions() {

@@ -4,29 +4,29 @@ import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.util.TranslationKeyHelper;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,12 +37,12 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	
 	public static final String registry_name = "dye_crafting_table";
 	
-	private static final ITextComponent CONTAINER_TITLE = TranslationKeyHelper.generateContainerTranslationText(
+	private static final Component CONTAINER_TITLE = TranslationKeyHelper.generateContainerTranslationText(
 		ManyIdeasCore.MODID,
 		registry_name
 	);
 	
-	private static final VoxelShape SHAPE = VoxelShapes.or(
+	private static final VoxelShape SHAPE = Shapes.or(
 		Block.box( 0.0, 14.0, 0.0, 16.0, 15.75, 16.0 ),
 		Block.box( 0.0, 0.0, 0.0, 2.0, 14.0, 2.0 ),
 		Block.box( 14.0, 0.0, 0.0, 16.0, 14.0, 2.0 ),
@@ -52,7 +52,7 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	
 	public DyeCraftingTable() {
 		
-		super( AbstractBlock.Properties.of( Material.WOOD ).strength( 2.5F ).sound( SoundType.WOOD ) );
+		super( BlockBehaviour.Properties.of( Material.WOOD ).strength( 2.5F ).sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 	}
 	
@@ -61,16 +61,16 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	@Override
 	public VoxelShape getShape(
 		@Nonnull BlockState state,
-		@Nonnull IBlockReader level,
+		@Nonnull BlockGetter level,
 		@Nonnull BlockPos pos,
-		@Nonnull ISelectionContext context ) {
+		@Nonnull CollisionContext context ) {
 		
 		return SHAPE;
 	}
 	
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement( BlockItemUseContext context ) {
+	public BlockState getStateForPlacement( BlockPlaceContext context ) {
 		
 		return defaultBlockState().setValue(
 			BlockStateProperties.HORIZONTAL_FACING,
@@ -78,38 +78,38 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 		);
 	}
 	
-	
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public ActionResultType use(
-		BlockState state,
-		@Nonnull World level,
+	public InteractionResult use(
+		@Nonnull BlockState state,
+		@Nonnull Level level,
 		@Nonnull BlockPos pos,
-		PlayerEntity player,
-		@Nonnull Hand hand,
-		@Nonnull BlockRayTraceResult hitResult ) {
+		@Nonnull Player player,
+		@Nonnull InteractionHand hand,
+		@Nonnull BlockHitResult hitResult ) {
 		
 		player.openMenu( state.getMenuProvider( level, pos ) );
-		return ActionResultType.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 	
 	@SuppressWarnings( "deprecation" )
+	@Nullable
 	@Override
-	public INamedContainerProvider getMenuProvider(
-		@Nonnull BlockState state,
-		@Nonnull World level,
-		@Nonnull BlockPos pos ) {
+	public MenuProvider getMenuProvider( @Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos ) {
 		
-		return new SimpleNamedContainerProvider( ( windowID, playerInventory, playerEntity ) -> new DyeCraftingTableContainer(
-			windowID,
-			playerInventory,
-			IWorldPosCallable.create( level, pos )
-		), CONTAINER_TITLE );
+		return new SimpleMenuProvider(
+			( menuId, inventory, player ) -> new DyeCraftingTableMenu(
+				menuId,
+				inventory,
+				ContainerLevelAccess.create( level, pos )
+			),
+			CONTAINER_TITLE
+		);
 	}
 	
 	@Override
-	protected void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( StateDefinition.Builder<Block, BlockState> builder ) {
 		
 		builder.add( BlockStateProperties.HORIZONTAL_FACING );
 	}

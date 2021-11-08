@@ -2,33 +2,33 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
-import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,7 +40,7 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	
 	private static final DamageSource SAW = new DamageSource( "table_saw" );
 	
-	private static final VoxelShape SHAPE = VoxelShapes.or(
+	private static final VoxelShape SHAPE = Shapes.or(
 		Block.box( 0.0, 14.0, 0.0, 16.0, 15.75, 16.0 ),
 		Block.box( 0.0, 0.0, 0.0, 2.0, 14.0, 2.0 ),
 		Block.box( 14.0, 0.0, 0.0, 16.0, 14.0, 2.0 ),
@@ -50,7 +50,7 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	
 	protected TableSaw( String registry_name ) {
 		
-		super( AbstractBlock.Properties.of( Material.WOOD ).strength( 2.5F ).sound( SoundType.WOOD ) );
+		super( BlockBehaviour.Properties.of( Material.WOOD ).strength( 2.5F ).sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 	}
 	
@@ -65,16 +65,16 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	@Override
 	public VoxelShape getShape(
 		@Nonnull BlockState state,
-		@Nonnull IBlockReader level,
+		@Nonnull BlockGetter level,
 		@Nonnull BlockPos pos,
-		@Nonnull ISelectionContext context ) {
+		@Nonnull CollisionContext context ) {
 		
 		return SHAPE;
 	}
 	
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement( @Nonnull BlockItemUseContext context ) {
+	public BlockState getStateForPlacement( @Nonnull BlockPlaceContext context ) {
 		
 		return defaultBlockState().setValue(
 			BlockStateProperties.HORIZONTAL_FACING,
@@ -82,9 +82,12 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 		);
 	}
 	
-	
 	@Override
-	public void stepOn( @Nonnull World level, @Nonnull BlockPos pos, @Nonnull Entity entity ) {
+	public void stepOn(
+		@Nonnull Level level,
+		@Nonnull BlockPos pos,
+		@Nonnull BlockState state,
+		@Nonnull Entity entity ) {
 		
 		entity.hurt( SAW, 1.0F );
 	}
@@ -92,42 +95,42 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public ActionResultType use(
+	public InteractionResult use(
 		@Nonnull BlockState state,
-		@Nonnull World level,
+		@Nonnull Level level,
 		@Nonnull BlockPos pos,
-		@Nonnull PlayerEntity player,
-		@Nonnull Hand hand,
-		@Nonnull BlockRayTraceResult hitResult ) {
+		@Nonnull Player player,
+		@Nonnull InteractionHand hand,
+		@Nonnull BlockHitResult hitResult ) {
 		
 		player.openMenu( state.getMenuProvider( level, pos ) );
-		return ActionResultType.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Nullable
 	@Override
-	public INamedContainerProvider getMenuProvider(
+	public MenuProvider getMenuProvider(
 		@Nonnull BlockState state,
-		@Nonnull World level,
+		@Nonnull Level level,
 		@Nonnull BlockPos pos ) {
 		
-		return new SimpleNamedContainerProvider( ( windowID, playerInventory, player ) -> getContainer(
-			windowID,
-			playerInventory,
-			IWorldPosCallable.create( level, pos )
+		return new SimpleMenuProvider( ( menuId, inventory, player ) -> getMenu(
+			menuId,
+			inventory,
+			ContainerLevelAccess.create( level, pos )
 		), getContainerName() );
 	}
 	
-	protected abstract Container getContainer(
+	protected abstract AbstractContainerMenu getMenu(
 		int menuId,
-		PlayerInventory playerInventory,
-		IWorldPosCallable worldPosCallable );
+		Inventory inventory,
+		ContainerLevelAccess containerLevelAccess );
 	
-	protected abstract ITextComponent getContainerName();
+	protected abstract Component getContainerName();
 	
 	@Override
-	protected void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( StateDefinition.Builder<Block, BlockState> builder ) {
 		
 		builder.add( BlockStateProperties.HORIZONTAL_FACING );
 	}

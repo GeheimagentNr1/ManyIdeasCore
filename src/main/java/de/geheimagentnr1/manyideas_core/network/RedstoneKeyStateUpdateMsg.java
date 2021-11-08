@@ -1,9 +1,9 @@
 package de.geheimagentnr1.manyideas_core.network;
 
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyContainer;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -20,13 +20,13 @@ public class RedstoneKeyStateUpdateMsg {
 	}
 	
 	//package-private
-	static RedstoneKeyStateUpdateMsg decode( PacketBuffer buffer ) {
+	static RedstoneKeyStateUpdateMsg decode( FriendlyByteBuf buffer ) {
 		
 		return new RedstoneKeyStateUpdateMsg( buffer.readInt() );
 	}
 	
 	//package-private
-	void encode( PacketBuffer buffer ) {
+	void encode( FriendlyByteBuf buffer ) {
 		
 		buffer.writeInt( stateIndex );
 	}
@@ -40,8 +40,7 @@ public class RedstoneKeyStateUpdateMsg {
 	void handle( Supplier<NetworkEvent.Context> context ) {
 		
 		Optional.ofNullable( context.get().getSender() ).ifPresent( player -> {
-			if( player.containerMenu instanceof RedstoneKeyContainer ) {
-				RedstoneKeyContainer menu = (RedstoneKeyContainer)player.containerMenu;
+			if( player.containerMenu instanceof RedstoneKeyContainer menu ) {
 				menu.setBlockStateValue( player.getLevel(), stateIndex, player );
 			}
 		} );

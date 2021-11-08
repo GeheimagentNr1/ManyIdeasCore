@@ -1,7 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes;
 
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.ColorIngredientSerializer;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Ingredient;
 
 
 @SuppressWarnings( { "PublicStaticArrayField", "unchecked" } )

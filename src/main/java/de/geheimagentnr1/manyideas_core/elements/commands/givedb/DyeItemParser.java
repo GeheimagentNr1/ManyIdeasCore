@@ -6,11 +6,11 @@ import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlockItem;
-import net.minecraft.command.ISuggestionProvider;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.core.Registry;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 
 import java.util.Optional;
 import java.util.Set;
@@ -24,7 +24,7 @@ class DyeItemParser {
 	
 	
 	private static final DynamicCommandExceptionType ITEM_BAD_ID =
-		new DynamicCommandExceptionType( function -> new TranslationTextComponent(
+		new DynamicCommandExceptionType( function -> new TranslatableComponent(
 			"argument.item.id.invalid",
 			function
 		) );
@@ -109,7 +109,7 @@ class DyeItemParser {
 	
 	private CompletableFuture<Suggestions> suggestTagOrItem( SuggestionsBuilder builder ) {
 		
-		return ISuggestionProvider.suggestResource( KEY_SET, builder );
+		return SharedSuggestionProvider.suggestResource( KEY_SET, builder );
 	}
 	
 	//package-private

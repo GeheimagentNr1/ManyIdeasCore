@@ -2,10 +2,10 @@ package de.geheimagentnr1.manyideas_core.integrations.jei;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
-import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableContainer;
-import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondContainer;
-import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronContainer;
-import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneContainer;
+import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableMenu;
+import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondMenu;
+import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronMenu;
+import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneMenu;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.dyed.DyedRecipeCategory;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.dyed.JeiDyedRecipe;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.grinding.GrindingRecipeCategory;
@@ -22,8 +22,8 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.registration.*;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -81,7 +81,7 @@ public class JeiIntegration implements IModPlugin {
 	public void registerRecipeTransferHandlers( IRecipeTransferRegistration registration ) {
 		
 		registration.addRecipeTransferHandler(
-			DyeCraftingTableContainer.class,
+			DyeCraftingTableMenu.class,
 			DyedRecipeCategory.registry_key,
 			0,
 			9,
@@ -89,7 +89,7 @@ public class JeiIntegration implements IModPlugin {
 			36
 		);
 		registration.addRecipeTransferHandler(
-			TableSawDiamondContainer.class,
+			TableSawDiamondMenu.class,
 			TableSawDiamondRecipeCategory.registry_key,
 			0,
 			1,
@@ -97,7 +97,7 @@ public class JeiIntegration implements IModPlugin {
 			36
 		);
 		registration.addRecipeTransferHandler(
-			TableSawDiamondContainer.class,
+			TableSawDiamondMenu.class,
 			TableSawIronRecipeCategory.registry_key,
 			0,
 			1,
@@ -105,7 +105,7 @@ public class JeiIntegration implements IModPlugin {
 			36
 		);
 		registration.addRecipeTransferHandler(
-			TableSawDiamondContainer.class,
+			TableSawDiamondMenu.class,
 			TableSawStoneRecipeCategory.registry_key,
 			0,
 			1,
@@ -113,7 +113,7 @@ public class JeiIntegration implements IModPlugin {
 			36
 		);
 		registration.addRecipeTransferHandler(
-			TableSawIronContainer.class,
+			TableSawIronMenu.class,
 			TableSawIronRecipeCategory.registry_key,
 			0,
 			1,
@@ -121,7 +121,7 @@ public class JeiIntegration implements IModPlugin {
 			36
 		);
 		registration.addRecipeTransferHandler(
-			TableSawIronContainer.class,
+			TableSawIronMenu.class,
 			TableSawStoneRecipeCategory.registry_key,
 			0,
 			1,
@@ -129,7 +129,7 @@ public class JeiIntegration implements IModPlugin {
 			36
 		);
 		registration.addRecipeTransferHandler(
-			TableSawStoneContainer.class,
+			TableSawStoneMenu.class,
 			TableSawStoneRecipeCategory.registry_key,
 			0,
 			1,

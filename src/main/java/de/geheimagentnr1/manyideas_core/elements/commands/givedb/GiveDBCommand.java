@@ -5,15 +5,15 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.command.arguments.EntityArgument;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Collection;
 
@@ -22,13 +22,13 @@ public class GiveDBCommand {
 	
 	
 	@SuppressWarnings( "SameReturnValue" )
-	public static void register( CommandDispatcher<CommandSource> dispatcher ) {
+	public static void register( CommandDispatcher<CommandSourceStack> dispatcher ) {
 		
-		LiteralArgumentBuilder<CommandSource> givedbCommand =
+		LiteralArgumentBuilder<CommandSourceStack> givedbCommand =
 			Commands.literal( "givedb" ).requires( commandSource -> commandSource.hasPermission( 2 ) );
 		givedbCommand.executes( command -> {
 			command.getSource()
-				.sendSuccess( new StringTextComponent( "/givedb <target> <name of a dye block> <color>" ), true );
+				.sendSuccess( new TextComponent( "/givedb <target> <name of a dye block> <color>" ), true );
 			return 1;
 		} );
 		givedbCommand.then( Commands.argument( "targets", EntityArgument.players() )
@@ -54,13 +54,13 @@ public class GiveDBCommand {
 	}
 	
 	private static int giveItem(
-		CommandSource source,
+		CommandSourceStack source,
 		Item item,
 		Color color,
-		Collection<ServerPlayerEntity> targets,
+		Collection<ServerPlayer> targets,
 		int count ) {
 		
-		for( ServerPlayerEntity player : targets ) {
+		for( ServerPlayer player : targets ) {
 			player.addItem( DyeBlockHelper.setColorToItemStack(
 				new ItemStack( item, count ),
 				color
@@ -72,14 +72,14 @@ public class GiveDBCommand {
 			);
 		}
 		if( targets.size() == 1 ) {
-			source.sendSuccess( new TranslationTextComponent(
+			source.sendSuccess( new TranslatableComponent(
 				"commands.give.success.single",
 				count,
 				DyeBlockHelper.setColorToItemStack( new ItemStack( item, count ), color ).getDisplayName(),
 				targets.iterator().next().getDisplayName()
 			), true );
 		} else {
-			source.sendSuccess( new TranslationTextComponent(
+			source.sendSuccess( new TranslatableComponent(
 				"commands.give.success.single",
 				count,
 				DyeBlockHelper.setColorToItemStack( new ItemStack( item, count ), color ).getDisplayName(),

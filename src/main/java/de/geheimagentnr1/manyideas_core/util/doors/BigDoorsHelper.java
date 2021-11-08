@@ -1,13 +1,12 @@
 package de.geheimagentnr1.manyideas_core.util.doors;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.doors.BigDoor;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.DoorBlock;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.properties.DoorHingeSide;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 
 import java.util.function.Function;
 
@@ -16,7 +15,7 @@ public class BigDoorsHelper {
 	
 	
 	public static BlockData getNeighborBlock(
-		World level,
+		Level level,
 		BlockPos zeroPos,
 		BlockState state,
 		int zSize,
@@ -43,7 +42,7 @@ public class BigDoorsHelper {
 	
 	private static Direction getDirectionToNeighborDoor( BlockState state ) {
 		
-		Direction facing = state.getValue( DoorBlock.FACING );
+		Direction facing = state.getValue( BlockStateProperties.HORIZONTAL_FACING );
 		return state.getValue( BlockStateProperties.DOOR_HINGE ) == DoorHingeSide.LEFT
 			? facing.getClockWise()
 			: facing.getCounterClockWise();

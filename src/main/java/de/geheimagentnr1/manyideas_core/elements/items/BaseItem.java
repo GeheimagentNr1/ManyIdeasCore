@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.items;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 
 @SuppressWarnings( { "AbstractClassExtendsConcreteClass", "WeakerAccess" } )

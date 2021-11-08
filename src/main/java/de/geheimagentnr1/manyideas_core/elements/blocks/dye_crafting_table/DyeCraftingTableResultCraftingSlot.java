@@ -1,15 +1,15 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
 import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.IRecipeHolder;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.inventory.RecipeHolder;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.fml.hooks.BasicEventHooks;
+import net.minecraftforge.fmllegacy.hooks.BasicEventHooks;
 
 import javax.annotation.Nonnull;
 
@@ -18,25 +18,25 @@ import javax.annotation.Nonnull;
 class DyeCraftingTableResultCraftingSlot extends Slot {
 	
 	
-	private final CraftingInventory craftingInventory;
+	private final CraftingContainer craftingContainer;
 	
-	private final PlayerEntity player;
+	private final Player player;
 	
 	private int amountCrafted;
 	
 	//package-private
 	@SuppressWarnings( "SameParameterValue" )
 	DyeCraftingTableResultCraftingSlot(
-		PlayerEntity _player,
-		CraftingInventory _craftingInventory,
-		IInventory inventoryIn,
+		Player _player,
+		CraftingContainer _craftingContainer,
+		Container _container,
 		int slotIndex,
 		int xPosition,
 		int yPosition ) {
 		
-		super( inventoryIn, slotIndex, xPosition, yPosition );
+		super( _container, slotIndex, xPosition, yPosition );
 		player = _player;
-		craftingInventory = _craftingInventory;
+		craftingContainer = _craftingContainer;
 	}
 	
 	@Override
@@ -74,52 +74,50 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 		
 		if( amountCrafted > 0 ) {
 			stack.onCraftedBy( player.level, player, amountCrafted );
-			BasicEventHooks.firePlayerCraftingEvent( player, stack, craftingInventory );
+			BasicEventHooks.firePlayerCraftingEvent( player, stack, craftingContainer );
 		}
-		if( container instanceof IRecipeHolder ) {
-			( (IRecipeHolder)container ).awardUsedRecipes( player );
+		if( container instanceof RecipeHolder ) {
+			( (RecipeHolder)container ).awardUsedRecipes( player );
 		}
 		amountCrafted = 0;
 	}
 	
-	@Nonnull
 	@Override
-	public ItemStack onTake( @Nonnull PlayerEntity _player, @Nonnull ItemStack stack ) {
+	public void onTake( @Nonnull Player _player, @Nonnull ItemStack stack ) {
 		
 		checkTakeAchievements( stack );
 		ForgeHooks.setCraftingPlayer( _player );
 		NonNullList<ItemStack> ingredients = _player.level.getRecipeManager().getRemainingItemsFor(
 			RecipeTypes.DYED,
-			craftingInventory,
+			craftingContainer,
 			_player.level
 		);
 		ForgeHooks.setCraftingPlayer( null );
 		for( int i = 0; i < ingredients.size(); ++i ) {
-			ItemStack crafting_stack = craftingInventory.getItem( i );
+			ItemStack crafting_stack = craftingContainer.getItem( i );
 			ItemStack ingredient = ingredients.get( i );
 			if( !crafting_stack.isEmpty() ) {
-				craftingInventory.removeItem( i, 1 );
-				crafting_stack = craftingInventory.getItem( i );
+				craftingContainer.removeItem( i, 1 );
+				crafting_stack = craftingContainer.getItem( i );
 			}
 			
 			if( !ingredient.isEmpty() ) {
 				if( crafting_stack.isEmpty() ) {
-					craftingInventory.setItem( i, ingredient );
+					craftingContainer.setItem( i, ingredient );
 				} else {
 					if( ItemStack.isSame( crafting_stack, ingredient ) && ItemStack.tagMatches(
 						crafting_stack,
 						ingredient
 					) ) {
 						ingredient.grow( crafting_stack.getCount() );
-						craftingInventory.setItem( i, ingredient );
+						craftingContainer.setItem( i, ingredient );
 					} else {
-						if( !player.inventory.add( ingredient ) ) {
+						if( !player.getInventory().add( ingredient ) ) {
 							player.drop( ingredient, false );
 						}
 					}
 				}
 			}
 		}
-		return stack;
 	}
 }

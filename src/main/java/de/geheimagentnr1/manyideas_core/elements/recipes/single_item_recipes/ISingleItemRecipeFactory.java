@@ -1,8 +1,8 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 
 @FunctionalInterface

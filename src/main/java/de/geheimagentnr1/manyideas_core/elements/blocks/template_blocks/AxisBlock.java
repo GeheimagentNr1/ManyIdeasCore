@@ -1,12 +1,12 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import javax.annotation.Nullable;
 
@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 public abstract class AxisBlock extends Block implements BlockItemInterface {
 	
 	
-	protected AxisBlock( AbstractBlock.Properties _properties, String registry_name ) {
+	protected AxisBlock( BlockBehaviour.Properties _properties, String registry_name ) {
 		
 		super( _properties );
 		setRegistryName( registry_name );
@@ -23,13 +23,13 @@ public abstract class AxisBlock extends Block implements BlockItemInterface {
 	
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement( BlockItemUseContext context ) {
+	public BlockState getStateForPlacement( BlockPlaceContext context ) {
 		
 		return defaultBlockState().setValue( BlockStateProperties.AXIS, context.getClickedFace().getAxis() );
 	}
 	
 	@Override
-	protected void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( StateDefinition.Builder<Block, BlockState> builder ) {
 		
 		builder.add( BlockStateProperties.AXIS );
 	}

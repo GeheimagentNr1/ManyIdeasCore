@@ -3,18 +3,18 @@ package de.geheimagentnr1.manyideas_core.handlers;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksDebug;
 import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTable;
-import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableContainer;
+import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableMenu;
 import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableScreen;
 import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlock;
-import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlockTile;
+import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlockEntity;
 import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlockTileRenderer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSawScreen;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamond;
-import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondContainer;
+import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondMenu;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIron;
-import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronContainer;
+import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronMenu;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStone;
-import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneContainer;
+import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneMenu;
 import de.geheimagentnr1.manyideas_core.elements.commands.ModArgumentTypes;
 import de.geheimagentnr1.manyideas_core.elements.item_groups.ModItemGroups;
 import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
@@ -28,20 +28,20 @@ import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
 import de.geheimagentnr1.manyideas_core.network.Network;
 import de.geheimagentnr1.manyideas_core.special.decoration_renderer.PlayerDecorationManager;
 import de.geheimagentnr1.manyideas_core.util.BlockRegistrationHelper;
-import net.minecraft.block.Block;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -61,7 +61,7 @@ public class ModEventHandler {
 	}
 	
 	@SubscribeEvent
-	public static void handleRegisterRecipeSerialzierEvent( RegistryEvent.Register<IRecipeSerializer<?>> event ) {
+	public static void handleRegisterRecipeSerialzierEvent( RegistryEvent.Register<RecipeSerializer<?>> event ) {
 		
 		for( IngredientSerializer<? extends Ingredient> ingredientSerializer : IngredientSerializers.INGREDIENTS ) {
 			CraftingHelper.register( ingredientSerializer.getRegistryNameRL(), ingredientSerializer );
@@ -73,14 +73,14 @@ public class ModEventHandler {
 	@SubscribeEvent
 	public static void handleClientSetupEvent( FMLClientSetupEvent event ) {
 		
-		ScreenManager.register( ModBlocks.DYE_CRAFTING_TABLE_CONTAINER, DyeCraftingTableScreen::new );
-		ScreenManager.register( ModBlocks.TABLE_SAW_STONE_CONTAINER, TableSawScreen::new );
-		ScreenManager.register( ModBlocks.TABLE_SAW_IRON_CONTAINER, TableSawScreen::new );
-		ScreenManager.register( ModBlocks.TABLE_SAW_DIAMOND_CONTAINER, TableSawScreen::new );
+		MenuScreens.register( ModBlocks.DYE_CRAFTING_TABLE_CONTAINER, DyeCraftingTableScreen::new );
+		MenuScreens.register( ModBlocks.TABLE_SAW_STONE_CONTAINER, TableSawScreen::new );
+		MenuScreens.register( ModBlocks.TABLE_SAW_IRON_CONTAINER, TableSawScreen::new );
+		MenuScreens.register( ModBlocks.TABLE_SAW_DIAMOND_CONTAINER, TableSawScreen::new );
 		
-		ScreenManager.register( ModItems.RESTONE_KEY_CONTAINER, RedstoneKeyScreen::new );
+		MenuScreens.register( ModItems.RESTONE_KEY_CONTAINER, RedstoneKeyScreen::new );
 		
-		ClientRegistry.bindTileEntityRenderer( ModBlocks.END_BLOCK_TILE, EndBlockTileRenderer::new );
+		BlockEntityRenderers.register( ModBlocks.END_BLOCK_TILE, EndBlockTileRenderer::new );
 		
 		PlayerDecorationManager.initDecorationList();
 		
@@ -106,31 +106,31 @@ public class ModEventHandler {
 	
 	@SuppressWarnings( "ConstantConditions" )
 	@SubscribeEvent
-	public static void handleTileEntityRegistryEvent( RegistryEvent.Register<TileEntityType<?>> event ) {
+	public static void handleBlockEntityRegistryEvent( RegistryEvent.Register<BlockEntityType<?>> event ) {
 		
-		event.getRegistry().register( TileEntityType.Builder.of( EndBlockTile::new, ModBlocks.END_BLOCK )
+		event.getRegistry().register( BlockEntityType.Builder.of( EndBlockEntity::new, ModBlocks.END_BLOCK )
 			.build( null )
 			.setRegistryName( EndBlock.registry_name ) );
 	}
 	
 	@SubscribeEvent
-	public static void handleContainerRegistryEvent( RegistryEvent.Register<ContainerType<?>> event ) {
+	public static void handleContainerRegistryEvent( RegistryEvent.Register<MenuType<?>> event ) {
 		
 		event.getRegistry()
-			.register( IForgeContainerType.create( ( menuId, inv, data ) -> new DyeCraftingTableContainer(
+			.register( IForgeContainerType.create( ( menuId, inv, data ) -> new DyeCraftingTableMenu(
 				menuId,
 				inv
 			) ).setRegistryName( DyeCraftingTable.registry_name ) );
 		event.getRegistry()
-			.register( IForgeContainerType.create( ( menuId, inv, data ) -> new TableSawDiamondContainer(
+			.register( IForgeContainerType.create( ( menuId, inv, data ) -> new TableSawDiamondMenu(
 				menuId,
 				inv
 			) ).setRegistryName( TableSawDiamond.registry_name ) );
-		event.getRegistry().register( IForgeContainerType.create( ( menuId, inv, data ) -> new TableSawIronContainer(
+		event.getRegistry().register( IForgeContainerType.create( ( menuId, inv, data ) -> new TableSawIronMenu(
 			menuId,
 			inv
 		) ).setRegistryName( TableSawIron.registry_name ) );
-		event.getRegistry().register( IForgeContainerType.create( ( menuId, inv, data ) -> new TableSawStoneContainer(
+		event.getRegistry().register( IForgeContainerType.create( ( menuId, inv, data ) -> new TableSawStoneMenu(
 			menuId,
 			inv
 		) ).setRegistryName( TableSawStone.registry_name ) );

@@ -12,8 +12,8 @@ import de.geheimagentnr1.manyideas_core.elements.items.saws.SawStone;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.MysteriousShears;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.RedstoneKey;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyContainer;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.Item;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ObjectHolder;
 
 
@@ -117,5 +117,5 @@ public class ModItems {
 	public static RedstoneKey RESTONE_KEY;
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + RedstoneKey.registry_name )
-	public static ContainerType<RedstoneKeyContainer> RESTONE_KEY_CONTAINER;
+	public static MenuType<RedstoneKeyContainer> RESTONE_KEY_CONTAINER;
 }

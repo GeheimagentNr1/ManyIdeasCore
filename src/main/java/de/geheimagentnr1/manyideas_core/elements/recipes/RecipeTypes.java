@@ -7,10 +7,10 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSaw
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneRecipe;
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedRecipe;
 import de.geheimagentnr1.manyideas_core.elements.recipes.types.SimpleRecipeType;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
 
 
 @SuppressWarnings( { "StaticNonFinalField", "PublicField" } )
@@ -18,21 +18,21 @@ public class RecipeTypes {
 	
 	//Dyed
 	
-	public static IRecipeType<DyedRecipe> DYED;
+	public static RecipeType<DyedRecipe> DYED;
 	
 	//Grinding
 	
-	public static IRecipeType<GrindingRecipe> GRINDING;
+	public static RecipeType<GrindingRecipe> GRINDING;
 	
 	//Tablesawing
 	
-	public static IRecipeType<TableSawDiamondRecipe> TABLE_SAWING_DIAMOND;
+	public static RecipeType<TableSawDiamondRecipe> TABLE_SAWING_DIAMOND;
 	
-	public static IRecipeType<TableSawIronRecipe> TABLE_SAWING_IRON;
+	public static RecipeType<TableSawIronRecipe> TABLE_SAWING_IRON;
 	
-	public static IRecipeType<TableSawStoneRecipe> TABLE_SAWING_STONE;
+	public static RecipeType<TableSawStoneRecipe> TABLE_SAWING_STONE;
 	
-	private static <T extends IRecipe<?>> IRecipeType<T> register( String key ) {
+	private static <T extends Recipe<?>> RecipeType<T> register( String key ) {
 		
 		ResourceLocation registry_key = new ResourceLocation( ManyIdeasCore.MODID, key );
 		return Registry.register( Registry.RECIPE_TYPE, registry_key, new SimpleRecipeType<>( registry_key ) );

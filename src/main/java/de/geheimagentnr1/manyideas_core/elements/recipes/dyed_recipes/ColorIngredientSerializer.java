@@ -3,8 +3,8 @@ package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 import com.google.gson.JsonObject;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.elements.recipes.IngredientSerializer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 import java.util.Comparator;
@@ -23,7 +23,7 @@ public class ColorIngredientSerializer implements IngredientSerializer<ColorIngr
 	
 	@Nonnull
 	@Override
-	public ColorIngredient parse( @Nonnull PacketBuffer buffer ) {
+	public ColorIngredient parse( @Nonnull FriendlyByteBuf buffer ) {
 		
 		if( buffer.readInt() == 0 ) {
 			return new ColorIngredient( new ColorStackList( buffer.readItem() ) );
@@ -46,7 +46,7 @@ public class ColorIngredientSerializer implements IngredientSerializer<ColorIngr
 	}
 	
 	@Override
-	public void write( @Nonnull PacketBuffer buffer, ColorIngredient ingredient ) {
+	public void write( @Nonnull FriendlyByteBuf buffer, ColorIngredient ingredient ) {
 		
 		ColorList colorList = ingredient.getIngrediant();
 		if( colorList instanceof ColorStackList ) {

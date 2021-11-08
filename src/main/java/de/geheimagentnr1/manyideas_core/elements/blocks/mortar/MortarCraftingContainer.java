@@ -1,20 +1,20 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.mortar;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
 
 //package-private
-class MortarCraftingInventory implements IInventory {
+class MortarCraftingContainer implements Container {
 	
 	
 	private ItemStack crafting_stack;
 	
 	//package-private
-	MortarCraftingInventory( ItemStack _crafting_stack ) {
+	MortarCraftingContainer( ItemStack _crafting_stack ) {
 		
 		crafting_stack = _crafting_stack;
 	}
@@ -63,7 +63,7 @@ class MortarCraftingInventory implements IInventory {
 	}
 	
 	@Override
-	public boolean stillValid( @Nonnull PlayerEntity player ) {
+	public boolean stillValid( @Nonnull Player player ) {
 		
 		return true;
 	}

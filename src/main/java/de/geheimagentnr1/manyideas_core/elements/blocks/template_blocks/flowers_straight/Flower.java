@@ -2,10 +2,10 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.flowers
 
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.FlowerBlock;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.potion.Effect;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import javax.annotation.Nonnull;
 
@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 public abstract class Flower extends FlowerBlock implements FlowerBlockItemInterface, BlockRenderTypeInterface {
 	
 	
-	protected Flower( Effect effect, int duration, AbstractBlock.Properties _properties, String registry_name ) {
+	protected Flower( MobEffect effect, int duration, BlockBehaviour.Properties _properties, String registry_name ) {
 		
 		super( effect, duration, _properties );
 		setRegistryName( registry_name );
@@ -28,8 +28,8 @@ public abstract class Flower extends FlowerBlock implements FlowerBlockItemInter
 	
 	@Nonnull
 	@Override
-	public AbstractBlock.OffsetType getOffsetType() {
+	public BlockBehaviour.OffsetType getOffsetType() {
 		
-		return AbstractBlock.OffsetType.NONE;
+		return BlockBehaviour.OffsetType.NONE;
 	}
 }

@@ -3,13 +3,13 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.rainbow
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.StainedGlassPaneBlock;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StainedGlassPaneBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
 
 
 public class RainbowStainedGlassPane extends StainedGlassPaneBlock implements BlockItemInterface,
@@ -22,7 +22,7 @@ public class RainbowStainedGlassPane extends StainedGlassPaneBlock implements Bl
 		
 		super(
 			DyeColor.WHITE,
-			AbstractBlock.Properties.of( Material.GLASS ).strength( 0.3F ).sound( SoundType.GLASS )
+			BlockBehaviour.Properties.of( Material.GLASS ).strength( 0.3F ).sound( SoundType.GLASS )
 		);
 		setRegistryName( registry_name );
 	}

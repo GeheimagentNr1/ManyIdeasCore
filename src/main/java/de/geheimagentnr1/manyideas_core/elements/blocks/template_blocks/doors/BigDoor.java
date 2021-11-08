@@ -13,26 +13,26 @@ import de.geheimagentnr1.manyideas_core.util.doors.DoorsHelper;
 import de.geheimagentnr1.manyideas_core.util.doors.OpenedByHelper;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeMemory;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeVector;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.properties.DoorHingeSide;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoorHingeSide;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -52,7 +52,7 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	private final boolean doubleDoorActive;
 	
 	protected BigDoor(
-		AbstractBlock.Properties _properties,
+		BlockBehaviour.Properties _properties,
 		String registry_name,
 		OpenedBy openedBy,
 		boolean _doubleDoorActive ) {
@@ -77,9 +77,9 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	@Override
 	public VoxelShape getShape(
 		@Nonnull BlockState state,
-		@Nonnull IBlockReader level,
+		@Nonnull BlockGetter level,
 		@Nonnull BlockPos pos,
-		@Nonnull ISelectionContext context ) {
+		@Nonnull CollisionContext context ) {
 		
 		Direction facing = state.getValue( BlockStateProperties.HORIZONTAL_FACING );
 		if( state.getValue( BlockStateProperties.OPEN ) ) {
@@ -98,7 +98,7 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 				return DOORS_SHAPES.getShapeFromHorizontalFacing( facing );
 			}
 		}
-		return VoxelShapes.empty();
+		return Shapes.empty();
 	}
 	
 	@Override
@@ -134,13 +134,13 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public ActionResultType use(
+	public InteractionResult use(
 		@Nonnull BlockState state,
-		@Nonnull World level,
+		@Nonnull Level level,
 		@Nonnull BlockPos pos,
-		@Nonnull PlayerEntity player,
-		@Nonnull Hand hand,
-		@Nonnull BlockRayTraceResult hitResult ) {
+		@Nonnull Player player,
+		@Nonnull InteractionHand hand,
+		@Nonnull BlockHitResult hitResult ) {
 		
 		if( player.getItemInHand( hand ).getItem() != ModItems.RESTONE_KEY &&
 			OpenedByHelper.canBeOpened( state, true ) ) {
@@ -181,16 +181,16 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 					);
 				}
 			}
-			return ActionResultType.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return ActionResultType.PASS;
+		return InteractionResult.PASS;
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
 	public void neighborChanged(
 		@Nonnull BlockState state,
-		@Nonnull World level,
+		@Nonnull Level level,
 		@Nonnull BlockPos pos,
 		@Nonnull Block block,
 		@Nonnull BlockPos fromPos,
@@ -247,7 +247,7 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	}
 	
 	@Override
-	protected void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( StateDefinition.Builder<Block, BlockState> builder ) {
 		
 		super.createBlockStateDefinition( builder );
 		builder.add(
@@ -259,7 +259,7 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	}
 	
 	@Override
-	public ITextComponent getTitle() {
+	public Component getTitle() {
 		
 		return OpenedByHelper.OPEN_BY_CONTAINER_TITLE;
 	}
@@ -284,11 +284,11 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	
 	@Override
 	public void setBlockStateValue(
-		World level,
+		Level level,
 		BlockState state,
 		BlockPos pos,
 		int stateIndex,
-		PlayerEntity player ) {
+		Player player ) {
 		
 		OpenedBy[] openedByValues = OpenedBy.values();
 		if( stateIndex >= 0 && stateIndex < openedByValues.length ) {
