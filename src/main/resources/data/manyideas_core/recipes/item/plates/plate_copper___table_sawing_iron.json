@@ -1,0 +1,8 @@
+{
+	"type":       "manyideas_core:table_sawing_iron",
+	"ingredient": {
+		"item": "minecraft:waxed_copper_block"
+	},
+	"result":     "manyideas_core:plate_copper",
+	"count":      8
+}

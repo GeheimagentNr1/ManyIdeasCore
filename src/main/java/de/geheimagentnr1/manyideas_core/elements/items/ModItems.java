@@ -3,6 +3,7 @@ package de.geheimagentnr1.manyideas_core.elements.items;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.items.dyes.DyeRainbow;
 import de.geheimagentnr1.manyideas_core.elements.items.panels.*;
+import de.geheimagentnr1.manyideas_core.elements.items.plates.PlateCopper;
 import de.geheimagentnr1.manyideas_core.elements.items.plates.PlateGold;
 import de.geheimagentnr1.manyideas_core.elements.items.plates.PlateIron;
 import de.geheimagentnr1.manyideas_core.elements.items.plates.PlateQuartz;
@@ -40,6 +41,7 @@ public class ModItems {
 		new PanelSpruce(),//FINRT
 		new PanelWarped(),//FINRT
 		//Plates
+		new PlateCopper(),//F___T
 		new PlateGold(),//FINRT
 		new PlateIron(),//FINRT
 		new PlateQuartz(),//FINRT
@@ -85,6 +87,9 @@ public class ModItems {
 	public static PanelWarped PANEL_WARPED;
 	
 	//Plates
+	
+	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlateCopper.registry_name )
+	public static PlateCopper PLATE_COPPER;
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + PlateGold.registry_name )
 	public static PlateGold PLATE_GOLD;
