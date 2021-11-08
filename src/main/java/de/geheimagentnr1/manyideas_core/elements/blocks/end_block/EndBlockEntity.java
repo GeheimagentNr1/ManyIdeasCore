@@ -17,7 +17,7 @@ public class EndBlockEntity extends TheEndPortalBlockEntity {
 	
 	public EndBlockEntity( BlockPos pos, BlockState state ) {
 		
-		super( ModBlocks.END_BLOCK_TILE, pos, state );
+		super( ModBlocks.END_BLOCK_ENTITY, pos, state );
 	}
 	
 	@SuppressWarnings( "unused" )

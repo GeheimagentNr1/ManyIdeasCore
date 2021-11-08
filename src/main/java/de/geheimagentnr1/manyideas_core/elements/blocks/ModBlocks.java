@@ -233,7 +233,7 @@ public class ModBlocks {
 	public static EndBlock END_BLOCK;
 	
 	@ObjectHolder( ManyIdeasCore.MODID + ":" + EndBlock.registry_name )
-	public static BlockEntityType<EndBlockEntity> END_BLOCK_TILE;
+	public static BlockEntityType<EndBlockEntity> END_BLOCK_ENTITY;
 	
 	//Mortar
 	

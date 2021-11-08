@@ -4,10 +4,10 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
 
 
-public class EndBlockTileRenderer extends TheEndPortalRenderer<EndBlockEntity> {
+public class EndBlockEntityRenderer extends TheEndPortalRenderer<EndBlockEntity> {
 	
 	
-	public EndBlockTileRenderer( BlockEntityRendererProvider.Context context ) {
+	public EndBlockEntityRenderer( BlockEntityRendererProvider.Context context ) {
 		
 		super( context );
 	}

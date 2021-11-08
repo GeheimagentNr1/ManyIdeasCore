@@ -7,7 +7,7 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCr
 import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableScreen;
 import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlock;
 import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlockEntity;
-import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlockTileRenderer;
+import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlockEntityRenderer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSawScreen;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamond;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondMenu;
@@ -80,7 +80,7 @@ public class ModEventHandler {
 		
 		MenuScreens.register( ModItems.RESTONE_KEY_CONTAINER, RedstoneKeyScreen::new );
 		
-		BlockEntityRenderers.register( ModBlocks.END_BLOCK_TILE, EndBlockTileRenderer::new );
+		BlockEntityRenderers.register( ModBlocks.END_BLOCK_ENTITY, EndBlockEntityRenderer::new );
 		
 		PlayerDecorationManager.initDecorationList();
 		
