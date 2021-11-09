@@ -26,6 +26,7 @@ public class EndBlock extends Block implements BlockItemInterface, BlockRenderTy
 		
 		super( Block.Properties.create( Material.ROCK )
 			.hardnessAndResistance( 50.0F, 1200.0F )
+			.notSolid()
 			.sound( SoundType.GLASS ) );
 		setRegistryName( registry_name );
 	}
