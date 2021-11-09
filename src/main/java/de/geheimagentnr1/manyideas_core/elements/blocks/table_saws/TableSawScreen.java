@@ -91,7 +91,6 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 				}
 			}
 		}
-		
 	}
 	
 	private void renderButtons(

@@ -18,14 +18,17 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
-public class EndBlock extends BaseEntityBlock implements BlockItemInterface, BlockRenderTypeInterface, IEndBlock {
+public class EndBlock extends BaseEntityBlock implements BlockItemInterface, BlockRenderTypeInterface {
 	
 	
 	public static final String registry_name = "end_block";
 	
 	public EndBlock() {
 		
-		super( BlockBehaviour.Properties.of( Material.STONE ).strength( 50.0F, 1200.0F ).sound( SoundType.GLASS ) );
+		super( BlockBehaviour.Properties.of( Material.STONE )
+			.strength( 50.0F, 1200.0F )
+			.noOcclusion().isViewBlocking( ( state, level, pos ) -> false )
+			.sound( SoundType.GLASS ) );
 		setRegistryName( registry_name );
 	}
 	
