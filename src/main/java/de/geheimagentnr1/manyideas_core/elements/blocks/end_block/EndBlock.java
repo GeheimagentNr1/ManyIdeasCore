@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
-public class EndBlock extends Block implements BlockItemInterface, IEndBlock {
+public class EndBlock extends Block implements BlockItemInterface {
 	
 	
 	public static final String registry_name = "end_block";

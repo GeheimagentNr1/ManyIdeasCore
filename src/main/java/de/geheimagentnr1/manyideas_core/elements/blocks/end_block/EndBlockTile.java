@@ -6,9 +6,9 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 
 public class EndBlockTile extends TileEntity {
@@ -26,8 +26,13 @@ public class EndBlockTile extends TileEntity {
 	}
 	
 	//package-private
-	@SuppressWarnings( "deprecation" )
 	boolean shouldRender( Direction direction ) {
+		
+		return shouldRender( world, pos, direction );
+	}
+	
+	@SuppressWarnings( "WeakerAccess" )
+	public static boolean shouldRender( World world, BlockPos pos, Direction direction ) {
 		
 		if( world == null ) {
 			return true;
@@ -37,13 +42,6 @@ public class EndBlockTile extends TileEntity {
 		if( direction_state.getRenderType() == BlockRenderType.INVISIBLE ) {
 			return true;
 		}
-		if( direction_state.getBlock() instanceof IEndBlock ) {
-			return false;
-		}
-		if( direction_state.getBlock().getRenderLayer() == BlockRenderLayer.SOLID ) {
-			return !Block.hasSolidSide( direction_state, world, direction_pos, direction.getOpposite() );
-		} else {
-			return !direction_state.getBlock().isSolid( direction_state );
-		}
+		return !Block.hasSolidSide( direction_state, world, direction_pos, direction.getOpposite() );
 	}
 }
