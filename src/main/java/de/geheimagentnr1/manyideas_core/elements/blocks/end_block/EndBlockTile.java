@@ -8,6 +8,7 @@ import net.minecraft.tileentity.EndPortalTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
@@ -29,6 +30,12 @@ public class EndBlockTile extends EndPortalTileEntity {
 	@Override
 	public boolean shouldRenderFace( @Nonnull Direction face ) {
 		
+		return shouldRender( world, pos, face );
+	}
+	
+	@SuppressWarnings( "WeakerAccess" )
+	public static boolean shouldRender( World world, BlockPos pos, Direction face ) {
+		
 		if( level == null ) {
 			return true;
 		}
@@ -36,9 +43,6 @@ public class EndBlockTile extends EndPortalTileEntity {
 		BlockState direction_state = level.getBlockState( direction_pos );
 		if( direction_state.getRenderShape() == BlockRenderType.INVISIBLE ) {
 			return true;
-		}
-		if( direction_state.getBlock() instanceof IEndBlock ) {
-			return false;
 		}
 		return !Block.isFaceFull( direction_state.getShape( level, direction_pos ), face.getOpposite() );
 	}

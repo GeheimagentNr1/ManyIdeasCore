@@ -14,14 +14,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
-public class EndBlock extends Block implements BlockItemInterface, BlockRenderTypeInterface, IEndBlock {
+public class EndBlock extends Block implements BlockItemInterface, BlockRenderTypeInterface {
 	
 	
 	public static final String registry_name = "end_block";
 	
 	public EndBlock() {
 		
-		super( AbstractBlock.Properties.of( Material.STONE ).strength( 50.0F, 1200.0F ).sound( SoundType.GLASS ) );
+		super( AbstractBlock.Properties.of( Material.STONE ).strength( 50.0F, 1200.0F ).notSolid()
+			.sound( SoundType.GLASS ) );
 		setRegistryName( registry_name );
 	}
 	
