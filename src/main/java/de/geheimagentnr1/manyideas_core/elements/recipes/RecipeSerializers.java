@@ -15,7 +15,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraftforge.registries.ObjectHolder;
 
 
-@SuppressWarnings( { "StaticNonFinalField", "PublicField" } )
+@SuppressWarnings( { "StaticNonFinalField", "PublicField", "PublicStaticArrayField" } )
 public class RecipeSerializers {
 	
 	
