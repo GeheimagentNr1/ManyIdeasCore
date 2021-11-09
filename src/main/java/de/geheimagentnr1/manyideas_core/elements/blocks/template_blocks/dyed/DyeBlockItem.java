@@ -13,7 +13,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
 
 import javax.annotation.Nonnull;
-import java.util.function.Supplier;
 
 
 public class DyeBlockItem extends BlockItem {

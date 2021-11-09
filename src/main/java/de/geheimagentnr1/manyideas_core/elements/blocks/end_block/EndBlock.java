@@ -21,7 +21,9 @@ public class EndBlock extends Block implements BlockItemInterface, BlockRenderTy
 	
 	public EndBlock() {
 		
-		super( AbstractBlock.Properties.of( Material.STONE ).strength( 50.0F, 1200.0F ).notSolid()
+		super( AbstractBlock.Properties.of( Material.STONE )
+			.strength( 50.0F, 1200.0F )
+			.noOcclusion().isViewBlocking( ( state, level, pos ) -> false )
 			.sound( SoundType.GLASS ) );
 		setRegistryName( registry_name );
 	}

@@ -148,7 +148,7 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 				double d0 = p_231044_1_ - ( i + ( i1 % 4 << 4 ) );
 				double d1 = p_231044_3_ - ( j + i1 / 4.0 * 18 );
 				if( d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D &&
-					menu.clickMenuButton( Objects.requireNonNull( Objects.requireNonNull( Objects.requireNonNull( minecraft ).player ), l ) ) {
+					menu.clickMenuButton( Objects.requireNonNull( Objects.requireNonNull( minecraft ).player ), l ) ) {
 					Minecraft.getInstance()
 						.getSoundManager()
 						.play( SimpleSound.forUI( SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F ) );

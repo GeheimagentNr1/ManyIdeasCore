@@ -30,16 +30,16 @@ public class EndBlockTile extends EndPortalTileEntity {
 	@Override
 	public boolean shouldRenderFace( @Nonnull Direction face ) {
 		
-		return shouldRender( world, pos, face );
+		return shouldRender( level, worldPosition, face );
 	}
 	
 	@SuppressWarnings( "WeakerAccess" )
-	public static boolean shouldRender( World world, BlockPos pos, Direction face ) {
+	public static boolean shouldRender( World level, BlockPos pos, Direction face ) {
 		
 		if( level == null ) {
 			return true;
 		}
-		BlockPos direction_pos = worldPosition.relative( face );
+		BlockPos direction_pos = pos.relative( face );
 		BlockState direction_state = level.getBlockState( direction_pos );
 		if( direction_state.getRenderShape() == BlockRenderType.INVISIBLE ) {
 			return true;
