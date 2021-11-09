@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class RedstoneKeyContainer extends Container {
@@ -52,7 +53,8 @@ public class RedstoneKeyContainer extends Container {
 		super( ModItems.RESTONE_KEY_CONTAINER, containerID );
 		icons = data.readResourceLocation();
 		pos = data.readBlockPos();
-		redstoneKeyableBlock = (RedstoneKeyable)Minecraft.getInstance().world.getBlockState( pos ).getBlock();
+		redstoneKeyableBlock = (RedstoneKeyable)Objects.requireNonNull( Minecraft.getInstance().world )
+			.getBlockState( pos ).getBlock();
 		int optionsCount = data.readInt();
 		options = new ArrayList<>();
 		for( int i = 0; i < optionsCount; i++ ) {

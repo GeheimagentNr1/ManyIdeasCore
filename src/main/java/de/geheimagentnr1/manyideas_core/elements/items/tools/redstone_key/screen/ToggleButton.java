@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.AbstractButton;
@@ -42,7 +42,7 @@ public class ToggleButton extends AbstractButton {
 	public void renderButton( int mouseX, int mouseY, float partial ) {
 		
 		Minecraft.getInstance().getTextureManager().bindTexture( TOGGLE_BUTTON );
-		GlStateManager.color4f( 1.0f, 1.0f, 1.0f, 1.0f );
+		RenderSystem.color4f( 1.0f, 1.0f, 1.0f, 1.0f );
 		int textureStartindex = 0;
 		
 		if( active ) {

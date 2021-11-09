@@ -6,10 +6,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 
 
@@ -34,8 +31,12 @@ public abstract class JeiSingleItemRecipe<T extends SingleItemRecipe> {
 		
 		ClientWorld world = Minecraft.getInstance().world;
 		ArrayList<J> jeiRecipes = new ArrayList<>();
-		world.getRecipeManager().getRecipes().stream().filter( iRecipe -> iRecipe.getType() == recipeType ).forEach(
-			iRecipe -> jeiRecipes.add( jeiRecipeBuilder.apply( (R)iRecipe ) ) );
+		Objects.requireNonNull( world )
+			.getRecipeManager()
+			.getRecipes()
+			.stream()
+			.filter( iRecipe -> iRecipe.getType() == recipeType )
+			.forEach( iRecipe -> jeiRecipes.add( jeiRecipeBuilder.apply( (R)iRecipe ) ) );
 		return jeiRecipes;
 	}
 	

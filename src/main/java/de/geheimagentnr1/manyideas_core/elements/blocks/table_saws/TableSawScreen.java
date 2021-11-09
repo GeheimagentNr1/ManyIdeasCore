@@ -1,11 +1,10 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
@@ -75,7 +74,7 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 	protected void drawGuiContainerBackgroundLayer( float partialTicks, int mouseX, int mouseY ) {
 		
 		renderBackground();
-		GlStateManager.color4f( 1.0F, 1.0F, 1.0F, 1.0F );
+		RenderSystem.color4f( 1.0F, 1.0F, 1.0F, 1.0F );
 		Objects.requireNonNull( minecraft ).getTextureManager().bindTexture( BACKGROUND_TEXTURE );
 		int i = guiLeft;
 		int j = guiTop;
@@ -137,11 +136,11 @@ public class TableSawScreen extends ContainerScreen<TableSawContainer> {
 				@SuppressWarnings( "IntegerDivisionInFloatingPointContext" )
 				double d1 = p_mouseClicked_3_ - ( j + i1 / 4 * 18 );
 				if( d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D &&
-					container.enchantItem( Objects.requireNonNull( minecraft ).player, l ) ) {
+					container.enchantItem( Objects.requireNonNull( Objects.requireNonNull( minecraft ).player ), l ) ) {
 					Minecraft.getInstance()
 						.getSoundHandler()
 						.play( SimpleSound.master( SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F ) );
-					minecraft.playerController.sendEnchantPacket( container.windowId, l );
+					Objects.requireNonNull( minecraft.playerController ).sendEnchantPacket( container.windowId, l );
 					return true;
 				}
 			}

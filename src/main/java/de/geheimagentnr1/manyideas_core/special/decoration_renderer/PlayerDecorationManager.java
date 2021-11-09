@@ -77,8 +77,11 @@ public class PlayerDecorationManager {
 		}
 	}
 	
-	public static void renderForPlayer( PlayerEntity player, int light, MatrixStack matrixStack,
-	                                    IRenderTypeBuffer buffer ) {
+	public static void renderForPlayer(
+		PlayerEntity player,
+		int light,
+		MatrixStack matrixStack,
+		IRenderTypeBuffer buffer ) {
 		
 		PlayerDecorationRenderer playerDecorationRenderer = DECORATION_LIST.get(
 			player.getName().getUnformattedComponentText() );

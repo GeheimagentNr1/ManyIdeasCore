@@ -1,10 +1,8 @@
 package de.geheimagentnr1.manyideas_core.special.decoration_renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -12,7 +10,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerModelPart;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Vec3d;
 
 
 //package-private
@@ -52,7 +49,8 @@ class PlayerDecorationRenderer {
 		matrixStack.push();
 		matrixStack.rotate( Vector3f.YP.rotationDegrees( (float)( bouncing * 40.0D % 360 ) ) );
 		Minecraft.getInstance().getItemRenderer().renderItem( stack, ItemCameraTransforms.TransformType.FIXED, light,
-			OverlayTexture.NO_OVERLAY, matrixStack, buffer );
+			OverlayTexture.NO_OVERLAY, matrixStack, buffer
+		);
 		matrixStack.pop();
 		matrixStack.pop();
 		matrixStack.pop();

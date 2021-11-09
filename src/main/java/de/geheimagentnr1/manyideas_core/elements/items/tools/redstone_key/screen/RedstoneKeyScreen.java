@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -68,7 +68,7 @@ public class RedstoneKeyScreen extends ContainerScreen<RedstoneKeyContainer> {
 	protected void drawGuiContainerBackgroundLayer( float partialTicks, int mouseX, int mouseY ) {
 		
 		Objects.requireNonNull( minecraft );
-		GlStateManager.color4f( 1.0F, 1.0F, 1.0F, 1.0F );
+		RenderSystem.color4f( 1.0F, 1.0F, 1.0F, 1.0F );
 		minecraft.getTextureManager().bindTexture( REDSTONE_KEY_GUI_TEXTURE );
 		blit( guiLeft, ( height - ySize ) / 2, 0, 0, xSize, ySize );
 	}

@@ -14,6 +14,7 @@ import net.minecraft.item.crafting.Ingredient;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 public class JeiDyedRecipe {
@@ -69,7 +70,7 @@ public class JeiDyedRecipe {
 		
 		ClientWorld world = Minecraft.getInstance().world;
 		ArrayList<JeiDyedRecipe> jeiDyedRecipes = new ArrayList<>();
-		world.getRecipeManager().getRecipes().forEach( iRecipe -> {
+		Objects.requireNonNull( world ).getRecipeManager().getRecipes().forEach( iRecipe -> {
 			if( iRecipe.getType() == RecipeTypes.DYED ) {
 				DyedRecipe recipe = (DyedRecipe)iRecipe;
 				ArrayList<JeiDyedRecipe> recipes = create( recipe );

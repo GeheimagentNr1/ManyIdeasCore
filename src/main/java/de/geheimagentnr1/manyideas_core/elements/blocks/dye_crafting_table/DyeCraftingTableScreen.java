@@ -1,6 +1,5 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
