@@ -28,6 +28,7 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -49,7 +50,10 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	
 	protected TableSaw( String registry_name ) {
 		
-		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 2.5F ).sound( SoundType.WOOD ) );
+		super( Block.Properties.create( Material.WOOD )
+			.hardnessAndResistance( 2.5F )
+			.harvestTool( ToolType.AXE )
+			.sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 	}
 	
