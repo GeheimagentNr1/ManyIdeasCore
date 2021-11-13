@@ -119,28 +119,6 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	}
 	
 	@Override
-	public void onBlockHarvested(
-		@Nonnull World worldIn,
-		@Nonnull BlockPos pos,
-		@Nonnull BlockState state,
-		@Nonnull PlayerEntity player ) {
-		
-		DoubleBlockHalf doubleblockhalf = state.get( HALF );
-		BlockPos blockpos = doubleblockhalf == DoubleBlockHalf.LOWER ? pos.up() : pos.down();
-		BlockState blockstate = worldIn.getBlockState( blockpos );
-		if( blockstate.getBlock() == this && blockstate.get( HALF ) != doubleblockhalf ) {
-			worldIn.setBlockState( blockpos, Blocks.AIR.getDefaultState(), 35 );
-			worldIn.playEvent( player, 2001, blockpos, Block.getStateId( blockstate ) );
-			ItemStack itemstack = player.getHeldItemMainhand();
-			if( !worldIn.isRemote && !player.isCreative() && player.canHarvestBlock( state ) ) {
-				Block.spawnDrops( state, worldIn, pos, null, player, itemstack );
-				Block.spawnDrops( blockstate, worldIn, blockpos, null, player, itemstack );
-			}
-		}
-		worldIn.playEvent( player, 2001, pos, getStateId( state ) );
-	}
-	
-	@Override
 	protected void fillStateContainer( @Nonnull StateContainer.Builder<Block, BlockState> builder ) {
 		
 		super.fillStateContainer( builder );
