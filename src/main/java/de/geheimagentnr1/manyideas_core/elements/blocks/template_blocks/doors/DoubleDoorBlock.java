@@ -12,12 +12,15 @@ import de.geheimagentnr1.manyideas_core.util.doors.DoorsHelper;
 import de.geheimagentnr1.manyideas_core.util.doors.OpenedByHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -113,6 +116,28 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 				}
 			}
 		}
+	}
+	
+	@Override
+	public void onBlockHarvested(
+		@Nonnull World worldIn,
+		@Nonnull BlockPos pos,
+		@Nonnull BlockState state,
+		@Nonnull PlayerEntity player ) {
+		
+		DoubleBlockHalf doubleblockhalf = state.get( HALF );
+		BlockPos blockpos = doubleblockhalf == DoubleBlockHalf.LOWER ? pos.up() : pos.down();
+		BlockState blockstate = worldIn.getBlockState( blockpos );
+		if( blockstate.getBlock() == this && blockstate.get( HALF ) != doubleblockhalf ) {
+			worldIn.setBlockState( blockpos, Blocks.AIR.getDefaultState(), 35 );
+			worldIn.playEvent( player, 2001, blockpos, Block.getStateId( blockstate ) );
+			ItemStack itemstack = player.getHeldItemMainhand();
+			if( !worldIn.isRemote && !player.isCreative() && player.canHarvestBlock( state ) ) {
+				Block.spawnDrops( state, worldIn, pos, null, player, itemstack );
+				Block.spawnDrops( blockstate, worldIn, blockpos, null, player, itemstack );
+			}
+		}
+		worldIn.playEvent( player, 2001, pos, getStateId( state ) );
 	}
 	
 	@Override
