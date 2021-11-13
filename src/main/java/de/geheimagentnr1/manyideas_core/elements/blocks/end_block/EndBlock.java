@@ -24,6 +24,7 @@ public class EndBlock extends Block implements BlockItemInterface, BlockRenderTy
 		
 		super( AbstractBlock.Properties.of( Material.STONE )
 			.strength( 50.0F, 1200.0F )
+			.requiresCorrectToolForDrops()
 			.harvestTool( ToolType.PICKAXE )
 			.harvestLevel( 3 )
 			.noOcclusion()

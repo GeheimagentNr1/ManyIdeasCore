@@ -18,6 +18,7 @@ public class RainbowConcrete extends Block implements BlockItemInterface {
 	public RainbowConcrete() {
 		
 		super( AbstractBlock.Properties.of( Material.STONE ).strength( 1.8F )
+			.requiresCorrectToolForDrops()
 			.harvestTool( ToolType.PICKAXE )
 			.harvestLevel( 0 )
 			.sound( SoundType.STONE ) );

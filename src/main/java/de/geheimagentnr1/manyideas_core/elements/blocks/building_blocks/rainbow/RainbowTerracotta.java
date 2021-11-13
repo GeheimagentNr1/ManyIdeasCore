@@ -18,6 +18,7 @@ public class RainbowTerracotta extends Block implements BlockItemInterface {
 	public RainbowTerracotta() {
 		
 		super( AbstractBlock.Properties.of( Material.STONE ).strength( 1.25F, 4.2F )
+			.requiresCorrectToolForDrops()
 			.harvestTool( ToolType.PICKAXE )
 			.harvestLevel( 0 )
 			.sound( SoundType.STONE ) );

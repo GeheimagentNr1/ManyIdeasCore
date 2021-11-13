@@ -18,6 +18,7 @@ public class RainbowTerracottaGlazed extends GlazedTerracottaBlock implements Bl
 	public RainbowTerracottaGlazed() {
 		
 		super( AbstractBlock.Properties.of( Material.STONE ).strength( 1.4F )
+			.requiresCorrectToolForDrops()
 			.harvestTool( ToolType.PICKAXE )
 			.harvestLevel( 0 )
 			.sound( SoundType.STONE ) );

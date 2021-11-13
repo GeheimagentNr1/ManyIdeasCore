@@ -46,8 +46,9 @@ public class Mortar extends Block implements BlockItemInterface, BlockRenderType
 	
 	public Mortar() {
 		
-		super( AbstractBlock.Properties.of( Material.ROCK )
+		super( AbstractBlock.Properties.of( Material.STONE )
 			.strength( 0.8F )
+			.requiresCorrectToolForDrops()
 			.harvestTool( ToolType.PICKAXE )
 			.harvestLevel( 0 )
 			.sound( SoundType.STONE ) );
