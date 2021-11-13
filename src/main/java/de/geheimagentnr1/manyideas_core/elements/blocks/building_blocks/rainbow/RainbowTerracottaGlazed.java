@@ -7,6 +7,7 @@ import net.minecraft.block.GlazedTerracottaBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.ToolType;
 
 
 public class RainbowTerracottaGlazed extends GlazedTerracottaBlock implements BlockItemInterface {
@@ -16,7 +17,10 @@ public class RainbowTerracottaGlazed extends GlazedTerracottaBlock implements Bl
 	
 	public RainbowTerracottaGlazed() {
 		
-		super( AbstractBlock.Properties.of( Material.STONE ).strength( 1.4F ).sound( SoundType.STONE ) );
+		super( AbstractBlock.Properties.of( Material.STONE ).strength( 1.4F )
+			.harvestTool( ToolType.PICKAXE )
+			.harvestLevel( 0 )
+			.sound( SoundType.STONE ) );
 		setRegistryName( registry_name );
 	}
 	
