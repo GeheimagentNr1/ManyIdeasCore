@@ -175,7 +175,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 				BlockState blockState = worldIn.getBlockState( blockPos );
 				worldIn.removeBlock( blockPos, true );
 				super.onBlockHarvested( worldIn, blockPos, blockState, player );
-				if( !worldIn.isRemote && !player.isCreative() ) {
+				if( !worldIn.isRemote && !player.isCreative() && player.canHarvestBlock( blockState ) ) {
 					Block.spawnDrops(
 						blockState,
 						worldIn,
