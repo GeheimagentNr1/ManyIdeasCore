@@ -29,6 +29,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -50,7 +51,10 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	
 	protected TableSaw( String registry_name ) {
 		
-		super( BlockBehaviour.Properties.of( Material.WOOD ).strength( 2.5F ).sound( SoundType.WOOD ) );
+		super( BlockBehaviour.Properties.of( Material.WOOD )
+			.strength( 2.5F )
+			.harvestTool( ToolType.AXE )
+			.sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 	}
 	

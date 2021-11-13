@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.common.ToolType;
 
 
 public class RainbowConcrete extends Block implements BlockItemInterface {
@@ -16,7 +17,11 @@ public class RainbowConcrete extends Block implements BlockItemInterface {
 	
 	public RainbowConcrete() {
 		
-		super( BlockBehaviour.Properties.of( Material.STONE ).strength( 1.8F ).sound( SoundType.STONE ) );
+		super( BlockBehaviour.Properties.of( Material.STONE ).strength( 1.8F )
+			.requiresCorrectToolForDrops()
+			.harvestTool( ToolType.PICKAXE )
+			.harvestLevel( 0 )
+			.sound( SoundType.STONE ) );
 		setRegistryName( registry_name );
 		initConcretePowder();
 	}

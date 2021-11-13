@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.common.ToolType;
 
 
 public class RainbowTerracotta extends Block implements BlockItemInterface {
@@ -16,7 +17,11 @@ public class RainbowTerracotta extends Block implements BlockItemInterface {
 	
 	public RainbowTerracotta() {
 		
-		super( BlockBehaviour.Properties.of( Material.STONE ).strength( 1.25F, 4.2F ).sound( SoundType.STONE ) );
+		super( BlockBehaviour.Properties.of( Material.STONE ).strength( 1.25F, 4.2F )
+			.requiresCorrectToolForDrops()
+			.harvestTool( ToolType.PICKAXE )
+			.harvestLevel( 0 )
+			.sound( SoundType.STONE ) );
 		setRegistryName( registry_name );
 	}
 	
