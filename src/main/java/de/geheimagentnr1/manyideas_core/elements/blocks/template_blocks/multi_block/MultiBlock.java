@@ -180,7 +180,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 				BlockState blockState = level.getBlockState( blockPos );
 				level.removeBlock( blockPos, true );
 				super.playerWillDestroy( level, blockPos, blockState, player );
-				if( !level.isClientSide && !player.isCreative() ) {
+				if( !level.isClientSide && !player.isCreative() && player.canHarvestBlock( blockState ) ) {
 					Block.dropResources(
 						blockState,
 						level,
