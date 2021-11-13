@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "manyideas_core:dye_crafting_table",
+    "manyideas_core:table_saw_diamond",
+    "manyideas_core:table_saw_iron",
+    "manyideas_core:table_saw_stone",
+    "manyideas_core:wood_colored"
+  ]
+}

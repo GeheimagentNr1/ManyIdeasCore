@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "manyideas_core:end_block",
+    "manyideas_core:mortar",
+    "manyideas_core:rainbow_concrete",
+    "manyideas_core:rainbow_terracotta",
+    "manyideas_core:rainbow_terracotta_glazed"
+  ]
+}

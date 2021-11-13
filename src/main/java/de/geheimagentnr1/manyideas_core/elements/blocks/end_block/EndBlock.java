@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,8 +28,6 @@ public class EndBlock extends BaseEntityBlock implements BlockItemInterface, Blo
 		super( BlockBehaviour.Properties.of( Material.STONE )
 			.strength( 50.0F, 1200.0F )
 			.requiresCorrectToolForDrops()
-			.harvestTool( ToolType.PICKAXE )
-			.harvestLevel( 3 )
 			.noOcclusion()
 			.isViewBlocking( ( state, level, pos ) -> false )
 			.sound( SoundType.GLASS ) );

@@ -27,7 +27,6 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -49,8 +48,6 @@ public class Mortar extends Block implements BlockItemInterface, BlockRenderType
 		super( BlockBehaviour.Properties.of( Material.STONE )
 			.strength( 0.8F )
 			.requiresCorrectToolForDrops()
-			.harvestTool( ToolType.PICKAXE )
-			.harvestLevel( 0 )
 			.sound( SoundType.STONE ) );
 		setRegistryName( registry_name );
 	}
