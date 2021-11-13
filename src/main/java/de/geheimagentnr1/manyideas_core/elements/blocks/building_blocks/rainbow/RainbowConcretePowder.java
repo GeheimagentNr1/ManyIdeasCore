@@ -7,6 +7,7 @@ import net.minecraft.block.ConcretePowderBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.ToolType;
 
 
 public class RainbowConcretePowder extends ConcretePowderBlock implements BlockItemInterface {
@@ -21,7 +22,10 @@ public class RainbowConcretePowder extends ConcretePowderBlock implements BlockI
 		
 		super(
 			CONCRETE_BLOCK,
-			Block.Properties.create( Material.SAND ).hardnessAndResistance( 0.5F ).sound( SoundType.SAND )
+			Block.Properties.create( Material.SAND )
+				.hardnessAndResistance( 0.5F )
+				.harvestTool( ToolType.SHOVEL )
+				.sound( SoundType.SAND )
 		);
 		setRegistryName( registry_name );
 	}

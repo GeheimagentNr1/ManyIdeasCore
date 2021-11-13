@@ -11,6 +11,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,7 +26,10 @@ public class WoodColored extends DyeBlock {
 	public WoodColored() {
 		
 		super(
-			Block.Properties.create( Material.WOOD ).hardnessAndResistance( 2.0F ).sound( SoundType.WOOD ),
+			Block.Properties.create( Material.WOOD )
+				.hardnessAndResistance( 2.0F )
+				.harvestTool( ToolType.AXE )
+				.sound( SoundType.WOOD ),
 			registry_name
 		);
 	}

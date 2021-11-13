@@ -24,6 +24,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -42,7 +43,11 @@ public class Mortar extends Block implements BlockItemInterface {
 	
 	public Mortar() {
 		
-		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 0.8F ).sound( SoundType.WOOD ) );
+		super( Block.Properties.create( Material.ROCK )
+			.hardnessAndResistance( 0.8F )
+			.harvestTool( ToolType.PICKAXE )
+			.harvestLevel( 0 )
+			.sound( SoundType.STONE ) );
 		setRegistryName( registry_name );
 	}
 	

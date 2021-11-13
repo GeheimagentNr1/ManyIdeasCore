@@ -11,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.world.IBlockReader;
+import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,6 +26,8 @@ public class EndBlock extends Block implements BlockItemInterface {
 		
 		super( Block.Properties.create( Material.ROCK )
 			.hardnessAndResistance( 50.0F, 1200.0F )
+			.harvestTool( ToolType.PICKAXE )
+			.harvestLevel( 3 )
 			.sound( SoundType.GLASS ) );
 		setRegistryName( registry_name );
 	}
