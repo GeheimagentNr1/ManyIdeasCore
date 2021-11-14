@@ -12,6 +12,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.state.properties.DoubleBlockHalf;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -154,7 +156,6 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 		);
 	}
 	
-	
 	@Override
 	public void playerWillDestroy(
 		@Nonnull Level level,
@@ -170,7 +171,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 				BlockState blockState = level.getBlockState( blockPos );
 				level.removeBlock( blockPos, true );
 				super.playerWillDestroy( level, blockPos, blockState, player );
-				if( !level.isClientSide && !player.isCreative() ) {
+				if( !level.isClientSide && !player.isCreative() && player.hasCorrectToolForDrops( blockState ) ) {
 					Block.dropResources(
 						blockState,
 						level,
