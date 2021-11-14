@@ -13,6 +13,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.properties.DoubleBlockHalf;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -164,7 +166,6 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 		);
 	}
 	
-	
 	@Override
 	public void playerWillDestroy(
 		@Nonnull World level,
@@ -180,7 +181,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 				BlockState blockState = level.getBlockState( blockPos );
 				level.removeBlock( blockPos, true );
 				super.playerWillDestroy( level, blockPos, blockState, player );
-				if( !level.isClientSide && !player.isCreative() && player.canHarvestBlock( blockState ) ) {
+				if( !level.isClientSide && !player.isCreative() && player.hasCorrectToolForDrops( blockState ) ) {
 					Block.dropResources(
 						blockState,
 						level,
