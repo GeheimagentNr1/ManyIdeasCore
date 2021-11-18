@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.PushReaction;
 
@@ -183,6 +184,29 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 			true
 		);
 		super.playerWillDestroy( level, pos, state, player );
+	}
+	
+	@Override
+	public void onBlockExploded( BlockState state, World level, BlockPos pos, Explosion explosion ) {
+		
+		runForBlocks(
+			level,
+			getZeroPos( state, pos ),
+			state.getValue( BlockStateProperties.HORIZONTAL_FACING ),
+			( x, y, z, blockPos ) -> {
+				if( !blockPos.equals( pos ) && !level.isClientSide ) {
+					BlockState blockState = level.getBlockState( blockPos );
+					Block.dropResources(
+						blockState,
+						level,
+						blockPos,
+						level.getBlockEntity( blockPos )
+					);
+				}
+			},
+			true
+		);
+		super.onBlockExploded( state, level, pos, explosion );
 	}
 	
 	@SuppressWarnings( "deprecation" )
