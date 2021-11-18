@@ -199,26 +199,26 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	}
 	
 	@Override
-	public void onBlockExploded( BlockState state, World world, BlockPos pos, Explosion explosion ) {
+	public void onBlockExploded( BlockState state, World level, BlockPos pos, Explosion explosion ) {
 		
 		runForBlocks(
-			world,
+			level,
 			getZeroPos( state, pos ),
-			state.get( BlockStateProperties.HORIZONTAL_FACING ),
+			state.getValue( BlockStateProperties.HORIZONTAL_FACING ),
 			( x, y, z, blockPos ) -> {
-				if( !blockPos.equals( pos ) && !world.isRemote ) {
-					BlockState blockState = world.getBlockState( blockPos );
-					Block.spawnDrops(
+				if( !blockPos.equals( pos ) && !level.isClientSide ) {
+					BlockState blockState = level.getBlockState( blockPos );
+					Block.dropResources(
 						blockState,
-						world,
+						level,
 						blockPos,
-						world.getTileEntity( blockPos )
+						level.getBlockEntity( blockPos )
 					);
 				}
 			},
 			true
 		);
-		super.onBlockExploded( state, world, pos, explosion );
+		super.onBlockExploded( state, level, pos, explosion );
 	}
 	
 	@SuppressWarnings( "deprecation" )
