@@ -15,6 +15,7 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
@@ -189,6 +190,29 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 			true
 		);
 		super.onBlockHarvested( worldIn, pos, state, player );
+	}
+	
+	@Override
+	public void onBlockExploded( BlockState state, World world, BlockPos pos, Explosion explosion ) {
+		
+		runForBlocks(
+			world,
+			getZeroPos( state, pos ),
+			state.get( BlockStateProperties.HORIZONTAL_FACING ),
+			( x, y, z, blockPos ) -> {
+				if( !blockPos.equals( pos ) && !world.isRemote ) {
+					BlockState blockState = world.getBlockState( blockPos );
+					Block.spawnDrops(
+						blockState,
+						world,
+						blockPos,
+						world.getTileEntity( blockPos )
+					);
+				}
+			},
+			true
+		);
+		super.onBlockExploded( state, world, pos, explosion );
 	}
 	
 	@SuppressWarnings( "deprecation" )
