@@ -8,6 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -15,7 +16,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.PushReaction;
 
@@ -187,7 +187,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	}
 	
 	@Override
-	public void onBlockExploded( BlockState state, World level, BlockPos pos, Explosion explosion ) {
+	public void onBlockExploded( BlockState state, Level level, BlockPos pos, Explosion explosion ) {
 		
 		runForBlocks(
 			level,
