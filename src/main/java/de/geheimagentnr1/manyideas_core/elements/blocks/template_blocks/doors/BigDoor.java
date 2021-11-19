@@ -15,6 +15,7 @@ import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeMemory;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeVector;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -243,6 +244,25 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 					);
 				}
 			}
+		}
+	}
+	
+	@SuppressWarnings( "deprecation" )
+	@Deprecated
+	@Override
+	public boolean isPathfindable(
+		@Nonnull BlockState state,
+		@Nonnull IBlockReader level,
+		@Nonnull BlockPos pos,
+		@Nonnull PathType type ) {
+		
+		switch( type ) {
+			case LAND: //fall through
+			case AIR:
+				return state.getShape( level, pos ).isEmpty();
+			case WATER: //fall through
+			default:
+				return false;
 		}
 	}
 	
