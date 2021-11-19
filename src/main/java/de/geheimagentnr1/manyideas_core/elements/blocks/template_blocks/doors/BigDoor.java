@@ -15,6 +15,7 @@ import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeVector;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoorHingeSide;
@@ -240,6 +241,25 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 					);
 				}
 			}
+		}
+	}
+	
+	@SuppressWarnings( "deprecation" )
+	@Deprecated
+	@Override
+	public boolean allowsMovement(
+		@Nonnull BlockState state,
+		@Nonnull IBlockReader worldIn,
+		@Nonnull BlockPos pos,
+		@Nonnull PathType type ) {
+		
+		switch( type ) {
+			case LAND: //fall through
+			case AIR:
+				return state.getShape( worldIn, pos ).isEmpty();
+			case WATER: //fall through
+			default:
+				return false;
 		}
 	}
 	
