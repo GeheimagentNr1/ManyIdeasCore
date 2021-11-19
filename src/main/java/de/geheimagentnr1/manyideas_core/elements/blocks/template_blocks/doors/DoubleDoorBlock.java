@@ -86,13 +86,12 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	}
 	
 	@Override
-	public void toggleDoor( @Nonnull World worldIn, @Nonnull BlockPos pos, boolean open ) {
+	public void setOpen( @Nonnull World level, @Nonnull BlockState state, @Nonnull BlockPos pos, boolean open ) {
 		
-		super.toggleDoor( worldIn, pos, open );
-		BlockState state = worldIn.getBlockState( pos );
-		BlockData neighbor = DoorsHelper.getNeighborBlock( worldIn, pos, state );
+		super.setOpen( level, state, pos, open );
+		BlockData neighbor = DoorsHelper.getNeighborBlock( level, pos, state );
 		if( DoorsHelper.isNeighbor( state, neighbor ) ) {
-			worldIn.setBlockState( neighbor.getPos(), neighbor.getState().with( OPEN, open ), 2 );
+			level.setBlock( neighbor.getPos(), neighbor.getState().setValue( OPEN, open ), 2 );
 		}
 	}
 	

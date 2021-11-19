@@ -250,16 +250,16 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	@SuppressWarnings( "deprecation" )
 	@Deprecated
 	@Override
-	public boolean allowsMovement(
+	public boolean isPathfindable(
 		@Nonnull BlockState state,
-		@Nonnull IBlockReader worldIn,
+		@Nonnull IBlockReader level,
 		@Nonnull BlockPos pos,
 		@Nonnull PathType type ) {
 		
 		switch( type ) {
 			case LAND: //fall through
 			case AIR:
-				return state.getShape( worldIn, pos ).isEmpty();
+				return state.getShape( level, pos ).isEmpty();
 			case WATER: //fall through
 			default:
 				return false;
