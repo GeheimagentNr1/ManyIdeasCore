@@ -16,6 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 
@@ -86,9 +88,14 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	}
 	
 	@Override
-	public void setOpen( @Nonnull World level, @Nonnull BlockState state, @Nonnull BlockPos pos, boolean open ) {
+	public void setOpen(
+		@Nullable Entity entity,
+		@Nonnull Level level,
+		@Nonnull BlockState state,
+		@Nonnull BlockPos pos,
+		boolean open ) {
 		
-		super.setOpen( level, state, pos, open );
+		super.setOpen( entity, level, state, pos, open );
 		BlockData neighbor = DoorsHelper.getNeighborBlock( level, pos, state );
 		if( DoorsHelper.isNeighbor( state, neighbor ) ) {
 			level.setBlock( neighbor.getPos(), neighbor.getState().setValue( OPEN, open ), 2 );

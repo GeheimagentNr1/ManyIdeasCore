@@ -15,7 +15,6 @@ import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeMemory;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeVector;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.pathfinding.PathType;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -30,6 +29,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -252,18 +252,14 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	@Override
 	public boolean isPathfindable(
 		@Nonnull BlockState state,
-		@Nonnull IBlockReader level,
+		@Nonnull BlockGetter level,
 		@Nonnull BlockPos pos,
-		@Nonnull PathType type ) {
+		@Nonnull PathComputationType type ) {
 		
-		switch( type ) {
-			case LAND: //fall through
-			case AIR:
-				return state.getShape( level, pos ).isEmpty();
-			case WATER: //fall through
-			default:
-				return false;
-		}
+		return switch( type ) {
+			case LAND, AIR -> state.getShape( level, pos ).isEmpty();
+			case WATER -> false;
+		};
 	}
 	
 	@Override
