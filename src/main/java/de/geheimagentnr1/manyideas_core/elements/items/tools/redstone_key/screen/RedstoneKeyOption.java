@@ -76,6 +76,8 @@ public class RedstoneKeyOption extends AbstractContainerEventHandler implements 
 	@Override
 	public void render( @Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks ) {
 		
+		button.render( poseStack, mouseX, mouseY, partialTicks );
+		
 		Font font = Minecraft.getInstance().font;
 		font.draw( poseStack, title, x + 30, y + 2, Objects.requireNonNull( ChatFormatting.DARK_GRAY.getColor() ) );
 		font.draw(
