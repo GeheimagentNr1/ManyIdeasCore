@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.RecipeHolder;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.fmllegacy.hooks.BasicEventHooks;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nonnull;
 
@@ -74,7 +74,7 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 		
 		if( amountCrafted > 0 ) {
 			stack.onCraftedBy( player.level, player, amountCrafted );
-			BasicEventHooks.firePlayerCraftingEvent( player, stack, craftingContainer );
+			ForgeEventFactory.firePlayerCraftingEvent( player, stack, craftingContainer );
 		}
 		if( container instanceof RecipeHolder ) {
 			( (RecipeHolder)container ).awardUsedRecipes( player );

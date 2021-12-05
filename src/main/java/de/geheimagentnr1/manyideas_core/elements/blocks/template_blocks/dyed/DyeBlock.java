@@ -41,7 +41,7 @@ public abstract class DyeBlock extends Block implements BlockItemInterface {
 	}
 	
 	@Override
-	public ItemStack getPickBlock(
+	public ItemStack getCloneItemStack(
 		BlockState state,
 		HitResult target,
 		BlockGetter world,

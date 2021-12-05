@@ -54,7 +54,7 @@ public class ToggleButton extends AbstractButton {
 			if( selected ) {
 				textureStartindex = 1;
 			} else {
-				if( isHovered() ) {
+				if( isHovered ) {
 					textureStartindex = 3;
 				}
 			}

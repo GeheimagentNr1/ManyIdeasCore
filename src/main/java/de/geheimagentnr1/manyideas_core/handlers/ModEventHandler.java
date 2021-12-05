@@ -39,7 +39,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.extensions.IForgeContainerType;
+import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -116,26 +116,24 @@ public class ModEventHandler {
 	@SubscribeEvent
 	public static void handleContainerRegistryEvent( RegistryEvent.Register<MenuType<?>> event ) {
 		
-		event.getRegistry()
-			.register( IForgeContainerType.create( ( menuId, inv, data ) -> new DyeCraftingTableMenu(
-				menuId,
-				inv
-			) ).setRegistryName( DyeCraftingTable.registry_name ) );
-		event.getRegistry()
-			.register( IForgeContainerType.create( ( menuId, inv, data ) -> new TableSawDiamondMenu(
-				menuId,
-				inv
-			) ).setRegistryName( TableSawDiamond.registry_name ) );
-		event.getRegistry().register( IForgeContainerType.create( ( menuId, inv, data ) -> new TableSawIronMenu(
+		event.getRegistry().register( IForgeMenuType.create( ( menuId, inv, data ) -> new DyeCraftingTableMenu(
+			menuId,
+			inv
+		) ).setRegistryName( DyeCraftingTable.registry_name ) );
+		event.getRegistry().register( IForgeMenuType.create( ( menuId, inv, data ) -> new TableSawDiamondMenu(
+			menuId,
+			inv
+		) ).setRegistryName( TableSawDiamond.registry_name ) );
+		event.getRegistry().register( IForgeMenuType.create( ( menuId, inv, data ) -> new TableSawIronMenu(
 			menuId,
 			inv
 		) ).setRegistryName( TableSawIron.registry_name ) );
-		event.getRegistry().register( IForgeContainerType.create( ( menuId, inv, data ) -> new TableSawStoneMenu(
+		event.getRegistry().register( IForgeMenuType.create( ( menuId, inv, data ) -> new TableSawStoneMenu(
 			menuId,
 			inv
 		) ).setRegistryName( TableSawStone.registry_name ) );
 		
-		event.getRegistry().register( IForgeContainerType.create( ( menuId, inv, data ) -> new RedstoneKeyContainer(
+		event.getRegistry().register( IForgeMenuType.create( ( menuId, inv, data ) -> new RedstoneKeyContainer(
 			menuId,
 			data
 		) ).setRegistryName( RedstoneKey.registry_name ) );

@@ -30,9 +30,9 @@ public class ForgeEventHandler {
 		if( event.getPlayer() != null ) {
 			PlayerDecorationManager.renderForPlayer(
 				event.getPlayer(),
-				event.getLight(),
-				event.getMatrixStack(),
-				event.getBuffers()
+				event.getPackedLight(),
+				event.getPoseStack(),
+				event.getMultiBufferSource()
 			);
 		}
 	}
