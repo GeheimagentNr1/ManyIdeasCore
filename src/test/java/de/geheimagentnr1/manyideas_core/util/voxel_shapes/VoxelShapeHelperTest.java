@@ -14,16 +14,17 @@ class VoxelShapeHelperTest {
 	void test() {
 		
 		Direction[] directions = Direction.values();
+		VoxelShapeVector north = VoxelShapeVector.create( 0, 14, 0, 0, 16, 4 );
 		VoxelShapeVector[] vectors = new VoxelShapeVector[] {
+			VoxelShapeVector.create( 0, 0, 2, 0, 4, 0 ),
+			VoxelShapeVector.create( 0, 16, 14, 0, 12, 16 ),
 			VoxelShapeVector.create( 0, 14, 0, 0, 16, 4 ),
-			VoxelShapeVector.create( 16, 14, 0, 12, 16, 0 ),
 			VoxelShapeVector.create( 16, 14, 16, 16, 16, 12 ),
 			VoxelShapeVector.create( 0, 14, 16, 4, 16, 16 ),
-			VoxelShapeVector.create( 0, 16, 14, 0, 12, 16 ),
-			VoxelShapeVector.create( 0, 0, 2, 0, 4, 0 )
+			VoxelShapeVector.create( 16, 14, 0, 12, 16, 0 ),
 		};
 		for( int i = 0; i < directions.length && i < vectors.length; i++ ) {
-			Assertions.assertEquals( vectors[0], VoxelShapeHelper.vectorsToNorthVectors(
+			Assertions.assertEquals( north, VoxelShapeHelper.vectorsToNorthVectors(
 				new VoxelShapeVector[] { vectors[i] }, directions[i] )[0], "north not equal" );
 		}
 		VoxelShapeVector[] north_vectors = new VoxelShapeVector[] { VoxelShapeVector.create( 0, 14, 0, 0, 16, 4 ) };
