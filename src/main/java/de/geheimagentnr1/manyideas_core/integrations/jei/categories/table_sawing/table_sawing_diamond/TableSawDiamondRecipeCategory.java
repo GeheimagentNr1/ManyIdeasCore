@@ -5,35 +5,20 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondRecipe;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.template.single_item_recipe.JeiSingleItemRecipeCategory;
 import mezz.jei.api.helpers.IGuiHelper;
-import net.minecraft.resources.ResourceLocation;
-
-import javax.annotation.Nonnull;
+import mezz.jei.api.recipe.RecipeType;
 
 
 public class TableSawDiamondRecipeCategory extends JeiSingleItemRecipeCategory<JeiTableSawDiamondRecipe> {
 	
 	
-	public static final ResourceLocation registry_key = new ResourceLocation(
+	public static final RecipeType<JeiTableSawDiamondRecipe> TABLE_SAWING_DIAMOND = RecipeType.create(
 		ManyIdeasCore.MODID,
-		TableSawDiamondRecipe.registry_name
+		TableSawDiamondRecipe.registry_name,
+		JeiTableSawDiamondRecipe.class
 	);
 	
 	public TableSawDiamondRecipeCategory( IGuiHelper guiHelper ) {
 		
-		super( guiHelper, ModBlocks.TABLE_SAW_DIAMOND );
-	}
-	
-	@Nonnull
-	@Override
-	public ResourceLocation getUid() {
-		
-		return registry_key;
-	}
-	
-	@Nonnull
-	@Override
-	public Class<? extends JeiTableSawDiamondRecipe> getRecipeClass() {
-		
-		return JeiTableSawDiamondRecipe.class;
+		super( guiHelper, TABLE_SAWING_DIAMOND, ModBlocks.TABLE_SAW_DIAMOND );
 	}
 }

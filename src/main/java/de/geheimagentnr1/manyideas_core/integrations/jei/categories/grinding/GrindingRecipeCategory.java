@@ -5,35 +5,20 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.blocks.mortar.GrindingRecipe;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.template.single_item_recipe.JeiSingleItemRecipeCategory;
 import mezz.jei.api.helpers.IGuiHelper;
-import net.minecraft.resources.ResourceLocation;
-
-import javax.annotation.Nonnull;
+import mezz.jei.api.recipe.RecipeType;
 
 
 public class GrindingRecipeCategory extends JeiSingleItemRecipeCategory<JeiGrindingRecipe> {
 	
 	
-	public static final ResourceLocation registry_key = new ResourceLocation(
+	public static final RecipeType<JeiGrindingRecipe> GRINDING = RecipeType.create(
 		ManyIdeasCore.MODID,
-		GrindingRecipe.registry_name
+		GrindingRecipe.registry_name,
+		JeiGrindingRecipe.class
 	);
 	
 	public GrindingRecipeCategory( IGuiHelper guiHelper ) {
 		
-		super( guiHelper, ModBlocks.MORTAR );
-	}
-	
-	@Nonnull
-	@Override
-	public ResourceLocation getUid() {
-		
-		return registry_key;
-	}
-	
-	@Nonnull
-	@Override
-	public Class<? extends JeiGrindingRecipe> getRecipeClass() {
-		
-		return JeiGrindingRecipe.class;
+		super( guiHelper, GRINDING, ModBlocks.MORTAR );
 	}
 }

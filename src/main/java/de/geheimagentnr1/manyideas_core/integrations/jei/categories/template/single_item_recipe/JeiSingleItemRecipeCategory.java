@@ -3,16 +3,14 @@ package de.geheimagentnr1.manyideas_core.integrations.jei.categories.template.si
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes.SingleItemRecipe;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.template.JeiRecipeCategory;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
-import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 
 public abstract class JeiSingleItemRecipeCategory<R extends JeiSingleItemRecipe<? extends SingleItemRecipe>>
@@ -24,35 +22,18 @@ public abstract class JeiSingleItemRecipeCategory<R extends JeiSingleItemRecipe<
 		"textures/jei/gui/single_item_recipe_gui.png"
 	);
 	
-	private final IDrawable background;
-	
-	protected JeiSingleItemRecipeCategory( IGuiHelper guiHelper, Block _block ) {
+	protected JeiSingleItemRecipeCategory( IGuiHelper guiHelper, RecipeType<R> _recipeType, Block _block ) {
 		
-		super( guiHelper, _block );
-		background = guiHelper.createDrawable( texture, 0, 0, 116, 54 );
-	}
-	
-	@Nonnull
-	@Override
-	public IDrawable getBackground() {
-		
-		return background;
+		super( guiHelper, _recipeType, _block, guiHelper.createDrawable( texture, 0, 0, 116, 54 ) );
 	}
 	
 	@Override
-	public void setIngredients( R recipe, IIngredients ingredients ) {
+	public void setRecipe( @NotNull IRecipeLayoutBuilder builder, @NotNull R recipe, @NotNull IFocusGroup focuses ) {
 		
-		ingredients.setInputLists( VanillaTypes.ITEM, recipe.getInputs() );
-		ingredients.setOutput( VanillaTypes.ITEM, recipe.getResult() );
-	}
-	
-	@Override
-	public void setRecipe( IRecipeLayout recipeLayout, @Nonnull R recipe, @Nonnull IIngredients ingredients ) {
+		builder.addSlot( RecipeIngredientRole.INPUT, 19, 18 )
+			.addItemStacks( recipe.getInputs().get( 0 ) );
 		
-		IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
-		
-		itemStacks.init( 0, true, 19, 18 );
-		itemStacks.init( 1, false, 79, 18 );
-		itemStacks.set( ingredients );
+		builder.addSlot( RecipeIngredientRole.OUTPUT, 79, 18 )
+			.addItemStack( recipe.getResult() );
 	}
 }

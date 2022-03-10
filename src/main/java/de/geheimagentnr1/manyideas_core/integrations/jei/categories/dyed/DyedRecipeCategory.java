@@ -4,77 +4,50 @@ import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedRecipe;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.template.JeiRecipeCategory;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
-import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+import java.util.List;
 
 
 public class DyedRecipeCategory extends JeiRecipeCategory<JeiDyedRecipe> {
 	
 	
-	public static final ResourceLocation registry_key = new ResourceLocation(
+	public static final RecipeType<JeiDyedRecipe> DYED = RecipeType.create(
 		ManyIdeasCore.MODID,
-		DyedRecipe.registry_name
+		DyedRecipe.registry_name,
+		JeiDyedRecipe.class
 	);
 	
 	private static final ResourceLocation texture = new ResourceLocation( "jei", "textures/gui/gui_vanilla.png" );
 	
-	private final IDrawable background;
-	
 	public DyedRecipeCategory( IGuiHelper guiHelper ) {
 		
-		super( guiHelper, ModBlocks.DYE_CRAFTING_TABLE );
-		background = guiHelper.createDrawable( texture, 0, 60, 116, 54 );
-	}
-	
-	@Nonnull
-	@Override
-	public ResourceLocation getUid() {
-		
-		return registry_key;
-	}
-	
-	@Nonnull
-	@Override
-	public Class<? extends JeiDyedRecipe> getRecipeClass() {
-		
-		return JeiDyedRecipe.class;
-	}
-	
-	@Nonnull
-	@Override
-	public IDrawable getBackground() {
-		
-		return background;
-	}
-	
-	@Override
-	public void setIngredients( @Nonnull JeiDyedRecipe recipe, @Nonnull IIngredients ingredients ) {
-		
-		ingredients.setInputLists( VanillaTypes.ITEM, recipe.getInputs() );
-		ingredients.setOutput( VanillaTypes.ITEM, recipe.getResult() );
+		super( guiHelper, DYED, ModBlocks.DYE_CRAFTING_TABLE, guiHelper.createDrawable( texture, 0, 60, 116, 54 ) );
 	}
 	
 	@Override
 	public void setRecipe(
-		IRecipeLayout recipeLayout,
-		@Nonnull JeiDyedRecipe recipe,
-		@Nonnull IIngredients ingredients ) {
+		@NotNull IRecipeLayoutBuilder builder,
+		@NotNull JeiDyedRecipe recipe,
+		@NotNull IFocusGroup focuses ) {
 		
-		IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
-		
+		List<List<ItemStack>> input = recipe.getInputs();
 		for( int i = 0; i < 3; i++ ) {
 			for( int j = 0; j < 3; j++ ) {
-				itemStacks.init( j + i * 3, true, j * 18, i * 18 );
+				if( j + i * 3 < input.size() ) {
+					builder.addSlot( RecipeIngredientRole.INPUT, j * 18, i * 18 )
+						.addItemStacks( input.get( j + i * 3 ) );
+				}
 			}
 		}
-		itemStacks.init( 10, false, 94, 18 );
-		itemStacks.set( ingredients );
+		builder.addSlot( RecipeIngredientRole.OUTPUT, 94, 18 )
+			.addItemStack( recipe.getResult() );
 	}
 }
