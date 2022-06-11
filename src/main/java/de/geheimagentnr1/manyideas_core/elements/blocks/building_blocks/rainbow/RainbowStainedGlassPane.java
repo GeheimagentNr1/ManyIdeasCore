@@ -24,7 +24,6 @@ public class RainbowStainedGlassPane extends StainedGlassPaneBlock implements Bl
 			DyeColor.WHITE,
 			BlockBehaviour.Properties.of( Material.GLASS ).strength( 0.3F ).sound( SoundType.GLASS )
 		);
-		setRegistryName( registry_name );
 	}
 	
 	@Override

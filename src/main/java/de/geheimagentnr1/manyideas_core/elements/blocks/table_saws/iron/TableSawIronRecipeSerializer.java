@@ -8,6 +8,6 @@ public class TableSawIronRecipeSerializer extends SingleItemRecipeSerializer<Tab
 	
 	public TableSawIronRecipeSerializer() {
 		
-		super( TableSawIronRecipe::new, TableSawIronRecipe.registry_name );
+		super( TableSawIronRecipe::new );
 	}
 }

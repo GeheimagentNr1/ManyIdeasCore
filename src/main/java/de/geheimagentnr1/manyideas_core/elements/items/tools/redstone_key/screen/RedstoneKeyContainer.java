@@ -9,6 +9,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -62,6 +63,13 @@ public class RedstoneKeyContainer extends AbstractContainerMenu {
 			options.add( new Option( data.readUtf(), data.readUtf() ) );
 		}
 		selectedIndex = data.readInt();
+	}
+	
+	@Nonnull
+	@Override
+	public ItemStack quickMoveStack( @Nonnull Player player, int index ) {
+		
+		return ItemStack.EMPTY;
 	}
 	
 	@Override

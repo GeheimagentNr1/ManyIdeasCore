@@ -31,7 +31,6 @@ public class RainbowStainedGlassBlock extends StainedGlassBlock implements Block
 				.isViewBlocking( ( state, level, pos ) -> false )
 				.sound( SoundType.GLASS )
 		);
-		setRegistryName( registry_name );
 	}
 	
 	@Override

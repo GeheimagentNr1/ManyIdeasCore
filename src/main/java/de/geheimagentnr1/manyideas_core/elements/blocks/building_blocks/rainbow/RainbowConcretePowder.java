@@ -26,7 +26,6 @@ public class RainbowConcretePowder extends ConcretePowderBlock implements BlockI
 				.strength( 0.5F )
 				.sound( SoundType.SAND )
 		);
-		setRegistryName( registry_name );
 	}
 	
 	@Override

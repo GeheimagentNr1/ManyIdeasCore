@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 public class DebugBlockCullface extends Block implements BlockItemInterface {
 	
 	
-	private static final String registry_name = "debug_block_cullface";
+	public static final String registry_name = "debug_block_cullface";
 	
 	private static final VoxelShapeMemory SHAPES = VoxelShapeMemory.createVoxelShapes(
 		Direction.NORTH,
@@ -34,7 +34,6 @@ public class DebugBlockCullface extends Block implements BlockItemInterface {
 	public DebugBlockCullface() {
 		
 		super( BlockBehaviour.Properties.of( Material.DIRT ) );
-		setRegistryName( registry_name );
 	}
 	
 	@SuppressWarnings( "deprecation" )

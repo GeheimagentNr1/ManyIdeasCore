@@ -1,6 +1,8 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
+import de.geheimagentnr1.manyideas_core.elements.RegistryEntry;
+import de.geheimagentnr1.manyideas_core.elements.RegistryKeys;
 import de.geheimagentnr1.manyideas_core.elements.blocks.mortar.GrindingRecipe;
 import de.geheimagentnr1.manyideas_core.elements.blocks.mortar.GrindingRecipeSerializer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondRecipe;
@@ -14,40 +16,47 @@ import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedRecipe
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.registries.ObjectHolder;
 
+import java.util.List;
 
-@SuppressWarnings( { "StaticNonFinalField", "PublicField", "PublicStaticArrayField", "unused" } )
+
+@SuppressWarnings( { "StaticNonFinalField", "PublicField", "unused" } )
 public class RecipeSerializers {
 	
 	
-	public static final RecipeSerializer<?>[] RECIPE_SERIALIZERS = new RecipeSerializer[] {
+	public static final List<RegistryEntry<RecipeSerializer<?>>> RECIPE_SERIALIZERS = List.of(
 		//Dyed
-		new DyedRecipeSerializer(),
+		RegistryEntry.create( DyedRecipe.registry_name, new DyedRecipeSerializer() ),
 		//Grinding
-		new GrindingRecipeSerializer(),
+		RegistryEntry.create( GrindingRecipe.registry_name, new GrindingRecipeSerializer() ),
 		//Tablesawing
-		new TableSawDiamondRecipeSerializer(),
-		new TableSawIronRecipeSerializer(),
-		new TableSawStoneRecipeSerializer()
-	};
+		RegistryEntry.create( TableSawDiamondRecipe.registry_name, new TableSawDiamondRecipeSerializer() ),
+		RegistryEntry.create( TableSawIronRecipe.registry_name, new TableSawIronRecipeSerializer() ),
+		RegistryEntry.create( TableSawStoneRecipe.registry_name, new TableSawStoneRecipeSerializer() )
+	);
 	
 	//Dyed
 	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + DyedRecipe.registry_name )
+	@ObjectHolder( registryName = RegistryKeys.RECIPE_SERIALIZERS,
+		value = ManyIdeasCore.MODID + ":" + DyedRecipe.registry_name )
 	public static DyedRecipeSerializer DYED;
 	
 	//Grinding
 	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + GrindingRecipe.registry_name )
+	@ObjectHolder( registryName = RegistryKeys.RECIPE_SERIALIZERS,
+		value = ManyIdeasCore.MODID + ":" + GrindingRecipe.registry_name )
 	public static GrindingRecipeSerializer GRINDING;
 	
 	//Tablesawing
 	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + TableSawDiamondRecipe.registry_name )
+	@ObjectHolder( registryName = RegistryKeys.RECIPE_SERIALIZERS,
+		value = ManyIdeasCore.MODID + ":" + TableSawDiamondRecipe.registry_name )
 	public static TableSawDiamondRecipeSerializer TABLE_SAWING_DIAMOND;
 	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + TableSawIronRecipe.registry_name )
+	@ObjectHolder( registryName = RegistryKeys.RECIPE_SERIALIZERS,
+		value = ManyIdeasCore.MODID + ":" + TableSawIronRecipe.registry_name )
 	public static TableSawIronRecipeSerializer TABLE_SAWING_IRON;
 	
-	@ObjectHolder( ManyIdeasCore.MODID + ":" + TableSawStoneRecipe.registry_name )
+	@ObjectHolder( registryName = RegistryKeys.RECIPE_SERIALIZERS,
+		value = ManyIdeasCore.MODID + ":" + TableSawStoneRecipe.registry_name )
 	public static TableSawStoneRecipeSerializer TABLE_SAWING_STONE;
 }

@@ -12,22 +12,14 @@ import javax.annotation.Nonnull;
 public abstract class TallFlower extends TallFlowerBlock implements FlowerBlockItemInterface, BlockRenderTypeInterface {
 	
 	
-	protected TallFlower( BlockBehaviour.Properties _properties, String registry_name ) {
+	protected TallFlower( BlockBehaviour.Properties _properties ) {
 		
 		super( _properties );
-		setRegistryName( registry_name );
 	}
 	
 	@Override
 	public RenderType getRenderType() {
 		
 		return RenderType.cutout();
-	}
-	
-	@Nonnull
-	@Override
-	public BlockBehaviour.OffsetType getOffsetType() {
-		
-		return BlockBehaviour.OffsetType.NONE;
 	}
 }

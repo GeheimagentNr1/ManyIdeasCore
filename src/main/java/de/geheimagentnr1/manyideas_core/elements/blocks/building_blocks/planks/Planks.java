@@ -14,8 +14,7 @@ public abstract class Planks extends AxisBlock {
 		super(
 			BlockBehaviour.Properties.of( Material.WOOD )
 				.strength( 2.0F, 3.0F )
-				.sound( SoundType.WOOD ),
-			registry_name
+				.sound( SoundType.WOOD )
 		);
 	}
 }

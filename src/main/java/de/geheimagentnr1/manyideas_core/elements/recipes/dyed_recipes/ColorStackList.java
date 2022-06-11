@@ -3,6 +3,7 @@ package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 import com.google.gson.JsonObject;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
+import net.minecraft.core.Registry;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -54,7 +55,7 @@ public class ColorStackList implements ColorList {
 		JsonObject jsonobject = new JsonObject();
 		jsonobject.addProperty(
 			"color_item",
-			Objects.requireNonNull( itemStack.getItem().getRegistryName() ).toString()
+			Objects.requireNonNull( Registry.ITEM.getKey( itemStack.getItem() ) ).toString()
 		);
 		return jsonobject;
 	}

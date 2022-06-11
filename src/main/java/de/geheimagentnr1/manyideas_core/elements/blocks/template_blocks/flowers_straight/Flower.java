@@ -14,22 +14,14 @@ import javax.annotation.Nonnull;
 public abstract class Flower extends FlowerBlock implements FlowerBlockItemInterface, BlockRenderTypeInterface {
 	
 	
-	protected Flower( MobEffect effect, int duration, BlockBehaviour.Properties _properties, String registry_name ) {
+	protected Flower( MobEffect effect, int duration, BlockBehaviour.Properties _properties ) {
 		
 		super( effect, duration, _properties );
-		setRegistryName( registry_name );
 	}
 	
 	@Override
 	public RenderType getRenderType() {
 		
 		return RenderType.cutout();
-	}
-	
-	@Nonnull
-	@Override
-	public BlockBehaviour.OffsetType getOffsetType() {
-		
-		return BlockBehaviour.OffsetType.NONE;
 	}
 }

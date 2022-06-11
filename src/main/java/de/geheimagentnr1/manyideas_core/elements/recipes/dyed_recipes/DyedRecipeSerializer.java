@@ -14,7 +14,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -22,14 +21,8 @@ import java.util.*;
 import java.util.stream.Stream;
 
 
-public class DyedRecipeSerializer extends ForgeRegistryEntry<RecipeSerializer<?>>
-	implements RecipeSerializer<DyedRecipe> {
+public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 	
-	
-	public DyedRecipeSerializer() {
-		
-		setRegistryName( DyedRecipe.registry_name );
-	}
 	
 	@Nonnull
 	@Override
@@ -158,8 +151,7 @@ public class DyedRecipeSerializer extends ForgeRegistryEntry<RecipeSerializer<?>
 		
 		JsonObject color_tag = GsonHelper.getAsJsonObject( ingredient, "color_tag" );
 		TreeMap<ItemStack, Color> stacks =
-			new TreeMap<>( Comparator.comparing( o -> Objects.requireNonNull( o.getItem()
-				.getRegistryName() ) ) );
+			new TreeMap<>( Comparator.comparing( o -> Registry.ITEM.getKey( o.getItem() ) ) );
 		for( Color color : Color.values() ) {
 			String registry_key = GsonHelper.getAsString( color_tag, color.getSerializedName(), "" );
 			if( !registry_key.isEmpty() ) {

@@ -6,7 +6,6 @@ import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -25,7 +24,6 @@ public class DyeBlockItem extends BlockItem {
 	public DyeBlockItem( Block block, Item.Properties _properties, String registry_name ) {
 		
 		super( block, _properties );
-		setRegistryName( registry_name );
 		//noinspection Convert2MethodRef
 		DistExecutor.unsafeRunWhenOn(
 			Dist.CLIENT,
@@ -47,13 +45,13 @@ public class DyeBlockItem extends BlockItem {
 	@Override
 	public Component getName( @Nonnull ItemStack stack ) {
 		
-		return new TranslatableComponent( getDescriptionId( stack ) + "_" + DyeBlockHelper.getColorName( stack ) );
+		return Component.translatable( getDescriptionId( stack ) + "_" + DyeBlockHelper.getColorName( stack ) );
 	}
 	
 	@Override
 	public void fillItemCategory( @Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> items ) {
 		
-		if( allowdedIn( tab ) ) {
+		if( allowedIn( tab ) ) {
 			if( ClientConfig.ALL_COLORS_IN_ITEM_GROUP.get() ) {
 				for( Color color : Color.values() ) {
 					items.add( DyeBlockHelper.createItemStackOfItem( this, color ) );

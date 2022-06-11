@@ -15,10 +15,9 @@ import javax.annotation.Nullable;
 public abstract class AxisBlock extends Block implements BlockItemInterface {
 	
 	
-	protected AxisBlock( BlockBehaviour.Properties _properties, String registry_name ) {
+	protected AxisBlock( BlockBehaviour.Properties _properties ) {
 		
 		super( _properties );
-		setRegistryName( registry_name );
 	}
 	
 	@Nullable

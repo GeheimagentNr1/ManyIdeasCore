@@ -34,10 +34,9 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	
 	protected IntegerProperty Z_SIZE;
 	
-	protected MultiBlock( BlockBehaviour.Properties _properties, String registry_name ) {
+	protected MultiBlock( BlockBehaviour.Properties _properties ) {
 		
 		super( _properties );
-		setRegistryName( registry_name );
 	}
 	
 	@SuppressWarnings( "deprecation" )

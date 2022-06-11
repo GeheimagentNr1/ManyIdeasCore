@@ -8,6 +8,6 @@ public class GrindingRecipeSerializer extends SingleItemRecipeSerializer<Grindin
 	
 	public GrindingRecipeSerializer() {
 		
-		super( GrindingRecipe::new, GrindingRecipe.registry_name );
+		super( GrindingRecipe::new );
 	}
 }

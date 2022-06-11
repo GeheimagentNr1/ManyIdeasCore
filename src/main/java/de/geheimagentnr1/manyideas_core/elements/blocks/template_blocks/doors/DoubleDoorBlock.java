@@ -40,14 +40,12 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	protected DoubleDoorBlock( BlockBehaviour.Properties _properties, String registry_name ) {
 		
 		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ) );
-		setRegistryName( registry_name );
 		initDoubleDoorBlock( material == Material.METAL ? OpenedBy.REDSTONE : OpenedBy.BOTH );
 	}
 	
 	protected DoubleDoorBlock( BlockBehaviour.Properties _properties, String registry_name, OpenedBy openedBy ) {
 		
 		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ) );
-		setRegistryName( registry_name );
 		initDoubleDoorBlock( openedBy );
 	}
 	

@@ -17,7 +17,6 @@ public class RainbowCarpet extends CarpetBlock implements BlockItemInterface {
 	public RainbowCarpet() {
 		
 		super( BlockBehaviour.Properties.of( Material.CLOTH_DECORATION ).strength( 0.1F ).sound( SoundType.WOOL ) );
-		setRegistryName( registry_name );
 	}
 	
 	@Override

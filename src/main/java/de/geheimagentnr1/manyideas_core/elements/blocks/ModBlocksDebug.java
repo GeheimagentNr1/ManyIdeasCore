@@ -1,11 +1,15 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks;
 
 import de.geheimagentnr1.manyideas_core.config.ClientConfig;
+import de.geheimagentnr1.manyideas_core.elements.RegistryEntry;
 import de.geheimagentnr1.manyideas_core.elements.blocks.debug.DebugBlockCullface;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.RegisterEvent;
+
+import java.util.List;
 
 
-@SuppressWarnings( { "PublicStaticArrayField", "unused" } )
+@SuppressWarnings( { "unused", "PublicStaticCollectionField" } )
 public class ModBlocksDebug {
 	
 	//TODO:
@@ -19,17 +23,17 @@ public class ModBlocksDebug {
 	// L - Loottable fertig
 	// T - Tags fertig
 	
-	public static final Block[] BLOCKS = initBlocks();
+	public static final List<RegistryEntry<? extends Block>> BLOCKS = initBlocks();
 	
-	private static Block[] initBlocks() {
+	private static List<RegistryEntry<? extends Block>> initBlocks() {
 		
 		if( ClientConfig.DEBUG.get() ) {
-			return new Block[] {//BCPFINRLT
+			return List.of(//BCPFINRLT
 				//Debug
-				new DebugBlockCullface(),//BCFINRLT
-			};
+				RegistryEntry.create( DebugBlockCullface.registry_name, new DebugBlockCullface() )//BCFINRLT
+			);
 		} else {
-			return new Block[0];
+			return List.of();
 		}
 	}
 	

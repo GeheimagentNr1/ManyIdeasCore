@@ -28,23 +28,23 @@ import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
 import de.geheimagentnr1.manyideas_core.network.Network;
 import de.geheimagentnr1.manyideas_core.special.decoration_renderer.PlayerDecorationManager;
 import de.geheimagentnr1.manyideas_core.util.BlockRegistrationHelper;
+import net.minecraft.Util;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.world.inventory.MenuType;
+import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 
 
 @SuppressWarnings( "unused" )
@@ -56,17 +56,40 @@ public class ModEventHandler {
 	public static void handleCommonSetupEvent( FMLCommonSetupEvent event ) {
 		
 		ModArgumentTypes.registerArgumentTypes();
-		RecipeTypes.init();
 		Network.registerPackets();
 	}
 	
 	@SubscribeEvent
-	public static void handleRegisterRecipeSerialzierEvent( RegistryEvent.Register<RecipeSerializer<?>> event ) {
+	public static void handleRegisterRecipeTypesEvent( RegisterEvent event ) {
 		
-		for( IngredientSerializer<? extends Ingredient> ingredientSerializer : IngredientSerializers.INGREDIENTS ) {
-			CraftingHelper.register( ingredientSerializer.getRegistryNameRL(), ingredientSerializer );
+		if( event.getRegistryKey().equals( ForgeRegistries.Keys.RECIPE_TYPES ) ) {
+			event.register(
+				ForgeRegistries.Keys.RECIPE_TYPES,
+				registerHelper -> RecipeTypes.RECIPE_TYPES.forEach( registryEntry -> registerHelper.register(
+					registryEntry.getRegistryName(),
+					registryEntry.getValue()
+				) )
+			);
 		}
-		event.getRegistry().registerAll( RecipeSerializers.RECIPE_SERIALIZERS );
+	}
+	
+	@SubscribeEvent
+	public static void handleRegisterRecipeSerialzierEvent( RegisterEvent event ) {
+		
+		if( event.getRegistryKey().equals( ForgeRegistries.Keys.RECIPE_SERIALIZERS ) ) {
+			for( IngredientSerializer<? extends Ingredient> ingredientSerializer :
+				IngredientSerializers.INGREDIENTS ) {
+				CraftingHelper.register( ingredientSerializer.getRegistryNameRL(), ingredientSerializer );
+			}
+			
+			event.register(
+				ForgeRegistries.Keys.RECIPE_SERIALIZERS,
+				registerHelper -> RecipeSerializers.RECIPE_SERIALIZERS.forEach( registryEntry -> registerHelper.register(
+					registryEntry.getRegistryName(),
+					registryEntry.getValue()
+				) )
+			);
+		}
 	}
 	
 	@OnlyIn( Dist.CLIENT )
@@ -88,54 +111,88 @@ public class ModEventHandler {
 	}
 	
 	@SubscribeEvent
-	public static void handleBlockRegistryEvent( RegistryEvent.Register<Block> event ) {
+	public static void handleBlockRegistryEvent( RegisterEvent event ) {
 		
-		event.getRegistry().registerAll( ModBlocks.BLOCKS );
-		event.getRegistry().registerAll( ModBlocksDebug.BLOCKS );
+		if( event.getRegistryKey().equals( ForgeRegistries.Keys.BLOCKS ) ) {
+			event.register(
+				ForgeRegistries.Keys.BLOCKS,
+				registerHelper -> ModBlocks.BLOCKS.forEach( registryEntry -> registerHelper.register(
+					registryEntry.getRegistryName(),
+					registryEntry.getValue()
+				) )
+			);
+			event.register(
+				ForgeRegistries.Keys.BLOCKS,
+				registerHelper -> ModBlocksDebug.BLOCKS.forEach( registryEntry -> registerHelper.register(
+					registryEntry.getRegistryName(),
+					registryEntry.getValue()
+				) )
+			);
+		}
 	}
 	
 	@SubscribeEvent
-	public static void handleItemRegistryEvent( RegistryEvent.Register<Item> event ) {
+	public static void handleItemRegistryEvent( RegisterEvent event ) {
 		
-		Item.Properties properties = new Item.Properties().tab( ModItemGroups.MANYIDEAS_CORE_ITEM_GROUP );
-		
-		BlockRegistrationHelper.registerBlockItems( event, ModBlocks.BLOCKS, properties );
-		BlockRegistrationHelper.registerBlockItems( event, ModBlocksDebug.BLOCKS, properties );
-		event.getRegistry().registerAll( ModItems.ITEMS );
+		if( event.getRegistryKey().equals( ForgeRegistries.Keys.ITEMS ) ) {
+			Item.Properties properties = new Item.Properties().tab( ModItemGroups.MANYIDEAS_CORE_ITEM_GROUP );
+			BlockRegistrationHelper.registerBlockItems( event, ModBlocks.BLOCKS, properties );
+			BlockRegistrationHelper.registerBlockItems( event, ModBlocksDebug.BLOCKS, properties );
+			event.register(
+				ForgeRegistries.Keys.ITEMS,
+				registerHelper -> ModItems.ITEMS.forEach( registryEntry -> registerHelper.register(
+					registryEntry.getRegistryName(),
+					registryEntry.getValue()
+				) )
+			);
+		}
 	}
 	
 	@SuppressWarnings( "ConstantConditions" )
 	@SubscribeEvent
-	public static void handleBlockEntityRegistryEvent( RegistryEvent.Register<BlockEntityType<?>> event ) {
+	public static void handleBlockEntityRegistryEvent( RegisterEvent event ) {
 		
-		event.getRegistry().register( BlockEntityType.Builder.of( EndBlockEntity::new, ModBlocks.END_BLOCK )
-			.build( null )
-			.setRegistryName( EndBlock.registry_name ) );
+		if( event.getRegistryKey().equals( ForgeRegistries.Keys.BLOCK_ENTITY_TYPES ) ) {
+			event.register(
+				ForgeRegistries.Keys.BLOCK_ENTITY_TYPES,
+				registerHelper -> registerHelper.register(
+					EndBlock.registry_name,
+					BlockEntityType.Builder.of( EndBlockEntity::new, ModBlocks.END_BLOCK )
+						.build( Util.fetchChoiceType( References.BLOCK_ENTITY, EndBlock.registry_name ) )
+				)
+			);
+		}
 	}
 	
 	@SubscribeEvent
-	public static void handleContainerRegistryEvent( RegistryEvent.Register<MenuType<?>> event ) {
+	public static void handleContainerRegistryEvent( RegisterEvent event ) {
 		
-		event.getRegistry().register( IForgeMenuType.create( ( menuId, inv, data ) -> new DyeCraftingTableMenu(
-			menuId,
-			inv
-		) ).setRegistryName( DyeCraftingTable.registry_name ) );
-		event.getRegistry().register( IForgeMenuType.create( ( menuId, inv, data ) -> new TableSawDiamondMenu(
-			menuId,
-			inv
-		) ).setRegistryName( TableSawDiamond.registry_name ) );
-		event.getRegistry().register( IForgeMenuType.create( ( menuId, inv, data ) -> new TableSawIronMenu(
-			menuId,
-			inv
-		) ).setRegistryName( TableSawIron.registry_name ) );
-		event.getRegistry().register( IForgeMenuType.create( ( menuId, inv, data ) -> new TableSawStoneMenu(
-			menuId,
-			inv
-		) ).setRegistryName( TableSawStone.registry_name ) );
-		
-		event.getRegistry().register( IForgeMenuType.create( ( menuId, inv, data ) -> new RedstoneKeyContainer(
-			menuId,
-			data
-		) ).setRegistryName( RedstoneKey.registry_name ) );
+		if( event.getRegistryKey().equals( ForgeRegistries.Keys.CONTAINER_TYPES ) ) {
+			event.register(
+				ForgeRegistries.Keys.CONTAINER_TYPES,
+				registerHelper -> {
+					registerHelper.register(
+						DyeCraftingTable.registry_name,
+						IForgeMenuType.create( ( menuId, inv, data ) -> new DyeCraftingTableMenu( menuId, inv ) )
+					);
+					registerHelper.register(
+						TableSawDiamond.registry_name,
+						IForgeMenuType.create( ( menuId, inv, data ) -> new TableSawDiamondMenu( menuId, inv ) )
+					);
+					registerHelper.register(
+						TableSawIron.registry_name,
+						IForgeMenuType.create( ( menuId, inv, data ) -> new TableSawIronMenu( menuId, inv ) )
+					);
+					registerHelper.register(
+						TableSawStone.registry_name,
+						IForgeMenuType.create( ( menuId, inv, data ) -> new TableSawStoneMenu( menuId, inv ) )
+					);
+					registerHelper.register(
+						RedstoneKey.registry_name,
+						IForgeMenuType.create( ( menuId, inv, data ) -> new RedstoneKeyContainer( menuId, data ) )
+					);
+				}
+			);
+		}
 	}
 }

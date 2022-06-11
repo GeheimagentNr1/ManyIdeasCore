@@ -7,7 +7,7 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Locale;
@@ -23,7 +23,7 @@ class ColorParser {
 	
 	
 	private static final DynamicCommandExceptionType COLOR_INVALID =
-		new DynamicCommandExceptionType( function -> new TranslatableComponent(
+		new DynamicCommandExceptionType( function -> Component.translatable(
 			"argument.color.invalid",
 			function
 		) );

@@ -19,8 +19,7 @@ public class FlowerTallStraightPeony extends TallFlower {
 			BlockBehaviour.Properties.of( Material.REPLACEABLE_PLANT )
 				.noCollission()
 				.instabreak()
-				.sound( SoundType.GRASS ),
-			registry_name
+				.sound( SoundType.GRASS )
 		);
 	}
 	

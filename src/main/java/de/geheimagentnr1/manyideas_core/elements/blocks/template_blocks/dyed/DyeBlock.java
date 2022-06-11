@@ -24,7 +24,6 @@ public abstract class DyeBlock extends Block implements BlockItemInterface {
 	protected DyeBlock( BlockBehaviour.Properties _properties, String registry_name ) {
 		
 		super( _properties );
-		setRegistryName( registry_name );
 	}
 	
 	@Nullable

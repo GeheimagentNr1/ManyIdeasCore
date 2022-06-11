@@ -25,7 +25,8 @@ public class DyedRecipeCategory extends JeiRecipeCategory<JeiDyedRecipe> {
 		JeiDyedRecipe.class
 	);
 	
-	private static final ResourceLocation texture = new ResourceLocation( "jei", "textures/gui/gui_vanilla.png" );
+	private static final ResourceLocation texture = new ResourceLocation(
+		"de/geheimagentnr1/manyideas_core/integrations/jei", "textures/gui/gui_vanilla.png" );
 	
 	public DyedRecipeCategory( IGuiHelper guiHelper ) {
 		

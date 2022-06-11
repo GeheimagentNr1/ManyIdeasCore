@@ -58,7 +58,7 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 		OpenedBy openedBy,
 		boolean _doubleDoorActive ) {
 		
-		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ), registry_name );
+		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ) );
 		registerDefaultState(
 			defaultBlockState().setValue( BlockStateProperties.OPEN, false )
 				.setValue( BlockStateProperties.POWERED, false )

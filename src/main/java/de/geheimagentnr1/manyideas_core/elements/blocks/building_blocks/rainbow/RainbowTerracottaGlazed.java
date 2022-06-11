@@ -19,7 +19,6 @@ public class RainbowTerracottaGlazed extends GlazedTerracottaBlock implements Bl
 		super( BlockBehaviour.Properties.of( Material.STONE ).strength( 1.4F )
 			.requiresCorrectToolForDrops()
 			.sound( SoundType.STONE ) );
-		setRegistryName( registry_name );
 	}
 	
 	@Override

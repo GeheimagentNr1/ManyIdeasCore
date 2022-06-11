@@ -5,6 +5,7 @@ import de.geheimagentnr1.manyideas_core.elements.items.CoreBaseItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -106,7 +107,7 @@ public class MysteriousShears extends CoreBaseItem {
 			BlockPos pos = new BlockPos( target.getX(), target.getY(), target.getZ() );
 			if( shear_target.isShearable( stack, target.level, pos ) ) {
 				
-				Random random = player.getRandom();
+				RandomSource random = player.getRandom();
 				List<ItemStack> drops;
 				if( shear_target instanceof Sheep && target.getCustomName() != null &&
 					target.getCustomName().getString().equals( "jeb_" ) ) {

@@ -8,21 +8,18 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 
 
-public class SingleItemRecipeSerializer<T extends SingleItemRecipe> extends ForgeRegistryEntry<RecipeSerializer<?>>
-	implements RecipeSerializer<T> {
+public class SingleItemRecipeSerializer<T extends SingleItemRecipe> implements RecipeSerializer<T> {
 	
 	
 	private final ISingleItemRecipeFactory<T> factory;
 	
-	public SingleItemRecipeSerializer( ISingleItemRecipeFactory<T> _factory, String registry_name ) {
+	public SingleItemRecipeSerializer( ISingleItemRecipeFactory<T> _factory ) {
 		
 		factory = _factory;
-		setRegistryName( registry_name );
 	}
 	
 	@SuppressWarnings( "deprecation" )

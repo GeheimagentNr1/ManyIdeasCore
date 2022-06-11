@@ -6,7 +6,7 @@ import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nonnull;
@@ -36,7 +36,7 @@ public class ToggleButton extends AbstractButton {
 		int _iconIndex,
 		Consumer<Boolean> _onPress ) {
 		
-		super( _x, _y, 22, 22, new TextComponent( "" ) );
+		super( _x, _y, 22, 22, Component.literal( "" ) );
 		icon_textures = _icon_textures;
 		iconIndex = _iconIndex;
 		onPress = _onPress;

@@ -8,6 +8,6 @@ public class TableSawStoneRecipeSerializer extends SingleItemRecipeSerializer<Ta
 	
 	public TableSawStoneRecipeSerializer() {
 		
-		super( TableSawStoneRecipe::new, TableSawStoneRecipe.registry_name );
+		super( TableSawStoneRecipe::new );
 	}
 }

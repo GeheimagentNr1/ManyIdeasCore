@@ -10,9 +10,9 @@ public class SimpleRecipeType<T extends Recipe<?>> implements RecipeType<T> {
 	
 	private final String name;
 	
-	public SimpleRecipeType( ResourceLocation registry_key ) {
+	public SimpleRecipeType( String modId, String registryName ) {
 		
-		name = registry_key.toString();
+		name = new ResourceLocation( modId, registryName ).toString();
 	}
 	
 	@Override

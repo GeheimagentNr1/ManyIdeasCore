@@ -5,12 +5,11 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -31,15 +30,15 @@ public class ElementCountCommand {
 			countItems( names, item_counts, block_item_counts );
 			
 			for( String name : names ) {
-				command.getSource().sendSuccess( new TextComponent( name ), false );
+				command.getSource().sendSuccess( Component.literal( name ), false );
 				command.getSource().sendSuccess(
-					new TextComponent( "block count: " + block_counts.get( name ) ),
+					Component.literal( "block count: " + block_counts.get( name ) ),
 					false
 				);
-				command.getSource().sendSuccess( new TextComponent(
+				command.getSource().sendSuccess( Component.literal(
 					"block item count: " + block_item_counts.get( name ) ), false );
 				command.getSource().sendSuccess(
-					new TextComponent( "item count: " + item_counts.get( name ) ),
+					Component.literal( "item count: " + item_counts.get( name ) ),
 					false
 				);
 			}
@@ -56,9 +55,9 @@ public class ElementCountCommand {
 		
 		for( Item item : Registry.ITEM ) {
 			if( item instanceof BlockItem ) {
-				addElementToTreeMap( item, names, block_item_counts );
+				addElementToTreeMap( item, Registry.ITEM, names, block_item_counts );
 			} else {
-				addElementToTreeMap( item, names, item_counts );
+				addElementToTreeMap( item, Registry.ITEM, names, item_counts );
 			}
 		}
 	}
@@ -69,18 +68,18 @@ public class ElementCountCommand {
 		TreeMap<String, Integer> block_counts = new TreeMap<>();
 		
 		for( Block block : Registry.BLOCK ) {
-			addElementToTreeMap( block, names, block_counts );
+			addElementToTreeMap( block, Registry.BLOCK, names, block_counts );
 		}
 		return block_counts;
 	}
 	
-	@SuppressWarnings( "rawtypes" )
-	private static void addElementToTreeMap(
-		ForgeRegistryEntry element,
+	private static <T> void addElementToTreeMap(
+		T element,
+		Registry<T> registry,
 		TreeSet<String> names,
 		TreeMap<String, Integer> counts ) {
 		
-		ResourceLocation resourceLocation = element.getRegistryName();
+		ResourceLocation resourceLocation = registry.getKey( element );
 		if( resourceLocation != null ) {
 			Integer block_count = counts.get( resourceLocation.getNamespace() );
 			if( block_count == null ) {

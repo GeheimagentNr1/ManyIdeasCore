@@ -3,6 +3,7 @@ package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 import com.google.gson.JsonObject;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.elements.recipes.IngredientSerializer;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 
@@ -29,7 +30,7 @@ public class ColorIngredientSerializer implements IngredientSerializer<ColorIngr
 			return new ColorIngredient( new ColorStackList( buffer.readItem() ) );
 		} else {
 			TreeMap<ItemStack, Color> colorStacks =
-				new TreeMap<>( Comparator.comparing( o -> Objects.requireNonNull( o.getItem().getRegistryName() ) ) );
+				new TreeMap<>( Comparator.comparing( o -> Registry.ITEM.getKey( o.getItem() ) ) );
 			int count = buffer.readInt();
 			for( int i = 0; i < count; i++ ) {
 				colorStacks.put( buffer.readItem(), Color.values()[buffer.readInt()] );

@@ -49,7 +49,6 @@ public class Mortar extends Block implements BlockItemInterface, BlockRenderType
 			.strength( 0.8F )
 			.requiresCorrectToolForDrops()
 			.sound( SoundType.STONE ) );
-		setRegistryName( registry_name );
 	}
 	
 	@Override

@@ -3,6 +3,8 @@ package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
+import net.minecraft.core.Registry;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -61,7 +63,7 @@ public class ColorTagList implements ColorList {
 			JsonObject item = new JsonObject();
 			item.addProperty(
 				stackColor.getSerializedName(),
-				Objects.requireNonNull( stack.getItem().getRegistryName() ).toString()
+				Registry.ITEM.getKey( stack.getItem() ).toString()
 			);
 			items.add( item );
 			colors.remove( stackColor );

@@ -8,7 +8,7 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlockItem;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.core.Registry;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
@@ -24,7 +24,7 @@ class DyeItemParser {
 	
 	
 	private static final DynamicCommandExceptionType ITEM_BAD_ID =
-		new DynamicCommandExceptionType( function -> new TranslatableComponent(
+		new DynamicCommandExceptionType( function -> Component.translatable(
 			"argument.item.id.invalid",
 			function
 		) );
@@ -54,7 +54,7 @@ class DyeItemParser {
 		
 		for( Item item : Registry.ITEM ) {
 			if( item instanceof DyeBlockItem ) {
-				keySet.add( item.getRegistryName() );
+				keySet.add( Registry.ITEM.getKey( item ) );
 			}
 		}
 		return keySet;

@@ -53,7 +53,6 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 		super( BlockBehaviour.Properties.of( Material.WOOD )
 			.strength( 2.5F )
 			.sound( SoundType.WOOD ) );
-		setRegistryName( registry_name );
 	}
 	
 	@Override

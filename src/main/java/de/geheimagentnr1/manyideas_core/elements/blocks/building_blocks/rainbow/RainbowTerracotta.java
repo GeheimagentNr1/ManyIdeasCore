@@ -19,7 +19,6 @@ public class RainbowTerracotta extends Block implements BlockItemInterface {
 		super( BlockBehaviour.Properties.of( Material.STONE ).strength( 1.25F, 4.2F )
 			.requiresCorrectToolForDrops()
 			.sound( SoundType.STONE ) );
-		setRegistryName( registry_name );
 	}
 	
 	@Override

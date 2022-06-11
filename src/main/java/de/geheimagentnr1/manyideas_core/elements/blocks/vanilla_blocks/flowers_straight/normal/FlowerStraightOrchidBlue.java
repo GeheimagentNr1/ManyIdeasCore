@@ -19,8 +19,7 @@ public class FlowerStraightOrchidBlue extends Flower {
 		super(
 			MobEffects.SATURATION,
 			7,
-			BlockBehaviour.Properties.of( Material.PLANT ).noCollission().instabreak().sound( SoundType.GRASS ),
-			registry_name
+			BlockBehaviour.Properties.of( Material.PLANT ).noCollission().instabreak().sound( SoundType.GRASS )
 		);
 	}
 	

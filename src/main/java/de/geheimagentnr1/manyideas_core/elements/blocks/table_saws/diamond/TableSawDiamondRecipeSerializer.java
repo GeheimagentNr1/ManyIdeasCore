@@ -8,6 +8,6 @@ public class TableSawDiamondRecipeSerializer extends SingleItemRecipeSerializer<
 	
 	public TableSawDiamondRecipeSerializer() {
 		
-		super( TableSawDiamondRecipe::new, TableSawDiamondRecipe.registry_name );
+		super( TableSawDiamondRecipe::new );
 	}
 }

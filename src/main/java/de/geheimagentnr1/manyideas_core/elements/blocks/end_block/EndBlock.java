@@ -31,7 +31,6 @@ public class EndBlock extends BaseEntityBlock implements BlockItemInterface, Blo
 			.noOcclusion()
 			.isViewBlocking( ( state, level, pos ) -> false )
 			.sound( SoundType.GLASS ) );
-		setRegistryName( registry_name );
 	}
 	
 	@Override

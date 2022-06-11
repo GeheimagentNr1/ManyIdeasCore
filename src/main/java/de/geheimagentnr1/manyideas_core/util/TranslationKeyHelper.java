@@ -3,7 +3,6 @@ package de.geheimagentnr1.manyideas_core.util;
 
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
 
@@ -16,14 +15,14 @@ public class TranslationKeyHelper {
 		return Util.makeDescriptionId( "container", new ResourceLocation( modid, registry_name ) );
 	}
 	
-	public static TranslatableComponent generateContainerTranslationText( String modid, String registry_name ) {
+	public static Component generateContainerTranslationText( String modid, String registry_name ) {
 		
 		return translationKeyToTranslationText( generateContainerTranslationKey( modid, registry_name ) );
 	}
 	
-	public static TranslatableComponent translationKeyToTranslationText( String translation_key ) {
+	public static Component translationKeyToTranslationText( String translation_key ) {
 		
-		return new TranslatableComponent( translation_key );
+		return Component.translatable( translation_key );
 	}
 	
 	public static String generateMessageTranslationKey( String modid, String registry_name ) {
@@ -33,6 +32,6 @@ public class TranslationKeyHelper {
 	
 	public static Component generateMessageTranslationTextComponent( String modid, String registry_name ) {
 		
-		return new TranslatableComponent( generateMessageTranslationKey( modid, registry_name ) );
+		return Component.translatable( generateMessageTranslationKey( modid, registry_name ) );
 	}
 }

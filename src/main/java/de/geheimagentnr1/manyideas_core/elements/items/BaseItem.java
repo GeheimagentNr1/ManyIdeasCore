@@ -7,9 +7,8 @@ import net.minecraft.world.item.Item;
 public abstract class BaseItem extends Item {
 	
 	
-	protected BaseItem( Item.Properties item_properties, String registry_name ) {
+	protected BaseItem( Item.Properties item_properties ) {
 		
 		super( item_properties );
-		setRegistryName( registry_name );
 	}
 }
