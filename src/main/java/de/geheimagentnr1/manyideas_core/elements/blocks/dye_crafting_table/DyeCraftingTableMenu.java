@@ -40,7 +40,7 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 		Inventory inventory,
 		ContainerLevelAccess _containerLevelAccess ) {
 		
-		super( ModBlocks.DYE_CRAFTING_TABLE_CONTAINER, containerID );
+		super( ModBlocks.DYE_CRAFTING_TABLE_MENU, containerID );
 		craftingContainer = new CraftingContainer( this, 3, 3 );
 		resultContainer = new ResultContainer();
 		containerLevelAccess = _containerLevelAccess;

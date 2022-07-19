@@ -263,7 +263,7 @@ public class ModBlocks {
 	
 	@ObjectHolder( registryName = RegistryKeys.MENU_TYPES,
 		value = ManyIdeasCore.MODID + ":" + DyeCraftingTable.registry_name )
-	public static MenuType<DyeCraftingTableMenu> DYE_CRAFTING_TABLE_CONTAINER;
+	public static MenuType<DyeCraftingTableMenu> DYE_CRAFTING_TABLE_MENU;
 	
 	//End Block
 	
@@ -286,14 +286,14 @@ public class ModBlocks {
 	
 	@ObjectHolder( registryName = RegistryKeys.MENU_TYPES,
 		value = ManyIdeasCore.MODID + ":" + TableSawDiamond.registry_name )
-	public static MenuType<TableSawDiamondMenu> TABLE_SAW_DIAMOND_CONTAINER;
+	public static MenuType<TableSawDiamondMenu> TABLE_SAW_DIAMOND_MENU;
 	
 	@ObjectHolder( registryName = RegistryKeys.BLOCKS, value = ManyIdeasCore.MODID + ":" + TableSawIron.registry_name )
 	public static TableSawIron TABLE_SAW_IRON;
 	
 	@ObjectHolder( registryName = RegistryKeys.MENU_TYPES,
 		value = ManyIdeasCore.MODID + ":" + TableSawIron.registry_name )
-	public static MenuType<TableSawIronMenu> TABLE_SAW_IRON_CONTAINER;
+	public static MenuType<TableSawIronMenu> TABLE_SAW_IRON_MENU;
 	
 	@ObjectHolder( registryName = RegistryKeys.BLOCKS, value =
 		ManyIdeasCore.MODID + ":" + TableSawStone.registry_name )
@@ -301,7 +301,7 @@ public class ModBlocks {
 	
 	@ObjectHolder( registryName = RegistryKeys.MENU_TYPES, value =
 		ManyIdeasCore.MODID + ":" + TableSawStone.registry_name )
-	public static MenuType<TableSawStoneMenu> TABLE_SAW_STONE_CONTAINER;
+	public static MenuType<TableSawStoneMenu> TABLE_SAW_STONE_MENU;
 	
 	//Vanilla Blocks: Flowers: Normal
 	

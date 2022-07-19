@@ -30,10 +30,10 @@ public abstract class JeiSingleItemRecipeCategory<R extends JeiSingleItemRecipe<
 	@Override
 	public void setRecipe( @NotNull IRecipeLayoutBuilder builder, @NotNull R recipe, @NotNull IFocusGroup focuses ) {
 		
-		builder.addSlot( RecipeIngredientRole.INPUT, 19, 18 )
+		builder.addSlot( RecipeIngredientRole.INPUT, 20, 19 )
 			.addItemStacks( recipe.getInputs().get( 0 ) );
 		
-		builder.addSlot( RecipeIngredientRole.OUTPUT, 79, 18 )
+		builder.addSlot( RecipeIngredientRole.OUTPUT, 80, 19 )
 			.addItemStack( recipe.getResult() );
 	}
 }

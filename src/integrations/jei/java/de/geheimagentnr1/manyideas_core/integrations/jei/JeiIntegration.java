@@ -19,6 +19,7 @@ import de.geheimagentnr1.manyideas_core.integrations.jei.categories.table_sawing
 import de.geheimagentnr1.manyideas_core.integrations.jei.item_subtypes.DyeBlockItemSubtypeInterpreter;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.registration.*;
@@ -44,10 +45,12 @@ public class JeiIntegration implements IModPlugin {
 	public void registerItemSubtypes( ISubtypeRegistration registration ) {
 		
 		registration.registerSubtypeInterpreter(
+			VanillaTypes.ITEM_STACK,
 			ModBlocks.PLANKS_COLORED.asItem(),
 			new DyeBlockItemSubtypeInterpreter()
 		);
 		registration.registerSubtypeInterpreter(
+			VanillaTypes.ITEM_STACK,
 			ModBlocks.WOOD_COLORED.asItem(),
 			new DyeBlockItemSubtypeInterpreter()
 		);
@@ -85,6 +88,7 @@ public class JeiIntegration implements IModPlugin {
 		
 		registration.addRecipeTransferHandler(
 			DyeCraftingTableMenu.class,
+			ModBlocks.DYE_CRAFTING_TABLE_MENU,
 			DyedRecipeCategory.DYED,
 			1,
 			9,
@@ -93,6 +97,7 @@ public class JeiIntegration implements IModPlugin {
 		);
 		registration.addRecipeTransferHandler(
 			TableSawDiamondMenu.class,
+			ModBlocks.TABLE_SAW_DIAMOND_MENU,
 			TableSawDiamondRecipeCategory.TABLE_SAWING_DIAMOND,
 			0,
 			1,
@@ -101,6 +106,7 @@ public class JeiIntegration implements IModPlugin {
 		);
 		registration.addRecipeTransferHandler(
 			TableSawDiamondMenu.class,
+			ModBlocks.TABLE_SAW_DIAMOND_MENU,
 			TableSawIronRecipeCategory.TABLE_SAWING_IRON,
 			0,
 			1,
@@ -109,6 +115,7 @@ public class JeiIntegration implements IModPlugin {
 		);
 		registration.addRecipeTransferHandler(
 			TableSawDiamondMenu.class,
+			ModBlocks.TABLE_SAW_DIAMOND_MENU,
 			TableSawStoneRecipeCategory.TABLE_SAWING_STONE,
 			0,
 			1,
@@ -117,6 +124,7 @@ public class JeiIntegration implements IModPlugin {
 		);
 		registration.addRecipeTransferHandler(
 			TableSawIronMenu.class,
+			ModBlocks.TABLE_SAW_IRON_MENU,
 			TableSawIronRecipeCategory.TABLE_SAWING_IRON,
 			0,
 			1,
@@ -125,6 +133,7 @@ public class JeiIntegration implements IModPlugin {
 		);
 		registration.addRecipeTransferHandler(
 			TableSawIronMenu.class,
+			ModBlocks.TABLE_SAW_IRON_MENU,
 			TableSawStoneRecipeCategory.TABLE_SAWING_STONE,
 			0,
 			1,
@@ -133,6 +142,7 @@ public class JeiIntegration implements IModPlugin {
 		);
 		registration.addRecipeTransferHandler(
 			TableSawStoneMenu.class,
+			ModBlocks.TABLE_SAW_STONE_MENU,
 			TableSawStoneRecipeCategory.TABLE_SAWING_STONE,
 			0,
 			1,

@@ -96,10 +96,10 @@ public class ModEventHandler {
 	@SubscribeEvent
 	public static void handleClientSetupEvent( FMLClientSetupEvent event ) {
 		
-		MenuScreens.register( ModBlocks.DYE_CRAFTING_TABLE_CONTAINER, DyeCraftingTableScreen::new );
-		MenuScreens.register( ModBlocks.TABLE_SAW_STONE_CONTAINER, TableSawScreen::new );
-		MenuScreens.register( ModBlocks.TABLE_SAW_IRON_CONTAINER, TableSawScreen::new );
-		MenuScreens.register( ModBlocks.TABLE_SAW_DIAMOND_CONTAINER, TableSawScreen::new );
+		MenuScreens.register( ModBlocks.DYE_CRAFTING_TABLE_MENU, DyeCraftingTableScreen::new );
+		MenuScreens.register( ModBlocks.TABLE_SAW_STONE_MENU, TableSawScreen::new );
+		MenuScreens.register( ModBlocks.TABLE_SAW_IRON_MENU, TableSawScreen::new );
+		MenuScreens.register( ModBlocks.TABLE_SAW_DIAMOND_MENU, TableSawScreen::new );
 		
 		MenuScreens.register( ModItems.RESTONE_KEY_CONTAINER, RedstoneKeyScreen::new );
 		
@@ -167,9 +167,9 @@ public class ModEventHandler {
 	@SubscribeEvent
 	public static void handleContainerRegistryEvent( RegisterEvent event ) {
 		
-		if( event.getRegistryKey().equals( ForgeRegistries.Keys.CONTAINER_TYPES ) ) {
+		if( event.getRegistryKey().equals( ForgeRegistries.Keys.MENU_TYPES ) ) {
 			event.register(
-				ForgeRegistries.Keys.CONTAINER_TYPES,
+				ForgeRegistries.Keys.MENU_TYPES,
 				registerHelper -> {
 					registerHelper.register(
 						DyeCraftingTable.registry_name,

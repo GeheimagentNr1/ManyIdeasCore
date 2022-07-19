@@ -47,7 +47,7 @@ public class RedstoneKey extends CoreBaseItem {
 				List<Option> options = redstoneKeyableBlock.getOptions();
 				int stateIndex = redstoneKeyableBlock.getStateIndex( state );
 				
-				NetworkHooks.openGui(
+				NetworkHooks.openScreen(
 					(ServerPlayer)player,
 					new RedstoneKeyNamedContainerProvider(
 						title,

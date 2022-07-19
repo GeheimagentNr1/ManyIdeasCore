@@ -21,13 +21,13 @@ public class TableSawStoneMenu extends TableSawMenu {
 	
 	public TableSawStoneMenu( int menuId, Inventory inventory ) {
 		
-		super( ModBlocks.TABLE_SAW_STONE_CONTAINER, menuId, inventory );
+		super( ModBlocks.TABLE_SAW_STONE_MENU, menuId, inventory );
 	}
 	
 	//package-private
 	TableSawStoneMenu( int menuId, Inventory inventory, ContainerLevelAccess containerLevelAccess ) {
 		
-		super( ModBlocks.TABLE_SAW_STONE_CONTAINER, menuId, inventory, containerLevelAccess );
+		super( ModBlocks.TABLE_SAW_STONE_MENU, menuId, inventory, containerLevelAccess );
 	}
 	
 	@SuppressWarnings( "rawtypes" )

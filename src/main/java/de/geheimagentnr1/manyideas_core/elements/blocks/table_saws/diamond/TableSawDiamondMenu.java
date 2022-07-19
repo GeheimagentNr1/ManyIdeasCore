@@ -21,7 +21,7 @@ public class TableSawDiamondMenu extends TableSawMenu {
 	
 	public TableSawDiamondMenu( int menuId, Inventory inventory ) {
 		
-		super( ModBlocks.TABLE_SAW_DIAMOND_CONTAINER, menuId, inventory );
+		super( ModBlocks.TABLE_SAW_DIAMOND_MENU, menuId, inventory );
 	}
 	
 	//package-private
@@ -30,7 +30,7 @@ public class TableSawDiamondMenu extends TableSawMenu {
 		Inventory inventory,
 		ContainerLevelAccess containerLevelAccess ) {
 		
-		super( ModBlocks.TABLE_SAW_DIAMOND_CONTAINER, menuId, inventory, containerLevelAccess );
+		super( ModBlocks.TABLE_SAW_DIAMOND_MENU, menuId, inventory, containerLevelAccess );
 	}
 	
 	@SuppressWarnings( "rawtypes" )

@@ -27,9 +27,9 @@ public class ForgeEventHandler {
 	@SubscribeEvent
 	public static void handlePreRenderPlayerEvent( RenderPlayerEvent.Pre event ) {
 		
-		if( event.getPlayer() != null ) {
+		if( event.getEntity() != null ) {
 			PlayerDecorationManager.renderForPlayer(
-				event.getPlayer(),
+				event.getEntity(),
 				event.getPackedLight(),
 				event.getPoseStack(),
 				event.getMultiBufferSource()

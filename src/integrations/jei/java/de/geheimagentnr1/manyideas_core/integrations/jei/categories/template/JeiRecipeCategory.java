@@ -33,7 +33,7 @@ public abstract class JeiRecipeCategory<R> implements IRecipeCategory<R> {
 		
 		recipeType = _recipeType;
 		block = _block;
-		icon = guiHelper.createDrawableIngredient( VanillaTypes.ITEM, new ItemStack( block ) );
+		icon = guiHelper.createDrawableIngredient( VanillaTypes.ITEM_STACK, new ItemStack( block ) );
 		background = _background;
 	}
 	
@@ -42,20 +42,6 @@ public abstract class JeiRecipeCategory<R> implements IRecipeCategory<R> {
 	public RecipeType<R> getRecipeType() {
 		
 		return recipeType;
-	}
-	
-	@Nonnull
-	@Override
-	public ResourceLocation getUid() {
-		
-		return getRecipeType().getUid();
-	}
-	
-	@Nonnull
-	@Override
-	public Class<? extends R> getRecipeClass() {
-		
-		return getRecipeType().getRecipeClass();
 	}
 	
 	@Nonnull

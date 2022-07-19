@@ -25,8 +25,7 @@ public class DyedRecipeCategory extends JeiRecipeCategory<JeiDyedRecipe> {
 		JeiDyedRecipe.class
 	);
 	
-	private static final ResourceLocation texture = new ResourceLocation(
-		"de/geheimagentnr1/manyideas_core/integrations/jei", "textures/gui/gui_vanilla.png" );
+	private static final ResourceLocation texture = new ResourceLocation( "jei", "textures/gui/gui_vanilla.png" );
 	
 	public DyedRecipeCategory( IGuiHelper guiHelper ) {
 		
@@ -43,12 +42,12 @@ public class DyedRecipeCategory extends JeiRecipeCategory<JeiDyedRecipe> {
 		for( int i = 0; i < 3; i++ ) {
 			for( int j = 0; j < 3; j++ ) {
 				if( j + i * 3 < input.size() ) {
-					builder.addSlot( RecipeIngredientRole.INPUT, j * 18, i * 18 )
+					builder.addSlot( RecipeIngredientRole.INPUT, j * 18 + 1, i * 18 + 1 )
 						.addItemStacks( input.get( j + i * 3 ) );
 				}
 			}
 		}
-		builder.addSlot( RecipeIngredientRole.OUTPUT, 94, 18 )
+		builder.addSlot( RecipeIngredientRole.OUTPUT, 95, 19 )
 			.addItemStack( recipe.getResult() );
 	}
 }
