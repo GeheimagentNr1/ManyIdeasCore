@@ -4,7 +4,6 @@ import de.geheimagentnr1.manyideas_core.config.ClientConfig;
 import de.geheimagentnr1.manyideas_core.elements.RegistryEntry;
 import de.geheimagentnr1.manyideas_core.elements.blocks.debug.DebugBlockCullface;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.RegisterEvent;
 
 import java.util.List;
 

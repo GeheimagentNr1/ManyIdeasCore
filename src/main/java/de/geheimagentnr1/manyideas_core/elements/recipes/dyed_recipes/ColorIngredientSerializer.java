@@ -9,7 +9,6 @@ import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 import java.util.Comparator;
-import java.util.Objects;
 import java.util.TreeMap;
 
 

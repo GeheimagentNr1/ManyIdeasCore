@@ -3,6 +3,7 @@ package de.geheimagentnr1.manyideas_core.elements;
 
 public class RegistryKeys {
 	
+	
 	public static final String BLOCKS = "block";
 	
 	public static final String BLOCK_ENTITY_TYPES = "block_entity_type";

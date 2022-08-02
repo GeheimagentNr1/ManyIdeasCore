@@ -5,8 +5,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
-import javax.annotation.Nonnull;
-
 
 @SuppressWarnings( "AbstractClassExtendsConcreteClass" )
 public abstract class TallFlower extends TallFlowerBlock implements FlowerBlockItemInterface, BlockRenderTypeInterface {

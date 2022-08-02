@@ -126,6 +126,7 @@ public class ModItems {
 	@ObjectHolder( registryName = RegistryKeys.ITEMS, value = ManyIdeasCore.MODID + ":" + RedstoneKey.registry_name )
 	public static RedstoneKey RESTONE_KEY;
 	
-	@ObjectHolder( registryName = RegistryKeys.MENU_TYPES, value = ManyIdeasCore.MODID + ":" + RedstoneKey.registry_name )
+	@ObjectHolder( registryName = RegistryKeys.MENU_TYPES,
+		value = ManyIdeasCore.MODID + ":" + RedstoneKey.registry_name )
 	public static MenuType<RedstoneKeyContainer> RESTONE_KEY_CONTAINER;
 }

@@ -270,7 +270,8 @@ public class ModBlocks {
 	@ObjectHolder( registryName = RegistryKeys.BLOCKS, value = ManyIdeasCore.MODID + ":" + EndBlock.registry_name )
 	public static EndBlock END_BLOCK;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCK_ENTITY_TYPES, value = ManyIdeasCore.MODID + ":" + EndBlock.registry_name )
+	@ObjectHolder( registryName = RegistryKeys.BLOCK_ENTITY_TYPES,
+		value = ManyIdeasCore.MODID + ":" + EndBlock.registry_name )
 	public static BlockEntityType<EndBlockEntity> END_BLOCK_ENTITY;
 	
 	//Mortar

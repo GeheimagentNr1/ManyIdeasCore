@@ -7,8 +7,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
-import javax.annotation.Nonnull;
-
 
 @SuppressWarnings( "AbstractClassExtendsConcreteClass" )
 public abstract class Flower extends FlowerBlock implements FlowerBlockItemInterface, BlockRenderTypeInterface {

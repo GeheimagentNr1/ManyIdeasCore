@@ -27,7 +27,6 @@ import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 
 public class MysteriousShears extends CoreBaseItem {

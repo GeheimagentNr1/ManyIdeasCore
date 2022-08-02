@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import net.minecraft.core.Registry;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;

@@ -1,13 +1,5 @@
 package de.geheimagentnr1.manyideas_core.elements.commands;
 
-import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
-import de.geheimagentnr1.manyideas_core.elements.commands.givedb.ColorArgument;
-import de.geheimagentnr1.manyideas_core.elements.commands.givedb.DyeItemArgument;
-import net.minecraft.commands.synchronization.ArgumentTypeInfos;
-import net.minecraft.commands.synchronization.SingletonArgumentInfo;
-import net.minecraft.core.Registry;
-
-
 public class ModArgumentTypes {
 	
 	
