@@ -10,11 +10,6 @@ public class PlanksSeamlessAcacia extends Planks {
 	
 	public static final String registry_name = "planks_seamless_acacia";
 	
-	public PlanksSeamlessAcacia() {
-		
-		super( registry_name );
-	}
-	
 	@Override
 	public Item getBlockItem( Item.Properties _properties ) {
 		

@@ -67,22 +67,4 @@ public class RecipeTypes {
 	@ObjectHolder( registryName = RegistryKeys.RECIPE_TYPES,
 		value = ManyIdeasCore.MODID + ":" + TableSawStoneRecipe.registry_name )
 	public static RecipeType<TableSawStoneRecipe> TABLE_SAWING_STONE;
-	
-	/*private static <T extends Recipe<?>> RecipeType<T> register( String key ) {
-		
-		ResourceLocation registry_key = new ResourceLocation( ManyIdeasCore.MODID, key );
-		return Registry.register( Registry.RECIPE_TYPE, registry_key, new SimpleRecipeType<>( registry_key ) );
-	}
-	
-	public static void init() {
-		
-		//Dyed
-		DYED = register( DyedRecipe.registry_name );
-		//Grinding
-		GRINDING = register( GrindingRecipe.registry_name );
-		//Tablesawing
-		TABLE_SAWING_DIAMOND = register( TableSawDiamondRecipe.registry_name );
-		TABLE_SAWING_IRON = register( TableSawIronRecipe.registry_name );
-		TABLE_SAWING_STONE = register( TableSawStoneRecipe.registry_name );
-	}*/
 }

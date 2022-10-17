@@ -10,11 +10,6 @@ public class LogStrippedSmoothDarkOak extends Wood {
 	
 	public static final String registry_name = "log_stripped_smooth_dark_oak";
 	
-	public LogStrippedSmoothDarkOak() {
-		
-		super( registry_name );
-	}
-	
 	@Override
 	public Item getBlockItem( Item.Properties _properties ) {
 		

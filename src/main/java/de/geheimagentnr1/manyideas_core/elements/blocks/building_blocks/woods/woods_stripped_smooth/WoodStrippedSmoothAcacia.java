@@ -10,11 +10,6 @@ public class WoodStrippedSmoothAcacia extends Wood {
 	
 	public static final String registry_name = "wood_stripped_smooth_acacia";
 	
-	public WoodStrippedSmoothAcacia() {
-		
-		super( registry_name );
-	}
-	
 	@Override
 	public Item getBlockItem( Item.Properties _properties ) {
 		

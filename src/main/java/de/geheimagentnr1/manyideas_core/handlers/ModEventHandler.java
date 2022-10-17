@@ -15,7 +15,6 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSaw
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronMenu;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStone;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneMenu;
-import de.geheimagentnr1.manyideas_core.elements.commands.ModArgumentTypes;
 import de.geheimagentnr1.manyideas_core.elements.item_groups.ModItemGroups;
 import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.RedstoneKey;
@@ -55,7 +54,6 @@ public class ModEventHandler {
 	@SubscribeEvent
 	public static void handleCommonSetupEvent( FMLCommonSetupEvent event ) {
 		
-		ModArgumentTypes.registerArgumentTypes();
 		Network.registerPackets();
 	}
 	

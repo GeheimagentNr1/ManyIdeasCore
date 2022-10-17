@@ -10,11 +10,6 @@ public class WoodStrippedSmoothCrimson extends Wood {
 	
 	public static final String registry_name = "wood_stripped_smooth_crimson";
 	
-	public WoodStrippedSmoothCrimson() {
-		
-		super( registry_name );
-	}
-	
 	@Override
 	public Item getBlockItem( Item.Properties _properties ) {
 		

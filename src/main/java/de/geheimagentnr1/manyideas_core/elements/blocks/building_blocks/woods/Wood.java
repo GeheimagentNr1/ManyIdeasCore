@@ -9,7 +9,7 @@ import net.minecraft.world.level.material.Material;
 public abstract class Wood extends AxisBlock {
 	
 	
-	protected Wood( String registry_name ) {
+	protected Wood() {
 		
 		super(
 			BlockBehaviour.Properties.of( Material.WOOD )

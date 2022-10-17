@@ -10,11 +10,6 @@ public class LogStrippedSmoothWarped extends Wood {
 	
 	public static final String registry_name = "log_stripped_smooth_warped";
 	
-	public LogStrippedSmoothWarped() {
-		
-		super( registry_name );
-	}
-	
 	@Override
 	public Item getBlockItem( Item.Properties _properties ) {
 		
