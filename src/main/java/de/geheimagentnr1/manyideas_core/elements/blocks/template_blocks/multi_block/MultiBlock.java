@@ -168,8 +168,6 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 			state.getValue( BlockStateProperties.HORIZONTAL_FACING ),
 			( x, y, z, blockPos ) -> {
 				BlockState blockState = level.getBlockState( blockPos );
-				level.removeBlock( blockPos, true );
-				super.playerWillDestroy( level, blockPos, blockState, player );
 				if( !level.isClientSide && !player.isCreative() && player.hasCorrectToolForDrops( blockState ) ) {
 					Block.dropResources(
 						blockState,
@@ -180,6 +178,17 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 						player.getMainHandItem()
 					);
 				}
+			},
+			true
+		);
+		runForBlocks(
+			level,
+			getZeroPos( state, pos ),
+			state.getValue( BlockStateProperties.HORIZONTAL_FACING ),
+			( x, y, z, blockPos ) -> {
+				BlockState blockState = level.getBlockState( blockPos );
+				level.removeBlock( blockPos, true );
+				super.playerWillDestroy( level, blockPos, blockState, player );
 			},
 			true
 		);
