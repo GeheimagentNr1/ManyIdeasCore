@@ -6,7 +6,7 @@ import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlockItem;
 import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeSerializers;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -138,7 +138,7 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 	private Ingredient deserializeColorStackList( JsonObject ingredient ) {
 		
 		ResourceLocation location = new ResourceLocation( GsonHelper.getAsString( ingredient, "color_item" ) );
-		Item item = Registry.ITEM.getOptional( location ).orElseThrow( () -> new JsonSyntaxException(
+		Item item = BuiltInRegistries.ITEM.getOptional( location ).orElseThrow( () -> new JsonSyntaxException(
 			"Unknown item '" + location + "'" ) );
 		if( !( item instanceof DyeBlockItem ) ) {
 			throw new JsonSyntaxException( location + " is not a DyeBlockItem" );
@@ -151,12 +151,12 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 		
 		JsonObject color_tag = GsonHelper.getAsJsonObject( ingredient, "color_tag" );
 		TreeMap<ItemStack, Color> stacks =
-			new TreeMap<>( Comparator.comparing( o -> Registry.ITEM.getKey( o.getItem() ) ) );
+			new TreeMap<>( Comparator.comparing( o -> BuiltInRegistries.ITEM.getKey( o.getItem() ) ) );
 		for( Color color : Color.values() ) {
 			String registry_key = GsonHelper.getAsString( color_tag, color.getSerializedName(), "" );
 			if( !registry_key.isEmpty() ) {
 				ResourceLocation location = new ResourceLocation( registry_key );
-				stacks.put( new ItemStack( Registry.ITEM.getOptional( location )
+				stacks.put( new ItemStack( BuiltInRegistries.ITEM.getOptional( location )
 					.orElseThrow( () -> new JsonSyntaxException( "Unknown item '" + location + "'" ) ) ), color );
 			}
 		}
@@ -168,7 +168,7 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 		
 		String registry_key = GsonHelper.getAsString( result, "item" );
 		Item item =
-			Registry.ITEM.getOptional( new ResourceLocation( registry_key ) )
+			BuiltInRegistries.ITEM.getOptional( new ResourceLocation( registry_key ) )
 				.orElseThrow( () -> new JsonSyntaxException(
 					"Unknown item '" + registry_key + "'" ) );
 		if( !( item instanceof DyeBlockItem ) ) {

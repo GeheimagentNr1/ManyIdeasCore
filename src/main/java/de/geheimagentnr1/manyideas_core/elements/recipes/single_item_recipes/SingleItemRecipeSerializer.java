@@ -1,7 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes;
 
 import com.google.gson.JsonObject;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -38,7 +38,7 @@ public class SingleItemRecipeSerializer<T extends SingleItemRecipe> implements R
 		String resultName = GsonHelper.getAsString( json, "result" );
 		int resultCount = json.has( "count" ) ? GsonHelper.getAsInt( json, "count" ) : 1;
 		ItemStack result = new ItemStack(
-			Registry.ITEM.get( new ResourceLocation( resultName ) ),
+			BuiltInRegistries.ITEM.get( new ResourceLocation( resultName ) ),
 			resultCount
 		);
 		return factory.create( recipeId, group, ingredient, result );

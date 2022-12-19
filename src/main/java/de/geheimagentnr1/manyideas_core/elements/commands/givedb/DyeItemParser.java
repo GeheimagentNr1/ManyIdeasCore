@@ -7,7 +7,7 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlockItem;
 import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -52,9 +52,9 @@ class DyeItemParser {
 		
 		Set<ResourceLocation> keySet = new TreeSet<>();
 		
-		for( Item item : Registry.ITEM ) {
+		for( Item item : BuiltInRegistries.ITEM ) {
 			if( item instanceof DyeBlockItem ) {
-				keySet.add( Registry.ITEM.getKey( item ) );
+				keySet.add( BuiltInRegistries.ITEM.getKey( item ) );
 			}
 		}
 		return keySet;
@@ -78,7 +78,7 @@ class DyeItemParser {
 	@SuppressWarnings( "deprecation" )
 	private Optional<Item> getItemForRegistry( ResourceLocation resourceLocation ) {
 		
-		Optional<Item> optional = Registry.ITEM.getOptional( resourceLocation );
+		Optional<Item> optional = BuiltInRegistries.ITEM.getOptional( resourceLocation );
 		
 		if( optional.isPresent() ) {
 			if( optional.get() instanceof DyeBlockItem ) {

@@ -1,6 +1,5 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key;
 
-import de.geheimagentnr1.manyideas_core.elements.items.CoreBaseItem;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces.RedstoneKeyable;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyNamedContainerProvider;
@@ -21,14 +20,14 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 
-public class RedstoneKey extends CoreBaseItem {
+public class RedstoneKey extends Item {
 	
 	
 	public static final String registry_name = "redstone_key";
 	
 	public RedstoneKey() {
 		
-		super( new Item.Properties(), registry_name );
+		super( new Properties() );
 	}
 	
 	@Nonnull

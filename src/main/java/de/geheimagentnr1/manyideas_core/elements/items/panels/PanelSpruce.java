@@ -1,16 +1,15 @@
 package de.geheimagentnr1.manyideas_core.elements.items.panels;
 
-import de.geheimagentnr1.manyideas_core.elements.items.CoreBaseItem;
 import net.minecraft.world.item.Item;
 
 
-public class PanelSpruce extends CoreBaseItem {
+public class PanelSpruce extends Item {
 	
 	
 	public static final String registry_name = "panel_spruce";
 	
 	public PanelSpruce() {
 		
-		super( new Item.Properties(), registry_name );
+		super( new Item.Properties() );
 	}
 }

@@ -1,7 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
-import de.geheimagentnr1.manyideas_core.elements.items.CoreBaseItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
@@ -29,14 +28,14 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class MysteriousShears extends CoreBaseItem {
+public class MysteriousShears extends Item {
 	
 	
 	public static final String registry_name = "mysterious_shears";
 	
 	public MysteriousShears() {
 		
-		super( new Item.Properties().durability( 238 ), registry_name );
+		super( new Item.Properties().durability( 238 ) );
 	}
 	
 	@Override

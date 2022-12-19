@@ -6,7 +6,7 @@ import de.geheimagentnr1.manyideas_core.elements.commands.givedb.DyeItemArgument
 import net.minecraft.commands.synchronization.ArgumentTypeInfo;
 import net.minecraft.commands.synchronization.ArgumentTypeInfos;
 import net.minecraft.commands.synchronization.SingletonArgumentInfo;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -23,7 +23,7 @@ public class ManyIdeasCore {
 	public static final String MODID = "manyideas_core";
 	
 	private static final DeferredRegister<ArgumentTypeInfo<?, ?>> COMMAND_ARGUMENT_TYPES = DeferredRegister.create(
-		Registry.COMMAND_ARGUMENT_TYPE_REGISTRY,
+		Registries.COMMAND_ARGUMENT_TYPE,
 		MODID
 	);
 	

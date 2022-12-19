@@ -1,6 +1,6 @@
 {
 	"parent":   "minecraft:block/cube_all",
 	"textures": {
-		"all": "minecraft:entity/end_portal"
+		"all": "manyideas_core:block/end_block/end_portal"
 	}
 }

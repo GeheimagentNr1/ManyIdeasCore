@@ -15,7 +15,7 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSaw
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronMenu;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStone;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneMenu;
-import de.geheimagentnr1.manyideas_core.elements.item_groups.ModItemGroups;
+import de.geheimagentnr1.manyideas_core.elements.creative_mod_tabs.ModCreativeTabs;
 import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.RedstoneKey;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyContainer;
@@ -38,6 +38,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.extensions.IForgeMenuType;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -133,7 +134,7 @@ public class ModEventHandler {
 	public static void handleItemRegistryEvent( RegisterEvent event ) {
 		
 		if( event.getRegistryKey().equals( ForgeRegistries.Keys.ITEMS ) ) {
-			Item.Properties properties = new Item.Properties().tab( ModItemGroups.MANYIDEAS_CORE_ITEM_GROUP );
+			Item.Properties properties = new Item.Properties();
 			BlockRegistrationHelper.registerBlockItems( event, ModBlocks.BLOCKS, properties );
 			BlockRegistrationHelper.registerBlockItems( event, ModBlocksDebug.BLOCKS, properties );
 			event.register(
@@ -144,6 +145,13 @@ public class ModEventHandler {
 				) )
 			);
 		}
+	}
+	
+	@SubscribeEvent
+	public static void handleCreativeModeTabRegisterEvent( CreativeModeTabEvent.Register event ) {
+		
+		ModCreativeTabs.CREATIVE_TAB_FACTORIES.forEach( creativeModeTabFactory ->
+			event.registerCreativeModeTab( creativeModeTabFactory.getName(), creativeModeTabFactory ) );
 	}
 	
 	@SuppressWarnings( "ConstantConditions" )

@@ -5,6 +5,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
@@ -53,11 +54,11 @@ public class ElementCountCommand {
 		TreeMap<String, Integer> item_counts,
 		TreeMap<String, Integer> block_item_counts ) {
 		
-		for( Item item : Registry.ITEM ) {
+		for( Item item : BuiltInRegistries.ITEM ) {
 			if( item instanceof BlockItem ) {
-				addElementToTreeMap( item, Registry.ITEM, names, block_item_counts );
+				addElementToTreeMap( item, BuiltInRegistries.ITEM, names, block_item_counts );
 			} else {
-				addElementToTreeMap( item, Registry.ITEM, names, item_counts );
+				addElementToTreeMap( item, BuiltInRegistries.ITEM, names, item_counts );
 			}
 		}
 	}
@@ -67,8 +68,8 @@ public class ElementCountCommand {
 		
 		TreeMap<String, Integer> block_counts = new TreeMap<>();
 		
-		for( Block block : Registry.BLOCK ) {
-			addElementToTreeMap( block, Registry.BLOCK, names, block_counts );
+		for( Block block : BuiltInRegistries.BLOCK ) {
+			addElementToTreeMap( block, BuiltInRegistries.BLOCK, names, block_counts );
 		}
 		return block_counts;
 	}

@@ -5,7 +5,7 @@ import de.geheimagentnr1.manyideas_core.network.RedstoneKeyStateUpdateMsg;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.AbstractContainerEventHandler;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.resources.ResourceLocation;
@@ -17,7 +17,7 @@ import java.util.Objects;
 
 
 @SuppressWarnings( "WeakerAccess" )
-public class RedstoneKeyOption extends AbstractContainerEventHandler implements Widget {
+public class RedstoneKeyOption extends AbstractContainerEventHandler implements Renderable {
 	
 	
 	private final RedstoneKeyScreen parent;

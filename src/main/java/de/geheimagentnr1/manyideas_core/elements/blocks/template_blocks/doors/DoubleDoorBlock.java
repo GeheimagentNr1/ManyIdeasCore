@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -37,15 +38,19 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	BlockRenderTypeInterface {
 	
 	
-	protected DoubleDoorBlock( BlockBehaviour.Properties _properties, String registry_name ) {
+	protected DoubleDoorBlock( BlockBehaviour.Properties _properties, SoundEvent closeSound, SoundEvent openSound ) {
 		
-		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ) );
+		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ), closeSound, openSound );
 		initDoubleDoorBlock( material == Material.METAL ? OpenedBy.REDSTONE : OpenedBy.BOTH );
 	}
 	
-	protected DoubleDoorBlock( BlockBehaviour.Properties _properties, String registry_name, OpenedBy openedBy ) {
+	protected DoubleDoorBlock(
+		BlockBehaviour.Properties _properties,
+		SoundEvent closeSound,
+		SoundEvent openSound,
+		OpenedBy openedBy ) {
 		
-		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ) );
+		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ), closeSound, openSound );
 		initDoubleDoorBlock( openedBy );
 	}
 	

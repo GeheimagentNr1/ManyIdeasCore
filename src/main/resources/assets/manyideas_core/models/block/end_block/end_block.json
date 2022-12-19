@@ -1,5 +1,5 @@
 {
 	"textures": {
-		"particle": "minecraft:entity/end_portal"
+		"particle": "manyideas_core:block/end_block/end_portal"
 	}
 }

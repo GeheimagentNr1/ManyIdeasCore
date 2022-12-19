@@ -8,6 +8,7 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
@@ -61,9 +62,9 @@ public class ToggleButton extends AbstractButton {
 		} else {
 			textureStartindex = 2;
 		}
-		blit( matrixStack, x, y, width * textureStartindex, 0, width, height, 128, 32 );
+		blit( matrixStack, getX(), getY(), width * textureStartindex, 0, width, height, 128, 32 );
 		RenderSystem.setShaderTexture( 0, icon_textures );
-		blit( matrixStack, x + 3, y + 3, iconIndex << 4, 0, 16, 16, 64, 16 );
+		blit( matrixStack, getX() + 3, getY() + 3, iconIndex << 4, 0, 16, 16, 64, 16 );
 	}
 	
 	@Override
@@ -78,7 +79,7 @@ public class ToggleButton extends AbstractButton {
 	}
 	
 	@Override
-	public void updateNarration( @Nonnull NarrationElementOutput output ) {
+	protected void updateWidgetNarration( @NotNull NarrationElementOutput output ) {
 	
 	}
 }

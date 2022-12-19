@@ -54,7 +54,6 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	
 	protected BigDoor(
 		BlockBehaviour.Properties _properties,
-		String registry_name,
 		OpenedBy openedBy,
 		boolean _doubleDoorActive ) {
 		
