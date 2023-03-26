@@ -4,6 +4,7 @@ import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -119,7 +121,7 @@ public class DyedRecipe implements Recipe<CraftingContainer> {
 	
 	@Nonnull
 	@Override
-	public ItemStack assemble( @Nonnull CraftingContainer inv ) {
+	public ItemStack assemble( @Nonnull CraftingContainer inv, @NotNull RegistryAccess registryAccess ) {
 		
 		Optional<Color> color = findMatchingColor( inv );
 		return color.map( value -> DyeBlockHelper.setColorToItemStack( result.copy(), value ) )
@@ -145,7 +147,7 @@ public class DyedRecipe implements Recipe<CraftingContainer> {
 	 */
 	@Nonnull
 	@Override
-	public ItemStack getResultItem() {
+	public ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
 		
 		return ItemStack.EMPTY;
 	}

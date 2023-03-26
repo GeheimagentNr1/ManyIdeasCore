@@ -70,7 +70,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 		int i1 = topPos + 14;
 		int j1 = startIndex + 12;
 		renderButtons( poseStack, mouseX, mouseY, l, i1, j1 );
-		renderRecipes( l, i1, j1 );
+		renderRecipes( poseStack, l, i1, j1 );
 	}
 	
 	protected void renderTooltip( @Nonnull PoseStack poseStack, int mouseX, int mouseY ) {
@@ -87,7 +87,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 				int j1 = i + ( i1 % 4 << 4 );
 				int k1 = j + i1 / 4 * 18 + 2;
 				if( mouseX >= j1 && mouseX < j1 + 16 && mouseY >= k1 && mouseY < k1 + 18 ) {
-					renderTooltip( poseStack, list.get( l ).getResultItem(), mouseX, mouseY );
+					renderTooltip( poseStack, list.get( l ).getResult(), mouseX, mouseY );
 				}
 			}
 		}
@@ -120,7 +120,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 		
 	}
 	
-	private void renderRecipes( int left, int top, int recipeIndexOffsetMax ) {
+	private void renderRecipes( @Nonnull PoseStack poseStack,int left, int top, int recipeIndexOffsetMax ) {
 		
 		List<TableSawRecipe> list = menu.getRecipes();
 		
@@ -131,7 +131,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 			int i1 = top + l * 18 + 2;
 			Objects.requireNonNull( minecraft )
 				.getItemRenderer()
-				.renderAndDecorateItem( list.get( i ).getResultItem(), k, i1 );
+				.renderAndDecorateItem( poseStack, list.get( i ).getResult(), k, i1 );
 		}
 		
 	}

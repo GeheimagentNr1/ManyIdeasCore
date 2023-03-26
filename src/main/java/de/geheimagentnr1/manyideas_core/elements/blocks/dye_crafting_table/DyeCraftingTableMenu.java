@@ -70,23 +70,23 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 	
 	private static void changeCaftingSlot(
 		AbstractContainerMenu menu,
-		Level world,
+		Level level,
 		Player player,
 		CraftingContainer craftingContainer,
 		ResultContainer resultContainer ) {
 		
-		if( !world.isClientSide() ) {
+		if( !level.isClientSide() ) {
 			ServerPlayer serverPlayer = (ServerPlayer)player;
 			ItemStack stack = ItemStack.EMPTY;
 			Optional<DyedRecipe> recipeOptional =
-				Objects.requireNonNull( world.getServer() ).getRecipeManager().getRecipeFor(
+				Objects.requireNonNull( level.getServer() ).getRecipeManager().getRecipeFor(
 					RecipeTypes.DYED,
 					craftingContainer,
-					world
+					level
 				);
 			if( recipeOptional.isPresent() ) {
 				DyedRecipe recipe = recipeOptional.get();
-				stack = recipe.assemble( craftingContainer );
+				stack = recipe.assemble( craftingContainer, level.registryAccess() );
 			}
 			resultContainer.setItem( 0, stack );
 			menu.setRemoteSlot( 0, stack );
@@ -102,9 +102,9 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 	@Override
 	public void slotsChanged( @Nonnull Container container ) {
 		
-		containerLevelAccess.execute( ( world, pos ) -> changeCaftingSlot(
+		containerLevelAccess.execute( ( level, pos ) -> changeCaftingSlot(
 			this,
-			world,
+			level,
 			player,
 			craftingContainer,
 			resultContainer
@@ -115,7 +115,7 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 	public void removed( @Nonnull Player _player ) {
 		
 		super.removed( _player );
-		containerLevelAccess.execute( ( world, pos ) -> clearContainer( _player, craftingContainer ) );
+		containerLevelAccess.execute( ( level, pos ) -> clearContainer( _player, craftingContainer ) );
 	}
 	
 	@Override
@@ -134,7 +134,7 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 			ItemStack stack = slot.getItem();
 			resultStack = stack.copy();
 			if( index == 0 ) {
-				containerLevelAccess.execute( ( world, pos ) -> stack.getItem().onCraftedBy( stack, world, _player ) );
+				containerLevelAccess.execute( ( level, pos ) -> stack.getItem().onCraftedBy( stack, level, _player ) );
 				if( !moveItemStackTo( stack, 10, 46, true ) ) {
 					return ItemStack.EMPTY;
 				}

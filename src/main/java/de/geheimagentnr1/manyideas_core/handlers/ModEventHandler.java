@@ -30,6 +30,7 @@ import de.geheimagentnr1.manyideas_core.util.BlockRegistrationHelper;
 import net.minecraft.Util;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;

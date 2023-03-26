@@ -9,7 +9,10 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+
+import javax.annotation.Nullable;
 
 
 //package-private
@@ -50,11 +53,12 @@ class PlayerDecorationRenderer {
 		poseStack.mulPose( Axis.YP.rotationDegrees( (float)( bouncing * 40.0D % 360 ) ) );
 		Minecraft.getInstance().getItemRenderer().renderStatic(
 			stack,
-			ItemTransforms.TransformType.FIXED,
+			ItemDisplayContext.FIXED,
 			light,
 			OverlayTexture.NO_OVERLAY,
 			poseStack,
 			buffer,
+			player.getLevel(),
 			player.getId()
 		);
 		poseStack.popPose();

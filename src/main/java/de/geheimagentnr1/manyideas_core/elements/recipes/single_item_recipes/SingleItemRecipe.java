@@ -1,6 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -8,6 +9,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -74,7 +76,7 @@ public abstract class SingleItemRecipe implements Recipe<Container> {
 	
 	@Nonnull
 	@Override
-	public ItemStack getResultItem() {
+	public ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
 		
 		return result;
 	}
@@ -96,7 +98,7 @@ public abstract class SingleItemRecipe implements Recipe<Container> {
 	
 	@Nonnull
 	@Override
-	public ItemStack assemble( @Nonnull Container inv ) {
+	public ItemStack assemble( @Nonnull Container container, @NotNull RegistryAccess registryAccess ) {
 		
 		return result.copy();
 	}
@@ -105,5 +107,10 @@ public abstract class SingleItemRecipe implements Recipe<Container> {
 	public Ingredient getIngredient() {
 		
 		return ingredient;
+	}
+	
+	public ItemStack getResult() {
+		
+		return result;
 	}
 }

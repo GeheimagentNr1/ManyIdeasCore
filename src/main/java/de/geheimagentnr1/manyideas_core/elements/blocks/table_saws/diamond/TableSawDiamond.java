@@ -21,11 +21,6 @@ public class TableSawDiamond extends TableSaw {
 		registry_name
 	);
 	
-	public TableSawDiamond() {
-		
-		super( registry_name );
-	}
-	
 	@Override
 	protected AbstractContainerMenu getMenu(
 		int menuId,

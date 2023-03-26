@@ -102,7 +102,7 @@ public class MysteriousShears extends Item {
 			return InteractionResult.PASS;
 		}
 		if( target instanceof IForgeShearable shear_target ) {
-			BlockPos pos = new BlockPos( target.getX(), target.getY(), target.getZ() );
+			BlockPos pos = BlockPos.containing(target.position());
 			if( shear_target.isShearable( stack, target.level, pos ) ) {
 				
 				RandomSource random = player.getRandom();

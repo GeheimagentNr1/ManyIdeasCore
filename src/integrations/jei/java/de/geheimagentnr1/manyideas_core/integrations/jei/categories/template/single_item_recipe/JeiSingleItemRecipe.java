@@ -21,7 +21,7 @@ public abstract class JeiSingleItemRecipe<T extends SingleItemRecipe> {
 	protected JeiSingleItemRecipe( T recipe ) {
 		
 		input = Arrays.asList( recipe.getIngredient().getItems() );
-		result = recipe.getResultItem();
+		result = recipe.getResult();
 	}
 	
 	protected static <R extends SingleItemRecipe, J extends JeiSingleItemRecipe<R>> List<J> getRecipes(

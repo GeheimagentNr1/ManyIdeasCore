@@ -1,15 +1,22 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 
+import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.damagesource.DamageEffects;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -38,7 +45,10 @@ import javax.annotation.Nullable;
 public abstract class TableSaw extends Block implements BlockItemInterface, BlockRenderTypeInterface {
 	
 	
-	private static final DamageSource SAW = new DamageSource( "table_saw" );
+	private static final ResourceKey<DamageType> SAW = ResourceKey.create(
+		Registries.DAMAGE_TYPE,
+		new ResourceLocation( ManyIdeasCore.MODID, "table_saw")
+	);
 	
 	private static final VoxelShape SHAPE = Shapes.or(
 		Block.box( 0.0, 14.0, 0.0, 16.0, 15.75, 16.0 ),
@@ -48,7 +58,7 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 		Block.box( 0.0, 0.0, 14.0, 2.0, 14.0, 16.0 )
 	);
 	
-	protected TableSaw( String registry_name ) {
+	protected TableSaw() {
 		
 		super( BlockBehaviour.Properties.of( Material.WOOD )
 			.strength( 2.5F )
@@ -90,7 +100,12 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 		@Nonnull BlockState state,
 		@Nonnull Entity entity ) {
 		
-		entity.hurt( SAW, 1.0F );
+		entity.hurt(
+			new DamageSource(
+				level.registryAccess().registryOrThrow( Registries.DAMAGE_TYPE ).getHolderOrThrow( SAW )
+			),
+			1.0F
+		);
 	}
 	
 	@SuppressWarnings( "deprecation" )

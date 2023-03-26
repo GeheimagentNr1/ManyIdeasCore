@@ -14,7 +14,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -25,6 +24,7 @@ import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -38,20 +38,20 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	BlockRenderTypeInterface {
 	
 	
-	protected DoubleDoorBlock( BlockBehaviour.Properties _properties, SoundEvent closeSound, SoundEvent openSound ) {
+	private final BlockSetType type;
+	
+	protected DoubleDoorBlock( BlockBehaviour.Properties _properties, BlockSetType _type ) {
 		
-		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ), closeSound, openSound );
+		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ), _type );
 		initDoubleDoorBlock( material == Material.METAL ? OpenedBy.REDSTONE : OpenedBy.BOTH );
+		type = _type;
 	}
 	
-	protected DoubleDoorBlock(
-		BlockBehaviour.Properties _properties,
-		SoundEvent closeSound,
-		SoundEvent openSound,
-		OpenedBy openedBy ) {
+	protected DoubleDoorBlock( BlockBehaviour.Properties _properties, BlockSetType _type, OpenedBy openedBy ) {
 		
-		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ), closeSound, openSound );
+		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ), _type );
 		initDoubleDoorBlock( openedBy );
+		type = _type;
 	}
 	
 	private void initDoubleDoorBlock( OpenedBy openedBy ) {
@@ -79,7 +79,7 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 			OpenedByHelper.canBeOpened( state, true ) ) {
 			boolean open = !state.getValue( OPEN );
 			level.setBlock( pos, state.setValue( OPEN, open ), 10 );
-			DoorsHelper.playDoorSound( level, pos, material, player, state.getValue( OPEN ) );
+			DoorsHelper.playDoorSound( level, pos, type, player, state.getValue( OPEN ) );
 			
 			BlockData neighbor = DoorsHelper.getNeighborBlock( level, pos, state );
 			if( DoorsHelper.isNeighbor( state, neighbor ) ) {
@@ -122,7 +122,7 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 			
 			if( isDoorPowered != state.getValue( POWERED ) ) {
 				if( state.getValue( OPEN ) != isDoorPowered ) {
-					DoorsHelper.playDoorSound( level, pos, material, null, isDoorPowered );
+					DoorsHelper.playDoorSound( level, pos, type, null, isDoorPowered );
 				}
 				level.setBlock( pos, state.setValue( POWERED, isDoorPowered ).setValue( OPEN, isDoorPowered ), 2 );
 				if( isNeighbor ) {

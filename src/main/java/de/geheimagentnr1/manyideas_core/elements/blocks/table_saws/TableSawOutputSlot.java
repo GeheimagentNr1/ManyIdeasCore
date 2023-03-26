@@ -17,20 +17,20 @@ class TableSawOutputSlot extends Slot {
 	
 	private final TableSawMenu tableSawMenu;
 	
-	private final ContainerLevelAccess worldPosCallable;
+	private final ContainerLevelAccess levelPosCallable;
 	
 	private final Slot inputInventorySlot;
 	
 	//package-private
 	TableSawOutputSlot(
 		TableSawMenu _tableSawMenu,
-		ContainerLevelAccess _worldPosCallable,
+		ContainerLevelAccess _levelPosCallable,
 		Slot _inputInventorySlot,
 		Container _container ) {
 		
 		super( _container, 1, 143, 33 );
 		tableSawMenu = _tableSawMenu;
-		worldPosCallable = _worldPosCallable;
+		levelPosCallable = _levelPosCallable;
 		inputInventorySlot = _inputInventorySlot;
 	}
 	
@@ -50,10 +50,10 @@ class TableSawOutputSlot extends Slot {
 			tableSawMenu.updateRecipeResultSlot();
 		}
 		stack.getItem().onCraftedBy( stack, player.level, player );
-		worldPosCallable.execute( ( world, pos ) -> {
-			long l = world.getGameTime();
+		levelPosCallable.execute( ( level, pos ) -> {
+			long l = level.getGameTime();
 			if( tableSawMenu.lastOnTake != l ) {
-				world.playSound( null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, 1.0F );
+				level.playSound( null, pos, SoundEvents.UI_STONECUTTER_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, 1.0F );
 				tableSawMenu.lastOnTake = l;
 			}
 		} );

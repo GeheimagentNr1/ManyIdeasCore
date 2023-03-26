@@ -43,7 +43,7 @@ public abstract class DyeBlock extends Block implements BlockItemInterface {
 	public ItemStack getCloneItemStack(
 		BlockState state,
 		HitResult target,
-		BlockGetter world,
+		BlockGetter level,
 		BlockPos pos,
 		Player player ) {
 		

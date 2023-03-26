@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -48,12 +49,15 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 		VoxelShapeVector.create( 0, 0, 0, 16, 16, 3 )
 	);
 	
+	private BlockSetType type;
+	
 	private boolean[][][] hasBlockstateAtPos;
 	
 	private final boolean doubleDoorActive;
 	
 	protected BigDoor(
 		BlockBehaviour.Properties _properties,
+		BlockSetType _type,
 		OpenedBy openedBy,
 		boolean _doubleDoorActive ) {
 		
@@ -63,6 +67,7 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 				.setValue( BlockStateProperties.POWERED, false )
 				.setValue( ModBlockStateProperties.OPENED_BY, openedBy )
 		);
+		type = _type;
 		doubleDoorActive = _doubleDoorActive;
 	}
 	
@@ -158,7 +163,7 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 				),
 				true
 			);
-			DoorsHelper.playDoorSound( level, pos, material, player, open );
+			DoorsHelper.playDoorSound( level, pos, type, player, open );
 			if( doubleDoorActive ) {
 				BlockData neighbor = BigDoorsHelper.getNeighborBlock(
 					level,
@@ -212,7 +217,7 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 			
 			if( isDoorPowered != state.getValue( BlockStateProperties.POWERED ) ) {
 				if( state.getValue( BlockStateProperties.OPEN ) != isDoorPowered ) {
-					DoorsHelper.playDoorSound( level, pos, material, null, isDoorPowered );
+					DoorsHelper.playDoorSound( level, pos, type, null, isDoorPowered );
 				}
 				runForBlocks(
 					level,

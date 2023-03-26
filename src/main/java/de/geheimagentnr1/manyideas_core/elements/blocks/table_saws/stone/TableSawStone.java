@@ -21,11 +21,6 @@ public class TableSawStone extends TableSaw {
 		registry_name
 	);
 	
-	public TableSawStone() {
-		
-		super( registry_name );
-	}
-	
 	protected AbstractContainerMenu getMenu(
 		int menuId,
 		Inventory inventory,

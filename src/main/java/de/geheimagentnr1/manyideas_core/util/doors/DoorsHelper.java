@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.Material;
@@ -21,28 +22,18 @@ public class DoorsHelper {
 	public static void playDoorSound(
 		Level level,
 		BlockPos pos,
-		Material material,
+		BlockSetType type,
 		Player player,
 		boolean open ) {
 		
 		level.playSound(
 			player,
 			pos,
-			open ? getOpenDoorSound( material ) : getCloseDoorSound( material ),
+			open ? type.doorOpen() : type.doorClose(),
 			SoundSource.BLOCKS,
 			1.0F,
 			1.0F
 		);
-	}
-	
-	private static SoundEvent getCloseDoorSound( Material material ) {
-		
-		return material == Material.METAL ? SoundEvents.IRON_DOOR_OPEN : SoundEvents.WOODEN_DOOR_OPEN;
-	}
-	
-	private static SoundEvent getOpenDoorSound( Material material ) {
-		
-		return material == Material.METAL ? SoundEvents.IRON_DOOR_CLOSE : SoundEvents.WOODEN_DOOR_CLOSE;
 	}
 	
 	public static BlockData getOtherBlock( Level level, BlockPos pos, BlockState state ) {

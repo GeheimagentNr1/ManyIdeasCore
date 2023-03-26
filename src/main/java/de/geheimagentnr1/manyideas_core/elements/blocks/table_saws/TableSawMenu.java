@@ -178,7 +178,7 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 			outputInventorySlot.set( ItemStack.EMPTY );
 		} else {
 			TableSawRecipe tableSawRecipe = recipes.get( selectedRecipe.get() );
-			outputInventorySlot.set( tableSawRecipe.assemble( inputInventory ) );
+			outputInventorySlot.set( tableSawRecipe.assemble( inputInventory, level.registryAccess() ) );
 		}
 		broadcastChanges();
 	}
@@ -259,7 +259,7 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 		
 		super.removed( player );
 		resultContainer.removeItemNoUpdate( 1 );
-		containerLevelAccess.execute( ( worldIn, pos ) -> clearContainer( player, inputInventory ) );
+		containerLevelAccess.execute( ( levelIn, pos ) -> clearContainer( player, inputInventory ) );
 	}
 	
 	public ResultContainer getResultContainer() {

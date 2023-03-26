@@ -44,7 +44,7 @@ public class ToggleButton extends AbstractButton {
 	}
 	
 	@Override
-	public void renderButton( @Nonnull PoseStack matrixStack, int mouseX, int mouseY, float partial ) {
+	public void renderWidget( @Nonnull PoseStack poseStack, int mouseX, int mouseY, float partial ) {
 		
 		RenderSystem.setShader( GameRenderer::getPositionTexShader );
 		RenderSystem.setShaderTexture( 0, TOGGLE_BUTTON );
@@ -62,9 +62,9 @@ public class ToggleButton extends AbstractButton {
 		} else {
 			textureStartindex = 2;
 		}
-		blit( matrixStack, getX(), getY(), width * textureStartindex, 0, width, height, 128, 32 );
+		blit( poseStack, getX(), getY(), width * textureStartindex, 0, width, height, 128, 32 );
 		RenderSystem.setShaderTexture( 0, icon_textures );
-		blit( matrixStack, getX() + 3, getY() + 3, iconIndex << 4, 0, 16, 16, 64, 16 );
+		blit( poseStack, getX() + 3, getY() + 3, iconIndex << 4, 0, 16, 16, 64, 16 );
 	}
 	
 	@Override
