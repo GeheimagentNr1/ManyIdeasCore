@@ -1,1 +1,1 @@
-Ported to 1.19.4
+- Added straight flowers to minecraft:small_flowers or minecraft:tall_flowers tags
