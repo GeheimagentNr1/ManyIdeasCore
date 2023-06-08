@@ -1,11 +1,9 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -49,33 +47,33 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 		--titleLabelY;
 	}
 	
-	public void render( @Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks ) {
+	@Override
+	public void render( @Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
 		
-		super.render( poseStack, mouseX, mouseY, partialTicks );
-		renderTooltip( poseStack, mouseX, mouseY );
+		super.render( guiGraphics, mouseX, mouseY, partialTick );
+		renderTooltip( guiGraphics, mouseX, mouseY );
 	}
 	
-	protected void renderBg( @Nonnull PoseStack poseStack, float partialTicks, int mouseX, int mouseY ) {
+	@Override
+	protected void renderBg( @Nonnull GuiGraphics guiGraphics, float partialTick, int x, int y ) {
 		
-		renderBackground( poseStack );
-		RenderSystem.setShader( GameRenderer::getPositionTexShader );
-		RenderSystem.setShaderColor( 1.0F, 1.0F, 1.0F, 1.0F );
-		RenderSystem.setShaderTexture( 0, BACKGROUND_TEXTURE );
+		renderBackground( guiGraphics );
 		int i = leftPos;
 		int j = topPos;
-		blit( poseStack, i, j, 0, 0, imageWidth, imageHeight );
+		guiGraphics.blit( BACKGROUND_TEXTURE, i, j, 0, 0, imageWidth, imageHeight );
 		int k = (int)( 41.0F * scrollOffs );
-		blit( poseStack, i + 119, j + 15 + k, 176 + ( isScrollBarActive() ? 0 : 12 ), 0, 12, 15 );
+		guiGraphics.blit( BACKGROUND_TEXTURE, i + 119, j + 15 + k, 176 + ( isScrollBarActive() ? 0 : 12 ), 0, 12, 15 );
 		int l = leftPos + 52;
 		int i1 = topPos + 14;
 		int j1 = startIndex + 12;
-		renderButtons( poseStack, mouseX, mouseY, l, i1, j1 );
-		renderRecipes( poseStack, l, i1, j1 );
+		renderButtons( guiGraphics, x, y, l, i1, j1 );
+		renderRecipes( guiGraphics, l, i1, j1 );
 	}
 	
-	protected void renderTooltip( @Nonnull PoseStack poseStack, int mouseX, int mouseY ) {
+	@Override
+	protected void renderLabels( @Nonnull GuiGraphics guiGraphics, int x, int y ) {
 		
-		super.renderTooltip( poseStack, mouseX, mouseY );
+		super.renderTooltip( guiGraphics, x, y );
 		if( displayRecipes ) {
 			int i = leftPos + 52;
 			int j = topPos + 14;
@@ -86,15 +84,15 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 				int i1 = l - startIndex;
 				int j1 = i + ( i1 % 4 << 4 );
 				int k1 = j + i1 / 4 * 18 + 2;
-				if( mouseX >= j1 && mouseX < j1 + 16 && mouseY >= k1 && mouseY < k1 + 18 ) {
-					renderTooltip( poseStack, list.get( l ).getResult(), mouseX, mouseY );
+				if( x >= j1 && x < j1 + 16 && y >= k1 && y < k1 + 18 ) {
+					renderTooltip( guiGraphics, x, y );
 				}
 			}
 		}
 	}
 	
 	private void renderButtons(
-		PoseStack poseStack,
+		@Nonnull GuiGraphics guiGraphics,
 		int mouseX,
 		int mouseY,
 		int left,
@@ -115,12 +113,12 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 				}
 			}
 			
-			blit( poseStack, k, i1 - 1, 0, j1, 16, 18 );
+			guiGraphics.blit( BACKGROUND_TEXTURE, k, i1 - 1, 0, j1, 16, 18 );
 		}
 		
 	}
 	
-	private void renderRecipes( @Nonnull PoseStack poseStack,int left, int top, int recipeIndexOffsetMax ) {
+	private void renderRecipes( @Nonnull GuiGraphics guiGraphics, int left, int top, int recipeIndexOffsetMax ) {
 		
 		List<TableSawRecipe> list = menu.getRecipes();
 		
@@ -129,9 +127,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 			int k = left + ( j % 4 << 4 );
 			int l = j / 4;
 			int i1 = top + l * 18 + 2;
-			Objects.requireNonNull( minecraft )
-				.getItemRenderer()
-				.renderAndDecorateItem( poseStack, list.get( i ).getResult(), k, i1 );
+			guiGraphics.renderItem( list.get( i ).getResult(), k, i1 );
 		}
 		
 	}

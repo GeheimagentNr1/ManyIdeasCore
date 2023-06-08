@@ -1,11 +1,9 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -14,7 +12,6 @@ import net.minecraft.world.entity.player.Inventory;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public class RedstoneKeyScreen extends AbstractContainerScreen<RedstoneKeyContainer> {
@@ -60,28 +57,31 @@ public class RedstoneKeyScreen extends AbstractContainerScreen<RedstoneKeyContai
 	}
 	
 	@Override
-	public void render( @Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks ) {
+	public void render( @Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
 		
-		super.render( poseStack, mouseX, mouseY, partialTicks );
-		optionsGui.forEach( optionGui -> optionGui.render( poseStack, mouseX, mouseY, partialTicks ) );
+		renderBackground( guiGraphics );
+		super.render( guiGraphics, mouseX, mouseY, partialTick );
 	}
 	
 	@Override
-	protected void renderLabels( @Nonnull PoseStack poseStack, int mouseX, int mouseY ) {
+	protected void renderBg( @Nonnull GuiGraphics guiGraphics, float partialTick, int x, int y ) {
+		
+		guiGraphics.blit(
+			REDSTONE_KEY_GUI_TEXTURE,
+			leftPos,
+			( height - imageHeight ) / 2,
+			0,
+			0,
+			imageWidth,
+			imageHeight
+		);
+	}
+	
+	@Override
+	protected void renderLabels( @Nonnull GuiGraphics guiGraphics, int x, int y ) {
 		
 		int titleStartX = width / 2 - leftPos - font.width( title.getString() ) / 2;
-		font.draw( poseStack, title.getString(), titleStartX, 5, 4210752 );
-	}
-	
-	@Override
-	protected void renderBg( @Nonnull PoseStack p_97787_, float partialTicks, int mouseX, int mouseY ) {
-		
-		Objects.requireNonNull( minecraft );
-		
-		RenderSystem.setShader( GameRenderer::getPositionTexShader );
-		RenderSystem.setShaderColor( 1.0F, 1.0F, 1.0F, 1.0F );
-		RenderSystem.setShaderTexture( 0, REDSTONE_KEY_GUI_TEXTURE );
-		blit( p_97787_, leftPos, ( height - imageHeight ) / 2, 0, 0, imageWidth, imageHeight );
+		guiGraphics.drawString( font, title.getString(), titleStartX, 5, 4210752 );
 	}
 	
 	public void resetSelected() {

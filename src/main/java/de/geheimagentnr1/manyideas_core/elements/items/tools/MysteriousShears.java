@@ -98,12 +98,12 @@ public class MysteriousShears extends Item {
 		@Nonnull LivingEntity target,
 		@Nonnull InteractionHand hand ) {
 		
-		if( target.level.isClientSide ) {
+		if( target.level().isClientSide ) {
 			return InteractionResult.PASS;
 		}
 		if( target instanceof IForgeShearable shear_target ) {
-			BlockPos pos = BlockPos.containing(target.position());
-			if( shear_target.isShearable( stack, target.level, pos ) ) {
+			BlockPos pos = BlockPos.containing( target.position() );
+			if( shear_target.isShearable( stack, target.level(), pos ) ) {
 				
 				RandomSource random = player.getRandom();
 				List<ItemStack> drops;
@@ -119,7 +119,7 @@ public class MysteriousShears extends Item {
 					drops = shear_target.onSheared(
 						player,
 						stack,
-						target.level,
+						target.level(),
 						pos,
 						EnchantmentHelper.getItemEnchantmentLevel( Enchantments.BLOCK_FORTUNE, stack )
 					);

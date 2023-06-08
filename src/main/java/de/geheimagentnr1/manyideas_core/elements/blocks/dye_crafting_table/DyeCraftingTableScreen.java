@@ -1,9 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -37,18 +35,23 @@ public class DyeCraftingTableScreen extends AbstractContainerScreen<DyeCraftingT
 	}
 	
 	@Override
-	public void render( @Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks ) {
+	public void render( @Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
 		
-		super.render( poseStack, mouseX, mouseY, partialTicks );
-		renderTooltip( poseStack, mouseX, mouseY );
+		renderBackground( guiGraphics );
+		super.render( guiGraphics, mouseX, mouseY, partialTick );
 	}
 	
 	@Override
-	protected void renderBg( @Nonnull PoseStack matrixStack, float partialTicks, int mouseX, int mouseY ) {
+	protected void renderBg( @Nonnull GuiGraphics guiGraphics, float partialTick, int x, int y ) {
 		
-		RenderSystem.setShader( GameRenderer::getPositionTexShader );
-		RenderSystem.setShaderColor( 1.0F, 1.0F, 1.0F, 1.0F );
-		RenderSystem.setShaderTexture( 0, CRAFTING_TABLE_GUI_TEXTURES );
-		blit( matrixStack, leftPos, ( height - imageHeight ) / 2, 0, 0, imageWidth, imageHeight );
+		guiGraphics.blit(
+			CRAFTING_TABLE_GUI_TEXTURES,
+			leftPos,
+			( height - imageHeight ) / 2,
+			0,
+			0,
+			imageWidth,
+			imageHeight
+		);
 	}
 }

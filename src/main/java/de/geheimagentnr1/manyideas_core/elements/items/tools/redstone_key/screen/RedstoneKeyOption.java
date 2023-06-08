@@ -1,10 +1,10 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import de.geheimagentnr1.manyideas_core.network.RedstoneKeyStateUpdateMsg;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.AbstractContainerEventHandler;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -74,14 +74,20 @@ public class RedstoneKeyOption extends AbstractContainerEventHandler implements 
 	}
 	
 	@Override
-	public void render( @Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks ) {
+	public void render( @Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
 		
-		button.render( poseStack, mouseX, mouseY, partialTicks );
+		button.render( guiGraphics, mouseX, mouseY, partialTick );
 		
 		Font font = Minecraft.getInstance().font;
-		font.draw( poseStack, title, x + 30, y + 2, Objects.requireNonNull( ChatFormatting.DARK_GRAY.getColor() ) );
-		font.draw(
-			poseStack,
+		guiGraphics.drawString(
+			font,
+			title,
+			x + 30,
+			y + 2,
+			Objects.requireNonNull( ChatFormatting.DARK_GRAY.getColor() )
+		);
+		guiGraphics.drawString(
+			font,
 			description,
 			x + 30,
 			y + 12,

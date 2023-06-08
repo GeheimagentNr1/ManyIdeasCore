@@ -9,7 +9,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StainedGlassBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
 
 
 public class RainbowStainedGlassBlock extends StainedGlassBlock implements BlockItemInterface,
@@ -22,7 +21,8 @@ public class RainbowStainedGlassBlock extends StainedGlassBlock implements Block
 		
 		super(
 			DyeColor.WHITE,
-			BlockBehaviour.Properties.of( Material.GLASS )
+			BlockBehaviour.Properties.of()
+				.mapColor( DyeColor.WHITE )
 				.strength( 0.3F )
 				.noOcclusion()
 				.isValidSpawn( ( state, level, pos, entityType ) -> false )

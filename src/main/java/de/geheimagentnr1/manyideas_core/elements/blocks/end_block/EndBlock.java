@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,7 +25,8 @@ public class EndBlock extends BaseEntityBlock implements BlockItemInterface, Blo
 	
 	public EndBlock() {
 		
-		super( BlockBehaviour.Properties.of( Material.STONE )
+		super( BlockBehaviour.Properties.of()
+			.mapColor( MapColor.COLOR_BLACK )
 			.strength( 50.0F, 1200.0F )
 			.requiresCorrectToolForDrops()
 			.noOcclusion()

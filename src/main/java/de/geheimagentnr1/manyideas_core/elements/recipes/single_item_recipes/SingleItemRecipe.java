@@ -76,7 +76,7 @@ public abstract class SingleItemRecipe implements Recipe<Container> {
 	
 	@Nonnull
 	@Override
-	public ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
+	public ItemStack getResultItem( @NotNull RegistryAccess registryAccess ) {
 		
 		return result;
 	}

@@ -6,7 +6,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 
 
 public class RainbowTerracotta extends Block implements BlockItemInterface {
@@ -16,7 +16,9 @@ public class RainbowTerracotta extends Block implements BlockItemInterface {
 	
 	public RainbowTerracotta() {
 		
-		super( BlockBehaviour.Properties.of( Material.STONE ).strength( 1.25F, 4.2F )
+		super( BlockBehaviour.Properties.of()
+			.mapColor( MapColor.TERRACOTTA_WHITE )
+			.strength( 1.25F, 4.2F )
 			.requiresCorrectToolForDrops()
 			.sound( SoundType.STONE ) );
 	}

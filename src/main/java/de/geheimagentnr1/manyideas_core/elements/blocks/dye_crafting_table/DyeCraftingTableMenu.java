@@ -41,7 +41,7 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 		ContainerLevelAccess _containerLevelAccess ) {
 		
 		super( ModBlocks.DYE_CRAFTING_TABLE_MENU, containerID );
-		craftingContainer = new CraftingContainer( this, 3, 3 );
+		craftingContainer = new TransientCraftingContainer( this, 3, 3 );
 		resultContainer = new ResultContainer();
 		containerLevelAccess = _containerLevelAccess;
 		player = inventory.player;

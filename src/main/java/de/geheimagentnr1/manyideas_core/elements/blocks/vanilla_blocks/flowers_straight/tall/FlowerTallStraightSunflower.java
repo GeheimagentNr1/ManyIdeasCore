@@ -5,7 +5,7 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.flowers_
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 
 
 public class FlowerTallStraightSunflower extends TallFlower {
@@ -16,7 +16,8 @@ public class FlowerTallStraightSunflower extends TallFlower {
 	public FlowerTallStraightSunflower() {
 		
 		super(
-			BlockBehaviour.Properties.of( Material.REPLACEABLE_PLANT )
+			BlockBehaviour.Properties.of()
+				.mapColor( MapColor.PLANT )
 				.noCollission()
 				.instabreak()
 				.sound( SoundType.GRASS )

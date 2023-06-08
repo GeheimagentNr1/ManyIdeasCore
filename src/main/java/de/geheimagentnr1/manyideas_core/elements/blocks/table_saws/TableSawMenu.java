@@ -72,7 +72,7 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 		
 		super( tableSawMenu, menuId );
 		containerLevelAccess = _worldPosCallable;
-		level = inventory.player.level;
+		level = inventory.player.level();
 		inputInventorySlot = addSlot( new Slot( inputInventory, 0, 20, 33 ) );
 		outputInventorySlot = addSlot( new TableSawOutputSlot(
 			this,
@@ -213,7 +213,7 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 			Item item = itemstack1.getItem();
 			itemstack = itemstack1.copy();
 			if( index == 1 ) {
-				item.onCraftedBy( itemstack1, player.level, player );
+				item.onCraftedBy( itemstack1, player.level(), player );
 				if( !moveItemStackTo( itemstack1, 2, 38, true ) ) {
 					return ItemStack.EMPTY;
 				}

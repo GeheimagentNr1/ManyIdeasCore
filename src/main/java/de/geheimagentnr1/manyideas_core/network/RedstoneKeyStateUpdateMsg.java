@@ -41,7 +41,7 @@ public class RedstoneKeyStateUpdateMsg {
 		
 		Optional.ofNullable( context.get().getSender() ).ifPresent( player -> {
 			if( player.containerMenu instanceof RedstoneKeyContainer menu ) {
-				menu.setBlockStateValue( player.getLevel(), stateIndex, player );
+				menu.setBlockStateValue( player.level(), stateIndex, player );
 			}
 		} );
 		context.get().setPacketHandled( true );

@@ -1,11 +1,10 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -44,11 +43,8 @@ public class ToggleButton extends AbstractButton {
 	}
 	
 	@Override
-	public void renderWidget( @Nonnull PoseStack poseStack, int mouseX, int mouseY, float partial ) {
+	public void renderWidget( @Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
 		
-		RenderSystem.setShader( GameRenderer::getPositionTexShader );
-		RenderSystem.setShaderTexture( 0, TOGGLE_BUTTON );
-		RenderSystem.setShaderColor( 1.0F, 1.0F, 1.0F, 1.0F );
 		int textureStartindex = 0;
 		
 		if( active ) {
@@ -62,9 +58,9 @@ public class ToggleButton extends AbstractButton {
 		} else {
 			textureStartindex = 2;
 		}
-		blit( poseStack, getX(), getY(), width * textureStartindex, 0, width, height, 128, 32 );
+		guiGraphics.blit( TOGGLE_BUTTON, getX(), getY(), width * textureStartindex, 0, width, height, 128, 32 );
 		RenderSystem.setShaderTexture( 0, icon_textures );
-		blit( poseStack, getX() + 3, getY() + 3, iconIndex << 4, 0, 16, 16, 64, 16 );
+		guiGraphics.blit( TOGGLE_BUTTON, getX() + 3, getY() + 3, iconIndex << 4, 0, 16, 16, 64, 16 );
 	}
 	
 	@Override

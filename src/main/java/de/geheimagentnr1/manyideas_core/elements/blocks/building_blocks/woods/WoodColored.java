@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,7 +26,8 @@ public class WoodColored extends DyeBlock {
 	public WoodColored() {
 		
 		super(
-			BlockBehaviour.Properties.of( Material.WOOD )
+			BlockBehaviour.Properties.of()
+				.mapColor( MapColor.WOOD )
 				.strength( 2.0F )
 				.sound( SoundType.WOOD ),
 			registry_name

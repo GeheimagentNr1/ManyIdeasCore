@@ -6,7 +6,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.CarpetBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 
 
 public class RainbowCarpet extends CarpetBlock implements BlockItemInterface {
@@ -16,7 +16,7 @@ public class RainbowCarpet extends CarpetBlock implements BlockItemInterface {
 	
 	public RainbowCarpet() {
 		
-		super( BlockBehaviour.Properties.of( Material.CLOTH_DECORATION ).strength( 0.1F ).sound( SoundType.WOOL ) );
+		super( BlockBehaviour.Properties.of().mapColor( MapColor.SNOW ).strength( 0.1F ).sound( SoundType.WOOL ) );
 	}
 	
 	@Override

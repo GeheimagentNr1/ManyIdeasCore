@@ -5,7 +5,6 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -14,7 +13,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
-import net.minecraft.world.damagesource.DamageEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
@@ -31,7 +29,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -47,7 +45,7 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	
 	private static final ResourceKey<DamageType> SAW = ResourceKey.create(
 		Registries.DAMAGE_TYPE,
-		new ResourceLocation( ManyIdeasCore.MODID, "table_saw")
+		new ResourceLocation( ManyIdeasCore.MODID, "table_saw" )
 	);
 	
 	private static final VoxelShape SHAPE = Shapes.or(
@@ -60,7 +58,8 @@ public abstract class TableSaw extends Block implements BlockItemInterface, Bloc
 	
 	protected TableSaw() {
 		
-		super( BlockBehaviour.Properties.of( Material.WOOD )
+		super( BlockBehaviour.Properties.of()
+			.mapColor( MapColor.WOOD )
 			.strength( 2.5F )
 			.sound( SoundType.WOOD ) );
 	}

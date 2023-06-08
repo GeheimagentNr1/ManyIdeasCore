@@ -6,7 +6,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 
 
 public class RainbowWool extends Block implements BlockItemInterface {
@@ -16,7 +16,7 @@ public class RainbowWool extends Block implements BlockItemInterface {
 	
 	public RainbowWool() {
 		
-		super( BlockBehaviour.Properties.of( Material.WOOL ).strength( 0.8F ).sound( SoundType.WOOL ) );
+		super( BlockBehaviour.Properties.of().mapColor( MapColor.SNOW ).strength( 0.8F ).sound( SoundType.WOOL ) );
 	}
 	
 	@Override

@@ -147,7 +147,7 @@ public class DyedRecipe implements Recipe<CraftingContainer> {
 	 */
 	@Nonnull
 	@Override
-	public ItemStack getResultItem(@NotNull RegistryAccess registryAccess) {
+	public ItemStack getResultItem( @NotNull RegistryAccess registryAccess ) {
 		
 		return ItemStack.EMPTY;
 	}

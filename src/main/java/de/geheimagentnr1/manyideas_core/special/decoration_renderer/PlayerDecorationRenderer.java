@@ -4,15 +4,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-
-import javax.annotation.Nullable;
 
 
 //package-private
@@ -58,7 +55,7 @@ class PlayerDecorationRenderer {
 			OverlayTexture.NO_OVERLAY,
 			poseStack,
 			buffer,
-			player.getLevel(),
+			player.level(),
 			player.getId()
 		);
 		poseStack.popPose();

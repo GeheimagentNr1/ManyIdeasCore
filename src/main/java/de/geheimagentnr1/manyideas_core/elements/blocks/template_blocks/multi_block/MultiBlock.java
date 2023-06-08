@@ -36,15 +36,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	
 	protected MultiBlock( BlockBehaviour.Properties _properties ) {
 		
-		super( _properties );
-	}
-	
-	@SuppressWarnings( "deprecation" )
-	@Nonnull
-	@Override
-	public PushReaction getPistonPushReaction( @Nonnull BlockState state ) {
-		
-		return PushReaction.BLOCK;
+		super( _properties.pushReaction( PushReaction.BLOCK ) );
 	}
 	
 	protected abstract int getXSize();

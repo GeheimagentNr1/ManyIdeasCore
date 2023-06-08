@@ -73,11 +73,11 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	protected void checkTakeAchievements( @Nonnull ItemStack stack ) {
 		
 		if( amountCrafted > 0 ) {
-			stack.onCraftedBy( player.level, player, amountCrafted );
+			stack.onCraftedBy( player.level(), player, amountCrafted );
 			ForgeEventFactory.firePlayerCraftingEvent( player, stack, craftingContainer );
 		}
 		if( container instanceof RecipeHolder ) {
-			( (RecipeHolder)container ).awardUsedRecipes( player );
+			( (RecipeHolder)container ).awardUsedRecipes( player, craftingContainer.getItems() );
 		}
 		amountCrafted = 0;
 	}
@@ -87,10 +87,10 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 		
 		checkTakeAchievements( stack );
 		ForgeHooks.setCraftingPlayer( _player );
-		NonNullList<ItemStack> ingredients = _player.level.getRecipeManager().getRemainingItemsFor(
+		NonNullList<ItemStack> ingredients = _player.level().getRecipeManager().getRemainingItemsFor(
 			RecipeTypes.DYED,
 			craftingContainer,
-			_player.level
+			_player.level()
 		);
 		ForgeHooks.setCraftingPlayer( null );
 		for( int i = 0; i < ingredients.size(); ++i ) {
@@ -105,10 +105,11 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 				if( crafting_stack.isEmpty() ) {
 					craftingContainer.setItem( i, ingredient );
 				} else {
-					if( ItemStack.isSame( crafting_stack, ingredient ) && ItemStack.tagMatches(
-						crafting_stack,
-						ingredient
-					) ) {
+					if( ItemStack.isSameItem( crafting_stack, ingredient ) && ItemStack.isSameItemSameTags
+						(
+							crafting_stack,
+							ingredient
+						) ) {
 						ingredient.grow( crafting_stack.getCount() );
 						craftingContainer.setItem( i, ingredient );
 					} else {

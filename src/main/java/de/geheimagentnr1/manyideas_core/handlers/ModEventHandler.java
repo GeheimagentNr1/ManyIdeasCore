@@ -30,7 +30,7 @@ import de.geheimagentnr1.manyideas_core.util.BlockRegistrationHelper;
 import net.minecraft.Util;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.data.registries.VanillaRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.util.datafix.fixes.References;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -39,7 +39,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -149,10 +148,20 @@ public class ModEventHandler {
 	}
 	
 	@SubscribeEvent
-	public static void handleCreativeModeTabRegisterEvent( CreativeModeTabEvent.Register event ) {
+	public static void handleCreativeModeTabRegisterEvent( RegisterEvent event ) {
 		
-		ModCreativeTabs.CREATIVE_TAB_FACTORIES.forEach( creativeModeTabFactory ->
-			event.registerCreativeModeTab( creativeModeTabFactory.getName(), creativeModeTabFactory ) );
+		ModCreativeTabs.CREATIVE_TAB_FACTORIES.forEach( creativeModeTabFactory -> {
+				event.register(
+					Registries.CREATIVE_MODE_TAB,
+					creativeModeTabRegisterHelper -> {
+						creativeModeTabRegisterHelper.register(
+							creativeModeTabFactory.getName(),
+							creativeModeTabFactory.get()
+						);
+					}
+				);
+			}
+		);
 	}
 	
 	@SuppressWarnings( "ConstantConditions" )

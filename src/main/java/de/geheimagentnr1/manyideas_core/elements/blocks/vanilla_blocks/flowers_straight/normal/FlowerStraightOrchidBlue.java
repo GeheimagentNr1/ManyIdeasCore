@@ -6,7 +6,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 
 
 public class FlowerStraightOrchidBlue extends Flower {
@@ -19,7 +19,11 @@ public class FlowerStraightOrchidBlue extends Flower {
 		super(
 			MobEffects.SATURATION,
 			7,
-			BlockBehaviour.Properties.of( Material.PLANT ).noCollission().instabreak().sound( SoundType.GRASS )
+			BlockBehaviour.Properties.of()
+				.mapColor( MapColor.PLANT )
+				.noCollission()
+				.instabreak()
+				.sound( SoundType.GRASS )
 		);
 	}
 	

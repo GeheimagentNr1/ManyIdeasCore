@@ -31,15 +31,17 @@ public class ElementCountCommand {
 			countItems( names, item_counts, block_item_counts );
 			
 			for( String name : names ) {
-				command.getSource().sendSuccess( Component.literal( name ), false );
+				command.getSource().sendSuccess( () -> Component.literal( name ), false );
 				command.getSource().sendSuccess(
-					Component.literal( "block count: " + block_counts.get( name ) ),
+					() -> Component.literal( "block count: " + block_counts.get( name ) ),
 					false
 				);
-				command.getSource().sendSuccess( Component.literal(
-					"block item count: " + block_item_counts.get( name ) ), false );
 				command.getSource().sendSuccess(
-					Component.literal( "item count: " + item_counts.get( name ) ),
+					() -> Component.literal( "block item count: " + block_item_counts.get( name ) ),
+					false
+				);
+				command.getSource().sendSuccess(
+					() -> Component.literal( "item count: " + item_counts.get( name ) ),
 					false
 				);
 			}

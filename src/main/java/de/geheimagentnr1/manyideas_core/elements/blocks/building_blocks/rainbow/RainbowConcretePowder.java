@@ -2,12 +2,12 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.rainbow
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ConcretePowderBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
 
 
 public class RainbowConcretePowder extends ConcretePowderBlock implements BlockItemInterface {
@@ -22,7 +22,8 @@ public class RainbowConcretePowder extends ConcretePowderBlock implements BlockI
 		
 		super(
 			CONCRETE_BLOCK,
-			BlockBehaviour.Properties.of( Material.SAND )
+			BlockBehaviour.Properties.of()
+				.mapColor( DyeColor.WHITE )
 				.strength( 0.5F )
 				.sound( SoundType.SAND )
 		);

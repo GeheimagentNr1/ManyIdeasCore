@@ -27,7 +27,7 @@ public class GiveDBCommand {
 			Commands.literal( "givedb" ).requires( commandSource -> commandSource.hasPermission( 2 ) );
 		givedbCommand.executes( command -> {
 			command.getSource()
-				.sendSuccess( Component.literal( "/givedb <target> <name of a dye block> <color>" ), true );
+				.sendSuccess( () -> Component.literal( "/givedb <target> <name of a dye block> <color>" ), true );
 			return 1;
 		} );
 		givedbCommand.then( Commands.argument( "targets", EntityArgument.players() )
@@ -71,14 +71,14 @@ public class GiveDBCommand {
 			);
 		}
 		if( targets.size() == 1 ) {
-			source.sendSuccess( Component.translatable(
+			source.sendSuccess( () -> Component.translatable(
 				"commands.give.success.single",
 				count,
 				DyeBlockHelper.setColorToItemStack( new ItemStack( item, count ), color ).getDisplayName(),
 				targets.iterator().next().getDisplayName()
 			), true );
 		} else {
-			source.sendSuccess( Component.translatable(
+			source.sendSuccess( () -> Component.translatable(
 				"commands.give.success.single",
 				count,
 				DyeBlockHelper.setColorToItemStack( new ItemStack( item, count ), color ).getDisplayName(),

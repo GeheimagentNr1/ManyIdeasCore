@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nonnull;
@@ -39,13 +38,6 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	
 	
 	private final BlockSetType type;
-	
-	protected DoubleDoorBlock( BlockBehaviour.Properties _properties, BlockSetType _type ) {
-		
-		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ), _type );
-		initDoubleDoorBlock( material == Material.METAL ? OpenedBy.REDSTONE : OpenedBy.BOTH );
-		type = _type;
-	}
 	
 	protected DoubleDoorBlock( BlockBehaviour.Properties _properties, BlockSetType _type, OpenedBy openedBy ) {
 		

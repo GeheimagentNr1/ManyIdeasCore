@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -45,7 +45,8 @@ public class Mortar extends Block implements BlockItemInterface, BlockRenderType
 	
 	public Mortar() {
 		
-		super( BlockBehaviour.Properties.of( Material.STONE )
+		super( BlockBehaviour.Properties.of()
+			.mapColor( MapColor.QUARTZ )
 			.strength( 0.8F )
 			.requiresCorrectToolForDrops()
 			.sound( SoundType.STONE ) );
