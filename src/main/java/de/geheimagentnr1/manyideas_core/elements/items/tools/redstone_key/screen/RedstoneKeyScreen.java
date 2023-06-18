@@ -81,7 +81,7 @@ public class RedstoneKeyScreen extends AbstractContainerScreen<RedstoneKeyContai
 	protected void renderLabels( @Nonnull GuiGraphics guiGraphics, int x, int y ) {
 		
 		int titleStartX = width / 2 - leftPos - font.width( title.getString() ) / 2;
-		guiGraphics.drawString( font, title.getString(), titleStartX, 5, 4210752 );
+		guiGraphics.drawString( font, title.getString(), titleStartX, 5, 4210752, false );
 	}
 	
 	public void resetSelected() {

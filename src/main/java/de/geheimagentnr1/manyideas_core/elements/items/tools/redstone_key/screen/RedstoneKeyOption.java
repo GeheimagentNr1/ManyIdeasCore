@@ -84,14 +84,16 @@ public class RedstoneKeyOption extends AbstractContainerEventHandler implements 
 			title,
 			x + 30,
 			y + 2,
-			Objects.requireNonNull( ChatFormatting.DARK_GRAY.getColor() )
+			Objects.requireNonNull( ChatFormatting.DARK_GRAY.getColor() ),
+			false
 		);
 		guiGraphics.drawString(
 			font,
 			description,
 			x + 30,
 			y + 12,
-			Objects.requireNonNull( ChatFormatting.WHITE.getColor() )
+			Objects.requireNonNull( ChatFormatting.WHITE.getColor() ),
+			false
 		);
 	}
 	

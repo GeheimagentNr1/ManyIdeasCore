@@ -59,8 +59,7 @@ public class ToggleButton extends AbstractButton {
 			textureStartindex = 2;
 		}
 		guiGraphics.blit( TOGGLE_BUTTON, getX(), getY(), width * textureStartindex, 0, width, height, 128, 32 );
-		RenderSystem.setShaderTexture( 0, icon_textures );
-		guiGraphics.blit( TOGGLE_BUTTON, getX() + 3, getY() + 3, iconIndex << 4, 0, 16, 16, 64, 16 );
+		guiGraphics.blit( icon_textures, getX() + 3, getY() + 3, iconIndex << 4, 0, 16, 16, 64, 16 );
 	}
 	
 	@Override
