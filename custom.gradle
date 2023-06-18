@@ -25,3 +25,5 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+sourceSets.main.java { srcDir 'src/integrations/jei/java' }
