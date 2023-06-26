@@ -1,27 +1,40 @@
 package de.geheimagentnr1.manyideas_core.network;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
+import de.geheimagentnr1.minecraft_forge_api.network.AbstractNetwork;
+import org.jetbrains.annotations.NotNull;
 
 
-public class Network {
+public class Network extends AbstractNetwork {
 	
 	
-	private static final String PROTOCOL_VERSION = "1";
+	@NotNull
+	private static final Network INSTANCE = new Network();
 	
-	//package-private
-	static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
-		new ResourceLocation( ManyIdeasCore.MODID, "main" ),
-		() -> PROTOCOL_VERSION,
-		PROTOCOL_VERSION::equals,
-		PROTOCOL_VERSION::equals
-	);
-	
-	public static void registerPackets() {
+	@NotNull
+	public static Network getInstance() {
 		
-		CHANNEL.registerMessage(
+		return INSTANCE;
+	}
+	
+	@NotNull
+	@Override
+	protected String getModId() {
+		
+		return ManyIdeasCore.MODID;
+	}
+	
+	@NotNull
+	@Override
+	protected String getNetworkName() {
+		
+		return "main";
+	}
+	
+	@Override
+	public void registerPackets() {
+		
+		getChannel().registerMessage(
 			0,
 			RedstoneKeyStateUpdateMsg.class,
 			RedstoneKeyStateUpdateMsg::encode,

@@ -5,30 +5,32 @@ import com.google.gson.JsonObject;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.*;
 
 
 public class ColorTagList implements ColorList {
 	
 	
+	@NotNull
 	private final TreeMap<ItemStack, Color> stacks;
 	
 	//package-private
-	ColorTagList( TreeMap<ItemStack, Color> _stacks ) {
+	ColorTagList( @NotNull TreeMap<ItemStack, Color> _stacks ) {
 		
 		stacks = _stacks;
 	}
 	
 	@Override
-	public Color getColor( ItemStack stack ) {
+	public Color getColor( @NotNull ItemStack stack ) {
 		
 		return stacks.get( stack );
 	}
 	
+	@NotNull
 	@Override
-	public ItemStack getStack( Color color ) {
+	public ItemStack getStack( @NotNull Color color ) {
 		
 		for( Map.Entry<ItemStack, Color> entry : stacks.entrySet() ) {
 			if( entry.getValue() == color ) {
@@ -39,19 +41,20 @@ public class ColorTagList implements ColorList {
 	}
 	
 	//package-private
+	@NotNull
 	TreeMap<ItemStack, Color> getColorStacks() {
 		
 		return stacks;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public Collection<ItemStack> getItems() {
 		
 		return stacks.keySet();
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public JsonObject serialize() {
 		

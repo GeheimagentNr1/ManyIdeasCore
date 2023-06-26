@@ -11,7 +11,7 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
 import net.minecraft.util.text.ITextComponent;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 
 public class MetalSmokerTile extends AbstractFurnaceTileEntity {
@@ -22,7 +22,7 @@ public class MetalSmokerTile extends AbstractFurnaceTileEntity {
 		super( ModBlocks.METAL_SMOKER_TILE, IRecipeType.SMOKING );
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	protected ITextComponent getDefaultName() {
 		
@@ -30,14 +30,14 @@ public class MetalSmokerTile extends AbstractFurnaceTileEntity {
 	}
 	
 	@Override
-	protected int getBurnTime( @Nonnull ItemStack stack ) {
+	protected int getBurnTime( @NotNull ItemStack stack ) {
 		
 		return super.getBurnTime( stack ) / 2;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
-	protected Container createMenu( int id, @Nonnull PlayerInventory player ) {
+	protected Container createMenu( int id, @NotNull PlayerInventory player ) {
 		
 		return new SmokerContainer( id, player, this, furnaceData );
 	}

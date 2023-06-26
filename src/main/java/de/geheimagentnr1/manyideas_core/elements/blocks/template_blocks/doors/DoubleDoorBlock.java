@@ -2,15 +2,13 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.doors;
 
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.ModBlockStateProperties;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.OpenedBy;
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
-import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
+import de.geheimagentnr1.manyideas_core.elements.items.ModItemsRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces.RedstoneKeyable;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
 import de.geheimagentnr1.manyideas_core.util.doors.BlockData;
 import de.geheimagentnr1.manyideas_core.util.doors.DoorsHelper;
 import de.geheimagentnr1.manyideas_core.util.doors.OpenedByHelper;
-import net.minecraft.client.renderer.RenderType;
+import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -26,48 +24,45 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
 
 @SuppressWarnings( { "AbstractClassExtendsConcreteClass", "unused", "AbstractClassNeverImplemented" } )
-public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyable, BlockItemInterface,
-	BlockRenderTypeInterface {
+public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyable, BlockItemInterface {
 	
 	
+	@NotNull
 	private final BlockSetType type;
 	
-	protected DoubleDoorBlock( BlockBehaviour.Properties _properties, BlockSetType _type, OpenedBy openedBy ) {
+	protected DoubleDoorBlock(
+		@NotNull BlockBehaviour.Properties _properties,
+		@NotNull BlockSetType _type,
+		@NotNull OpenedBy openedBy ) {
 		
 		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ), _type );
 		initDoubleDoorBlock( openedBy );
 		type = _type;
 	}
 	
-	private void initDoubleDoorBlock( OpenedBy openedBy ) {
+	private void initDoubleDoorBlock( @NotNull OpenedBy openedBy ) {
 		
 		registerDefaultState( defaultBlockState().setValue( ModBlockStateProperties.OPENED_BY, openedBy ) );
 	}
 	
-	@Override
-	public RenderType getRenderType() {
-		
-		return RenderType.cutout();
-	}
-	
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult use(
-		@Nonnull BlockState state,
-		@Nonnull Level level,
-		@Nonnull BlockPos pos,
-		@Nonnull Player player,
-		@Nonnull InteractionHand hand,
-		@Nonnull BlockHitResult hitResult ) {
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Player player,
+		@NotNull InteractionHand hand,
+		@NotNull BlockHitResult hitResult ) {
 		
-		if( player.getItemInHand( hand ).getItem() != ModItems.RESTONE_KEY &&
+		if( player.getItemInHand( hand ).getItem() != ModItemsRegisterFactory.RESTONE_KEY &&
 			OpenedByHelper.canBeOpened( state, true ) ) {
 			boolean open = !state.getValue( OPEN );
 			level.setBlock( pos, state.setValue( OPEN, open ), 10 );
@@ -85,9 +80,9 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	@Override
 	public void setOpen(
 		@Nullable Entity entity,
-		@Nonnull Level level,
-		@Nonnull BlockState state,
-		@Nonnull BlockPos pos,
+		@NotNull Level level,
+		@NotNull BlockState state,
+		@NotNull BlockPos pos,
 		boolean open ) {
 		
 		super.setOpen( entity, level, state, pos, open );
@@ -99,11 +94,11 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	
 	@Override
 	public void neighborChanged(
-		@Nonnull BlockState state,
-		@Nonnull Level level,
-		@Nonnull BlockPos pos,
-		@Nonnull Block block,
-		@Nonnull BlockPos fromPos,
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Block block,
+		@NotNull BlockPos fromPos,
 		boolean isMoving ) {
 		
 		if( block != this && OpenedByHelper.canBeOpened( state, false ) ) {
@@ -129,24 +124,27 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	}
 	
 	@Override
-	protected void createBlockStateDefinition( @Nonnull StateDefinition.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( @NotNull StateDefinition.Builder<Block, BlockState> builder ) {
 		
 		super.createBlockStateDefinition( builder );
 		builder.add( ModBlockStateProperties.OPENED_BY );
 	}
 	
+	@NotNull
 	@Override
 	public Component getTitle() {
 		
 		return OpenedByHelper.OPEN_BY_CONTAINER_TITLE;
 	}
 	
+	@NotNull
 	@Override
 	public ResourceLocation getIconTextures() {
 		
 		return OpenedByHelper.ICON_TEXTURES;
 	}
 	
+	@NotNull
 	@Override
 	public List<Option> getOptions() {
 		
@@ -154,18 +152,18 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	}
 	
 	@Override
-	public int getStateIndex( BlockState state ) {
+	public int getStateIndex( @NotNull BlockState state ) {
 		
 		return OpenedByHelper.getStateIndex( state );
 	}
 	
 	@Override
 	public void setBlockStateValue(
-		Level level,
-		BlockState state,
-		BlockPos pos,
+		@NotNull Level level,
+		@NotNull BlockState state,
+		@NotNull BlockPos pos,
 		int stateIndex,
-		Player player ) {
+		@NotNull Player player ) {
 		
 		OpenedBy[] openedByValues = OpenedBy.values();
 		if( stateIndex >= 0 && stateIndex < openedByValues.length ) {

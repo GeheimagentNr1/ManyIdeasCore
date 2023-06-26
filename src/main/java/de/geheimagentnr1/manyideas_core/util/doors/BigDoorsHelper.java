@@ -7,6 +7,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
@@ -14,12 +15,13 @@ import java.util.function.Function;
 public class BigDoorsHelper {
 	
 	
+	@NotNull
 	public static BlockData getNeighborBlock(
-		Level level,
-		BlockPos zeroPos,
-		BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos zeroPos,
+		@NotNull BlockState state,
 		int zSize,
-		Function<BlockData, BlockPos> zeroPosCalculator ) {
+		@NotNull Function<BlockData, BlockPos> zeroPosCalculator ) {
 		
 		BlockPos neighborPos = zeroPos.relative( getDirectionToNeighborDoor( state ), zSize );
 		BlockState neighborState = level.getBlockState( neighborPos );
@@ -29,7 +31,7 @@ public class BigDoorsHelper {
 		return new BlockData( neighborPos, neighborZeroPos, neighborState );
 	}
 	
-	public static boolean isNeighbor( BlockState state, BlockData neighborBlock ) {
+	public static boolean isNeighbor( @NotNull BlockState state, @NotNull BlockData neighborBlock ) {
 		
 		BlockState neighborState = neighborBlock.getState();
 		return neighborBlock.getZeroPos() != null &&
@@ -40,7 +42,8 @@ public class BigDoorsHelper {
 				neighborState.getValue( BlockStateProperties.DOOR_HINGE );
 	}
 	
-	private static Direction getDirectionToNeighborDoor( BlockState state ) {
+	@NotNull
+	private static Direction getDirectionToNeighborDoor( @NotNull BlockState state ) {
 		
 		Direction facing = state.getValue( BlockStateProperties.HORIZONTAL_FACING );
 		return state.getValue( BlockStateProperties.DOOR_HINGE ) == DoorHingeSide.LEFT

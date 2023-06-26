@@ -9,8 +9,8 @@ import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.AbstractContainerEventHandler;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -20,30 +20,34 @@ import java.util.Objects;
 public class RedstoneKeyOption extends AbstractContainerEventHandler implements Renderable {
 	
 	
+	@NotNull
 	private final RedstoneKeyScreen parent;
 	
 	private final int x;
 	
 	private final int y;
 	
+	@NotNull
 	private final ResourceLocation icons;
 	
 	private final int stateIndex;
 	
+	@NotNull
 	private final String title;
 	
+	@NotNull
 	private final String description;
 	
 	private ToggleButton button;
 	
 	public RedstoneKeyOption(
-		RedstoneKeyScreen _parent,
+		@NotNull RedstoneKeyScreen _parent,
 		int _x,
 		int _y,
-		ResourceLocation _icons,
+		@NotNull ResourceLocation _icons,
 		int _stateIndex,
-		String _title,
-		String _description ) {
+		@NotNull String _title,
+		@NotNull String _description ) {
 		
 		x = _x;
 		y = _y;
@@ -74,7 +78,7 @@ public class RedstoneKeyOption extends AbstractContainerEventHandler implements 
 	}
 	
 	@Override
-	public void render( @Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
+	public void render( @NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
 		
 		button.render( guiGraphics, mouseX, mouseY, partialTick );
 		
@@ -102,7 +106,7 @@ public class RedstoneKeyOption extends AbstractContainerEventHandler implements 
 		button.setSelected( false );
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public List<? extends GuiEventListener> children() {
 		

@@ -10,25 +10,31 @@ import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 
 //package-private
 class PlayerDecorationRenderer {
 	
 	
+	@NotNull
 	private final ItemStack stack;
 	
 	private final boolean isBlock;
 	
 	//package-private
-	PlayerDecorationRenderer( ItemStack _stack ) {
+	PlayerDecorationRenderer( @NotNull ItemStack _stack ) {
 		
 		stack = _stack;
 		isBlock = _stack.getItem() instanceof BlockItem;
 	}
 	
 	//package-private
-	void renderItemStack( Player player, int light, PoseStack poseStack, MultiBufferSource buffer ) {
+	void renderItemStack(
+		@NotNull Player player,
+		int light,
+		@NotNull PoseStack poseStack,
+		@NotNull MultiBufferSource buffer ) {
 		
 		if( player.isInvisible() || !player.isModelPartShown( PlayerModelPart.CAPE ) || player.isFallFlying() ) {
 			return;

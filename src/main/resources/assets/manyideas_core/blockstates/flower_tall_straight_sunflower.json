@@ -1,6 +1,6 @@
 {
 	"variants": {
-		"half=lower": { "model": "minecraft:block/sunflower_bottom" },
-		"half=upper": { "model": "minecraft:block/sunflower_top" }
+		"half=lower": { "model": "manyideas_core:block/vanilla_blocks/flowers_straight/tall/sunflower/flower_tall_straight_sunflower_bottom" },
+		"half=upper": { "model": "manyideas_core:block/vanilla_blocks/flowers_straight/tall/sunflower/flower_tall_straight_sunflower_top" }
 	}
 }

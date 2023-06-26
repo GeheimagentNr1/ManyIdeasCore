@@ -6,8 +6,8 @@ import de.geheimagentnr1.manyideas_core.elements.recipes.IngredientSerializer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Comparator;
 import java.util.TreeMap;
 
@@ -15,15 +15,16 @@ import java.util.TreeMap;
 public class ColorIngredientSerializer implements IngredientSerializer<ColorIngredient> {
 	
 	
+	@NotNull
 	@Override
 	public String getRegistryName() {
 		
 		return ColorIngredient.registry_name;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
-	public ColorIngredient parse( @Nonnull FriendlyByteBuf buffer ) {
+	public ColorIngredient parse( @NotNull FriendlyByteBuf buffer ) {
 		
 		if( buffer.readInt() == 0 ) {
 			return new ColorIngredient( new ColorStackList( buffer.readItem() ) );
@@ -38,15 +39,15 @@ public class ColorIngredientSerializer implements IngredientSerializer<ColorIngr
 		}
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
-	public ColorIngredient parse( @Nonnull JsonObject json ) {
+	public ColorIngredient parse( @NotNull JsonObject json ) {
 		
 		return (ColorIngredient)new DyedRecipeSerializer().deserializeIngredient( json );
 	}
 	
 	@Override
-	public void write( @Nonnull FriendlyByteBuf buffer, ColorIngredient ingredient ) {
+	public void write( @NotNull FriendlyByteBuf buffer, @NotNull ColorIngredient ingredient ) {
 		
 		ColorList colorList = ingredient.getIngrediant();
 		if( colorList instanceof ColorStackList ) {

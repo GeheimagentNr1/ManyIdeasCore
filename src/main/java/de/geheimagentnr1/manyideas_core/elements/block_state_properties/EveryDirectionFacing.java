@@ -1,12 +1,9 @@
 package de.geheimagentnr1.manyideas_core.elements.block_state_properties;
 
-import net.minecraft.util.StringRepresentable;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Locale;
+import de.geheimagentnr1.minecraft_forge_api.util.SimpleStringRepresentable;
 
 
-public enum EveryDirectionFacing implements StringRepresentable {
+public enum EveryDirectionFacing implements SimpleStringRepresentable {
 	
 	NORTH_UP,
 	NORTH_EAST,
@@ -36,12 +33,5 @@ public enum EveryDirectionFacing implements StringRepresentable {
 	DOWN_NORTH,
 	DOWN_EAST,
 	DOWN_SOUTH,
-	DOWN_WEST;
-	
-	@NotNull
-	@Override
-	public String getSerializedName() {
-		
-		return name().toLowerCase( Locale.ENGLISH );
-	}
+	DOWN_WEST
 }

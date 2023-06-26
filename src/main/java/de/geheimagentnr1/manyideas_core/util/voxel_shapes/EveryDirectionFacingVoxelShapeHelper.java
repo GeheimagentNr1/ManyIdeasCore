@@ -4,6 +4,7 @@ import de.geheimagentnr1.manyideas_core.elements.block_state_properties.EveryDir
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,105 +13,82 @@ import java.util.List;
 public class EveryDirectionFacingVoxelShapeHelper {
 	
 	
+	@NotNull
 	public static VoxelShapeVector[] vectorsToDownNorthVectors(
 		VoxelShapeVector[] vectors,
 		EveryDirectionFacing facing ) {
 		
 		List<double[][]> turn_matrixes = new ArrayList<>();
 		switch( facing ) {
-			case NORTH_UP:
-				turn_matrixes.add( createXturnMatrix( 270 ) );
-				break;
-			case NORTH_EAST:
+			case NORTH_UP -> turn_matrixes.add( createXturnMatrix( 270 ) );
+			case NORTH_EAST -> {
 				turn_matrixes.add( createXturnMatrix( 270 ) );
 				turn_matrixes.add( createYturnMatrix( 90 ) );
-				break;
-			case NORTH_DOWN:
+			}
+			case NORTH_DOWN -> {
 				turn_matrixes.add( createXturnMatrix( 270 ) );
 				turn_matrixes.add( createYturnMatrix( 180 ) );
-				break;
-			case NORTH_WEST:
+			}
+			case NORTH_WEST -> {
 				turn_matrixes.add( createXturnMatrix( 270 ) );
 				turn_matrixes.add( createYturnMatrix( 270 ) );
-				break;
-			
-			case EAST_UP:
+			}
+			case EAST_UP -> {
 				turn_matrixes.add( createZturnMatrix( 270 ) );
 				turn_matrixes.add( createYturnMatrix( 90 ) );
-				break;
-			case EAST_NORTH:
-				turn_matrixes.add( createZturnMatrix( 270 ) );
-				break;
-			case EAST_DOWN:
+			}
+			case EAST_NORTH -> turn_matrixes.add( createZturnMatrix( 270 ) );
+			case EAST_DOWN -> {
 				turn_matrixes.add( createZturnMatrix( 270 ) );
 				turn_matrixes.add( createYturnMatrix( 270 ) );
-				break;
-			case EAST_SOUTH:
+			}
+			case EAST_SOUTH -> {
 				turn_matrixes.add( createZturnMatrix( 270 ) );
 				turn_matrixes.add( createYturnMatrix( 180 ) );
-				break;
-			
-			case SOUTH_UP:
+			}
+			case SOUTH_UP -> {
 				turn_matrixes.add( createXturnMatrix( 90 ) );
 				turn_matrixes.add( createYturnMatrix( 180 ) );
-				break;
-			case SOUTH_WEST:
+			}
+			case SOUTH_WEST -> {
 				turn_matrixes.add( createXturnMatrix( 90 ) );
 				turn_matrixes.add( createYturnMatrix( 270 ) );
-				break;
-			case SOUTH_DOWN:
-				turn_matrixes.add( createXturnMatrix( 90 ) );
-				break;
-			case SOUTH_EAST:
+			}
+			case SOUTH_DOWN -> turn_matrixes.add( createXturnMatrix( 90 ) );
+			case SOUTH_EAST -> {
 				turn_matrixes.add( createXturnMatrix( 90 ) );
 				turn_matrixes.add( createYturnMatrix( 90 ) );
-				break;
-			
-			case WEST_UP:
+			}
+			case WEST_UP -> {
 				turn_matrixes.add( createZturnMatrix( 90 ) );
 				turn_matrixes.add( createYturnMatrix( 270 ) );
-				break;
-			case WEST_SOUTH:
+			}
+			case WEST_SOUTH -> {
 				turn_matrixes.add( createZturnMatrix( 90 ) );
 				turn_matrixes.add( createYturnMatrix( 180 ) );
-				break;
-			case WEST_DOWN:
+			}
+			case WEST_DOWN -> {
 				turn_matrixes.add( createZturnMatrix( 90 ) );
 				turn_matrixes.add( createYturnMatrix( 90 ) );
-				break;
-			case WEST_NORTH:
-				turn_matrixes.add( createZturnMatrix( 90 ) );
-				break;
-			
-			case UP_NORTH:
-				turn_matrixes.add( createZturnMatrix( 180 ) );
-				break;
-			case UP_EAST:
+			}
+			case WEST_NORTH -> turn_matrixes.add( createZturnMatrix( 90 ) );
+			case UP_NORTH -> turn_matrixes.add( createZturnMatrix( 180 ) );
+			case UP_EAST -> {
 				turn_matrixes.add( createXturnMatrix( 180 ) );
 				turn_matrixes.add( createYturnMatrix( 90 ) );
-				break;
-			case UP_SOUTH:
-				turn_matrixes.add( createXturnMatrix( 180 ) );
-				break;
-			case UP_WEST:
+			}
+			case UP_SOUTH -> turn_matrixes.add( createXturnMatrix( 180 ) );
+			case UP_WEST -> {
 				turn_matrixes.add( createXturnMatrix( 180 ) );
 				turn_matrixes.add( createYturnMatrix( 270 ) );
-				break;
-			
-			case DOWN_NORTH:
+			}
+			case DOWN_NORTH -> {
 				return vectors;
-			case DOWN_EAST:
-				turn_matrixes.add( createYturnMatrix( 90 ) );
-				break;
-			case DOWN_SOUTH:
-				turn_matrixes.add( createYturnMatrix( 180 ) );
-				break;
-			case DOWN_WEST:
-				turn_matrixes.add( createYturnMatrix( 270 ) );
-				break;
-			default:
-				turn_matrixes.add( createYturnMatrix( 0 ) );
-				break;
+			}
+			case DOWN_EAST -> turn_matrixes.add( createYturnMatrix( 90 ) );
+			case DOWN_SOUTH -> turn_matrixes.add( createYturnMatrix( 180 ) );
+			case DOWN_WEST -> turn_matrixes.add( createYturnMatrix( 270 ) );
+			default -> turn_matrixes.add( createYturnMatrix( 0 ) );
 		}
 		for( double[][] turn_matrix : turn_matrixes ) {
 			vectors = turnVoxelShapeVectors( vectors, turn_matrix );
@@ -169,7 +147,10 @@ public class EveryDirectionFacingVoxelShapeHelper {
 		};
 	}
 	
-	private static VoxelShapeVector[] turnVoxelShapeVectors( VoxelShapeVector[] vectors, double[][] turn_matrix ) {
+	@NotNull
+	private static VoxelShapeVector[] turnVoxelShapeVectors(
+		@NotNull VoxelShapeVector[] vectors,
+		double[][] turn_matrix ) {
 		
 		VoxelShapeVector[] turned_vectors = new VoxelShapeVector[vectors.length];
 		for( int i = 0; i < vectors.length; i++ ) {
@@ -178,7 +159,8 @@ public class EveryDirectionFacingVoxelShapeHelper {
 		return turned_vectors;
 	}
 	
-	private static VoxelShapeVector turnVoxelShapeVector( VoxelShapeVector vector, double[][] turn_matrix ) {
+	@NotNull
+	private static VoxelShapeVector turnVoxelShapeVector( @NotNull VoxelShapeVector vector, double[][] turn_matrix ) {
 		
 		double[] vector1 = new double[] { vector.x1, vector.y1, vector.z1 };
 		double[] vector2 = new double[] { vector.x2, vector.y2, vector.z2 };
@@ -201,103 +183,82 @@ public class EveryDirectionFacingVoxelShapeHelper {
 		return new double[] { x, y, z };
 	}
 	
-	public static VoxelShapeVector[] calculateVectors( VoxelShapeVector[] vectors, EveryDirectionFacing facing ) {
+	@NotNull
+	public static VoxelShapeVector[] calculateVectors(
+		@NotNull VoxelShapeVector[] vectors,
+		@NotNull EveryDirectionFacing facing ) {
 		
 		List<double[][]> turn_matrixes = new ArrayList<>();
 		switch( facing ) {
-			case NORTH_UP:
-				turn_matrixes.add( createXturnMatrix( 90 ) );
-				break;
-			case NORTH_EAST:
+			case NORTH_UP -> turn_matrixes.add( createXturnMatrix( 90 ) );
+			case NORTH_EAST -> {
 				turn_matrixes.add( createYturnMatrix( 270 ) );
 				turn_matrixes.add( createXturnMatrix( 90 ) );
-				break;
-			case NORTH_DOWN:
+			}
+			case NORTH_DOWN -> {
 				turn_matrixes.add( createYturnMatrix( 180 ) );
 				turn_matrixes.add( createXturnMatrix( 90 ) );
-				break;
-			case NORTH_WEST:
+			}
+			case NORTH_WEST -> {
 				turn_matrixes.add( createYturnMatrix( 90 ) );
 				turn_matrixes.add( createXturnMatrix( 90 ) );
-				break;
-			
-			case EAST_UP:
+			}
+			case EAST_UP -> {
 				turn_matrixes.add( createYturnMatrix( 270 ) );
 				turn_matrixes.add( createZturnMatrix( 90 ) );
-				break;
-			case EAST_NORTH:
-				turn_matrixes.add( createZturnMatrix( 90 ) );
-				break;
-			case EAST_DOWN:
+			}
+			case EAST_NORTH -> turn_matrixes.add( createZturnMatrix( 90 ) );
+			case EAST_DOWN -> {
 				turn_matrixes.add( createYturnMatrix( 90 ) );
 				turn_matrixes.add( createZturnMatrix( 90 ) );
-				break;
-			case EAST_SOUTH:
+			}
+			case EAST_SOUTH -> {
 				turn_matrixes.add( createYturnMatrix( 180 ) );
 				turn_matrixes.add( createZturnMatrix( 90 ) );
-				break;
-			
-			case SOUTH_UP:
+			}
+			case SOUTH_UP -> {
 				turn_matrixes.add( createYturnMatrix( 180 ) );
 				turn_matrixes.add( createXturnMatrix( 270 ) );
-				break;
-			case SOUTH_WEST:
+			}
+			case SOUTH_WEST -> {
 				turn_matrixes.add( createYturnMatrix( 90 ) );
 				turn_matrixes.add( createXturnMatrix( 270 ) );
-				break;
-			case SOUTH_DOWN:
-				turn_matrixes.add( createXturnMatrix( 270 ) );
-				break;
-			case SOUTH_EAST:
+			}
+			case SOUTH_DOWN -> turn_matrixes.add( createXturnMatrix( 270 ) );
+			case SOUTH_EAST -> {
 				turn_matrixes.add( createYturnMatrix( 270 ) );
 				turn_matrixes.add( createXturnMatrix( 270 ) );
-				break;
-			
-			case WEST_UP:
+			}
+			case WEST_UP -> {
 				turn_matrixes.add( createYturnMatrix( 90 ) );
 				turn_matrixes.add( createZturnMatrix( 270 ) );
-				break;
-			case WEST_SOUTH:
+			}
+			case WEST_SOUTH -> {
 				turn_matrixes.add( createYturnMatrix( 180 ) );
 				turn_matrixes.add( createZturnMatrix( 270 ) );
-				break;
-			case WEST_DOWN:
+			}
+			case WEST_DOWN -> {
 				turn_matrixes.add( createYturnMatrix( 270 ) );
 				turn_matrixes.add( createZturnMatrix( 270 ) );
-				break;
-			case WEST_NORTH:
-				turn_matrixes.add( createZturnMatrix( 270 ) );
-				break;
-			
-			case UP_NORTH:
-				turn_matrixes.add( createZturnMatrix( 180 ) );
-				break;
-			case UP_EAST:
+			}
+			case WEST_NORTH -> turn_matrixes.add( createZturnMatrix( 270 ) );
+			case UP_NORTH -> turn_matrixes.add( createZturnMatrix( 180 ) );
+			case UP_EAST -> {
 				turn_matrixes.add( createYturnMatrix( 270 ) );
 				turn_matrixes.add( createXturnMatrix( 180 ) );
-				break;
-			case UP_SOUTH:
-				turn_matrixes.add( createXturnMatrix( 180 ) );
-				break;
-			case UP_WEST:
+			}
+			case UP_SOUTH -> turn_matrixes.add( createXturnMatrix( 180 ) );
+			case UP_WEST -> {
 				turn_matrixes.add( createYturnMatrix( 90 ) );
 				turn_matrixes.add( createXturnMatrix( 180 ) );
-				break;
-			
-			case DOWN_NORTH:
+			}
+			case DOWN_NORTH -> {
 				return vectors;
-			case DOWN_EAST:
-				turn_matrixes.add( createYturnMatrix( 270 ) );
-				break;
-			case DOWN_SOUTH:
-				turn_matrixes.add( createYturnMatrix( 180 ) );
-				break;
-			case DOWN_WEST:
-				turn_matrixes.add( createYturnMatrix( 90 ) );
-				break;
-			default:
-				turn_matrixes.add( createYturnMatrix( 0 ) );
-				break;
+			}
+			case DOWN_EAST -> turn_matrixes.add( createYturnMatrix( 270 ) );
+			case DOWN_SOUTH -> turn_matrixes.add( createYturnMatrix( 180 ) );
+			case DOWN_WEST -> turn_matrixes.add( createYturnMatrix( 90 ) );
+			default -> turn_matrixes.add( createYturnMatrix( 0 ) );
 		}
 		for( double[][] turn_matrix : turn_matrixes ) {
 			vectors = turnVoxelShapeVectors( vectors, turn_matrix );
@@ -306,7 +267,8 @@ public class EveryDirectionFacingVoxelShapeHelper {
 	}
 	
 	@SuppressWarnings( "WeakerAccess" )
-	public static VoxelShape vectorsToVoxelShape( VoxelShapeVector[] vectors ) {
+	@NotNull
+	public static VoxelShape vectorsToVoxelShape( @NotNull VoxelShapeVector[] vectors ) {
 		
 		ArrayList<VoxelShape> shapes = new ArrayList<>();
 		for( VoxelShapeVector vector : vectors ) {

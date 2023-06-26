@@ -1,12 +1,9 @@
 package de.geheimagentnr1.manyideas_core.elements.block_state_properties;
 
-import net.minecraft.util.StringRepresentable;
-
-import javax.annotation.Nonnull;
-import java.util.Locale;
+import de.geheimagentnr1.minecraft_forge_api.util.SimpleStringRepresentable;
 
 
-public enum Color implements StringRepresentable {
+public enum Color implements SimpleStringRepresentable {
 	BLACK,
 	BLUE,
 	BROWN,
@@ -23,13 +20,5 @@ public enum Color implements StringRepresentable {
 	RAINBOW,
 	RED,
 	WHITE,
-	YELLOW;
-	
-	
-	@Nonnull
-	@Override
-	public String getSerializedName() {
-		
-		return name().toLowerCase( Locale.ENGLISH );
-	}
+	YELLOW
 }

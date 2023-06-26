@@ -1,7 +1,7 @@
 package de.geheimagentnr1.manyideas_core.integrations.jei;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
-import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
+import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableMenu;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondMenu;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronMenu;
@@ -25,8 +25,7 @@ import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.registration.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 
 @SuppressWarnings( "unused" )
@@ -34,7 +33,7 @@ import javax.annotation.Nonnull;
 public class JeiIntegration implements IModPlugin {
 	
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getPluginUid() {
 		
@@ -42,22 +41,22 @@ public class JeiIntegration implements IModPlugin {
 	}
 	
 	@Override
-	public void registerItemSubtypes( ISubtypeRegistration registration ) {
+	public void registerItemSubtypes( @NotNull ISubtypeRegistration registration ) {
 		
 		registration.registerSubtypeInterpreter(
 			VanillaTypes.ITEM_STACK,
-			ModBlocks.PLANKS_COLORED.asItem(),
+			ModBlocksRegisterFactory.PLANKS_COLORED.asItem(),
 			new DyeBlockItemSubtypeInterpreter()
 		);
 		registration.registerSubtypeInterpreter(
 			VanillaTypes.ITEM_STACK,
-			ModBlocks.WOOD_COLORED.asItem(),
+			ModBlocksRegisterFactory.WOOD_COLORED.asItem(),
 			new DyeBlockItemSubtypeInterpreter()
 		);
 	}
 	
 	@Override
-	public void registerCategories( IRecipeCategoryRegistration registration ) {
+	public void registerCategories( @NotNull IRecipeCategoryRegistration registration ) {
 		
 		IJeiHelpers jeiHelpers = registration.getJeiHelpers();
 		IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
@@ -71,7 +70,7 @@ public class JeiIntegration implements IModPlugin {
 	}
 	
 	@Override
-	public void registerRecipes( IRecipeRegistration registration ) {
+	public void registerRecipes( @NotNull IRecipeRegistration registration ) {
 		
 		registration.addRecipes( DyedRecipeCategory.DYED, JeiDyedRecipe.getRecipes() );
 		registration.addRecipes( GrindingRecipeCategory.GRINDING, JeiGrindingRecipe.getRecipes() );
@@ -84,11 +83,11 @@ public class JeiIntegration implements IModPlugin {
 	}
 	
 	@Override
-	public void registerRecipeTransferHandlers( IRecipeTransferRegistration registration ) {
+	public void registerRecipeTransferHandlers( @NotNull IRecipeTransferRegistration registration ) {
 		
 		registration.addRecipeTransferHandler(
 			DyeCraftingTableMenu.class,
-			ModBlocks.DYE_CRAFTING_TABLE_MENU,
+			ModBlocksRegisterFactory.DYE_CRAFTING_TABLE_MENU,
 			DyedRecipeCategory.DYED,
 			1,
 			9,
@@ -97,7 +96,7 @@ public class JeiIntegration implements IModPlugin {
 		);
 		registration.addRecipeTransferHandler(
 			TableSawDiamondMenu.class,
-			ModBlocks.TABLE_SAW_DIAMOND_MENU,
+			ModBlocksRegisterFactory.TABLE_SAW_DIAMOND_MENU,
 			TableSawDiamondRecipeCategory.TABLE_SAWING_DIAMOND,
 			0,
 			1,
@@ -106,7 +105,7 @@ public class JeiIntegration implements IModPlugin {
 		);
 		registration.addRecipeTransferHandler(
 			TableSawDiamondMenu.class,
-			ModBlocks.TABLE_SAW_DIAMOND_MENU,
+			ModBlocksRegisterFactory.TABLE_SAW_DIAMOND_MENU,
 			TableSawIronRecipeCategory.TABLE_SAWING_IRON,
 			0,
 			1,
@@ -115,7 +114,7 @@ public class JeiIntegration implements IModPlugin {
 		);
 		registration.addRecipeTransferHandler(
 			TableSawDiamondMenu.class,
-			ModBlocks.TABLE_SAW_DIAMOND_MENU,
+			ModBlocksRegisterFactory.TABLE_SAW_DIAMOND_MENU,
 			TableSawStoneRecipeCategory.TABLE_SAWING_STONE,
 			0,
 			1,
@@ -124,7 +123,7 @@ public class JeiIntegration implements IModPlugin {
 		);
 		registration.addRecipeTransferHandler(
 			TableSawIronMenu.class,
-			ModBlocks.TABLE_SAW_IRON_MENU,
+			ModBlocksRegisterFactory.TABLE_SAW_IRON_MENU,
 			TableSawIronRecipeCategory.TABLE_SAWING_IRON,
 			0,
 			1,
@@ -133,7 +132,7 @@ public class JeiIntegration implements IModPlugin {
 		);
 		registration.addRecipeTransferHandler(
 			TableSawIronMenu.class,
-			ModBlocks.TABLE_SAW_IRON_MENU,
+			ModBlocksRegisterFactory.TABLE_SAW_IRON_MENU,
 			TableSawStoneRecipeCategory.TABLE_SAWING_STONE,
 			0,
 			1,
@@ -142,7 +141,7 @@ public class JeiIntegration implements IModPlugin {
 		);
 		registration.addRecipeTransferHandler(
 			TableSawStoneMenu.class,
-			ModBlocks.TABLE_SAW_STONE_MENU,
+			ModBlocksRegisterFactory.TABLE_SAW_STONE_MENU,
 			TableSawStoneRecipeCategory.TABLE_SAWING_STONE,
 			0,
 			1,
@@ -152,38 +151,38 @@ public class JeiIntegration implements IModPlugin {
 	}
 	
 	@Override
-	public void registerRecipeCatalysts( IRecipeCatalystRegistration registration ) {
+	public void registerRecipeCatalysts( @NotNull IRecipeCatalystRegistration registration ) {
 		
 		registration.addRecipeCatalyst(
-			new ItemStack( ModBlocks.DYE_CRAFTING_TABLE ),
+			new ItemStack( ModBlocksRegisterFactory.DYE_CRAFTING_TABLE ),
 			DyedRecipeCategory.DYED
 		);
 		registration.addRecipeCatalyst(
-			new ItemStack( ModBlocks.MORTAR ),
+			new ItemStack( ModBlocksRegisterFactory.MORTAR ),
 			GrindingRecipeCategory.GRINDING
 		);
 		registration.addRecipeCatalyst(
-			new ItemStack( ModBlocks.TABLE_SAW_DIAMOND ),
+			new ItemStack( ModBlocksRegisterFactory.TABLE_SAW_DIAMOND ),
 			TableSawDiamondRecipeCategory.TABLE_SAWING_DIAMOND
 		);
 		registration.addRecipeCatalyst(
-			new ItemStack( ModBlocks.TABLE_SAW_DIAMOND ),
+			new ItemStack( ModBlocksRegisterFactory.TABLE_SAW_DIAMOND ),
 			TableSawIronRecipeCategory.TABLE_SAWING_IRON
 		);
 		registration.addRecipeCatalyst(
-			new ItemStack( ModBlocks.TABLE_SAW_DIAMOND ),
+			new ItemStack( ModBlocksRegisterFactory.TABLE_SAW_DIAMOND ),
 			TableSawStoneRecipeCategory.TABLE_SAWING_STONE
 		);
 		registration.addRecipeCatalyst(
-			new ItemStack( ModBlocks.TABLE_SAW_IRON ),
+			new ItemStack( ModBlocksRegisterFactory.TABLE_SAW_IRON ),
 			TableSawIronRecipeCategory.TABLE_SAWING_IRON
 		);
 		registration.addRecipeCatalyst(
-			new ItemStack( ModBlocks.TABLE_SAW_IRON ),
+			new ItemStack( ModBlocksRegisterFactory.TABLE_SAW_IRON ),
 			TableSawStoneRecipeCategory.TABLE_SAWING_STONE
 		);
 		registration.addRecipeCatalyst(
-			new ItemStack( ModBlocks.TABLE_SAW_STONE ),
+			new ItemStack( ModBlocksRegisterFactory.TABLE_SAW_STONE ),
 			TableSawStoneRecipeCategory.TABLE_SAWING_STONE
 		);
 	}

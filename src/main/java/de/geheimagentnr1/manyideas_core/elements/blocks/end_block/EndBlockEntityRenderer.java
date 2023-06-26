@@ -2,12 +2,13 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.end_block;
 
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
+import org.jetbrains.annotations.NotNull;
 
 
 public class EndBlockEntityRenderer extends TheEndPortalRenderer<EndBlockEntity> {
 	
 	
-	public EndBlockEntityRenderer( BlockEntityRendererProvider.Context context ) {
+	public EndBlockEntityRenderer( @NotNull BlockEntityRendererProvider.Context context ) {
 		
 		super( context );
 	}

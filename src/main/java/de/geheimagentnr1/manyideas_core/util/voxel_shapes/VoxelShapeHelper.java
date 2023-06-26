@@ -4,6 +4,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -11,30 +12,22 @@ import java.util.ArrayList;
 public class VoxelShapeHelper {
 	
 	
-	public static VoxelShapeVector[] vectorsToNorthVectors( VoxelShapeVector[] vectors, Direction facing ) {
+	@NotNull
+	public static VoxelShapeVector[] vectorsToNorthVectors(
+		@NotNull VoxelShapeVector[] vectors,
+		@NotNull Direction facing ) {
 		
 		double[][] turn_matrix;
 		switch( facing ) {
-			case NORTH:
+			case NORTH -> {
 				return vectors;
-			case EAST:
-				turn_matrix = createYturnMatrix( 90 );
-				break;
-			case SOUTH:
-				turn_matrix = createYturnMatrix( 180 );
-				break;
-			case WEST:
-				turn_matrix = createYturnMatrix( 270 );
-				break;
-			case UP:
-				turn_matrix = createXturnMatrix( -90 );
-				break;
-			case DOWN:
-				turn_matrix = createXturnMatrix( 90 );
-				break;
-			default:
-				turn_matrix = createYturnMatrix( 0 );
-				break;
+			}
+			case EAST -> turn_matrix = createYturnMatrix( 90 );
+			case SOUTH -> turn_matrix = createYturnMatrix( 180 );
+			case WEST -> turn_matrix = createYturnMatrix( 270 );
+			case UP -> turn_matrix = createXturnMatrix( -90 );
+			case DOWN -> turn_matrix = createXturnMatrix( 90 );
+			default -> turn_matrix = createYturnMatrix( 0 );
 		}
 		return turnVoxelShapeVectors( vectors, turn_matrix );
 	}
@@ -81,7 +74,10 @@ public class VoxelShapeHelper {
 		};
 	}
 	
-	private static VoxelShapeVector[] turnVoxelShapeVectors( VoxelShapeVector[] vectors, double[][] turn_matrix ) {
+	@NotNull
+	private static VoxelShapeVector[] turnVoxelShapeVectors(
+		@NotNull VoxelShapeVector[] vectors,
+		double[][] turn_matrix ) {
 		
 		VoxelShapeVector[] turned_vectors = new VoxelShapeVector[vectors.length];
 		for( int i = 0; i < vectors.length; i++ ) {
@@ -90,7 +86,8 @@ public class VoxelShapeHelper {
 		return turned_vectors;
 	}
 	
-	private static VoxelShapeVector turnVoxelShapeVector( VoxelShapeVector vector, double[][] turn_matrix ) {
+	@NotNull
+	private static VoxelShapeVector turnVoxelShapeVector( @NotNull VoxelShapeVector vector, double[][] turn_matrix ) {
 		
 		double[] vector1 = new double[] { vector.x1, vector.y1, vector.z1 };
 		double[] vector2 = new double[] { vector.x2, vector.y2, vector.z2 };
@@ -113,33 +110,39 @@ public class VoxelShapeHelper {
 		return new double[] { x, y, z };
 	}
 	
-	public static VoxelShapeVector[] eastVectors( VoxelShapeVector[] vectors ) {
+	@NotNull
+	public static VoxelShapeVector[] eastVectors( @NotNull VoxelShapeVector[] vectors ) {
 		
 		return turnVoxelShapeVectors( vectors, createYturnMatrix( -90 ) );
 	}
 	
-	public static VoxelShapeVector[] southVectors( VoxelShapeVector[] vectors ) {
+	@NotNull
+	public static VoxelShapeVector[] southVectors( @NotNull VoxelShapeVector[] vectors ) {
 		
 		return turnVoxelShapeVectors( vectors, createYturnMatrix( -180 ) );
 	}
 	
-	public static VoxelShapeVector[] westVectors( VoxelShapeVector[] vectors ) {
+	@NotNull
+	public static VoxelShapeVector[] westVectors( @NotNull VoxelShapeVector[] vectors ) {
 		
 		return turnVoxelShapeVectors( vectors, createYturnMatrix( -270 ) );
 	}
 	
-	public static VoxelShapeVector[] upVectors( VoxelShapeVector[] vectors ) {
+	@NotNull
+	public static VoxelShapeVector[] upVectors( @NotNull VoxelShapeVector[] vectors ) {
 		
 		return turnVoxelShapeVectors( vectors, createXturnMatrix( 90 ) );
 	}
 	
-	public static VoxelShapeVector[] downVectors( VoxelShapeVector[] vectors ) {
+	@NotNull
+	public static VoxelShapeVector[] downVectors( @NotNull VoxelShapeVector[] vectors ) {
 		
 		return turnVoxelShapeVectors( vectors, createXturnMatrix( -90 ) );
 	}
 	
 	@SuppressWarnings( "WeakerAccess" )
-	public static VoxelShape vectorsToVoxelShape( VoxelShapeVector[] vectors ) {
+	@NotNull
+	public static VoxelShape vectorsToVoxelShape( @NotNull VoxelShapeVector[] vectors ) {
 		
 		ArrayList<VoxelShape> shapes = new ArrayList<>();
 		for( VoxelShapeVector vector : vectors ) {

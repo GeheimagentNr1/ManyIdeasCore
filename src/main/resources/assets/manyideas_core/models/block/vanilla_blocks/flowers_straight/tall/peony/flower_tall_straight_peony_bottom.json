@@ -1,0 +1,4 @@
+{
+	"parent":   "minecraft:block/peony_bottom",
+	"render_type": "minecraft:translucent"
+}

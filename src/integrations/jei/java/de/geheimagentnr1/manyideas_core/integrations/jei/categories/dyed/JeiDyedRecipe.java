@@ -2,13 +2,14 @@ package de.geheimagentnr1.manyideas_core.integrations.jei.categories.dyed;
 
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlockItem;
-import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
+import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.ColorIngredient;
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedRecipe;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,17 +21,20 @@ import java.util.stream.Collectors;
 public class JeiDyedRecipe {
 	
 	
+	@NotNull
 	private final List<List<ItemStack>> inputs;
 	
+	@NotNull
 	private final ItemStack result;
 	
-	private JeiDyedRecipe( List<List<ItemStack>> _inputs, ItemStack _result ) {
+	private JeiDyedRecipe( @NotNull List<List<ItemStack>> _inputs, @NotNull ItemStack _result ) {
 		
 		inputs = _inputs;
 		result = _result;
 	}
 	
-	private static ArrayList<JeiDyedRecipe> create( DyedRecipe recipe ) {
+	@NotNull
+	private static ArrayList<JeiDyedRecipe> create( @NotNull DyedRecipe recipe ) {
 		
 		ArrayList<JeiDyedRecipe> recipes = new ArrayList<>();
 		
@@ -66,10 +70,11 @@ public class JeiDyedRecipe {
 		return recipes;
 	}
 	
+	@NotNull
 	public static List<JeiDyedRecipe> getRecipes() {
 		
 		return Optional.ofNullable( Minecraft.getInstance().level )
-			.map( clientWorld -> clientWorld.getRecipeManager().getAllRecipesFor( RecipeTypes.DYED ) )
+			.map( clientWorld -> clientWorld.getRecipeManager().getAllRecipesFor( ModRecipeTypesRegisterFactory.DYED ) )
 			.orElseGet( ArrayList::new )
 			.stream()
 			.map( JeiDyedRecipe::create )
@@ -78,11 +83,13 @@ public class JeiDyedRecipe {
 	}
 	
 	//package-private
+	@NotNull
 	List<List<ItemStack>> getInputs() {
 		
 		return inputs;
 	}
 	
+	@NotNull
 	public ItemStack getResult() {
 		
 		return result;

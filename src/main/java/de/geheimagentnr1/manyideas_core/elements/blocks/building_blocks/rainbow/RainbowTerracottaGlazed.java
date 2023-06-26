@@ -1,17 +1,17 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.rainbow;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
-import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
+import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.GlazedTerracottaBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import org.jetbrains.annotations.NotNull;
 
 
 public class RainbowTerracottaGlazed extends GlazedTerracottaBlock implements BlockItemInterface {
 	
 	
+	@NotNull
 	public static final String registry_name = "rainbow_terracotta_glazed";
 	
 	public RainbowTerracottaGlazed() {
@@ -21,11 +21,5 @@ public class RainbowTerracottaGlazed extends GlazedTerracottaBlock implements Bl
 			.strength( 1.4F )
 			.requiresCorrectToolForDrops()
 			.sound( SoundType.STONE ) );
-	}
-	
-	@Override
-	public Item getBlockItem( Item.Properties _properties ) {
-		
-		return createBlockItem( ModBlocks.RAINBOW_TERRACOTTA_GLAZED, _properties, registry_name );
 	}
 }

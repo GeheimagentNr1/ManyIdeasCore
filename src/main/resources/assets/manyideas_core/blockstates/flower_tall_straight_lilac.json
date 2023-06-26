@@ -1,6 +1,6 @@
 {
 	"variants": {
-		"half=lower": { "model": "minecraft:block/lilac_bottom" },
-		"half=upper": { "model": "minecraft:block/lilac_top" }
+		"half=lower": { "model": "manyideas_core:block/vanilla_blocks/flowers_straight/tall/lilac/flower_tall_straight_lilac_bottom" },
+		"half=upper": { "model": "manyideas_core:block/vanilla_blocks/flowers_straight/tall/lilac/flower_tall_straight_lilac_top" }
 	}
 }

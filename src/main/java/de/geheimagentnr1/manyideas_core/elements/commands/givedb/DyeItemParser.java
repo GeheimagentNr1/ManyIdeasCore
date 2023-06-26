@@ -11,6 +11,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.Set;
@@ -23,17 +24,21 @@ import java.util.function.Function;
 class DyeItemParser {
 	
 	
+	@NotNull
 	private static final DynamicCommandExceptionType ITEM_BAD_ID =
 		new DynamicCommandExceptionType( function -> Component.translatable(
 			"argument.item.id.invalid",
 			function
 		) );
 	
+	@NotNull
 	private static final Function<SuggestionsBuilder, CompletableFuture<Suggestions>> DEFAULT_SUGGESTIONS_BUILDER =
 		SuggestionsBuilder::buildFuture;
 	
+	@NotNull
 	private static final Set<ResourceLocation> KEY_SET = getDyeItemKeySet();
 	
+	@NotNull
 	private final StringReader reader;
 	
 	private Item item;
@@ -41,13 +46,14 @@ class DyeItemParser {
 	private Function<SuggestionsBuilder, CompletableFuture<Suggestions>> suggestionsBuilder;
 	
 	//package-private
-	DyeItemParser( StringReader _reader ) {
+	DyeItemParser( @NotNull StringReader _reader ) {
 		
 		suggestionsBuilder = DEFAULT_SUGGESTIONS_BUILDER;
 		reader = _reader;
 	}
 	
 	@SuppressWarnings( "deprecation" )
+	@NotNull
 	private static Set<ResourceLocation> getDyeItemKeySet() {
 		
 		Set<ResourceLocation> keySet = new TreeSet<>();
@@ -76,7 +82,8 @@ class DyeItemParser {
 	}
 	
 	@SuppressWarnings( "deprecation" )
-	private Optional<Item> getItemForRegistry( ResourceLocation resourceLocation ) {
+	@NotNull
+	private Optional<Item> getItemForRegistry( @NotNull ResourceLocation resourceLocation ) {
 		
 		Optional<Item> optional = BuiltInRegistries.ITEM.getOptional( resourceLocation );
 		
@@ -93,6 +100,7 @@ class DyeItemParser {
 	
 	//package-private
 	@SuppressWarnings( "ReturnOfThis" )
+	@NotNull
 	DyeItemParser parse() throws CommandSyntaxException {
 		
 		suggestionsBuilder = this::suggestTagOrItem;
@@ -102,18 +110,21 @@ class DyeItemParser {
 		return this;
 	}
 	
-	private CompletableFuture<Suggestions> suggestItem( SuggestionsBuilder builder ) {
+	@NotNull
+	private CompletableFuture<Suggestions> suggestItem( @NotNull SuggestionsBuilder builder ) {
 		
 		return builder.buildFuture();
 	}
 	
-	private CompletableFuture<Suggestions> suggestTagOrItem( SuggestionsBuilder builder ) {
+	@NotNull
+	private CompletableFuture<Suggestions> suggestTagOrItem( @NotNull SuggestionsBuilder builder ) {
 		
 		return SharedSuggestionProvider.suggestResource( KEY_SET, builder );
 	}
 	
 	//package-private
-	CompletableFuture<Suggestions> fillSuggestions( SuggestionsBuilder builder ) {
+	@NotNull
+	CompletableFuture<Suggestions> fillSuggestions( @NotNull SuggestionsBuilder builder ) {
 		
 		return suggestionsBuilder.apply( builder.createOffset( reader.getCursor() ) );
 	}

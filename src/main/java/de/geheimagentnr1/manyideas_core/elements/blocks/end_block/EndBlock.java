@@ -1,11 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.end_block;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
-import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
-import net.minecraft.client.renderer.RenderType;
+import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
@@ -13,14 +9,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
-public class EndBlock extends BaseEntityBlock implements BlockItemInterface, BlockRenderTypeInterface {
+public class EndBlock extends BaseEntityBlock implements BlockItemInterface {
 	
 	
+	@NotNull
 	public static final String registry_name = "end_block";
 	
 	public EndBlock() {
@@ -34,29 +31,17 @@ public class EndBlock extends BaseEntityBlock implements BlockItemInterface, Blo
 			.sound( SoundType.GLASS ) );
 	}
 	
+	@NotNull
 	@Override
-	public RenderType getRenderType() {
-		
-		return RenderType.cutout();
-	}
-	
-	@Nonnull
-	@Override
-	public RenderShape getRenderShape( @Nonnull BlockState state ) {
+	public RenderShape getRenderShape( @NotNull BlockState state ) {
 		
 		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 	
 	@Nullable
 	@Override
-	public BlockEntity newBlockEntity( @Nonnull BlockPos pos, @Nonnull BlockState state ) {
+	public BlockEntity newBlockEntity( @NotNull BlockPos pos, @NotNull BlockState state ) {
 		
 		return new EndBlockEntity( pos, state );
-	}
-	
-	@Override
-	public Item getBlockItem( Item.Properties _properties ) {
-		
-		return createBlockItem( ModBlocks.END_BLOCK, _properties, registry_name );
 	}
 }

@@ -19,7 +19,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 
@@ -45,7 +45,7 @@ public class PotteryWheel extends Block implements BlockItemInterface {
 		setRegistryName( registry_name );
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public BlockRenderLayer getRenderLayer() {
 		
@@ -53,10 +53,10 @@ public class PotteryWheel extends Block implements BlockItemInterface {
 	}
 	
 	@SuppressWarnings( "deprecation" )
-	@Nonnull
+	@NotNull
 	@Override
-	public VoxelShape getShape( BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
-		@Nonnull ISelectionContext context ) {
+	public VoxelShape getShape( BlockState state, @NotNull IBlockReader worldIn, @NotNull BlockPos pos,
+		@NotNull ISelectionContext context ) {
 		
 		return SHAPES.getShapeFromHorizontalFacing( state.get( BlockStateProperties.HORIZONTAL_FACING ) );
 	}

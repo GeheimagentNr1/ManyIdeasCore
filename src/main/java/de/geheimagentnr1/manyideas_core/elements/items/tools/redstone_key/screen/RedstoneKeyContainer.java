@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen;
 
-import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
+import de.geheimagentnr1.manyideas_core.elements.items.ModItemsRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces.RedstoneKeyable;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
 import net.minecraft.client.Minecraft;
@@ -13,8 +13,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,25 +23,29 @@ import java.util.Objects;
 public class RedstoneKeyContainer extends AbstractContainerMenu {
 	
 	
+	@NotNull
 	private final ResourceLocation icons;
 	
+	@NotNull
 	private final BlockPos pos;
 	
+	@NotNull
 	private final RedstoneKeyable redstoneKeyableBlock;
 	
+	@NotNull
 	private final List<Option> options;
 	
 	private int selectedIndex;
 	
 	public RedstoneKeyContainer(
-		int menuId,
-		ResourceLocation _icons,
-		BlockPos _pos,
-		RedstoneKeyable _redstoneKeyableBlock,
-		List<Option> _options,
+		int windowId,
+		@NotNull ResourceLocation _icons,
+		@NotNull BlockPos _pos,
+		@NotNull RedstoneKeyable _redstoneKeyableBlock,
+		@NotNull List<Option> _options,
 		int _selectedIndex ) {
 		
-		super( ModItems.RESTONE_KEY_CONTAINER, menuId );
+		super( ModItemsRegisterFactory.RESTONE_KEY_CONTAINER, windowId );
 		icons = _icons;
 		pos = _pos;
 		redstoneKeyableBlock = _redstoneKeyableBlock;
@@ -49,9 +53,9 @@ public class RedstoneKeyContainer extends AbstractContainerMenu {
 		selectedIndex = _selectedIndex;
 	}
 	
-	public RedstoneKeyContainer( int menuId, FriendlyByteBuf data ) {
+	public RedstoneKeyContainer( int windowId, @NotNull FriendlyByteBuf data ) {
 		
-		super( ModItems.RESTONE_KEY_CONTAINER, menuId );
+		super( ModItemsRegisterFactory.RESTONE_KEY_CONTAINER, windowId );
 		icons = data.readResourceLocation();
 		pos = data.readBlockPos();
 		redstoneKeyableBlock = (RedstoneKeyable)Objects.requireNonNull( Minecraft.getInstance().level )
@@ -65,24 +69,26 @@ public class RedstoneKeyContainer extends AbstractContainerMenu {
 		selectedIndex = data.readInt();
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack quickMoveStack( @Nonnull Player player, int index ) {
+	public ItemStack quickMoveStack( @NotNull Player player, int index ) {
 		
 		return ItemStack.EMPTY;
 	}
 	
 	@Override
-	public boolean stillValid( @Nonnull Player player ) {
+	public boolean stillValid( @NotNull Player player ) {
 		
 		return true;
 	}
 	
+	@NotNull
 	public ResourceLocation getIcons() {
 		
 		return icons;
 	}
 	
+	@NotNull
 	public List<Option> getOptions() {
 		
 		return options;
@@ -98,7 +104,7 @@ public class RedstoneKeyContainer extends AbstractContainerMenu {
 		selectedIndex = _selected;
 	}
 	
-	public void setBlockStateValue( Level level, int stateIndex, Player player ) {
+	public void setBlockStateValue( @NotNull Level level, int stateIndex, @NotNull Player player ) {
 		
 		selectedIndex = stateIndex;
 		BlockState state = level.getBlockState( pos );

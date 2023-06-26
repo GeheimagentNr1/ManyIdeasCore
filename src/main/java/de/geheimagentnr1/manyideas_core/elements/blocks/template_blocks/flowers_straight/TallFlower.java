@@ -1,23 +1,16 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.flowers_straight;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.TallFlowerBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import org.jetbrains.annotations.NotNull;
 
 
 @SuppressWarnings( "AbstractClassExtendsConcreteClass" )
-public abstract class TallFlower extends TallFlowerBlock implements FlowerBlockItemInterface, BlockRenderTypeInterface {
+public abstract class TallFlower extends TallFlowerBlock implements FlowerBlockItemInterface {
 	
 	
-	protected TallFlower( BlockBehaviour.Properties _properties ) {
+	protected TallFlower( @NotNull BlockBehaviour.Properties _properties ) {
 		
 		super( _properties );
-	}
-	
-	@Override
-	public RenderType getRenderType() {
-		
-		return RenderType.cutout();
 	}
 }

@@ -9,27 +9,32 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import org.jetbrains.annotations.NotNull;
 
 
 public class DyeBlockHelper {
 	
 	
+	@NotNull
 	private static final String dyeNBTname = "dye";
 	
+	@NotNull
 	private static final String colorNBTname = "color";
 	
-	private static String getColorNameFromStack( ItemStack stack ) {
+	private static String getColorNameFromStack( @NotNull ItemStack stack ) {
 		
 		return stack.getOrCreateTagElement( dyeNBTname ).getString( colorNBTname );
 	}
 	
-	public static String getColorName( ItemStack stack ) {
+	@NotNull
+	public static String getColorName( @NotNull ItemStack stack ) {
 		
 		String color = getColorNameFromStack( stack );
 		return color.isEmpty() ? Color.WHITE.getSerializedName() : color;
 	}
 	
-	public static Color getColor( ItemStack stack ) {
+	@NotNull
+	public static Color getColor( @NotNull ItemStack stack ) {
 		
 		String colorName = getColorName( stack );
 		if( colorName.isEmpty() ) {
@@ -46,13 +51,15 @@ public class DyeBlockHelper {
 		return resultColor;
 	}
 	
-	public static ItemStack setColorToItemStack( ItemStack stack, Color color ) {
+	@NotNull
+	public static ItemStack setColorToItemStack( @NotNull ItemStack stack, @NotNull Color color ) {
 		
 		stack.getOrCreateTagElement( dyeNBTname ).putString( colorNBTname, color.getSerializedName() );
 		return stack;
 	}
 	
-	public static BlockState getStateForPlacement( DyeBlock block, BlockPlaceContext context ) {
+	@NotNull
+	public static BlockState getStateForPlacement( @NotNull DyeBlock block, @NotNull BlockPlaceContext context ) {
 		
 		return block.defaultBlockState().setValue(
 			ModBlockStateProperties.COLOR,
@@ -60,17 +67,19 @@ public class DyeBlockHelper {
 		);
 	}
 	
-	public static void createBlockStateDefinition( StateDefinition.Builder<Block, BlockState> builder ) {
+	public static void createBlockStateDefinition( @NotNull StateDefinition.Builder<Block, BlockState> builder ) {
 		
 		builder.add( ModBlockStateProperties.COLOR );
 	}
 	
-	public static ItemStack getItem( DyeBlock block, BlockState state ) {
+	@NotNull
+	public static ItemStack getItem( @NotNull DyeBlock block, @NotNull BlockState state ) {
 		
 		return setColorToItemStack( new ItemStack( block ), state.getValue( ModBlockStateProperties.COLOR ) );
 	}
 	
-	public static ItemStack createItemStackOfItem( Item item, Color color ) {
+	@NotNull
+	public static ItemStack createItemStackOfItem( @NotNull Item item, @NotNull Color color ) {
 		
 		return setColorToItemStack( new ItemStack( item ), color );
 	}

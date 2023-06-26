@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.multi_block;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -18,8 +18,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.PushReaction;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
@@ -34,7 +34,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	
 	protected IntegerProperty Z_SIZE;
 	
-	protected MultiBlock( BlockBehaviour.Properties _properties ) {
+	protected MultiBlock( @NotNull BlockBehaviour.Properties _properties ) {
 		
 		super( _properties.pushReaction( PushReaction.BLOCK ) );
 	}
@@ -47,6 +47,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	
 	protected abstract boolean[][][] hasBlockStatesAtPos();
 	
+	@NotNull
 	protected BlockState getDefaultState( boolean left_sided ) {
 		
 		return defaultBlockState();
@@ -54,7 +55,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement( BlockPlaceContext context ) {
+	public BlockState getStateForPlacement( @NotNull BlockPlaceContext context ) {
 		
 		BlockPos pos = context.getClickedPos();
 		Direction facing = context.getHorizontalDirection();
@@ -78,7 +79,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 		}
 	}
 	
-	private static boolean shouldSideBeLeft( Direction direction, Player player ) {
+	private static boolean shouldSideBeLeft( @NotNull Direction direction, @NotNull Player player ) {
 		
 		float player_yaw_degree = player.getViewYRot( 1.0F ) * (float)( Math.PI / 180.0 );
 		
@@ -91,7 +92,11 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 		};
 	}
 	
-	private boolean isPlaceFree( Level level, BlockPos pos, Direction facing, BlockPlaceContext context ) {
+	private boolean isPlaceFree(
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Direction facing,
+		@NotNull BlockPlaceContext context ) {
 		
 		return calculateForBlocks(
 			level,
@@ -120,11 +125,11 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	
 	@Override
 	public void setPlacedBy(
-		@Nonnull Level level,
-		@Nonnull BlockPos pos,
-		@Nonnull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull BlockState state,
 		@Nullable LivingEntity placer,
-		@Nonnull ItemStack stack ) {
+		@NotNull ItemStack stack ) {
 		
 		int z_index = getSize( state, Z_SIZE );
 		if( z_index != 0 ) {
@@ -148,10 +153,10 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	
 	@Override
 	public void playerWillDestroy(
-		@Nonnull Level level,
-		@Nonnull BlockPos pos,
-		@Nonnull BlockState state,
-		@Nonnull Player player ) {
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull BlockState state,
+		@NotNull Player player ) {
 		
 		runForBlocks(
 			level,
@@ -187,7 +192,11 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	}
 	
 	@Override
-	public void onBlockExploded( BlockState state, Level level, BlockPos pos, Explosion explosion ) {
+	public void onBlockExploded(
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Explosion explosion ) {
 		
 		runForBlocks(
 			level,
@@ -212,10 +221,10 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	@SuppressWarnings( "deprecation" )
 	@Override
 	public void onRemove(
-		@Nonnull BlockState state,
-		@Nonnull Level level,
-		@Nonnull BlockPos pos,
-		@Nonnull BlockState newState,
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull BlockState newState,
 		boolean isMoving ) {
 		
 		if( newState.getBlock() != this ) {
@@ -233,7 +242,8 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 		}
 	}
 	
-	protected BlockPos getZeroPos( BlockState state, BlockPos pos ) {
+	@NotNull
+	protected BlockPos getZeroPos( @NotNull BlockState state, @NotNull BlockPos pos ) {
 		
 		Direction facing = state.getValue( BlockStateProperties.HORIZONTAL_FACING );
 		pos = pos.relative( facing.getOpposite(), getSize( state, X_SIZE ) );
@@ -242,16 +252,16 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 		return pos;
 	}
 	
-	protected boolean checkBlockAtPos( Level level, BlockPos pos, boolean checkIsBlockAtPos ) {
+	protected boolean checkBlockAtPos( @NotNull Level level, @NotNull BlockPos pos, boolean checkIsBlockAtPos ) {
 		
 		return !checkIsBlockAtPos || level.getBlockState( pos ).getBlock() == this;
 	}
 	
 	protected void runForBlocks(
-		Level level,
-		BlockPos pos,
-		Direction facing,
-		MultiBlockRunner runner,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Direction facing,
+		@NotNull MultiBlockRunner runner,
 		boolean checkIsBlockAtPos ) {
 		
 		boolean[][][] hasStatesAtPos = hasBlockStatesAtPos();
@@ -272,10 +282,10 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	}
 	
 	private <T> T calculateForBlocks(
-		Level level,
-		BlockPos pos,
-		Direction facing,
-		MultiBlockCalculater<T> calculater,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Direction facing,
+		@NotNull MultiBlockCalculater<T> calculater,
 		boolean checkIsBlockAtPos ) {
 		
 		boolean[][][] hasStatesAtPos = hasBlockStatesAtPos();
@@ -299,7 +309,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 		return calculater.getAlternative();
 	}
 	
-	protected boolean isPowered( Level level, BlockPos zeroPos, Direction facing ) {
+	protected boolean isPowered( @NotNull Level level, @NotNull BlockPos zeroPos, @NotNull Direction facing ) {
 		
 		return calculateForBlocks(
 			level,
@@ -327,7 +337,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 		);
 	}
 	
-	private int getSize( BlockState state, IntegerProperty property ) {
+	private int getSize( @NotNull BlockState state, @NotNull IntegerProperty property ) {
 		
 		if( state.hasProperty( property ) ) {
 			return state.getValue( property );
@@ -335,7 +345,8 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 		return 0;
 	}
 	
-	private BlockState withSize( BlockState state, IntegerProperty property, int value ) {
+	@NotNull
+	private BlockState withSize( @NotNull BlockState state, @NotNull IntegerProperty property, int value ) {
 		
 		if( state.hasProperty( property ) ) {
 			return state.setValue( property, value );
@@ -344,7 +355,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	}
 	
 	@Override
-	protected void createBlockStateDefinition( StateDefinition.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( @NotNull StateDefinition.Builder<Block, BlockState> builder ) {
 		
 		builder.add( BlockStateProperties.HORIZONTAL_FACING );
 		if( getXSize() > 1 ) {

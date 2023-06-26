@@ -1,7 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
-import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
+import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory;
+import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedRecipe;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,8 +11,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -20,27 +20,31 @@ import java.util.Optional;
 public class DyeCraftingTableMenu extends AbstractContainerMenu {
 	
 	
+	@NotNull
 	private final CraftingContainer craftingContainer;
 	
+	@NotNull
 	private final ResultContainer resultContainer;
 	
+	@NotNull
 	private final ContainerLevelAccess containerLevelAccess;
 	
+	@NotNull
 	private final Player player;
 	
-	public DyeCraftingTableMenu( int containerID, Inventory inventory ) {
+	public DyeCraftingTableMenu( int windowId, @NotNull Inventory inventory ) {
 		
-		this( containerID, inventory, ContainerLevelAccess.NULL );
+		this( windowId, inventory, ContainerLevelAccess.NULL );
 	}
 	
 	//package-private
 	@SuppressWarnings( { "OverridableMethodCallDuringObjectConstruction", "ThisEscapedInObjectConstruction" } )
 	DyeCraftingTableMenu(
-		int containerID,
-		Inventory inventory,
-		ContainerLevelAccess _containerLevelAccess ) {
+		int windowId,
+		@NotNull Inventory inventory,
+		@NotNull ContainerLevelAccess _containerLevelAccess ) {
 		
-		super( ModBlocks.DYE_CRAFTING_TABLE_MENU, containerID );
+		super( ModBlocksRegisterFactory.DYE_CRAFTING_TABLE_MENU, windowId );
 		craftingContainer = new TransientCraftingContainer( this, 3, 3 );
 		resultContainer = new ResultContainer();
 		containerLevelAccess = _containerLevelAccess;
@@ -69,18 +73,18 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 	}
 	
 	private static void changeCaftingSlot(
-		AbstractContainerMenu menu,
-		Level level,
-		Player player,
-		CraftingContainer craftingContainer,
-		ResultContainer resultContainer ) {
+		@NotNull AbstractContainerMenu menu,
+		@NotNull Level level,
+		@NotNull Player player,
+		@NotNull CraftingContainer craftingContainer,
+		@NotNull ResultContainer resultContainer ) {
 		
 		if( !level.isClientSide() ) {
 			ServerPlayer serverPlayer = (ServerPlayer)player;
 			ItemStack stack = ItemStack.EMPTY;
 			Optional<DyedRecipe> recipeOptional =
 				Objects.requireNonNull( level.getServer() ).getRecipeManager().getRecipeFor(
-					RecipeTypes.DYED,
+					ModRecipeTypesRegisterFactory.DYED,
 					craftingContainer,
 					level
 				);
@@ -100,7 +104,7 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 	}
 	
 	@Override
-	public void slotsChanged( @Nonnull Container container ) {
+	public void slotsChanged( @NotNull Container container ) {
 		
 		containerLevelAccess.execute( ( level, pos ) -> changeCaftingSlot(
 			this,
@@ -112,21 +116,21 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 	}
 	
 	@Override
-	public void removed( @Nonnull Player _player ) {
+	public void removed( @NotNull Player _player ) {
 		
 		super.removed( _player );
 		containerLevelAccess.execute( ( level, pos ) -> clearContainer( _player, craftingContainer ) );
 	}
 	
 	@Override
-	public boolean stillValid( @Nonnull Player _player ) {
+	public boolean stillValid( @NotNull Player _player ) {
 		
-		return stillValid( containerLevelAccess, _player, ModBlocks.DYE_CRAFTING_TABLE );
+		return stillValid( containerLevelAccess, _player, ModBlocksRegisterFactory.DYE_CRAFTING_TABLE );
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack quickMoveStack( @Nonnull Player _player, int index ) {
+	public ItemStack quickMoveStack( @NotNull Player _player, int index ) {
 		
 		ItemStack resultStack = ItemStack.EMPTY;
 		Slot slot = slots.get( index );
@@ -173,7 +177,7 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 	}
 	
 	@Override
-	public boolean canTakeItemForPickAll( @Nonnull ItemStack stack, Slot slot ) {
+	public boolean canTakeItemForPickAll( @NotNull ItemStack stack, @NotNull Slot slot ) {
 		
 		return slot.container != resultContainer;
 	}

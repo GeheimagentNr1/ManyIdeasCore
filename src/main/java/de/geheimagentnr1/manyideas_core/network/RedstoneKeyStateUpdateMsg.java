@@ -4,6 +4,7 @@ import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.PacketDistributor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -20,24 +21,28 @@ public class RedstoneKeyStateUpdateMsg {
 	}
 	
 	//package-private
-	static RedstoneKeyStateUpdateMsg decode( FriendlyByteBuf buffer ) {
+	@NotNull
+	static RedstoneKeyStateUpdateMsg decode( @NotNull FriendlyByteBuf buffer ) {
 		
 		return new RedstoneKeyStateUpdateMsg( buffer.readInt() );
 	}
 	
 	//package-private
-	void encode( FriendlyByteBuf buffer ) {
+	void encode( @NotNull FriendlyByteBuf buffer ) {
 		
 		buffer.writeInt( stateIndex );
 	}
 	
 	public static void sendToServer( int _stateIndex ) {
 		
-		Network.CHANNEL.send( PacketDistributor.SERVER.noArg(), new RedstoneKeyStateUpdateMsg( _stateIndex ) );
+		Network.getInstance().getChannel().send(
+			PacketDistributor.SERVER.noArg(),
+			new RedstoneKeyStateUpdateMsg( _stateIndex )
+		);
 	}
 	
 	//package-private
-	void handle( Supplier<NetworkEvent.Context> context ) {
+	void handle( @NotNull Supplier<NetworkEvent.Context> context ) {
 		
 		Optional.ofNullable( context.get().getSender() ).ifPresent( player -> {
 			if( player.containerMenu instanceof RedstoneKeyContainer menu ) {

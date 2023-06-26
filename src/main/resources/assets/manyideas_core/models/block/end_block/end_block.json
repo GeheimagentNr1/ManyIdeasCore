@@ -1,4 +1,5 @@
 {
+	"render_type": "minecraft:cutout",
 	"textures": {
 		"particle": "manyideas_core:block/end_block/end_portal"
 	}

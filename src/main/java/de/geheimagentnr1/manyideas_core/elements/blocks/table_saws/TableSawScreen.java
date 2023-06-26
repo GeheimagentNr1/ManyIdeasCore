@@ -12,8 +12,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,6 +22,7 @@ import java.util.Objects;
 public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 	
 	
+	@NotNull
 	private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(
 		ManyIdeasCore.MODID,
 		"textures/gui/table_saws/table_saw_gui.png"
@@ -35,7 +36,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 	
 	private boolean displayRecipes;
 	
-	public TableSawScreen( TableSawMenu _menu, Inventory _inventory, Component _title ) {
+	public TableSawScreen( @NotNull TableSawMenu _menu, @NotNull Inventory _inventory, @NotNull Component _title ) {
 		
 		super( _menu, _inventory, _title );
 		_menu.setInventoryUpdateListener( this::containerChanged );
@@ -48,14 +49,14 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 	}
 	
 	@Override
-	public void render( @Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
+	public void render( @NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
 		
 		super.render( guiGraphics, mouseX, mouseY, partialTick );
 		renderTooltip( guiGraphics, mouseX, mouseY );
 	}
 	
 	@Override
-	protected void renderBg( @Nonnull GuiGraphics guiGraphics, float partialTick, int x, int y ) {
+	protected void renderBg( @NotNull GuiGraphics guiGraphics, float partialTick, int x, int y ) {
 		
 		renderBackground( guiGraphics );
 		int i = leftPos;
@@ -71,9 +72,9 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 	}
 	
 	@Override
-	protected void renderLabels( @Nonnull GuiGraphics guiGraphics, int x, int y ) {
+	protected void renderLabels( @NotNull GuiGraphics guiGraphics, int x, int y ) {
 		
-		super.renderTooltip( guiGraphics, x, y );
+		renderTooltip( guiGraphics, x, y );
 		if( displayRecipes ) {
 			int i = leftPos + 52;
 			int j = topPos + 14;
@@ -92,7 +93,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 	}
 	
 	private void renderButtons(
-		@Nonnull GuiGraphics guiGraphics,
+		@NotNull GuiGraphics guiGraphics,
 		int mouseX,
 		int mouseY,
 		int left,
@@ -118,7 +119,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 		
 	}
 	
-	private void renderRecipes( @Nonnull GuiGraphics guiGraphics, int left, int top, int recipeIndexOffsetMax ) {
+	private void renderRecipes( @NotNull GuiGraphics guiGraphics, int left, int top, int recipeIndexOffsetMax ) {
 		
 		List<TableSawRecipe> list = menu.getRecipes();
 		

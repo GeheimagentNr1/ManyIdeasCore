@@ -1,7 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
-import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
+import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -15,7 +15,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -23,16 +22,21 @@ import java.util.Optional;
 public class DyedRecipe implements Recipe<CraftingContainer> {
 	
 	
+	@NotNull
 	public static final String registry_name = "dyed";
 	
+	@NotNull
 	private final ResourceLocation id;
 	
+	@NotNull
 	private final RecipeSerializer<?> serializer;
 	
 	private final boolean shaped;
 	
+	@NotNull
 	private final NonNullList<Ingredient> ingredients;
 	
+	@NotNull
 	private final ItemStack result;
 	
 	private final int recipeWidth;
@@ -41,11 +45,11 @@ public class DyedRecipe implements Recipe<CraftingContainer> {
 	
 	//package-private
 	DyedRecipe(
-		ResourceLocation _id,
-		RecipeSerializer<?> _serializer,
+		@NotNull ResourceLocation _id,
+		@NotNull RecipeSerializer<?> _serializer,
 		boolean _shaped,
-		NonNullList<Ingredient> _ingredients,
-		ItemStack _result,
+		@NotNull NonNullList<Ingredient> _ingredients,
+		@NotNull ItemStack _result,
 		int _recipeWidth,
 		int _recipeHeight ) {
 		
@@ -59,7 +63,7 @@ public class DyedRecipe implements Recipe<CraftingContainer> {
 	}
 	
 	@Override
-	public boolean matches( @Nonnull CraftingContainer inv, @Nonnull Level level ) {
+	public boolean matches( @NotNull CraftingContainer inv, @NotNull Level level ) {
 		
 		if( findMatchingColor( inv ).isEmpty() ) {
 			return false;
@@ -92,7 +96,8 @@ public class DyedRecipe implements Recipe<CraftingContainer> {
 		}
 	}
 	
-	private Optional<Color> findMatchingColor( CraftingContainer inv ) {
+	@NotNull
+	private Optional<Color> findMatchingColor( @NotNull CraftingContainer inv ) {
 		
 		Color color = null;
 		for( Ingredient ingredient : ingredients ) {
@@ -119,9 +124,9 @@ public class DyedRecipe implements Recipe<CraftingContainer> {
 		return color == null ? Optional.empty() : Optional.of( color );
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble( @Nonnull CraftingContainer inv, @NotNull RegistryAccess registryAccess ) {
+	public ItemStack assemble( @NotNull CraftingContainer inv, @NotNull RegistryAccess registryAccess ) {
 		
 		Optional<Color> color = findMatchingColor( inv );
 		return color.map( value -> DyeBlockHelper.setColorToItemStack( result.copy(), value ) )
@@ -145,28 +150,28 @@ public class DyedRecipe implements Recipe<CraftingContainer> {
 	 * Get the result of this recipe, usually for display purposes (e.g. recipe book). If your recipe has more than one
 	 * possible result (e.g. it's dynamic and depends on its inputs), then return an empty stack.
 	 */
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getResultItem( @NotNull RegistryAccess registryAccess ) {
 		
 		return ItemStack.EMPTY;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeType<?> getType() {
 		
-		return RecipeTypes.DYED;
+		return ModRecipeTypesRegisterFactory.DYED;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getId() {
 		
 		return id;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		
@@ -179,13 +184,14 @@ public class DyedRecipe implements Recipe<CraftingContainer> {
 		return shaped;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		
 		return ingredients;
 	}
 	
+	@NotNull
 	public ItemStack getResult() {
 		
 		return result;

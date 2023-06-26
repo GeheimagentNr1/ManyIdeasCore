@@ -1,16 +1,18 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 
 import net.minecraft.world.SimpleContainer;
+import org.jetbrains.annotations.NotNull;
 
 
 //package-private
 class TableSawInputContainer extends SimpleContainer {
 	
 	
+	@NotNull
 	private final TableSawMenu tableSawMenu;
 	
 	//package-private
-	TableSawInputContainer( TableSawMenu _tableSawMenu ) {
+	TableSawInputContainer( @NotNull TableSawMenu _tableSawMenu ) {
 		
 		super( 1 );
 		tableSawMenu = _tableSawMenu;

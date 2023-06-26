@@ -7,8 +7,8 @@ import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
@@ -16,11 +16,12 @@ import javax.annotation.Nullable;
 public class DyeBlockItemPropertyGetter implements ItemPropertyFunction {
 	
 	
+	@NotNull
 	public static final ResourceLocation registry_name = new ResourceLocation( "color" );
 	
 	@Override
 	public float call(
-		@Nonnull ItemStack stack,
+		@NotNull ItemStack stack,
 		@Nullable ClientLevel level,
 		@Nullable LivingEntity livingEntity,
 		int seed ) {

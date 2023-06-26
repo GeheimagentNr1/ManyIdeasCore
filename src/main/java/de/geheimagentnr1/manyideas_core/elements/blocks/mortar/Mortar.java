@@ -1,18 +1,14 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.mortar;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
-import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
-import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
+import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeMemory;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeVector;
-import net.minecraft.client.renderer.RenderType;
+import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -27,17 +23,19 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
 
-public class Mortar extends Block implements BlockItemInterface, BlockRenderTypeInterface {
+public class Mortar extends Block implements BlockItemInterface {
 	
 	
+	@NotNull
 	public static final String registry_name = "mortar";
 	
+	@NotNull
 	private static final VoxelShapeMemory SHAPES = VoxelShapeMemory.createHorizontalVoxelShapes(
 		Direction.SOUTH,
 		VoxelShapeVector.create( 1, 0, 2, 6, 6, 7 )
@@ -52,39 +50,33 @@ public class Mortar extends Block implements BlockItemInterface, BlockRenderType
 			.sound( SoundType.STONE ) );
 	}
 	
-	@Override
-	public RenderType getRenderType() {
-		
-		return RenderType.cutout();
-	}
-	
 	@SuppressWarnings( "deprecation" )
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(
-		@Nonnull BlockState state,
-		@Nonnull BlockGetter level,
-		@Nonnull BlockPos pos,
-		@Nonnull CollisionContext context ) {
+		@NotNull BlockState state,
+		@NotNull BlockGetter level,
+		@NotNull BlockPos pos,
+		@NotNull CollisionContext context ) {
 		
 		return SHAPES.getShapeFromHorizontalFacing( state.getValue( BlockStateProperties.HORIZONTAL_FACING ) );
 	}
 	
 	@SuppressWarnings( "deprecation" )
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult use(
-		@Nonnull BlockState state,
-		@Nonnull Level level,
-		@Nonnull BlockPos pos,
-		@Nonnull Player player,
-		@Nonnull InteractionHand hand,
-		@Nonnull BlockHitResult hitResult ) {
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Player player,
+		@NotNull InteractionHand hand,
+		@NotNull BlockHitResult hitResult ) {
 		
 		ItemStack crafting_stack = player.getItemInHand( hand );
 		MortarCraftingContainer craftingInventory = new MortarCraftingContainer( crafting_stack );
 		Optional<GrindingRecipe> recipe = level.getRecipeManager().getRecipeFor(
-			RecipeTypes.GRINDING,
+			ModRecipeTypesRegisterFactory.GRINDING,
 			craftingInventory,
 			level
 		);
@@ -102,7 +94,7 @@ public class Mortar extends Block implements BlockItemInterface, BlockRenderType
 	
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement( BlockPlaceContext context ) {
+	public BlockState getStateForPlacement( @NotNull BlockPlaceContext context ) {
 		
 		return defaultBlockState().setValue(
 			BlockStateProperties.HORIZONTAL_FACING,
@@ -111,14 +103,8 @@ public class Mortar extends Block implements BlockItemInterface, BlockRenderType
 	}
 	
 	@Override
-	protected void createBlockStateDefinition( StateDefinition.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( @NotNull StateDefinition.Builder<Block, BlockState> builder ) {
 		
 		builder.add( BlockStateProperties.HORIZONTAL_FACING );
-	}
-	
-	@Override
-	public Item getBlockItem( Item.Properties _properties ) {
-		
-		return createBlockItem( ModBlocks.MORTAR, _properties, registry_name );
 	}
 }

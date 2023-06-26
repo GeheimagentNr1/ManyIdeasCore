@@ -17,12 +17,16 @@ public abstract class JeiSingleItemRecipeCategory<R extends JeiSingleItemRecipe<
 	extends JeiRecipeCategory<R> {
 	
 	
+	@NotNull
 	private static final ResourceLocation texture = new ResourceLocation(
 		ManyIdeasCore.MODID,
 		"textures/jei/gui/single_item_recipe_gui.png"
 	);
 	
-	protected JeiSingleItemRecipeCategory( IGuiHelper guiHelper, RecipeType<R> _recipeType, Block _block ) {
+	protected JeiSingleItemRecipeCategory(
+		@NotNull IGuiHelper guiHelper,
+		@NotNull RecipeType<R> _recipeType,
+		@NotNull Block _block ) {
 		
 		super( guiHelper, _recipeType, _block, guiHelper.createDrawable( texture, 0, 0, 116, 54 ) );
 	}

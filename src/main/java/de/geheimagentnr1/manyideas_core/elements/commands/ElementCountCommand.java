@@ -1,7 +1,8 @@
 package de.geheimagentnr1.manyideas_core.elements.commands;
 
-import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import de.geheimagentnr1.minecraft_forge_api.elements.commands.CommandInterface;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
@@ -11,16 +12,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 
-public class ElementCountCommand {
+class ElementCountCommand implements CommandInterface {
 	
 	
-	@SuppressWarnings( "SameReturnValue" )
-	public static void register( CommandDispatcher<CommandSourceStack> dispatcher ) {
+	@NotNull
+	@Override
+	public LiteralArgumentBuilder<CommandSourceStack> build() {
 		
 		LiteralArgumentBuilder<CommandSourceStack> elementCountCommand = Commands.literal( "element_count" );
 		elementCountCommand.executes( command -> {
@@ -45,16 +48,15 @@ public class ElementCountCommand {
 					false
 				);
 			}
-			return 1;
+			return Command.SINGLE_SUCCESS;
 		} );
-		dispatcher.register( elementCountCommand );
+		return elementCountCommand;
 	}
 	
-	@SuppressWarnings( "deprecation" )
-	private static void countItems(
-		TreeSet<String> names,
-		TreeMap<String, Integer> item_counts,
-		TreeMap<String, Integer> block_item_counts ) {
+	private void countItems(
+		@NotNull TreeSet<String> names,
+		@NotNull TreeMap<String, Integer> item_counts,
+		@NotNull TreeMap<String, Integer> block_item_counts ) {
 		
 		for( Item item : BuiltInRegistries.ITEM ) {
 			if( item instanceof BlockItem ) {
@@ -65,8 +67,8 @@ public class ElementCountCommand {
 		}
 	}
 	
-	@SuppressWarnings( "deprecation" )
-	private static TreeMap<String, Integer> countBlocks( TreeSet<String> names ) {
+	@NotNull
+	private TreeMap<String, Integer> countBlocks( @NotNull TreeSet<String> names ) {
 		
 		TreeMap<String, Integer> block_counts = new TreeMap<>();
 		
@@ -76,11 +78,11 @@ public class ElementCountCommand {
 		return block_counts;
 	}
 	
-	private static <T> void addElementToTreeMap(
-		T element,
-		Registry<T> registry,
-		TreeSet<String> names,
-		TreeMap<String, Integer> counts ) {
+	private <T> void addElementToTreeMap(
+		@NotNull T element,
+		@NotNull Registry<T> registry,
+		@NotNull TreeSet<String> names,
+		@NotNull TreeMap<String, Integer> counts ) {
 		
 		ResourceLocation resourceLocation = registry.getKey( element );
 		if( resourceLocation != null ) {

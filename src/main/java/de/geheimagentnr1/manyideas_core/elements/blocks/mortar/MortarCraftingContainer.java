@@ -3,8 +3,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.mortar;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 
 //package-private
@@ -31,21 +30,21 @@ class MortarCraftingContainer implements Container {
 		return crafting_stack.isEmpty();
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getItem( int index ) {
 		
 		return crafting_stack;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack removeItem( int index, int count ) {
 		
 		return crafting_stack;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack removeItemNoUpdate( int index ) {
 		
@@ -53,7 +52,7 @@ class MortarCraftingContainer implements Container {
 	}
 	
 	@Override
-	public void setItem( int index, @Nonnull ItemStack stack ) {
+	public void setItem( int index, @NotNull ItemStack stack ) {
 	
 	}
 	
@@ -63,7 +62,7 @@ class MortarCraftingContainer implements Container {
 	}
 	
 	@Override
-	public boolean stillValid( @Nonnull Player player ) {
+	public boolean stillValid( @NotNull Player player ) {
 		
 		return true;
 	}

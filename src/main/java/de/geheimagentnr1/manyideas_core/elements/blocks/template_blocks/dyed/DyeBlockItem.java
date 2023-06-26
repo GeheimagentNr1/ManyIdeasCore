@@ -10,14 +10,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 
 public class DyeBlockItem extends BlockItem {
 	
 	
-	public DyeBlockItem( Block block, Item.Properties _properties, String registry_name ) {
+	public DyeBlockItem( @NotNull Block block, @NotNull Item.Properties _properties ) {
 		
 		super( block, _properties );
 		//noinspection Convert2MethodRef
@@ -37,9 +36,9 @@ public class DyeBlockItem extends BlockItem {
 		);
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
-	public Component getName( @Nonnull ItemStack stack ) {
+	public Component getName( @NotNull ItemStack stack ) {
 		
 		return Component.translatable( getDescriptionId( stack ) + "_" + DyeBlockHelper.getColorName( stack ) );
 	}

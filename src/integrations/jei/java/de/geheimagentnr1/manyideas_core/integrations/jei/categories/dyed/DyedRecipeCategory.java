@@ -1,7 +1,7 @@
 package de.geheimagentnr1.manyideas_core.integrations.jei.categories.dyed;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
-import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
+import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedRecipe;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.template.JeiRecipeCategory;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -19,17 +19,24 @@ import java.util.List;
 public class DyedRecipeCategory extends JeiRecipeCategory<JeiDyedRecipe> {
 	
 	
+	@NotNull
 	public static final RecipeType<JeiDyedRecipe> DYED = RecipeType.create(
 		ManyIdeasCore.MODID,
 		DyedRecipe.registry_name,
 		JeiDyedRecipe.class
 	);
 	
+	@NotNull
 	private static final ResourceLocation texture = new ResourceLocation( "jei", "textures/gui/gui_vanilla.png" );
 	
-	public DyedRecipeCategory( IGuiHelper guiHelper ) {
+	public DyedRecipeCategory( @NotNull IGuiHelper guiHelper ) {
 		
-		super( guiHelper, DYED, ModBlocks.DYE_CRAFTING_TABLE, guiHelper.createDrawable( texture, 0, 60, 116, 54 ) );
+		super(
+			guiHelper,
+			DYED,
+			ModBlocksRegisterFactory.DYE_CRAFTING_TABLE,
+			guiHelper.createDrawable( texture, 0, 60, 116, 54 )
+		);
 	}
 	
 	@Override

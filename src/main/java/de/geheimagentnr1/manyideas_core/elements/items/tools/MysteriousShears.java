@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
+import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
@@ -21,8 +21,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.IForgeShearable;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -31,6 +31,7 @@ import java.util.Objects;
 public class MysteriousShears extends Item {
 	
 	
+	@NotNull
 	public static final String registry_name = "mysterious_shears";
 	
 	public MysteriousShears() {
@@ -39,7 +40,7 @@ public class MysteriousShears extends Item {
 	}
 	
 	@Override
-	public boolean isFoil( @Nonnull ItemStack stack ) {
+	public boolean isFoil( @NotNull ItemStack stack ) {
 		
 		return true;
 	}
@@ -49,11 +50,11 @@ public class MysteriousShears extends Item {
 	 */
 	@Override
 	public boolean mineBlock(
-		@Nonnull ItemStack stack,
-		@Nonnull Level level,
-		@Nonnull BlockState state,
-		@Nonnull BlockPos pos,
-		@Nonnull LivingEntity livingEntity ) {
+		@NotNull ItemStack stack,
+		@NotNull Level level,
+		@NotNull BlockState state,
+		@NotNull BlockPos pos,
+		@NotNull LivingEntity livingEntity ) {
 		
 		if( !level.isClientSide ) {
 			stack.hurtAndBreak( 1, livingEntity, entity -> entity.broadcastBreakEvent( EquipmentSlot.MAINHAND ) );
@@ -74,14 +75,14 @@ public class MysteriousShears extends Item {
 	}
 	
 	@Override
-	public boolean isCorrectToolForDrops( BlockState state ) {
+	public boolean isCorrectToolForDrops( @NotNull BlockState state ) {
 		
 		Block block = state.getBlock();
 		return block == Blocks.COBWEB || block == Blocks.REDSTONE_WIRE || block == Blocks.TRIPWIRE;
 	}
 	
 	@Override
-	public float getDestroySpeed( @Nonnull ItemStack stack, BlockState state ) {
+	public float getDestroySpeed( @NotNull ItemStack stack, @NotNull BlockState state ) {
 		
 		if( state.getBlock() == Blocks.COBWEB || state.is( BlockTags.LEAVES ) ) {
 			return 15.0F;
@@ -90,13 +91,13 @@ public class MysteriousShears extends Item {
 		}
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult interactLivingEntity(
-		@Nonnull ItemStack stack,
-		@Nonnull Player player,
-		@Nonnull LivingEntity target,
-		@Nonnull InteractionHand hand ) {
+		@NotNull ItemStack stack,
+		@NotNull Player player,
+		@NotNull LivingEntity target,
+		@NotNull InteractionHand hand ) {
 		
 		if( target.level().isClientSide ) {
 			return InteractionResult.PASS;
@@ -110,7 +111,7 @@ public class MysteriousShears extends Item {
 				if( shear_target instanceof Sheep && target.getCustomName() != null &&
 					target.getCustomName().getString().equals( "jeb_" ) ) {
 					drops = Collections.singletonList( new ItemStack(
-						ModBlocks.RAINBOW_WOOL,
+						ModBlocksRegisterFactory.RAINBOW_WOOL,
 						random.nextInt( 3 ) + 1
 					) );
 					( (Sheep)shear_target ).setSheared( true );

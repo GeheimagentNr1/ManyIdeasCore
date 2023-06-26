@@ -1,12 +1,13 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -15,20 +16,20 @@ import javax.annotation.Nullable;
 public abstract class AxisBlock extends Block implements BlockItemInterface {
 	
 	
-	protected AxisBlock( BlockBehaviour.Properties _properties ) {
+	protected AxisBlock( @NotNull BlockBehaviour.Properties _properties ) {
 		
 		super( _properties );
 	}
 	
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement( BlockPlaceContext context ) {
+	public BlockState getStateForPlacement( @NotNull BlockPlaceContext context ) {
 		
 		return defaultBlockState().setValue( BlockStateProperties.AXIS, context.getClickedFace().getAxis() );
 	}
 	
 	@Override
-	protected void createBlockStateDefinition( StateDefinition.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( @NotNull StateDefinition.Builder<Block, BlockState> builder ) {
 		
 		builder.add( BlockStateProperties.AXIS );
 	}

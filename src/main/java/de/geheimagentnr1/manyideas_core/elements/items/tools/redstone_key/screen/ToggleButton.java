@@ -1,6 +1,5 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
@@ -9,22 +8,24 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
 
 public class ToggleButton extends AbstractButton {
 	
 	
+	@NotNull
 	private static final ResourceLocation TOGGLE_BUTTON = new ResourceLocation(
 		ManyIdeasCore.MODID,
 		"textures/gui/redstone_key/toggle_button.png"
 	);
 	
+	@NotNull
 	private final ResourceLocation icon_textures;
 	
 	private final int iconIndex;
 	
+	@NotNull
 	private final Consumer<Boolean> onPress;
 	
 	private boolean selected;
@@ -32,9 +33,9 @@ public class ToggleButton extends AbstractButton {
 	public ToggleButton(
 		int _x,
 		int _y,
-		ResourceLocation _icon_textures,
+		@NotNull ResourceLocation _icon_textures,
 		int _iconIndex,
-		Consumer<Boolean> _onPress ) {
+		@NotNull Consumer<Boolean> _onPress ) {
 		
 		super( _x, _y, 22, 22, Component.literal( "" ) );
 		icon_textures = _icon_textures;
@@ -43,7 +44,7 @@ public class ToggleButton extends AbstractButton {
 	}
 	
 	@Override
-	public void renderWidget( @Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
+	public void renderWidget( @NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
 		
 		int textureStartindex = 0;
 		

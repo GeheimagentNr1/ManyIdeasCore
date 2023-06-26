@@ -7,23 +7,23 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 
 @OnlyIn( Dist.CLIENT )
 public class DyeCraftingTableScreen extends AbstractContainerScreen<DyeCraftingTableMenu> {
 	
 	
+	@NotNull
 	private static final ResourceLocation CRAFTING_TABLE_GUI_TEXTURES = new ResourceLocation(
 		"minecraft",
 		"textures/gui/container/crafting_table.png"
 	);
 	
 	public DyeCraftingTableScreen(
-		DyeCraftingTableMenu _menu,
-		Inventory _inventory,
-		Component _title ) {
+		@NotNull DyeCraftingTableMenu _menu,
+		@NotNull Inventory _inventory,
+		@NotNull Component _title ) {
 		
 		super( _menu, _inventory, _title );
 		initData();
@@ -35,14 +35,14 @@ public class DyeCraftingTableScreen extends AbstractContainerScreen<DyeCraftingT
 	}
 	
 	@Override
-	public void render( @Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
+	public void render( @NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
 		
 		renderBackground( guiGraphics );
 		super.render( guiGraphics, mouseX, mouseY, partialTick );
 	}
 	
 	@Override
-	protected void renderBg( @Nonnull GuiGraphics guiGraphics, float partialTick, int x, int y ) {
+	protected void renderBg( @NotNull GuiGraphics guiGraphics, float partialTick, int x, int y ) {
 		
 		guiGraphics.blit(
 			CRAFTING_TABLE_GUI_TEXTURES,

@@ -1,0 +1,4 @@
+{
+	"parent":   "minecraft:block/sunflower_top",
+	"render_type": "minecraft:translucent"
+}

@@ -7,6 +7,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -16,14 +17,14 @@ import java.util.stream.Stream;
 public class EveryDirectionBlock extends Block {
 	
 	
-	public EveryDirectionBlock( Properties _properties ) {
+	public EveryDirectionBlock( @NotNull Properties _properties ) {
 		
 		super( _properties );
 	}
 	
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement( BlockPlaceContext context ) {
+	public BlockState getStateForPlacement( @NotNull BlockPlaceContext context ) {
 		
 		return defaultBlockState().setValue(
 			ModBlockStateProperties.EVERY_DIRECTION_FACING,
@@ -110,7 +111,9 @@ public class EveryDirectionBlock extends Block {
 		);
 	}
 	
-	private Direction getNearestAllowedDirection( BlockPlaceContext context, Direction... allowedDirections ) {
+	private Direction getNearestAllowedDirection(
+		@NotNull BlockPlaceContext context,
+		@NotNull Direction... allowedDirections ) {
 		
 		List<Direction> allowedDirectionList = List.of( allowedDirections );
 		
@@ -121,7 +124,7 @@ public class EveryDirectionBlock extends Block {
 	}
 	
 	@Override
-	protected void createBlockStateDefinition( StateDefinition.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( @NotNull StateDefinition.Builder<Block, BlockState> builder ) {
 		
 		builder.add( ModBlockStateProperties.EVERY_DIRECTION_FACING );
 	}

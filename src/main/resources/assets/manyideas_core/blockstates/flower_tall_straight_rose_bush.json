@@ -1,6 +1,6 @@
 {
 	"variants": {
-		"half=lower": { "model": "minecraft:block/rose_bush_bottom" },
-		"half=upper": { "model": "minecraft:block/rose_bush_top" }
+		"half=lower": { "model": "manyideas_core:block/vanilla_blocks/flowers_straight/tall/rose_bush/flower_tall_straight_rose_bush_bottom" },
+		"half=upper": { "model": "manyideas_core:block/vanilla_blocks/flowers_straight/tall/rose_bush/flower_tall_straight_rose_bush_top" }
 	}
 }

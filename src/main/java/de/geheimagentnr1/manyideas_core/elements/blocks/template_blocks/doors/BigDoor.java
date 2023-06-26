@@ -2,9 +2,8 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.doors;
 
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.ModBlockStateProperties;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.OpenedBy;
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.multi_block.MultiBlock;
-import de.geheimagentnr1.manyideas_core.elements.items.ModItems;
+import de.geheimagentnr1.manyideas_core.elements.items.ModItemsRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces.RedstoneKeyable;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
 import de.geheimagentnr1.manyideas_core.util.doors.BigDoorsHelper;
@@ -13,7 +12,6 @@ import de.geheimagentnr1.manyideas_core.util.doors.DoorsHelper;
 import de.geheimagentnr1.manyideas_core.util.doors.OpenedByHelper;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeMemory;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeVector;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -35,30 +33,32 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 
 @SuppressWarnings( { "unused", "AbstractClassNeverImplemented" } )
-public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInterface, RedstoneKeyable {
+public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 	
 	
+	@NotNull
 	private static final VoxelShapeMemory DOORS_SHAPES = VoxelShapeMemory.createHorizontalVoxelShapes(
 		Direction.SOUTH,
 		VoxelShapeVector.create( 0, 0, 0, 16, 16, 3 )
 	);
 	
-	private BlockSetType type;
+	@NotNull
+	private final BlockSetType type;
 	
 	private boolean[][][] hasBlockstateAtPos;
 	
 	private final boolean doubleDoorActive;
 	
 	protected BigDoor(
-		BlockBehaviour.Properties _properties,
-		BlockSetType _type,
-		OpenedBy openedBy,
+		@NotNull BlockBehaviour.Properties _properties,
+		@NotNull BlockSetType _type,
+		@NotNull OpenedBy openedBy,
 		boolean _doubleDoorActive ) {
 		
 		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ) );
@@ -71,20 +71,14 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 		doubleDoorActive = _doubleDoorActive;
 	}
 	
-	@Override
-	public RenderType getRenderType() {
-		
-		return RenderType.cutout();
-	}
-	
 	@SuppressWarnings( "deprecation" )
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getShape(
-		@Nonnull BlockState state,
-		@Nonnull BlockGetter level,
-		@Nonnull BlockPos pos,
-		@Nonnull CollisionContext context ) {
+		@NotNull BlockState state,
+		@NotNull BlockGetter level,
+		@NotNull BlockPos pos,
+		@NotNull CollisionContext context ) {
 		
 		Direction facing = state.getValue( BlockStateProperties.HORIZONTAL_FACING );
 		if( state.getValue( BlockStateProperties.OPEN ) ) {
@@ -122,6 +116,7 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 		return hasBlockstateAtPos;
 	}
 	
+	@NotNull
 	@Override
 	protected BlockState getDefaultState( boolean left_sided ) {
 		
@@ -131,23 +126,24 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 		);
 	}
 	
-	protected BlockPos getZeroPos( BlockData blockData ) {
+	@NotNull
+	protected BlockPos getZeroPos( @NotNull BlockData blockData ) {
 		
 		return getZeroPos( blockData.getState(), blockData.getPos() );
 	}
 	
 	@SuppressWarnings( "deprecation" )
-	@Nonnull
+	@NotNull
 	@Override
 	public InteractionResult use(
-		@Nonnull BlockState state,
-		@Nonnull Level level,
-		@Nonnull BlockPos pos,
-		@Nonnull Player player,
-		@Nonnull InteractionHand hand,
-		@Nonnull BlockHitResult hitResult ) {
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Player player,
+		@NotNull InteractionHand hand,
+		@NotNull BlockHitResult hitResult ) {
 		
-		if( player.getItemInHand( hand ).getItem() != ModItems.RESTONE_KEY &&
+		if( player.getItemInHand( hand ).getItem() != ModItemsRegisterFactory.RESTONE_KEY &&
 			OpenedByHelper.canBeOpened( state, true ) ) {
 			boolean open = !state.getValue( BlockStateProperties.OPEN );
 			Direction facing = state.getValue( BlockStateProperties.HORIZONTAL_FACING );
@@ -194,11 +190,11 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	@SuppressWarnings( "deprecation" )
 	@Override
 	public void neighborChanged(
-		@Nonnull BlockState state,
-		@Nonnull Level level,
-		@Nonnull BlockPos pos,
-		@Nonnull Block block,
-		@Nonnull BlockPos fromPos,
+		@NotNull BlockState state,
+		@NotNull Level level,
+		@NotNull BlockPos pos,
+		@NotNull Block block,
+		@NotNull BlockPos fromPos,
 		boolean isMoving ) {
 		
 		if( block != this && OpenedByHelper.canBeOpened( state, false ) ) {
@@ -255,10 +251,10 @@ public abstract class BigDoor extends MultiBlock implements BlockRenderTypeInter
 	@Deprecated
 	@Override
 	public boolean isPathfindable(
-		@Nonnull BlockState state,
-		@Nonnull BlockGetter level,
-		@Nonnull BlockPos pos,
-		@Nonnull PathComputationType type ) {
+		@NotNull BlockState state,
+		@NotNull BlockGetter level,
+		@NotNull BlockPos pos,
+		@NotNull PathComputationType type ) {
 		
 		return switch( type ) {
 			case LAND, AIR -> state.getShape( level, pos ).isEmpty();

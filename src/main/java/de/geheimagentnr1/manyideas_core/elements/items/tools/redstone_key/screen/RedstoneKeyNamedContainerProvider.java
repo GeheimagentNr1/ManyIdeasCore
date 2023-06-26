@@ -9,8 +9,8 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -18,24 +18,29 @@ import java.util.List;
 public class RedstoneKeyNamedContainerProvider implements MenuProvider {
 	
 	
+	@NotNull
 	private final Component displayName;
 	
+	@NotNull
 	private final ResourceLocation icons;
 	
+	@NotNull
 	private final BlockPos pos;
 	
+	@NotNull
 	private final RedstoneKeyable redstoneKeyableBlock;
 	
+	@NotNull
 	private final List<Option> options;
 	
 	private final int selectedIndex;
 	
 	public RedstoneKeyNamedContainerProvider(
-		Component _displayName,
-		ResourceLocation _icons,
-		BlockPos _pos,
-		RedstoneKeyable _redstoneKeyableBlock,
-		List<Option> _options,
+		@NotNull Component _displayName,
+		@NotNull ResourceLocation _icons,
+		@NotNull BlockPos _pos,
+		@NotNull RedstoneKeyable _redstoneKeyableBlock,
+		@NotNull List<Option> _options,
 		int _selectedIndex ) {
 		
 		displayName = _displayName;
@@ -46,7 +51,7 @@ public class RedstoneKeyNamedContainerProvider implements MenuProvider {
 		selectedIndex = _selectedIndex;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getDisplayName() {
 		
@@ -57,8 +62,8 @@ public class RedstoneKeyNamedContainerProvider implements MenuProvider {
 	@Override
 	public AbstractContainerMenu createMenu(
 		int menuId,
-		@Nonnull Inventory inventory,
-		@Nonnull Player player ) {
+		@NotNull Inventory inventory,
+		@NotNull Player player ) {
 		
 		return new RedstoneKeyContainer( menuId, icons, pos, redstoneKeyableBlock, options, selectedIndex );
 	}

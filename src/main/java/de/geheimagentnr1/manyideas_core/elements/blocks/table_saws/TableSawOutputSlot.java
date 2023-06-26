@@ -7,8 +7,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 
@@ -16,18 +16,21 @@ import java.util.List;
 class TableSawOutputSlot extends Slot {
 	
 	
+	@NotNull
 	private final TableSawMenu tableSawMenu;
 	
+	@NotNull
 	private final ContainerLevelAccess levelPosCallable;
 	
+	@NotNull
 	private final Slot inputInventorySlot;
 	
 	//package-private
 	TableSawOutputSlot(
-		TableSawMenu _tableSawMenu,
-		ContainerLevelAccess _levelPosCallable,
-		Slot _inputInventorySlot,
-		Container _container ) {
+		@NotNull TableSawMenu _tableSawMenu,
+		@NotNull ContainerLevelAccess _levelPosCallable,
+		@NotNull Slot _inputInventorySlot,
+		@NotNull Container _container ) {
 		
 		super( _container, 1, 143, 33 );
 		tableSawMenu = _tableSawMenu;
@@ -36,13 +39,13 @@ class TableSawOutputSlot extends Slot {
 	}
 	
 	@Override
-	public boolean mayPlace( @Nonnull ItemStack stack ) {
+	public boolean mayPlace( @NotNull ItemStack stack ) {
 		
 		return false;
 	}
 	
 	@Override
-	public void onTake( @Nonnull Player player, @Nonnull ItemStack stack ) {
+	public void onTake( @NotNull Player player, @NotNull ItemStack stack ) {
 		
 		stack.onCraftedBy( player.level(), player, stack.getCount() );
 		tableSawMenu.getResultContainer().awardUsedRecipes( player, List.of( inputInventorySlot.getItem() ) );

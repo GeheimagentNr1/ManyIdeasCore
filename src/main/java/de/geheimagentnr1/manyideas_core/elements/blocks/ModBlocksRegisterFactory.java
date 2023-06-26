@@ -1,8 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
-import de.geheimagentnr1.manyideas_core.elements.RegistryEntry;
-import de.geheimagentnr1.manyideas_core.elements.RegistryKeys;
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.planks.PlanksColored;
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.planks.seamless.*;
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.rainbow.*;
@@ -11,9 +9,12 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.lo
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.woods_stripped_smooth.*;
 import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTable;
 import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableMenu;
+import de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table.DyeCraftingTableScreen;
 import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlock;
 import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlockEntity;
+import de.geheimagentnr1.manyideas_core.elements.blocks.end_block.EndBlockEntityRenderer;
 import de.geheimagentnr1.manyideas_core.elements.blocks.mortar.Mortar;
+import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSawScreen;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamond;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondMenu;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIron;
@@ -26,16 +27,28 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_s
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightPeony;
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightRoseBush;
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightSunflower;
+import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.RedstoneKey;
+import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyContainer;
+import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlocksRegisterFactory;
+import de.geheimagentnr1.minecraft_forge_api.registry.RegistryEntry;
+import de.geheimagentnr1.minecraft_forge_api.registry.RegistryHelper;
+import de.geheimagentnr1.minecraft_forge_api.registry.RegistryKeys;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.common.extensions.IForgeMenuType;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.ObjectHolder;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 
 @SuppressWarnings( { "StaticNonFinalField", "PublicField", "unused" } )
-public class ModBlocks {
+public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 	
 	//TODO:
 	// B - Block Textur fertig
@@ -47,67 +60,6 @@ public class ModBlocks {
 	// R - Rezept fertig
 	// L - Loottable fertig
 	// T - Tags fertig
-	
-	public static final List<RegistryEntry<? extends Block>> BLOCKS = List.of(//BCPFINRLT
-		//Building Blocks: Planks
-		RegistryEntry.create( PlanksColored.registry_name, new PlanksColored() ),//BCPFINRLT
-		//Building Blocks: Planks: Seamless
-		RegistryEntry.create( PlanksSeamlessAcacia.registry_name, new PlanksSeamlessAcacia() ),//BCPFINRLT
-		RegistryEntry.create( PlanksSeamlessBirch.registry_name, new PlanksSeamlessBirch() ),//BCPFINRLT
-		RegistryEntry.create( PlanksSeamlessCrimson.registry_name, new PlanksSeamlessCrimson() ),//BCPFINRLT
-		RegistryEntry.create( PlanksSeamlessDarkOak.registry_name, new PlanksSeamlessDarkOak() ),//BCPFINRLT
-		RegistryEntry.create( PlanksSeamlessJungle.registry_name, new PlanksSeamlessJungle() ),//BCPFINRLT
-		RegistryEntry.create( PlanksSeamlessOak.registry_name, new PlanksSeamlessOak() ),//BCPFINRLT
-		RegistryEntry.create( PlanksSeamlessSpruce.registry_name, new PlanksSeamlessSpruce() ),//BCPFINRLT
-		RegistryEntry.create( PlanksSeamlessWarped.registry_name, new PlanksSeamlessWarped() ),//BCPFINRLT
-		//Building Blocks: Blocks: Rainbow
-		RegistryEntry.create( RainbowCarpet.registry_name, new RainbowCarpet() ),//BCPFINRLT
-		RegistryEntry.create( RainbowConcrete.registry_name, new RainbowConcrete() ),//BCPFINRLT//Kein Rezept
-		RegistryEntry.create( RainbowConcretePowder.registry_name, new RainbowConcretePowder() ),//BCPFINRLT
-		RegistryEntry.create( RainbowStainedGlassBlock.registry_name, new RainbowStainedGlassBlock() ),//BCPFINRLT
-		RegistryEntry.create( RainbowStainedGlassPane.registry_name, new RainbowStainedGlassPane() ),//BCPFINRLT
-		RegistryEntry.create( RainbowTerracotta.registry_name, new RainbowTerracotta() ),//BCPFINRLT
-		RegistryEntry.create( RainbowTerracottaGlazed.registry_name, new RainbowTerracottaGlazed() ),//BCPFINRLT
-		RegistryEntry.create( RainbowWool.registry_name, new RainbowWool() ),//BCPFINRLT//Kein Rezept
-		//Building Blocks: Woods
-		RegistryEntry.create( WoodColored.registry_name, new WoodColored() ),//BCPFINRLT
-		//Building Blocks: Woods: Logs Stripped Smooth
-		RegistryEntry.create( LogStrippedSmoothAcacia.registry_name, new LogStrippedSmoothAcacia() ),//BCPFINRLT
-		RegistryEntry.create( LogStrippedSmoothBirch.registry_name, new LogStrippedSmoothBirch() ),//BCPFINRLT
-		RegistryEntry.create( LogStrippedSmoothCrimson.registry_name, new LogStrippedSmoothCrimson() ),//BCPFINRLT
-		RegistryEntry.create( LogStrippedSmoothDarkOak.registry_name, new LogStrippedSmoothDarkOak() ),//BCPFINRLT
-		RegistryEntry.create( LogStrippedSmoothJungle.registry_name, new LogStrippedSmoothJungle() ),//BCPFINRLT
-		RegistryEntry.create( LogStrippedSmoothOak.registry_name, new LogStrippedSmoothOak() ),//BCPFINRLT
-		RegistryEntry.create( LogStrippedSmoothSpruce.registry_name, new LogStrippedSmoothSpruce() ),//BCPFINRLT
-		RegistryEntry.create( LogStrippedSmoothWarped.registry_name, new LogStrippedSmoothWarped() ),//BCPFINRLT
-		//Building Blocks: Woods: Woods Stripped Smooth
-		RegistryEntry.create( WoodStrippedSmoothAcacia.registry_name, new WoodStrippedSmoothAcacia() ),//BCPFINRLT
-		RegistryEntry.create( WoodStrippedSmoothBirch.registry_name, new WoodStrippedSmoothBirch() ),//BCPFINRLT
-		RegistryEntry.create( WoodStrippedSmoothCrimson.registry_name, new WoodStrippedSmoothCrimson() ),//BCPFINRLT
-		RegistryEntry.create( WoodStrippedSmoothDarkOak.registry_name, new WoodStrippedSmoothDarkOak() ),//BCPFINRLT
-		RegistryEntry.create( WoodStrippedSmoothJungle.registry_name, new WoodStrippedSmoothJungle() ),//BCPFINRLT
-		RegistryEntry.create( WoodStrippedSmoothOak.registry_name, new WoodStrippedSmoothOak() ),//BCPFINRLT
-		RegistryEntry.create( WoodStrippedSmoothSpruce.registry_name, new WoodStrippedSmoothSpruce() ),//BCPFINRLT
-		RegistryEntry.create( WoodStrippedSmoothWarped.registry_name, new WoodStrippedSmoothWarped() ),//BCPFINRLT
-		//Dye Crafting Table
-		RegistryEntry.create( DyeCraftingTable.registry_name, new DyeCraftingTable() ),//BCPFINRLT
-		//End Block
-		RegistryEntry.create( EndBlock.registry_name, new EndBlock() ),//BCPFINRLT
-		//Mortar
-		RegistryEntry.create( Mortar.registry_name, new Mortar() ),//BCPFINRLT
-		//Table Saws
-		RegistryEntry.create( TableSawDiamond.registry_name, new TableSawDiamond() ),//BCPFINRLT
-		RegistryEntry.create( TableSawIron.registry_name, new TableSawIron() ),//BCPFINRLT
-		RegistryEntry.create( TableSawStone.registry_name, new TableSawStone() ),//BCPFINRLT
-		//Vanilla Blocks: Flowers: Normal
-		RegistryEntry.create( FlowerStraightAllium.registry_name, new FlowerStraightAllium() ),//BCPFINRLT
-		RegistryEntry.create( FlowerStraightOrchidBlue.registry_name, new FlowerStraightOrchidBlue() ),//BCPFINRLT
-		//Vanilla Blocks: Flowers: Tall
-		RegistryEntry.create( FlowerTallStraightLilac.registry_name, new FlowerTallStraightLilac() ),//BCPFINRLT
-		RegistryEntry.create( FlowerTallStraightPeony.registry_name, new FlowerTallStraightPeony() ),//BCPFINRLT
-		RegistryEntry.create( FlowerTallStraightRoseBush.registry_name, new FlowerTallStraightRoseBush() ),//BCPFINRLT
-		RegistryEntry.create( FlowerTallStraightSunflower.registry_name, new FlowerTallStraightSunflower() )//BCPFINRLT
-	);
 	
 	//Building Blocks: Plankss
 	
@@ -331,4 +283,168 @@ public class ModBlocks {
 	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
 		value = ManyIdeasCore.MODID + ":" + FlowerTallStraightSunflower.registry_name )
 	public static FlowerTallStraightSunflower FLOWER_TALL_STRAIGHT_SUNFLOWER;
+	
+	@NotNull
+	@Override
+	protected List<RegistryEntry<Block>> blocks() {
+		
+		return List.of(//BCPFINRLT
+			//Building Blocks: Planks
+			RegistryEntry.create( PlanksColored.registry_name, new PlanksColored() ),
+			//BCPFINRLT
+			//Building Blocks: Planks: Seamless
+			RegistryEntry.create( PlanksSeamlessAcacia.registry_name, new PlanksSeamlessAcacia() ),
+			//BCPFINRLT
+			RegistryEntry.create( PlanksSeamlessBirch.registry_name, new PlanksSeamlessBirch() ),
+			//BCPFINRLT
+			RegistryEntry.create( PlanksSeamlessCrimson.registry_name, new PlanksSeamlessCrimson() ),
+			//BCPFINRLT
+			RegistryEntry.create( PlanksSeamlessDarkOak.registry_name, new PlanksSeamlessDarkOak() ),
+			//BCPFINRLT
+			RegistryEntry.create( PlanksSeamlessJungle.registry_name, new PlanksSeamlessJungle() ),
+			//BCPFINRLT
+			RegistryEntry.create( PlanksSeamlessOak.registry_name, new PlanksSeamlessOak() ),
+			//BCPFINRLT
+			RegistryEntry.create( PlanksSeamlessSpruce.registry_name, new PlanksSeamlessSpruce() ),
+			//BCPFINRLT
+			RegistryEntry.create( PlanksSeamlessWarped.registry_name, new PlanksSeamlessWarped() ),
+			//BCPFINRLT
+			//Building Blocks: Blocks: Rainbow
+			RegistryEntry.create( RainbowCarpet.registry_name, new RainbowCarpet() ),
+			//BCPFINRLT
+			RegistryEntry.create( RainbowConcrete.registry_name, new RainbowConcrete() ),
+			//BCPFINRLT//Kein Rezept
+			RegistryEntry.create( RainbowConcretePowder.registry_name, new RainbowConcretePowder() ),
+			//BCPFINRLT
+			RegistryEntry.create( RainbowStainedGlassBlock.registry_name, new RainbowStainedGlassBlock() ),
+			//BCPFINRLT
+			RegistryEntry.create( RainbowStainedGlassPane.registry_name, new RainbowStainedGlassPane() ),
+			//BCPFINRLT
+			RegistryEntry.create( RainbowTerracotta.registry_name, new RainbowTerracotta() ),
+			//BCPFINRLT
+			RegistryEntry.create( RainbowTerracottaGlazed.registry_name, new RainbowTerracottaGlazed() ),
+			//BCPFINRLT
+			RegistryEntry.create( RainbowWool.registry_name, new RainbowWool() ),
+			//BCPFINRLT//Kein Rezept
+			//Building Blocks: Woods
+			RegistryEntry.create( WoodColored.registry_name, new WoodColored() ),
+			//BCPFINRLT
+			//Building Blocks: Woods: Logs Stripped Smooth
+			RegistryEntry.create( LogStrippedSmoothAcacia.registry_name, new LogStrippedSmoothAcacia() ),
+			//BCPFINRLT
+			RegistryEntry.create( LogStrippedSmoothBirch.registry_name, new LogStrippedSmoothBirch() ),
+			//BCPFINRLT
+			RegistryEntry.create( LogStrippedSmoothCrimson.registry_name, new LogStrippedSmoothCrimson() ),
+			//BCPFINRLT
+			RegistryEntry.create( LogStrippedSmoothDarkOak.registry_name, new LogStrippedSmoothDarkOak() ),
+			//BCPFINRLT
+			RegistryEntry.create( LogStrippedSmoothJungle.registry_name, new LogStrippedSmoothJungle() ),
+			//BCPFINRLT
+			RegistryEntry.create( LogStrippedSmoothOak.registry_name, new LogStrippedSmoothOak() ),
+			//BCPFINRLT
+			RegistryEntry.create( LogStrippedSmoothSpruce.registry_name, new LogStrippedSmoothSpruce() ),
+			//BCPFINRLT
+			RegistryEntry.create( LogStrippedSmoothWarped.registry_name, new LogStrippedSmoothWarped() ),
+			//BCPFINRLT
+			//Building Blocks: Woods: Woods Stripped Smooth
+			RegistryEntry.create( WoodStrippedSmoothAcacia.registry_name, new WoodStrippedSmoothAcacia() ),
+			//BCPFINRLT
+			RegistryEntry.create( WoodStrippedSmoothBirch.registry_name, new WoodStrippedSmoothBirch() ),
+			//BCPFINRLT
+			RegistryEntry.create( WoodStrippedSmoothCrimson.registry_name, new WoodStrippedSmoothCrimson() ),
+			//BCPFINRLT
+			RegistryEntry.create( WoodStrippedSmoothDarkOak.registry_name, new WoodStrippedSmoothDarkOak() ),
+			//BCPFINRLT
+			RegistryEntry.create( WoodStrippedSmoothJungle.registry_name, new WoodStrippedSmoothJungle() ),
+			//BCPFINRLT
+			RegistryEntry.create( WoodStrippedSmoothOak.registry_name, new WoodStrippedSmoothOak() ),
+			//BCPFINRLT
+			RegistryEntry.create( WoodStrippedSmoothSpruce.registry_name, new WoodStrippedSmoothSpruce() ),
+			//BCPFINRLT
+			RegistryEntry.create( WoodStrippedSmoothWarped.registry_name, new WoodStrippedSmoothWarped() ),
+			//BCPFINRLT
+			//Dye Crafting Table
+			RegistryEntry.create( DyeCraftingTable.registry_name, new DyeCraftingTable() ),
+			//BCPFINRLT
+			//End Block
+			RegistryEntry.create( EndBlock.registry_name, new EndBlock() ),
+			//BCPFINRLT
+			//Mortar
+			RegistryEntry.create( Mortar.registry_name, new Mortar() ),
+			//BCPFINRLT
+			//Table Saws
+			RegistryEntry.create( TableSawDiamond.registry_name, new TableSawDiamond() ),
+			//BCPFINRLT
+			RegistryEntry.create( TableSawIron.registry_name, new TableSawIron() ),
+			//BCPFINRLT
+			RegistryEntry.create( TableSawStone.registry_name, new TableSawStone() ),
+			//BCPFINRLT
+			//Vanilla Blocks: Flowers: Normal
+			RegistryEntry.create( FlowerStraightAllium.registry_name, new FlowerStraightAllium() ),
+			//BCPFINRLT
+			RegistryEntry.create( FlowerStraightOrchidBlue.registry_name, new FlowerStraightOrchidBlue() ),
+			//BCPFINRLT
+			//Vanilla Blocks: Flowers: Tall
+			RegistryEntry.create( FlowerTallStraightLilac.registry_name, new FlowerTallStraightLilac() ),
+			//BCPFINRLT
+			RegistryEntry.create( FlowerTallStraightPeony.registry_name, new FlowerTallStraightPeony() ),
+			//BCPFINRLT
+			RegistryEntry.create( FlowerTallStraightRoseBush.registry_name, new FlowerTallStraightRoseBush() ),
+			//BCPFINRLT
+			RegistryEntry.create( FlowerTallStraightSunflower.registry_name, new FlowerTallStraightSunflower() )
+			//BCPFINRLT
+		);
+	}
+	
+	@NotNull
+	@Override
+	protected List<RegistryEntry<BlockEntityType<?>>> blockEntityTypes() {
+		
+		return List.of(
+			RegistryEntry.create(
+				EndBlock.registry_name,
+				RegistryHelper.buildBlockEntity( EndBlock.registry_name, EndBlockEntity::new, END_BLOCK )
+			)
+		);
+	}
+	
+	@NotNull
+	@Override
+	protected List<RegistryEntry<MenuType<?>>> menuTypes() {
+		
+		return List.of(
+			RegistryEntry.create(
+				DyeCraftingTable.registry_name,
+				IForgeMenuType.create( ( windowId, inv, data ) -> new DyeCraftingTableMenu( windowId, inv ) )
+			),
+			RegistryEntry.create(
+				TableSawDiamond.registry_name,
+				IForgeMenuType.create( ( windowId, inv, data ) -> new TableSawDiamondMenu( windowId, inv ) )
+			),
+			RegistryEntry.create(
+				TableSawIron.registry_name,
+				IForgeMenuType.create( ( windowId, inv, data ) -> new TableSawIronMenu( windowId, inv ) )
+			),
+			RegistryEntry.create(
+				TableSawStone.registry_name,
+				IForgeMenuType.create( ( windowId, inv, data ) -> new TableSawStoneMenu( windowId, inv ) )
+			),
+			RegistryEntry.create(
+				RedstoneKey.registry_name,
+				IForgeMenuType.create( ( windowId, inv, data ) -> new RedstoneKeyContainer( windowId, data ) )
+			)
+		);
+	}
+	
+	@SubscribeEvent
+	@Override
+	public void handleFMLClientSetupEvent( @NotNull FMLClientSetupEvent event ) {
+		
+		MenuScreens.register( DYE_CRAFTING_TABLE_MENU, DyeCraftingTableScreen::new );
+		MenuScreens.register( TABLE_SAW_STONE_MENU, TableSawScreen::new );
+		MenuScreens.register( TABLE_SAW_IRON_MENU, TableSawScreen::new );
+		MenuScreens.register( TABLE_SAW_DIAMOND_MENU, TableSawScreen::new );
+		
+		BlockEntityRenderers.register( END_BLOCK_ENTITY, EndBlockEntityRenderer::new );
+	}
 }

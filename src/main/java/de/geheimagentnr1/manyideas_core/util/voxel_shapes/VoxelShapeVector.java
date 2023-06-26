@@ -1,5 +1,7 @@
 package de.geheimagentnr1.manyideas_core.util.voxel_shapes;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 
@@ -34,6 +36,7 @@ public class VoxelShapeVector {
 		z2 = _z2;
 	}
 	
+	@NotNull
 	public static VoxelShapeVector create( double _x1, double _y1, double _z1, double _x2, double _y2, double _z2 ) {
 		
 		return new VoxelShapeVector( _x1, _y1, _z1, _x2, _y2, _z2 );

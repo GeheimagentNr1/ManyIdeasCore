@@ -15,14 +15,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 
 public class RedstoneKey extends Item {
 	
 	
+	@NotNull
 	public static final String registry_name = "redstone_key";
 	
 	public RedstoneKey() {
@@ -30,9 +31,9 @@ public class RedstoneKey extends Item {
 		super( new Properties() );
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
-	public InteractionResult useOn( @Nonnull UseOnContext context ) {
+	public InteractionResult useOn( @NotNull UseOnContext context ) {
 		
 		Level level = context.getLevel();
 		BlockPos pos = context.getClickedPos();

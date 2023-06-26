@@ -4,6 +4,7 @@ import de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes.Sin
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.Function;
@@ -14,19 +15,22 @@ import java.util.stream.Collectors;
 public abstract class JeiSingleItemRecipe<T extends SingleItemRecipe> {
 	
 	
+	@NotNull
 	private final List<ItemStack> input;
 	
+	@NotNull
 	private final ItemStack result;
 	
-	protected JeiSingleItemRecipe( T recipe ) {
+	protected JeiSingleItemRecipe( @NotNull T recipe ) {
 		
 		input = Arrays.asList( recipe.getIngredient().getItems() );
 		result = recipe.getResult();
 	}
 	
+	@NotNull
 	protected static <R extends SingleItemRecipe, J extends JeiSingleItemRecipe<R>> List<J> getRecipes(
-		RecipeType<R> recipe,
-		Function<R, J> jeiRecipeBuilder ) {
+		@NotNull RecipeType<R> recipe,
+		@NotNull Function<R, J> jeiRecipeBuilder ) {
 		
 		return Optional.ofNullable( Minecraft.getInstance().level )
 			.map( level -> level.getRecipeManager().getAllRecipesFor( recipe ) )
@@ -37,11 +41,13 @@ public abstract class JeiSingleItemRecipe<T extends SingleItemRecipe> {
 	}
 	
 	//package-private
+	@NotNull
 	List<List<ItemStack>> getInputs() {
 		
 		return Collections.singletonList( input );
 	}
 	
+	@NotNull
 	public ItemStack getResult() {
 		
 		return result;

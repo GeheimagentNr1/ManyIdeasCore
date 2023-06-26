@@ -9,6 +9,7 @@ import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -22,14 +23,17 @@ import java.util.function.Function;
 class ColorParser {
 	
 	
+	@NotNull
 	private static final DynamicCommandExceptionType COLOR_INVALID =
 		new DynamicCommandExceptionType( function -> Component.translatable(
 			"argument.color.invalid",
 			function
 		) );
 	
+	@NotNull
 	private static final Set<String> COLORS = getItemKeySet();
 	
+	@NotNull
 	private final StringReader reader;
 	
 	private Color dyeColor;
@@ -37,11 +41,12 @@ class ColorParser {
 	private Function<SuggestionsBuilder, CompletableFuture<Suggestions>> suggestionsBuilder;
 	
 	//package-private
-	ColorParser( StringReader _reader ) {
+	ColorParser( @NotNull StringReader _reader ) {
 		
 		reader = _reader;
 	}
 	
+	@NotNull
 	private static Set<String> getItemKeySet() {
 		
 		Set<String> keySet = new TreeSet<>();
@@ -67,7 +72,8 @@ class ColorParser {
 		} );
 	}
 	
-	private Optional<Color> getItemForRegistry( ResourceLocation resourceLocation ) {
+	@NotNull
+	private Optional<Color> getItemForRegistry( @NotNull ResourceLocation resourceLocation ) {
 		
 		for( Color dye_color : Color.values() ) {
 			if( dye_color.name().equals( resourceLocation.getPath().toUpperCase( Locale.ENGLISH ) ) ) {
@@ -79,6 +85,7 @@ class ColorParser {
 	
 	//package-private
 	@SuppressWarnings( "ReturnOfThis" )
+	@NotNull
 	ColorParser parse() throws CommandSyntaxException {
 		
 		suggestionsBuilder = this::suggestColor;
@@ -87,18 +94,21 @@ class ColorParser {
 		return this;
 	}
 	
-	private CompletableFuture<Suggestions> suggestColorFuture( SuggestionsBuilder builder ) {
+	@NotNull
+	private CompletableFuture<Suggestions> suggestColorFuture( @NotNull SuggestionsBuilder builder ) {
 		
 		return builder.buildFuture();
 	}
 	
-	private CompletableFuture<Suggestions> suggestColor( SuggestionsBuilder builder ) {
+	@NotNull
+	private CompletableFuture<Suggestions> suggestColor( @NotNull SuggestionsBuilder builder ) {
 		
 		return SharedSuggestionProvider.suggest( COLORS, builder );
 	}
 	
 	//package-private
-	CompletableFuture<Suggestions> fillSuggestions( SuggestionsBuilder builder ) {
+	@NotNull
+	CompletableFuture<Suggestions> fillSuggestions( @NotNull SuggestionsBuilder builder ) {
 		
 		return suggestionsBuilder.apply( builder.createOffset( reader.getCursor() ) );
 	}

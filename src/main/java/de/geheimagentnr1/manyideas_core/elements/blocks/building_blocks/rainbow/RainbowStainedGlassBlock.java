@@ -1,20 +1,17 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.rainbow;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockItemInterface;
-import de.geheimagentnr1.manyideas_core.elements.blocks.BlockRenderTypeInterface;
-import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
-import net.minecraft.client.renderer.RenderType;
+import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StainedGlassBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import org.jetbrains.annotations.NotNull;
 
 
-public class RainbowStainedGlassBlock extends StainedGlassBlock implements BlockItemInterface,
-	BlockRenderTypeInterface {
+public class RainbowStainedGlassBlock extends StainedGlassBlock implements BlockItemInterface {
 	
 	
+	@NotNull
 	public static final String registry_name = "rainbow_stained_glass_block";
 	
 	public RainbowStainedGlassBlock() {
@@ -31,17 +28,5 @@ public class RainbowStainedGlassBlock extends StainedGlassBlock implements Block
 				.isViewBlocking( ( state, level, pos ) -> false )
 				.sound( SoundType.GLASS )
 		);
-	}
-	
-	@Override
-	public RenderType getRenderType() {
-		
-		return RenderType.translucent();
-	}
-	
-	@Override
-	public Item getBlockItem( Item.Properties _properties ) {
-		
-		return createBlockItem( ModBlocks.RAINBOW_STAINED_GLASS_BLOCK, _properties, registry_name );
 	}
 }

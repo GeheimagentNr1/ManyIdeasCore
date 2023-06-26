@@ -1,5 +1,5 @@
 {
 	"variants": {
-		"": { "model": "minecraft:block/allium" }
+		"": { "model": "manyideas_core:block/vanilla_blocks/flowers_straight/normal/flower_straight_allium" }
 	}
 }

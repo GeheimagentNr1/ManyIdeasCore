@@ -1,56 +1,66 @@
 package de.geheimagentnr1.manyideas_core;
 
 import de.geheimagentnr1.manyideas_core.config.ClientConfig;
-import de.geheimagentnr1.manyideas_core.elements.commands.givedb.ColorArgument;
-import de.geheimagentnr1.manyideas_core.elements.commands.givedb.DyeItemArgument;
-import net.minecraft.commands.synchronization.ArgumentTypeInfo;
-import net.minecraft.commands.synchronization.ArgumentTypeInfos;
-import net.minecraft.commands.synchronization.SingletonArgumentInfo;
-import net.minecraft.core.registries.Registries;
-import net.minecraftforge.fml.ModLoadingContext;
+import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory;
+import de.geheimagentnr1.manyideas_core.elements.blocks.ModDebugBlocksRegisterFactory;
+import de.geheimagentnr1.manyideas_core.elements.commands.ModArgumentTypesRegisterFactory;
+import de.geheimagentnr1.manyideas_core.elements.commands.ModCommandsRegisterFactory;
+import de.geheimagentnr1.manyideas_core.elements.creative_mod_tabs.ModCreativeModeTabRegisterFactory;
+import de.geheimagentnr1.manyideas_core.elements.items.ModItemsRegisterFactory;
+import de.geheimagentnr1.manyideas_core.elements.recipes.ModIngredientSerializersRegisterFactory;
+import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersRegisterFactory;
+import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
+import de.geheimagentnr1.manyideas_core.network.Network;
+import de.geheimagentnr1.manyideas_core.special.decoration_renderer.PlayerDecorationManager;
+import de.geheimagentnr1.minecraft_forge_api.AbstractMod;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 
-@SuppressWarnings( "UtilityClassWithPublicConstructor" )
 @Mod( ManyIdeasCore.MODID )
-public class ManyIdeasCore {
+public class ManyIdeasCore extends AbstractMod {
 	
 	
+	@NotNull
 	public static final String MODID = "manyideas_core";
 	
-	private static final DeferredRegister<ArgumentTypeInfo<?, ?>> COMMAND_ARGUMENT_TYPES = DeferredRegister.create(
-		Registries.COMMAND_ARGUMENT_TYPE,
-		MODID
-	);
-	
-	private static final RegistryObject<SingletonArgumentInfo<ColorArgument>>
-		COLOR_COMMAND_ARGUMENT_TYPE =
-		COMMAND_ARGUMENT_TYPES.register(
-			ColorArgument.registry_name,
-			() -> ArgumentTypeInfos.registerByClass(
-				ColorArgument.class,
-				SingletonArgumentInfo.contextFree( ColorArgument::color )
-			)
-		);
-	
-	private static final RegistryObject<SingletonArgumentInfo<DyeItemArgument>>
-		DYE_ITEM_COMMAND_ARGUMENT_TYPE =
-		COMMAND_ARGUMENT_TYPES.register(
-			DyeItemArgument.registry_name,
-			() -> ArgumentTypeInfos.registerByClass(
-				DyeItemArgument.class,
-				SingletonArgumentInfo.contextFree( DyeItemArgument::dyeItem )
-			)
-		);
-	
-	public ManyIdeasCore() {
+	@NotNull
+	@Override
+	public String getModId() {
 		
-		ClientConfig.load();
-		ModLoadingContext.get().registerConfig( ModConfig.Type.CLIENT, ClientConfig.CONFIG );
-		COMMAND_ARGUMENT_TYPES.register( FMLJavaModLoadingContext.get().getModEventBus() );
+		return MODID;
+	}
+	
+	@Override
+	protected void initMod() {
+		
+		ClientConfig clientConfig = registerConfig( ClientConfig::new );
+		ModBlocksRegisterFactory modBlocksRegisterFactory = registerEventHandler( new ModBlocksRegisterFactory() );
+		ModDebugBlocksRegisterFactory modDebugBlocksRegisterFactory = registerEventHandler(
+			new ModDebugBlocksRegisterFactory( clientConfig )
+		);
+		registerEventHandler( new ModArgumentTypesRegisterFactory() );
+		registerEventHandler( new ModCommandsRegisterFactory() );
+		ModItemsRegisterFactory modItemsRegisterFactory = registerEventHandler( new ModItemsRegisterFactory() );
+		registerEventHandler( new ModCreativeModeTabRegisterFactory(
+			clientConfig,
+			modBlocksRegisterFactory,
+			modDebugBlocksRegisterFactory,
+			modItemsRegisterFactory
+		) );
+		registerEventHandler( new ModIngredientSerializersRegisterFactory( this ) );
+		registerEventHandler( new ModRecipeSerializersRegisterFactory() );
+		registerEventHandler( new ModRecipeTypesRegisterFactory() );
+		registerEventHandler( Network.getInstance() );
+		DistExecutor.safeRunWhenOn(
+			Dist.CLIENT,
+			() -> () -> {
+				PlayerDecorationManager playerDecorationManager = new PlayerDecorationManager();
+				forgeEventBus().addListener( playerDecorationManager::handlePreRenderPlayerEvent );
+				modEventBus().addListener( playerDecorationManager::handleFMLClientSetupEvent );
+			}
+		);
 	}
 }

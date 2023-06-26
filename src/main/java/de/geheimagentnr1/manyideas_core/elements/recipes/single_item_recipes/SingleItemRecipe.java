@@ -11,32 +11,36 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-
 
 public abstract class SingleItemRecipe implements Recipe<Container> {
 	
 	
+	@NotNull
 	protected final Ingredient ingredient;
 	
 	//package-private
+	@NotNull
 	final ItemStack result;
 	
+	@NotNull
 	private final RecipeType<?> type;
 	
+	@NotNull
 	private final RecipeSerializer<?> serializer;
 	
+	@NotNull
 	private final ResourceLocation id;
 	
+	@NotNull
 	private final String group;
 	
 	protected SingleItemRecipe(
-		RecipeType<?> _type,
-		RecipeSerializer<?> _serializer,
-		ResourceLocation _id,
-		String _group,
-		Ingredient _ingredient,
-		ItemStack _result ) {
+		@NotNull RecipeType<?> _type,
+		@NotNull RecipeSerializer<?> _serializer,
+		@NotNull ResourceLocation _id,
+		@NotNull String _group,
+		@NotNull Ingredient _ingredient,
+		@NotNull ItemStack _result ) {
 		
 		type = _type;
 		serializer = _serializer;
@@ -46,42 +50,42 @@ public abstract class SingleItemRecipe implements Recipe<Container> {
 		result = _result;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeType<?> getType() {
 		
 		return type;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		
 		return serializer;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public ResourceLocation getId() {
 		
 		return id;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public String getGroup() {
 		
 		return group;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getResultItem( @NotNull RegistryAccess registryAccess ) {
 		
 		return result;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		
@@ -96,19 +100,21 @@ public abstract class SingleItemRecipe implements Recipe<Container> {
 		return true;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack assemble( @Nonnull Container container, @NotNull RegistryAccess registryAccess ) {
+	public ItemStack assemble( @NotNull Container container, @NotNull RegistryAccess registryAccess ) {
 		
 		return result.copy();
 	}
 	
 	
+	@NotNull
 	public Ingredient getIngredient() {
 		
 		return ingredient;
 	}
 	
+	@NotNull
 	public ItemStack getResult() {
 		
 		return result;

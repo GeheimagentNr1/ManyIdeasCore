@@ -1,6 +1,6 @@
 {
 	"variants": {
-		"half=lower": { "model": "minecraft:block/peony_bottom" },
-		"half=upper": { "model": "minecraft:block/peony_top" }
+		"half=lower": { "model": "manyideas_core:block/vanilla_blocks/flowers_straight/tall/peony/flower_tall_straight_peony_bottom" },
+		"half=upper": { "model": "manyideas_core:block/vanilla_blocks/flowers_straight/tall/peony/flower_tall_straight_peony_top" }
 	}
 }

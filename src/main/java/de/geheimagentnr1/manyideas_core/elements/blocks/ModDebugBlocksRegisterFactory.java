@@ -1,15 +1,18 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks;
 
 import de.geheimagentnr1.manyideas_core.config.ClientConfig;
-import de.geheimagentnr1.manyideas_core.elements.RegistryEntry;
 import de.geheimagentnr1.manyideas_core.elements.blocks.debug.DebugBlockCullface;
+import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlocksRegisterFactory;
+import de.geheimagentnr1.minecraft_forge_api.registry.RegistryEntry;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 
-@SuppressWarnings( { "unused", "PublicStaticCollectionField" } )
-public class ModBlocksDebug {
+@RequiredArgsConstructor
+public class ModDebugBlocksRegisterFactory extends BlocksRegisterFactory {
 	
 	//TODO:
 	// B - Block Textur fertig
@@ -22,11 +25,14 @@ public class ModBlocksDebug {
 	// L - Loottable fertig
 	// T - Tags fertig
 	
-	public static final List<RegistryEntry<? extends Block>> BLOCKS = initBlocks();
+	@NotNull
+	private final ClientConfig clientConfig;
 	
-	private static List<RegistryEntry<? extends Block>> initBlocks() {
+	@NotNull
+	@Override
+	protected List<RegistryEntry<Block>> blocks() {
 		
-		if( ClientConfig.DEBUG.get() ) {
+		if( clientConfig.debug() ) {
 			return List.of(//BCPFINRLT
 				//Debug
 				RegistryEntry.create( DebugBlockCullface.registry_name, new DebugBlockCullface() )//BCFINRLT
@@ -35,5 +41,4 @@ public class ModBlocksDebug {
 			return List.of();
 		}
 	}
-	
 }

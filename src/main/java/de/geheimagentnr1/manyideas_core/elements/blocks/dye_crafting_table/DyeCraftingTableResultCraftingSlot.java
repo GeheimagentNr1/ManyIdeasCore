@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
-import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
+import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
@@ -10,16 +10,17 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.ForgeEventFactory;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 
 //package-private
 class DyeCraftingTableResultCraftingSlot extends Slot {
 	
 	
+	@NotNull
 	private final CraftingContainer craftingContainer;
 	
+	@NotNull
 	private final Player player;
 	
 	private int amountCrafted;
@@ -27,9 +28,9 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	//package-private
 	@SuppressWarnings( "SameParameterValue" )
 	DyeCraftingTableResultCraftingSlot(
-		Player _player,
-		CraftingContainer _craftingContainer,
-		Container _container,
+		@NotNull Player _player,
+		@NotNull CraftingContainer _craftingContainer,
+		@NotNull Container _container,
 		int slotIndex,
 		int xPosition,
 		int yPosition ) {
@@ -40,12 +41,12 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	}
 	
 	@Override
-	public boolean mayPlace( @Nonnull ItemStack stack ) {
+	public boolean mayPlace( @NotNull ItemStack stack ) {
 		
 		return false;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack remove( int count ) {
 		
@@ -57,7 +58,7 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	}
 	
 	@Override
-	protected void onQuickCraft( @Nonnull ItemStack stack, int count ) {
+	protected void onQuickCraft( @NotNull ItemStack stack, int count ) {
 		
 		amountCrafted += count;
 		checkTakeAchievements( stack );
@@ -70,7 +71,7 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	}
 	
 	@Override
-	protected void checkTakeAchievements( @Nonnull ItemStack stack ) {
+	protected void checkTakeAchievements( @NotNull ItemStack stack ) {
 		
 		if( amountCrafted > 0 ) {
 			stack.onCraftedBy( player.level(), player, amountCrafted );
@@ -83,12 +84,12 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	}
 	
 	@Override
-	public void onTake( @Nonnull Player _player, @Nonnull ItemStack stack ) {
+	public void onTake( @NotNull Player _player, @NotNull ItemStack stack ) {
 		
 		checkTakeAchievements( stack );
 		ForgeHooks.setCraftingPlayer( _player );
 		NonNullList<ItemStack> ingredients = _player.level().getRecipeManager().getRemainingItemsFor(
-			RecipeTypes.DYED,
+			ModRecipeTypesRegisterFactory.DYED,
 			craftingContainer,
 			_player.level()
 		);

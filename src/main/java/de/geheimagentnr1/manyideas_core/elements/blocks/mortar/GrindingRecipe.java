@@ -1,38 +1,49 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.mortar;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocks;
-import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeSerializers;
-import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeTypes;
+import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory;
+import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersRegisterFactory;
+import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes.SingleItemRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 
 public class GrindingRecipe extends SingleItemRecipe {
 	
 	
+	@NotNull
 	public static final String registry_name = "grinding";
 	
-	public GrindingRecipe( ResourceLocation _id, String _group, Ingredient _ingredient, ItemStack _result ) {
+	public GrindingRecipe(
+		@NotNull ResourceLocation _id,
+		@NotNull String _group,
+		@NotNull Ingredient _ingredient,
+		@NotNull ItemStack _result ) {
 		
-		super( RecipeTypes.GRINDING, RecipeSerializers.GRINDING, _id, _group, _ingredient, _result );
+		super(
+			ModRecipeTypesRegisterFactory.GRINDING,
+			ModRecipeSerializersRegisterFactory.GRINDING,
+			_id,
+			_group,
+			_ingredient,
+			_result
+		);
 	}
 	
 	@Override
-	public boolean matches( Container inv, @Nonnull Level level ) {
+	public boolean matches( @NotNull Container inv, @NotNull Level level ) {
 		
 		return ingredient.test( inv.getItem( 0 ) );
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public ItemStack getToastSymbol() {
 		
-		return new ItemStack( ModBlocks.MORTAR );
+		return new ItemStack( ModBlocksRegisterFactory.MORTAR );
 	}
 }

@@ -1,46 +1,27 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
-import de.geheimagentnr1.manyideas_core.elements.RegistryEntry;
-import de.geheimagentnr1.manyideas_core.elements.RegistryKeys;
 import de.geheimagentnr1.manyideas_core.elements.blocks.mortar.GrindingRecipe;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondRecipe;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronRecipe;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneRecipe;
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedRecipe;
 import de.geheimagentnr1.manyideas_core.elements.recipes.types.SimpleRecipeType;
+import de.geheimagentnr1.minecraft_forge_api.registry.ElementsRegisterFactory;
+import de.geheimagentnr1.minecraft_forge_api.registry.RegistryEntry;
+import de.geheimagentnr1.minecraft_forge_api.registry.RegistryKeys;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 
 @SuppressWarnings( { "StaticNonFinalField", "PublicField" } )
-public class RecipeTypes {
-	
-	
-	public static List<RegistryEntry<RecipeType<?>>> RECIPE_TYPES = List.of(
-		RegistryEntry.create(
-			DyedRecipe.registry_name,
-			new SimpleRecipeType<>( ManyIdeasCore.MODID, DyedRecipe.registry_name )
-		),
-		RegistryEntry.create(
-			GrindingRecipe.registry_name,
-			new SimpleRecipeType<>( ManyIdeasCore.MODID, GrindingRecipe.registry_name )
-		),
-		RegistryEntry.create(
-			TableSawDiamondRecipe.registry_name,
-			new SimpleRecipeType<>( ManyIdeasCore.MODID, TableSawDiamondRecipe.registry_name )
-		),
-		RegistryEntry.create(
-			TableSawIronRecipe.registry_name,
-			new SimpleRecipeType<>( ManyIdeasCore.MODID, TableSawIronRecipe.registry_name )
-		),
-		RegistryEntry.create(
-			TableSawStoneRecipe.registry_name,
-			new SimpleRecipeType<>( ManyIdeasCore.MODID, TableSawStoneRecipe.registry_name )
-		)
-	);
+public class ModRecipeTypesRegisterFactory extends ElementsRegisterFactory<RecipeType<?>> {
 	
 	//Dyed
 	
@@ -67,4 +48,39 @@ public class RecipeTypes {
 	@ObjectHolder( registryName = RegistryKeys.RECIPE_TYPES,
 		value = ManyIdeasCore.MODID + ":" + TableSawStoneRecipe.registry_name )
 	public static RecipeType<TableSawStoneRecipe> TABLE_SAWING_STONE;
+	
+	@NotNull
+	@Override
+	protected ResourceKey<Registry<RecipeType<?>>> registryKey() {
+		
+		return ForgeRegistries.Keys.RECIPE_TYPES;
+	}
+	
+	@NotNull
+	@Override
+	protected List<RegistryEntry<RecipeType<?>>> elements() {
+		
+		return List.of(
+			RegistryEntry.create(
+				DyedRecipe.registry_name,
+				new SimpleRecipeType<>( ManyIdeasCore.MODID, DyedRecipe.registry_name )
+			),
+			RegistryEntry.create(
+				GrindingRecipe.registry_name,
+				new SimpleRecipeType<>( ManyIdeasCore.MODID, GrindingRecipe.registry_name )
+			),
+			RegistryEntry.create(
+				TableSawDiamondRecipe.registry_name,
+				new SimpleRecipeType<>( ManyIdeasCore.MODID, TableSawDiamondRecipe.registry_name )
+			),
+			RegistryEntry.create(
+				TableSawIronRecipe.registry_name,
+				new SimpleRecipeType<>( ManyIdeasCore.MODID, TableSawIronRecipe.registry_name )
+			),
+			RegistryEntry.create(
+				TableSawStoneRecipe.registry_name,
+				new SimpleRecipeType<>( ManyIdeasCore.MODID, TableSawStoneRecipe.registry_name )
+			)
+		);
+	}
 }

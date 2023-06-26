@@ -8,31 +8,30 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 
 public abstract class TableSawRecipe extends SingleItemRecipe {
 	
 	
 	protected TableSawRecipe(
-		RecipeType<? extends TableSawRecipe> recipeType,
-		RecipeSerializer<? extends TableSawRecipe> recipeSerializer,
-		ResourceLocation _id,
-		String _group,
-		Ingredient _ingredient,
-		ItemStack _result ) {
+		@NotNull RecipeType<? extends TableSawRecipe> recipeType,
+		@NotNull RecipeSerializer<? extends TableSawRecipe> recipeSerializer,
+		@NotNull ResourceLocation _id,
+		@NotNull String _group,
+		@NotNull Ingredient _ingredient,
+		@NotNull ItemStack _result ) {
 		
 		super( recipeType, recipeSerializer, _id, _group, _ingredient, _result );
 	}
 	
 	@Override
-	public boolean matches( @Nonnull Container inv, @Nonnull Level level ) {
+	public boolean matches( @NotNull Container inv, @NotNull Level level ) {
 		
 		return ingredient.test( inv.getItem( 0 ) );
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public abstract ItemStack getToastSymbol();
 }

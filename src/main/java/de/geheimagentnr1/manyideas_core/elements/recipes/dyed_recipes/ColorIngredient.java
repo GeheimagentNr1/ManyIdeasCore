@@ -2,57 +2,59 @@ package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
 import com.google.gson.JsonElement;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
-import de.geheimagentnr1.manyideas_core.elements.recipes.IngredientSerializers;
+import de.geheimagentnr1.manyideas_core.elements.recipes.ModIngredientSerializersRegisterFactory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.stream.Stream;
 
 
 public class ColorIngredient extends Ingredient {
 	
 	
-	//package-private
-	static final String registry_name = "color";
+	@NotNull
+	public static final String registry_name = "color";
 	
+	@NotNull
 	private final ColorList ingrediant;
 	
 	//package-private
-	ColorIngredient( ColorList _ingrediant ) {
+	ColorIngredient( @NotNull ColorList _ingrediant ) {
 		
 		super( Stream.of( _ingrediant ) );
 		ingrediant = _ingrediant;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public JsonElement toJson() {
 		
 		return ingrediant.serialize();
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public IIngredientSerializer<? extends Ingredient> getSerializer() {
 		
-		return IngredientSerializers.COLOR;
+		return ModIngredientSerializersRegisterFactory.COLOR;
 	}
 	
 	//package-private
+	@NotNull
 	ColorList getIngrediant() {
 		
 		return ingrediant;
 	}
 	
 	//package-private
-	Color getColor( ItemStack stack ) {
+	Color getColor( @NotNull ItemStack stack ) {
 		
 		return ingrediant.getColor( stack );
 	}
 	
-	public ItemStack getStack( Color color ) {
+	public ItemStack getStack( @NotNull Color color ) {
 		
 		return ingrediant.getStack( color );
 	}

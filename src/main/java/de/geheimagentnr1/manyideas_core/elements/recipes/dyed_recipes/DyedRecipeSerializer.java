@@ -4,7 +4,7 @@ import com.google.common.collect.Sets;
 import com.google.gson.*;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlockItem;
-import de.geheimagentnr1.manyideas_core.elements.recipes.RecipeSerializers;
+import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersRegisterFactory;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
@@ -14,8 +14,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Stream;
@@ -24,9 +24,9 @@ import java.util.stream.Stream;
 public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 	
 	
-	@Nonnull
+	@NotNull
 	@Override
-	public DyedRecipe fromJson( @Nonnull ResourceLocation recipeId, @Nonnull JsonObject json ) {
+	public DyedRecipe fromJson( @NotNull ResourceLocation recipeId, @NotNull JsonObject json ) {
 		
 		boolean shaped = GsonHelper.getAsBoolean( json, "shaped" );
 		NonNullList<Ingredient> ingredients = NonNullList.create();
@@ -45,7 +45,7 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 		ItemStack result = deserializeResult( GsonHelper.getAsJsonObject( json, "result" ) );
 		return new DyedRecipe(
 			recipeId,
-			RecipeSerializers.DYED,
+			ModRecipeSerializersRegisterFactory.DYED,
 			shaped,
 			ingredients,
 			result,
@@ -55,7 +55,8 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 	}
 	
 	
-	private static String[][] patternFromJson( JsonArray patternArray ) {
+	@NotNull
+	private static String[][] patternFromJson( @NotNull JsonArray patternArray ) {
 		
 		String[][] pattern = new String[3][3];
 		if( patternArray.size() != 3 ) {
@@ -74,9 +75,9 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 	}
 	
 	private void deserializeShapedIngredients(
-		NonNullList<Ingredient> ingredients,
-		String[][] pattern,
-		JsonObject keysJson ) {
+		@NotNull NonNullList<Ingredient> ingredients,
+		@NotNull String[][] pattern,
+		@NotNull JsonObject keysJson ) {
 		
 		Map<String, Ingredient> keyMapping = deserializeKeys( keysJson );
 		Set<String> keys = Sets.newHashSet( keyMapping.keySet() );
@@ -97,7 +98,8 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 		}
 	}
 	
-	private Map<String, Ingredient> deserializeKeys( JsonObject keys ) {
+	@NotNull
+	private Map<String, Ingredient> deserializeKeys( @NotNull JsonObject keys ) {
 		
 		Map<String, Ingredient> map = new HashMap<>();
 		
@@ -115,7 +117,9 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 		return map;
 	}
 	
-	private void deserializeNonShapedIngredients( NonNullList<Ingredient> ingredients, JsonArray ingredientsJSON ) {
+	private void deserializeNonShapedIngredients(
+		@NotNull NonNullList<Ingredient> ingredients,
+		@NotNull JsonArray ingredientsJSON ) {
 		
 		for( int i = 0; i < ingredientsJSON.size(); i++ ) {
 			ingredients.add( deserializeIngredient( ingredientsJSON.get( i ).getAsJsonObject() ) );
@@ -123,7 +127,8 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 	}
 	
 	//package-private
-	Ingredient deserializeIngredient( JsonObject ingredient ) {
+	@NotNull
+	Ingredient deserializeIngredient( @NotNull JsonObject ingredient ) {
 		
 		if( ingredient.has( "color_item" ) ) {
 			return deserializeColorStackList( ingredient );
@@ -135,7 +140,8 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 	}
 	
 	@SuppressWarnings( "deprecation" )
-	private Ingredient deserializeColorStackList( JsonObject ingredient ) {
+	@NotNull
+	private Ingredient deserializeColorStackList( @NotNull JsonObject ingredient ) {
 		
 		ResourceLocation location = new ResourceLocation( GsonHelper.getAsString( ingredient, "color_item" ) );
 		Item item = BuiltInRegistries.ITEM.getOptional( location ).orElseThrow( () -> new JsonSyntaxException(
@@ -147,7 +153,8 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 	}
 	
 	@SuppressWarnings( "deprecation" )
-	private Ingredient deserializeColorTagList( JsonObject ingredient ) {
+	@NotNull
+	private Ingredient deserializeColorTagList( @NotNull JsonObject ingredient ) {
 		
 		JsonObject color_tag = GsonHelper.getAsJsonObject( ingredient, "color_tag" );
 		TreeMap<ItemStack, Color> stacks =
@@ -164,7 +171,8 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 	}
 	
 	@SuppressWarnings( "deprecation" )
-	private ItemStack deserializeResult( JsonObject result ) {
+	@NotNull
+	private ItemStack deserializeResult( @NotNull JsonObject result ) {
 		
 		String registry_key = GsonHelper.getAsString( result, "item" );
 		Item item =
@@ -179,7 +187,7 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 	
 	@Nullable
 	@Override
-	public DyedRecipe fromNetwork( @Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer ) {
+	public DyedRecipe fromNetwork( @NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer ) {
 		
 		boolean shaped = buffer.readBoolean();
 		int recipeWidth = buffer.readVarInt();
@@ -191,7 +199,7 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 		ItemStack result = buffer.readItem();
 		return new DyedRecipe(
 			recipeId,
-			RecipeSerializers.DYED,
+			ModRecipeSerializersRegisterFactory.DYED,
 			shaped,
 			ingredients,
 			result,
@@ -201,7 +209,7 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 	}
 	
 	@Override
-	public void toNetwork( @Nonnull FriendlyByteBuf buffer, @Nonnull DyedRecipe recipe ) {
+	public void toNetwork( @NotNull FriendlyByteBuf buffer, @NotNull DyedRecipe recipe ) {
 		
 		buffer.writeBoolean( recipe.isShaped() );
 		buffer.writeVarInt( recipe.getRecipeWidth() );

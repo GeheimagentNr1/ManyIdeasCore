@@ -17,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.util.Random;
 
 
@@ -36,7 +36,7 @@ public class MetalSmoker extends AbstractFurnaceBlock implements BlockItemInterf
 	}
 	
 	@Override
-	public TileEntity createNewTileEntity( @Nonnull IBlockReader worldIn ) {
+	public TileEntity createNewTileEntity( @NotNull IBlockReader worldIn ) {
 		
 		return new MetalSmokerTile();
 	}
@@ -47,7 +47,7 @@ public class MetalSmoker extends AbstractFurnaceBlock implements BlockItemInterf
 	 * inside AbstractFurnaceBlock.
 	 */
 	@Override
-	protected void interactWith( World worldIn, @Nonnull BlockPos pos, @Nonnull PlayerEntity player ) {
+	protected void interactWith( World worldIn, @NotNull BlockPos pos, @NotNull PlayerEntity player ) {
 		
 		TileEntity tileentity = worldIn.getTileEntity( pos );
 		if( tileentity instanceof MetalSmokerTile ) {
@@ -64,8 +64,8 @@ public class MetalSmoker extends AbstractFurnaceBlock implements BlockItemInterf
 	 */
 	@Override
 	public void animateTick(
-		BlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos,
-		@Nonnull Random rand ) {
+		BlockState stateIn, @NotNull World worldIn, @NotNull BlockPos pos,
+		@NotNull Random rand ) {
 		
 		if( stateIn.get( LIT ) ) {
 			double x = pos.getX() + 0.5D;

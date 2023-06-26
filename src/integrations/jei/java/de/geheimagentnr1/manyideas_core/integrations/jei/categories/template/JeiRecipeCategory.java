@@ -10,25 +10,27 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-
 
 public abstract class JeiRecipeCategory<R> implements IRecipeCategory<R> {
 	
 	
+	@NotNull
 	private final RecipeType<R> recipeType;
 	
+	@NotNull
 	private final Block block;
 	
+	@NotNull
 	private final IDrawable icon;
 	
+	@NotNull
 	private final IDrawable background;
 	
 	protected JeiRecipeCategory(
-		IGuiHelper guiHelper,
-		RecipeType<R> _recipeType,
-		Block _block,
-		IDrawable _background ) {
+		@NotNull IGuiHelper guiHelper,
+		@NotNull RecipeType<R> _recipeType,
+		@NotNull Block _block,
+		@NotNull IDrawable _background ) {
 		
 		recipeType = _recipeType;
 		block = _block;
@@ -43,21 +45,21 @@ public abstract class JeiRecipeCategory<R> implements IRecipeCategory<R> {
 		return recipeType;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public Component getTitle() {
 		
 		return block.getName();
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getIcon() {
 		
 		return icon;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public IDrawable getBackground() {
 		

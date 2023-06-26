@@ -13,8 +13,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.List;
 
@@ -22,61 +22,71 @@ import java.util.List;
 public abstract class TableSawMenu extends AbstractContainerMenu {
 	
 	
+	@NotNull
 	private final ImmutableList<Item> ACCEPTED_INPUT_ITEMS;
 	
+	@NotNull
 	private final ContainerLevelAccess containerLevelAccess;
 	
+	@NotNull
 	private final DataSlot selectedRecipe = DataSlot.standalone();
 	
+	@NotNull
 	private final Level level;
 	
+	@NotNull
 	private List<TableSawRecipe> recipes = Lists.newArrayList();
 	
+	@NotNull
 	private ItemStack itemStackInput = ItemStack.EMPTY;
 	
 	//package-private
 	long lastOnTake;
 	
+	@NotNull
 	private final Slot inputInventorySlot;
 	
+	@NotNull
 	private final Slot outputInventorySlot;
 	
+	@NotNull
 	private Runnable inventoryUpdateListener = () -> {
 	};
 	
 	@SuppressWarnings( "ThisEscapedInObjectConstruction" )
+	@NotNull
 	private final Container inputInventory = new TableSawInputContainer( this );
 	
+	@NotNull
 	private final ResultContainer resultContainer = new ResultContainer();
 	
 	protected TableSawMenu(
-		MenuType<? extends TableSawMenu> tableSawContainerType,
-		int menuId,
-		Inventory inventory ) {
+		@NotNull MenuType<? extends TableSawMenu> tableSawMenu,
+		@NotNull int windowId,
+		@NotNull Inventory inventory ) {
 		
-		this( tableSawContainerType, menuId, inventory, ContainerLevelAccess.NULL );
+		this( tableSawMenu, windowId, inventory, ContainerLevelAccess.NULL );
 	}
 	
 	@SuppressWarnings( {
 		"OverridableMethodCallDuringObjectConstruction",
 		"AbstractMethodCallInConstructor",
 		"OverriddenMethodCallDuringObjectConstruction",
-		"ThisEscapedInObjectConstruction",
-		"rawtypes"
+		"ThisEscapedInObjectConstruction"
 	} )
 	protected TableSawMenu(
-		MenuType<? extends TableSawMenu> tableSawMenu,
-		int menuId,
-		Inventory inventory,
-		ContainerLevelAccess _worldPosCallable ) {
+		@NotNull MenuType<? extends TableSawMenu> tableSawMenu,
+		int windowId,
+		@NotNull Inventory inventory,
+		@NotNull ContainerLevelAccess _containerLevelAccess ) {
 		
-		super( tableSawMenu, menuId );
-		containerLevelAccess = _worldPosCallable;
+		super( tableSawMenu, windowId );
+		containerLevelAccess = _containerLevelAccess;
 		level = inventory.player.level();
 		inputInventorySlot = addSlot( new Slot( inputInventory, 0, 20, 33 ) );
 		outputInventorySlot = addSlot( new TableSawOutputSlot(
 			this,
-			_worldPosCallable,
+			_containerLevelAccess,
 			inputInventorySlot,
 			resultContainer
 		) );
@@ -90,7 +100,7 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 		}
 		addDataSlot( selectedRecipe );
 		HashSet<Item> acceptable_input = new HashSet<>();
-		List<RecipeType> acceptedRecipeTypes = getAcceptedRecipeTypes();
+		List<RecipeType<?>> acceptedRecipeTypes = getAcceptedRecipeTypes();
 		level.getRecipeManager().getRecipes().forEach( iRecipe -> {
 			if( acceptedRecipeTypes.contains( iRecipe.getType() ) ) {
 				TableSawRecipe tableSawRecipe = (TableSawRecipe)iRecipe;
@@ -103,8 +113,8 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 		ACCEPTED_INPUT_ITEMS = ImmutableList.copyOf( acceptable_input );
 	}
 	
-	@SuppressWarnings( "rawtypes" )
-	protected abstract List<RecipeType> getAcceptedRecipeTypes();
+	@NotNull
+	protected abstract List<RecipeType<?>> getAcceptedRecipeTypes();
 	
 	@OnlyIn( Dist.CLIENT )
 	public int getSelectedRecipeIndex() {
@@ -113,6 +123,7 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 	}
 	
 	@OnlyIn( Dist.CLIENT )
+	@NotNull
 	public List<TableSawRecipe> getRecipes() {
 		
 		return recipes;
@@ -131,7 +142,7 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 	}
 	
 	@Override
-	public boolean stillValid( @Nonnull Player player ) {
+	public boolean stillValid( @NotNull Player player ) {
 		
 		return stillValid( containerLevelAccess, player, getCanInteractBlock() );
 	}
@@ -139,7 +150,7 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 	protected abstract Block getCanInteractBlock();
 	
 	@Override
-	public boolean clickMenuButton( @Nonnull Player player, int id ) {
+	public boolean clickMenuButton( @NotNull Player player, int id ) {
 		
 		if( id >= 0 && id < recipes.size() ) {
 			selectedRecipe.set( id );
@@ -149,7 +160,7 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 	}
 	
 	@Override
-	public void slotsChanged( @Nonnull Container container ) {
+	public void slotsChanged( @NotNull Container container ) {
 		
 		ItemStack itemstack = inputInventorySlot.getItem();
 		if( itemstack.getItem() != itemStackInput.getItem() ) {
@@ -159,7 +170,7 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 		
 	}
 	
-	private void updateAvailableRecipes( Container inventory, ItemStack stack ) {
+	private void updateAvailableRecipes( @NotNull Container inventory, @NotNull ItemStack stack ) {
 		
 		recipes.clear();
 		selectedRecipe.set( -1 );
@@ -169,7 +180,8 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 		}
 	}
 	
-	protected abstract List<TableSawRecipe> getAvaiableRecipes( Container container, Level _level );
+	@NotNull
+	protected abstract List<TableSawRecipe> getAvaiableRecipes( @NotNull Container container, @NotNull Level _level );
 	
 	//package-private
 	void updateRecipeResultSlot() {
@@ -185,26 +197,27 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 	
 	//package-private
 	@OnlyIn( Dist.CLIENT )
-	void setInventoryUpdateListener( Runnable listener ) {
+	void setInventoryUpdateListener( @NotNull Runnable listener ) {
 		
 		inventoryUpdateListener = listener;
 	}
 	
 	//package-private
+	@NotNull
 	Runnable getInventoryUpdateListener() {
 		
 		return inventoryUpdateListener;
 	}
 	
 	@Override
-	public boolean canTakeItemForPickAll( @Nonnull ItemStack stack, @Nonnull Slot slot ) {
+	public boolean canTakeItemForPickAll( @NotNull ItemStack stack, @NotNull Slot slot ) {
 		
 		return false;
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemStack quickMoveStack( @Nonnull Player player, int index ) {
+	public ItemStack quickMoveStack( @NotNull Player player, int index ) {
 		
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = slots.get( index );
@@ -255,13 +268,14 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 	}
 	
 	@Override
-	public void removed( @Nonnull Player player ) {
+	public void removed( @NotNull Player player ) {
 		
 		super.removed( player );
 		resultContainer.removeItemNoUpdate( 1 );
 		containerLevelAccess.execute( ( levelIn, pos ) -> clearContainer( player, inputInventory ) );
 	}
 	
+	@NotNull
 	public ResultContainer getResultContainer() {
 		
 		return resultContainer;

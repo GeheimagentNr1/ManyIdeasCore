@@ -1,62 +1,58 @@
 package de.geheimagentnr1.manyideas_core.config;
 
-import com.electronwill.nightconfig.core.file.CommentedFileConfig;
-import com.electronwill.nightconfig.core.io.WritingMode;
-import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.ModLoadingContext;
+import de.geheimagentnr1.minecraft_forge_api.AbstractMod;
+import de.geheimagentnr1.minecraft_forge_api.config.AbstractConfig;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.loading.FMLPaths;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.util.Locale;
+import org.jetbrains.annotations.NotNull;
 
 
-public class ClientConfig {
+public class ClientConfig extends AbstractConfig {
 	
 	
-	private static final Logger LOGGER = LogManager.getLogger();
+	@NotNull
+	private static final String DEBUG_KEY = "debug_blocks";
 	
-	private static final String MOD_NAME = ModLoadingContext.get().getActiveContainer().getModInfo().getDisplayName();
+	@NotNull
+	private static final String ALL_COLORS_IN_ITEM_GROUP_KEY =
+		"Should all Colors of Dyed Blocks should be shown in the Creative Tabs?";
 	
-	private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
-	
-	public static final ForgeConfigSpec CONFIG;
-	
-	public static final ForgeConfigSpec.BooleanValue DEBUG;
-	
-	public static final ForgeConfigSpec.BooleanValue ALL_COLORS_IN_ITEM_GROUP;
-	
-	static {
+	public ClientConfig( @NotNull AbstractMod _abstractMod ) {
 		
-		DEBUG = BUILDER.comment( "Activate Debug Blocks?" )
-			.worldRestart()
-			.define( "debug_blocks", false );
-		ALL_COLORS_IN_ITEM_GROUP =
-			BUILDER.comment( "Should all Colors of Dyed Blocks should be shown in the Creative Tabs?" )
-				.worldRestart()
-				.define( "all_colors_in_item_group", true );
-		
-		CONFIG = BUILDER.build();
+		super( _abstractMod );
 	}
 	
-	public static void load() {
+	@NotNull
+	@Override
+	public ModConfig.Type type() {
 		
-		CommentedFileConfig configData = CommentedFileConfig.builder(
-				FMLPaths.CONFIGDIR.get().resolve(
-					ManyIdeasCore.MODID + "-" + ModConfig.Type.CLIENT.name().toLowerCase( Locale.ENGLISH ) + ".toml"
-				) )
-			.sync()
-			.autosave()
-			.writingMode( WritingMode.REPLACE )
-			.build();
+		return ModConfig.Type.CLIENT;
+	}
+	
+	@Override
+	public boolean isEarlyLoad() {
 		
-		LOGGER.info( "Loading \"{}\" Client Config", MOD_NAME );
-		configData.load();
-		CONFIG.setConfig( configData );
-		LOGGER.info( "{} = {}", DEBUG.getPath(), DEBUG.get() );
-		LOGGER.info( "{} = {}", ALL_COLORS_IN_ITEM_GROUP.getPath(), ALL_COLORS_IN_ITEM_GROUP.get() );
-		LOGGER.info( "\"{}\" Config loaded", MOD_NAME );
+		return true;
+	}
+	
+	@Override
+	protected void registerConfigValues() {
+		
+		registerConfigValue( "Activate Debug Blocks?", DEBUG_KEY, false, true );
+		registerConfigValue(
+			"Should all Colors of Dyed Blocks should be shown in the Creative Tabs?",
+			ALL_COLORS_IN_ITEM_GROUP_KEY,
+			true,
+			true
+		);
+	}
+	
+	public boolean debug() {
+		
+		return getValue( Boolean.class, DEBUG_KEY );
+	}
+	
+	public boolean allColorsInItemGroup() {
+		
+		return getValue( Boolean.class, ALL_COLORS_IN_ITEM_GROUP_KEY );
 	}
 }

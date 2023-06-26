@@ -8,8 +8,8 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +17,19 @@ import java.util.List;
 public class RedstoneKeyScreen extends AbstractContainerScreen<RedstoneKeyContainer> {
 	
 	
+	@NotNull
 	private static final ResourceLocation REDSTONE_KEY_GUI_TEXTURE = new ResourceLocation(
 		ManyIdeasCore.MODID,
 		"textures/gui/redstone_key/redstone_key_gui.png"
 	);
 	
+	@NotNull
 	private final List<RedstoneKeyOption> optionsGui = new ArrayList<>();
 	
-	public RedstoneKeyScreen( RedstoneKeyContainer _menu, Inventory _inventory, Component _title ) {
+	public RedstoneKeyScreen(
+		@NotNull RedstoneKeyContainer _menu,
+		@NotNull Inventory _inventory,
+		@NotNull Component _title ) {
 		
 		super( _menu, _inventory, _title );
 	}
@@ -57,14 +62,14 @@ public class RedstoneKeyScreen extends AbstractContainerScreen<RedstoneKeyContai
 	}
 	
 	@Override
-	public void render( @Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
+	public void render( @NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
 		
 		renderBackground( guiGraphics );
 		super.render( guiGraphics, mouseX, mouseY, partialTick );
 	}
 	
 	@Override
-	protected void renderBg( @Nonnull GuiGraphics guiGraphics, float partialTick, int x, int y ) {
+	protected void renderBg( @NotNull GuiGraphics guiGraphics, float partialTick, int x, int y ) {
 		
 		guiGraphics.blit(
 			REDSTONE_KEY_GUI_TEXTURE,
@@ -78,7 +83,7 @@ public class RedstoneKeyScreen extends AbstractContainerScreen<RedstoneKeyContai
 	}
 	
 	@Override
-	protected void renderLabels( @Nonnull GuiGraphics guiGraphics, int x, int y ) {
+	protected void renderLabels( @NotNull GuiGraphics guiGraphics, int x, int y ) {
 		
 		int titleStartX = width / 2 - leftPos - font.width( title.getString() ) / 2;
 		guiGraphics.drawString( font, title.getString(), titleStartX, 5, 4210752, false );
