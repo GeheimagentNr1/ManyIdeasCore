@@ -13,6 +13,6 @@ public abstract class Flower extends FlowerBlock implements FlowerBlockItemInter
 	
 	protected Flower( @NotNull MobEffect effect, int duration, @NotNull BlockBehaviour.Properties _properties ) {
 		
-		super( () -> effect, duration, _properties );
+		super( effect, duration, _properties );
 	}
 }

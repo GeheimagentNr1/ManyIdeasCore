@@ -34,12 +34,10 @@ public class Network extends AbstractNetwork {
 	@Override
 	public void registerPackets() {
 		
-		getChannel().registerMessage(
-			0,
-			RedstoneKeyStateUpdateMsg.class,
-			RedstoneKeyStateUpdateMsg::encode,
-			RedstoneKeyStateUpdateMsg::decode,
-			RedstoneKeyStateUpdateMsg::handle
-		);
+		getChannel().messageBuilder( RedstoneKeyStateUpdateMsg.class )
+			.encoder( RedstoneKeyStateUpdateMsg::encode )
+			.decoder( RedstoneKeyStateUpdateMsg::decode )
+			.consumerNetworkThread( RedstoneKeyStateUpdateMsg::handle )
+			.add();
 	}
 }

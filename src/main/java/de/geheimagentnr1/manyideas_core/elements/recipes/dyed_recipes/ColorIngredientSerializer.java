@@ -1,30 +1,36 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
-import de.geheimagentnr1.manyideas_core.elements.recipes.IngredientSerializer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.crafting.ingredients.IIngredientSerializer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 import java.util.TreeMap;
 
 
-public class ColorIngredientSerializer implements IngredientSerializer<ColorIngredient> {
+public class ColorIngredientSerializer implements IIngredientSerializer<ColorIngredient> {
 	
+	
+	public static final Codec<ColorIngredient> CODEC = ColorList.CODEC.flatComapMap(
+		ColorIngredient::new,
+		colorIngredient -> DataResult.success( colorIngredient.getIngrediant() )
+	);
 	
 	@NotNull
 	@Override
-	public String getRegistryName() {
+	public Codec<? extends ColorIngredient> codec() {
 		
-		return ColorIngredient.registry_name;
+		return CODEC;
 	}
 	
 	@NotNull
 	@Override
-	public ColorIngredient parse( @NotNull FriendlyByteBuf buffer ) {
+	public ColorIngredient read( @NotNull FriendlyByteBuf buffer ) {
 		
 		if( buffer.readInt() == 0 ) {
 			return new ColorIngredient( new ColorStackList( buffer.readItem() ) );
@@ -37,13 +43,6 @@ public class ColorIngredientSerializer implements IngredientSerializer<ColorIngr
 			}
 			return new ColorIngredient( new ColorTagList( colorStacks ) );
 		}
-	}
-	
-	@NotNull
-	@Override
-	public ColorIngredient parse( @NotNull JsonObject json ) {
-		
-		return (ColorIngredient)new DyedRecipeSerializer().deserializeIngredient( json );
 	}
 	
 	@Override

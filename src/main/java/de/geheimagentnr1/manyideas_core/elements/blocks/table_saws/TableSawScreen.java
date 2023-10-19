@@ -58,7 +58,6 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 	@Override
 	protected void renderBg( @NotNull GuiGraphics guiGraphics, float partialTick, int x, int y ) {
 		
-		renderBackground( guiGraphics );
 		int i = leftPos;
 		int j = topPos;
 		guiGraphics.blit( BACKGROUND_TEXTURE, i, j, 0, 0, imageWidth, imageHeight );

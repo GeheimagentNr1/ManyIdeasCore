@@ -1,193 +1,220 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
 import com.google.common.collect.Sets;
-import com.google.gson.*;
-import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
+import com.mojang.datafixers.util.Either;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlockItem;
-import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersRegisterFactory;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
 
 
 public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 	
 	
-	@NotNull
-	@Override
-	public DyedRecipe fromJson( @NotNull ResourceLocation recipeId, @NotNull JsonObject json ) {
-		
-		boolean shaped = GsonHelper.getAsBoolean( json, "shaped" );
-		NonNullList<Ingredient> ingredients = NonNullList.create();
-		int recipeWidth;
-		int recipeHeight;
-		if( shaped ) {
-			String[][] pattern = patternFromJson( GsonHelper.getAsJsonArray( json, "pattern" ) );
-			recipeWidth = 3;
-			recipeHeight = 3;
-			deserializeShapedIngredients( ingredients, pattern, GsonHelper.getAsJsonObject( json, "keys" ) );
-		} else {
-			deserializeNonShapedIngredients( ingredients, GsonHelper.getAsJsonArray( json, "ingredients" ) );
-			recipeWidth = ingredients.size();
-			recipeHeight = 1;
-		}
-		ItemStack result = deserializeResult( GsonHelper.getAsJsonObject( json, "result" ) );
-		return new DyedRecipe(
-			recipeId,
-			ModRecipeSerializersRegisterFactory.DYED,
-			shaped,
-			ingredients,
-			result,
-			recipeWidth,
-			recipeHeight
-		);
-	}
+	private static final int MAX_WIDTH = 3;
 	
+	private static final int MAX_HEIGHT = 3;
 	
-	@NotNull
-	private static String[][] patternFromJson( @NotNull JsonArray patternArray ) {
-		
-		String[][] pattern = new String[3][3];
-		if( patternArray.size() != 3 ) {
-			throw new JsonSyntaxException( "Invalid pattern: pattern has not 3 rows" );
-		}
-		for( int i = 0; i < 3; i++ ) {
-			JsonArray rowArray = patternArray.get( i ).getAsJsonArray();
-			if( rowArray.size() != 3 ) {
-				throw new JsonSyntaxException( "Invalid pattern: row " + i + " has not 3 column" );
-			}
-			for( int j = 0; j < 3; j++ ) {
-				pattern[i][j] = rowArray.get( j ).getAsString();
+	private static final Codec<Ingredient> INGREDIENT_OR_COLOR_INGREDIENT_CODEC = ExtraCodecs.xor(
+		Ingredient.CODEC_NONEMPTY,
+		ColorIngredientSerializer.CODEC
+	).xmap(
+		either -> either.map(
+			Function.identity(),
+			Function.identity()
+		),
+		ingredient -> {
+			if( ingredient instanceof ColorIngredient colorIngredient ) {
+				return Either.right( colorIngredient );
+			} else {
+				return Either.left( ingredient );
 			}
 		}
-		return pattern;
-	}
+	);
 	
-	private void deserializeShapedIngredients(
-		@NotNull NonNullList<Ingredient> ingredients,
-		@NotNull String[][] pattern,
-		@NotNull JsonObject keysJson ) {
-		
-		Map<String, Ingredient> keyMapping = deserializeKeys( keysJson );
-		Set<String> keys = Sets.newHashSet( keyMapping.keySet() );
-		keys.remove( " " );
-		for( int i = 0; i < 3; i++ ) {
-			for( int j = 0; j < 3; j++ ) {
-				Ingredient ingredient = keyMapping.get( pattern[i][j] );
-				if( ingredient == null ) {
-					throw new JsonSyntaxException(
-						"Pattern references symbol '" + pattern[i][j] + "' but it's not defined in the key" );
+	private static final Codec<Item> DYE_BLOCK_ITEM_CODEC = ExtraCodecs.validate(
+		BuiltInRegistries.ITEM.byNameCodec(),
+		( item ) -> item instanceof DyeBlockItem
+			? DataResult.success( item )
+			: DataResult.error( () -> "Non DyeBlockItem result not allowed here" )
+	);
+	
+	
+	private static final Codec<ItemStack> RESULT_CODEC = RecordCodecBuilder.create( builder -> builder.group(
+		DYE_BLOCK_ITEM_CODEC.fieldOf( "item" ).forGetter( ItemStack::getItem ),
+		ExtraCodecs.strictOptionalField( ExtraCodecs.POSITIVE_INT, "count", 1 ).forGetter( ItemStack::getCount )
+	).apply( builder, ItemStack::new ) );
+	
+	private static final Codec<List<String>> PATTERN_CODEC = Codec.STRING.listOf().flatXmap(
+		( pattern ) -> {
+			if( pattern.size() > MAX_HEIGHT ) {
+				return DataResult.error( () -> "Invalid pattern: too many rows, " + MAX_HEIGHT + " is maximum" );
+			} else {
+				if( pattern.isEmpty() ) {
+					return DataResult.error( () -> "Invalid pattern: empty pattern not allowed" );
+				} else {
+					int length = pattern.get( 0 ).length();
+					
+					for( String element : pattern ) {
+						if( element.length() > MAX_WIDTH ) {
+							return DataResult.error( () -> "Invalid pattern: too many columns, " + MAX_WIDTH +
+								" is maximum" );
+						}
+						if( length != element.length() ) {
+							return DataResult.error( () -> "Invalid pattern: each row must be the same width" );
+						}
+					}
+					return DataResult.success( pattern );
 				}
-				keys.remove( pattern[i][j] );
-				ingredients.add( ingredient );
+			}
+		},
+		DataResult::success
+	);
+	
+	private static final Codec<String> SINGLE_CHARACTER_STRING_CODEC = Codec.STRING.flatXmap( ( key ) -> {
+		if( key.length() == 1 ) {
+			return " ".equals( key )
+				? DataResult.error( () -> "Invalid key entry: ' ' is a reserved symbol." )
+				: DataResult.success( key );
+		} else {
+			return DataResult.error( () -> "Invalid key entry: '" + key +
+				"' is an invalid symbol (must be 1 character only)." );
+		}
+	}, DataResult::success );
+	
+	private static final Codec<RawShapedDyedRecipe> RAW_CODEC =
+		RecordCodecBuilder.create( ( builder ) -> builder.group(
+			ExtraCodecs.validate(
+				Codec.BOOL,
+				value -> value
+					? DataResult.success( true )
+					: DataResult.error( () -> "Invalid value for shaped recipe" )
+			).fieldOf( "shaped" ).forGetter( RawShapedDyedRecipe::shaped ),
+			ExtraCodecs.strictUnboundedMap(
+					SINGLE_CHARACTER_STRING_CODEC,
+					INGREDIENT_OR_COLOR_INGREDIENT_CODEC
+				)
+				.fieldOf( "key" )
+				.forGetter( RawShapedDyedRecipe::key ),
+			PATTERN_CODEC.fieldOf( "pattern" ).forGetter( RawShapedDyedRecipe::pattern ),
+			RESULT_CODEC.fieldOf( "result" ).forGetter( RawShapedDyedRecipe::result )
+		).apply( builder, RawShapedDyedRecipe::new ) );
+	
+	private static final Codec<DyedRecipe> SHAPED_CODEC =
+		RAW_CODEC.flatXmap(
+			( recipe ) -> {
+				String[] pattern = DyedRecipe.shrink( recipe.pattern() );
+				int width = pattern[0].length();
+				int height = pattern.length;
+				NonNullList<Ingredient> nonnulllist = NonNullList.withSize( width * height, Ingredient.EMPTY );
+				Set<String> keys = Sets.newHashSet( recipe.key().keySet() );
+				
+				for( int k = 0; k < pattern.length; ++k ) {
+					String row = pattern[k];
+					
+					for( int l = 0; l < row.length(); ++l ) {
+						String key = row.substring( l, l + 1 );
+						Ingredient ingredient = key.equals( " " ) ? Ingredient.EMPTY : recipe.key().get( key );
+						if( ingredient == null ) {
+							return DataResult.error( () -> "Pattern references symbol '" + key +
+								"' but it's not defined in the key" );
+						}
+						
+						keys.remove( key );
+						nonnulllist.set( l + width * k, ingredient );
+					}
+				}
+				if( keys.isEmpty() ) {
+					return DataResult.success(
+						new DyedRecipe(
+							true,
+							nonnulllist,
+							recipe.result(),
+							width,
+							height
+						)
+					);
+				} else {
+					return DataResult.error( () -> "Key defines symbols that aren't used in pattern: " + keys );
+				}
+			},
+			( recipe ) -> {
+				throw new NotImplementedException( "Serializing DyedRecipe is not implemented yet." );
+			}
+		);
+	
+	private static final Codec<DyedRecipe> SHAPELESS_CODEC = RecordCodecBuilder.create( builder -> builder.group(
+		ExtraCodecs.validate(
+			Codec.BOOL,
+			value -> value
+				? DataResult.error( () -> "Invalid value for shapeless recipe" )
+				: DataResult.success( false )
+		).fieldOf( "shaped" ).forGetter( DyedRecipe::isShaped ),
+		INGREDIENT_OR_COLOR_INGREDIENT_CODEC.listOf().fieldOf( "ingredients" ).flatXmap(
+			( recipe ) -> {
+				Ingredient[] ingredients = recipe.stream()
+					.filter( ( ingredient ) -> !ingredient.isEmpty() )
+					.toArray( Ingredient[]::new );
+				if( ingredients.length == 0 ) {
+					return DataResult.error( () -> "No ingredients for shapeless recipe" );
+				} else {
+					return ingredients.length > MAX_WIDTH * MAX_HEIGHT
+						? DataResult.error( () -> "Too many ingredients for shapeless recipe" )
+						: DataResult.success( NonNullList.of( Ingredient.EMPTY, ingredients ) );
+				}
+			},
+			DataResult::success
+		).forGetter( DyedRecipe::getIngredients ),
+		RESULT_CODEC.fieldOf( "result" ).forGetter( DyedRecipe::getResult )
+	).apply( builder, ( shaped, ingredients, stack ) -> new DyedRecipe(
+		shaped,
+		ingredients,
+		stack,
+		ingredients.size(),
+		1
+	) ) );
+	
+	private static final Codec<DyedRecipe> CODEC = ExtraCodecs.xor(
+		SHAPED_CODEC,
+		SHAPELESS_CODEC
+	).xmap(
+		either -> either.map(
+			Function.identity(),
+			Function.identity()
+		),
+		dyedRecipe -> {
+			if( dyedRecipe.isShaped() ) {
+				return Either.left( dyedRecipe );
+			} else {
+				return Either.right( dyedRecipe );
 			}
 		}
-		if( !keys.isEmpty() ) {
-			throw new JsonSyntaxException( "Key defines symbols that aren't used in pattern: " + keys );
-		}
-	}
+	);
 	
-	@NotNull
-	private Map<String, Ingredient> deserializeKeys( @NotNull JsonObject keys ) {
+	@Override
+	public Codec<DyedRecipe> codec() {
 		
-		Map<String, Ingredient> map = new HashMap<>();
-		
-		for( Map.Entry<String, JsonElement> entry : keys.entrySet() ) {
-			if( entry.getKey().length() != 1 ) {
-				throw new JsonSyntaxException(
-					"Invalid key entry: '" + entry.getKey() + "' is an invalid symbol (must be 1 character only)." );
-			}
-			if( " ".equals( entry.getKey() ) ) {
-				throw new JsonSyntaxException( "Invalid key entry: ' ' is a reserved symbol." );
-			}
-			map.put( entry.getKey(), deserializeIngredient( entry.getValue().getAsJsonObject() ) );
-		}
-		map.put( " ", Ingredient.EMPTY );
-		return map;
-	}
-	
-	private void deserializeNonShapedIngredients(
-		@NotNull NonNullList<Ingredient> ingredients,
-		@NotNull JsonArray ingredientsJSON ) {
-		
-		for( int i = 0; i < ingredientsJSON.size(); i++ ) {
-			ingredients.add( deserializeIngredient( ingredientsJSON.get( i ).getAsJsonObject() ) );
-		}
-	}
-	
-	//package-private
-	@NotNull
-	Ingredient deserializeIngredient( @NotNull JsonObject ingredient ) {
-		
-		if( ingredient.has( "color_item" ) ) {
-			return deserializeColorStackList( ingredient );
-		}
-		if( ingredient.has( "color_tag" ) ) {
-			return deserializeColorTagList( ingredient );
-		}
-		return Ingredient.fromValues( Stream.of( Ingredient.valueFromJson( ingredient ) ) );
-	}
-	
-	@SuppressWarnings( "deprecation" )
-	@NotNull
-	private Ingredient deserializeColorStackList( @NotNull JsonObject ingredient ) {
-		
-		ResourceLocation location = new ResourceLocation( GsonHelper.getAsString( ingredient, "color_item" ) );
-		Item item = BuiltInRegistries.ITEM.getOptional( location ).orElseThrow( () -> new JsonSyntaxException(
-			"Unknown item '" + location + "'" ) );
-		if( !( item instanceof DyeBlockItem ) ) {
-			throw new JsonSyntaxException( location + " is not a DyeBlockItem" );
-		}
-		return new ColorIngredient( new ColorStackList( new ItemStack( item ) ) );
-	}
-	
-	@SuppressWarnings( "deprecation" )
-	@NotNull
-	private Ingredient deserializeColorTagList( @NotNull JsonObject ingredient ) {
-		
-		JsonObject color_tag = GsonHelper.getAsJsonObject( ingredient, "color_tag" );
-		TreeMap<ItemStack, Color> stacks =
-			new TreeMap<>( Comparator.comparing( o -> BuiltInRegistries.ITEM.getKey( o.getItem() ) ) );
-		for( Color color : Color.values() ) {
-			String registry_key = GsonHelper.getAsString( color_tag, color.getSerializedName(), "" );
-			if( !registry_key.isEmpty() ) {
-				ResourceLocation location = new ResourceLocation( registry_key );
-				stacks.put( new ItemStack( BuiltInRegistries.ITEM.getOptional( location )
-					.orElseThrow( () -> new JsonSyntaxException( "Unknown item '" + location + "'" ) ) ), color );
-			}
-		}
-		return new ColorIngredient( new ColorTagList( stacks ) );
-	}
-	
-	@SuppressWarnings( "deprecation" )
-	@NotNull
-	private ItemStack deserializeResult( @NotNull JsonObject result ) {
-		
-		String registry_key = GsonHelper.getAsString( result, "item" );
-		Item item =
-			BuiltInRegistries.ITEM.getOptional( new ResourceLocation( registry_key ) )
-				.orElseThrow( () -> new JsonSyntaxException(
-					"Unknown item '" + registry_key + "'" ) );
-		if( !( item instanceof DyeBlockItem ) ) {
-			throw new JsonParseException( "Unallowed Recipe Result" );
-		}
-		return new ItemStack( item, GsonHelper.getAsInt( result, "count", 1 ) );
+		return CODEC;
 	}
 	
 	@Nullable
 	@Override
-	public DyedRecipe fromNetwork( @NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer ) {
+	public DyedRecipe fromNetwork( @NotNull FriendlyByteBuf buffer ) {
 		
 		boolean shaped = buffer.readBoolean();
 		int recipeWidth = buffer.readVarInt();
@@ -198,8 +225,6 @@ public class DyedRecipeSerializer implements RecipeSerializer<DyedRecipe> {
 		}
 		ItemStack result = buffer.readItem();
 		return new DyedRecipe(
-			recipeId,
-			ModRecipeSerializersRegisterFactory.DYED,
 			shaped,
 			ingredients,
 			result,

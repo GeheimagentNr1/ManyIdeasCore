@@ -4,7 +4,6 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSawRecipe;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
@@ -17,7 +16,6 @@ public class TableSawStoneRecipe extends TableSawRecipe {
 	public static final String registry_name = "table_sawing_stone";
 	
 	public TableSawStoneRecipe(
-		@NotNull ResourceLocation _id,
 		@NotNull String _group,
 		@NotNull Ingredient _ingredient,
 		@NotNull ItemStack _result ) {
@@ -25,7 +23,6 @@ public class TableSawStoneRecipe extends TableSawRecipe {
 		super(
 			ModRecipeTypesRegisterFactory.TABLE_SAWING_STONE,
 			ModRecipeSerializersRegisterFactory.TABLE_SAWING_STONE,
-			_id,
 			_group,
 			_ingredient,
 			_result

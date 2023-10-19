@@ -102,8 +102,8 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 		HashSet<Item> acceptable_input = new HashSet<>();
 		List<RecipeType<?>> acceptedRecipeTypes = getAcceptedRecipeTypes();
 		level.getRecipeManager().getRecipes().forEach( iRecipe -> {
-			if( acceptedRecipeTypes.contains( iRecipe.getType() ) ) {
-				TableSawRecipe tableSawRecipe = (TableSawRecipe)iRecipe;
+			if( acceptedRecipeTypes.contains( iRecipe.value().getType() ) ) {
+				TableSawRecipe tableSawRecipe = (TableSawRecipe)iRecipe.value();
 				ItemStack[] itemStacks = tableSawRecipe.getIngredients().get( 0 ).getItems();
 				for( ItemStack itemStack : itemStacks ) {
 					acceptable_input.add( itemStack.getItem() );

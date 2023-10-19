@@ -7,6 +7,7 @@ import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterF
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -59,10 +60,16 @@ public class TableSawIronMenu extends TableSawMenu {
 		recipes.addAll(
 			_level.getRecipeManager()
 				.getRecipesFor( ModRecipeTypesRegisterFactory.TABLE_SAWING_STONE, container, _level )
+				.stream()
+				.map( RecipeHolder::value )
+				.toList()
 		);
 		recipes.addAll(
 			_level.getRecipeManager()
 				.getRecipesFor( ModRecipeTypesRegisterFactory.TABLE_SAWING_IRON, container, _level )
+				.stream()
+				.map( RecipeHolder::value )
+				.toList()
 		);
 		return recipes;
 	}

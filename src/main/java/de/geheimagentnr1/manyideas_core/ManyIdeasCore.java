@@ -50,7 +50,7 @@ public class ManyIdeasCore extends AbstractMod {
 			modDebugBlocksRegisterFactory,
 			modItemsRegisterFactory
 		) );
-		registerEventHandler( new ModIngredientSerializersRegisterFactory( this ) );
+		registerEventHandler( new ModIngredientSerializersRegisterFactory() );
 		registerEventHandler( new ModRecipeSerializersRegisterFactory() );
 		registerEventHandler( new ModRecipeTypesRegisterFactory() );
 		registerEventHandler( Network.getInstance() );

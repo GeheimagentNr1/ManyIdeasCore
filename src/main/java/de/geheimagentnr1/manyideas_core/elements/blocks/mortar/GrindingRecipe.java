@@ -4,7 +4,6 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes.SingleItemRecipe;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -19,7 +18,6 @@ public class GrindingRecipe extends SingleItemRecipe {
 	public static final String registry_name = "grinding";
 	
 	public GrindingRecipe(
-		@NotNull ResourceLocation _id,
 		@NotNull String _group,
 		@NotNull Ingredient _ingredient,
 		@NotNull ItemStack _result ) {
@@ -27,7 +25,6 @@ public class GrindingRecipe extends SingleItemRecipe {
 		super(
 			ModRecipeTypesRegisterFactory.GRINDING,
 			ModRecipeSerializersRegisterFactory.GRINDING,
-			_id,
 			_group,
 			_ingredient,
 			_result

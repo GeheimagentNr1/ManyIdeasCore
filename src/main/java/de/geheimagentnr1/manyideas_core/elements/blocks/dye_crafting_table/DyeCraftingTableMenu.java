@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -84,10 +85,11 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 			ItemStack stack = ItemStack.EMPTY;
 			Optional<DyedRecipe> recipeOptional =
 				Objects.requireNonNull( level.getServer() ).getRecipeManager().getRecipeFor(
-					ModRecipeTypesRegisterFactory.DYED,
-					craftingContainer,
-					level
-				);
+						ModRecipeTypesRegisterFactory.DYED,
+						craftingContainer,
+						level
+					)
+					.map( RecipeHolder::value );
 			if( recipeOptional.isPresent() ) {
 				DyedRecipe recipe = recipeOptional.get();
 				stack = recipe.assemble( craftingContainer, level.registryAccess() );

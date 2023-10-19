@@ -2,7 +2,6 @@ package de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -29,22 +28,17 @@ public abstract class SingleItemRecipe implements Recipe<Container> {
 	private final RecipeSerializer<?> serializer;
 	
 	@NotNull
-	private final ResourceLocation id;
-	
-	@NotNull
 	private final String group;
 	
 	protected SingleItemRecipe(
 		@NotNull RecipeType<?> _type,
 		@NotNull RecipeSerializer<?> _serializer,
-		@NotNull ResourceLocation _id,
 		@NotNull String _group,
 		@NotNull Ingredient _ingredient,
 		@NotNull ItemStack _result ) {
 		
 		type = _type;
 		serializer = _serializer;
-		id = _id;
 		group = _group;
 		ingredient = _ingredient;
 		result = _result;
@@ -62,13 +56,6 @@ public abstract class SingleItemRecipe implements Recipe<Container> {
 	public RecipeSerializer<?> getSerializer() {
 		
 		return serializer;
-	}
-	
-	@NotNull
-	@Override
-	public ResourceLocation getId() {
-		
-		return id;
 	}
 	
 	@NotNull

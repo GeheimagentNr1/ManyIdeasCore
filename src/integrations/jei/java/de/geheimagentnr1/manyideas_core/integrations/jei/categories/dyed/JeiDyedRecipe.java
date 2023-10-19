@@ -9,6 +9,7 @@ import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -77,6 +78,7 @@ public class JeiDyedRecipe {
 			.map( clientWorld -> clientWorld.getRecipeManager().getAllRecipesFor( ModRecipeTypesRegisterFactory.DYED ) )
 			.orElseGet( ArrayList::new )
 			.stream()
+			.map( RecipeHolder::value )
 			.map( JeiDyedRecipe::create )
 			.flatMap( List::stream )
 			.collect( Collectors.toList() );

@@ -14,7 +14,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -47,27 +46,28 @@ public class RedstoneKey extends Item {
 				List<Option> options = redstoneKeyableBlock.getOptions();
 				int stateIndex = redstoneKeyableBlock.getStateIndex( state );
 				
-				NetworkHooks.openScreen(
-					(ServerPlayer)player,
-					new RedstoneKeyNamedContainerProvider(
-						title,
-						icons,
-						pos,
-						redstoneKeyableBlock,
-						options,
-						stateIndex
-					),
-					packetBuffer -> {
-						packetBuffer.writeResourceLocation( icons );
-						packetBuffer.writeBlockPos( pos );
-						packetBuffer.writeInt( options.size() );
-						options.forEach( option -> {
-							packetBuffer.writeUtf( option.getTitle() );
-							packetBuffer.writeUtf( option.getDescription() );
-						} );
-						packetBuffer.writeInt( stateIndex );
-					}
-				);
+				if( player instanceof ServerPlayer serverPlayer ) {
+					serverPlayer.openMenu(
+						new RedstoneKeyNamedContainerProvider(
+							title,
+							icons,
+							pos,
+							redstoneKeyableBlock,
+							options,
+							stateIndex
+						),
+						packetBuffer -> {
+							packetBuffer.writeResourceLocation( icons );
+							packetBuffer.writeBlockPos( pos );
+							packetBuffer.writeInt( options.size() );
+							options.forEach( option -> {
+								packetBuffer.writeUtf( option.getTitle() );
+								packetBuffer.writeUtf( option.getDescription() );
+							} );
+							packetBuffer.writeInt( stateIndex );
+						}
+					);
+				}
 			}
 			return InteractionResult.SUCCESS;
 		}

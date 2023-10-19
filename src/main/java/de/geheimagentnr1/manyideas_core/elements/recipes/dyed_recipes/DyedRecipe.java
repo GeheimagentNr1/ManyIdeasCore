@@ -1,11 +1,11 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
+import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -16,6 +16,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -24,12 +25,6 @@ public class DyedRecipe implements Recipe<CraftingContainer> {
 	
 	@NotNull
 	public static final String registry_name = "dyed";
-	
-	@NotNull
-	private final ResourceLocation id;
-	
-	@NotNull
-	private final RecipeSerializer<?> serializer;
 	
 	private final boolean shaped;
 	
@@ -45,16 +40,12 @@ public class DyedRecipe implements Recipe<CraftingContainer> {
 	
 	//package-private
 	DyedRecipe(
-		@NotNull ResourceLocation _id,
-		@NotNull RecipeSerializer<?> _serializer,
 		boolean _shaped,
 		@NotNull NonNullList<Ingredient> _ingredients,
 		@NotNull ItemStack _result,
 		int _recipeWidth,
 		int _recipeHeight ) {
 		
-		id = _id;
-		serializer = _serializer;
 		shaped = _shaped;
 		ingredients = _ingredients;
 		result = _result;
@@ -166,16 +157,9 @@ public class DyedRecipe implements Recipe<CraftingContainer> {
 	
 	@NotNull
 	@Override
-	public ResourceLocation getId() {
-		
-		return id;
-	}
-	
-	@NotNull
-	@Override
 	public RecipeSerializer<?> getSerializer() {
 		
-		return serializer;
+		return ModRecipeSerializersRegisterFactory.DYED;
 	}
 	
 	//package-private
@@ -207,5 +191,59 @@ public class DyedRecipe implements Recipe<CraftingContainer> {
 	int getRecipeHeight() {
 		
 		return recipeHeight;
+	}
+	
+	static String[] shrink( List<String> p_299210_ ) {
+		
+		int i = Integer.MAX_VALUE;
+		int j = 0;
+		int k = 0;
+		int l = 0;
+		
+		for( int i1 = 0; i1 < p_299210_.size(); ++i1 ) {
+			String s = p_299210_.get( i1 );
+			i = Math.min( i, firstNonSpace( s ) );
+			int j1 = lastNonSpace( s );
+			j = Math.max( j, j1 );
+			if( j1 < 0 ) {
+				if( k == i1 ) {
+					++k;
+				}
+				
+				++l;
+			} else {
+				l = 0;
+			}
+		}
+		
+		if( p_299210_.size() == l ) {
+			return new String[0];
+		} else {
+			String[] astring = new String[p_299210_.size() - l - k];
+			
+			for( int k1 = 0; k1 < astring.length; ++k1 ) {
+				astring[k1] = p_299210_.get( k1 + k ).substring( i, j + 1 );
+			}
+			
+			return astring;
+		}
+	}
+	
+	private static int firstNonSpace( String p_44185_ ) {
+		
+		int i;
+		for( i = 0; i < p_44185_.length() && p_44185_.charAt( i ) == ' '; ++i ) {
+		}
+		
+		return i;
+	}
+	
+	private static int lastNonSpace( String p_44201_ ) {
+		
+		int i;
+		for( i = p_44201_.length() - 1; i >= 0 && p_44201_.charAt( i ) == ' '; --i ) {
+		}
+		
+		return i;
 	}
 }

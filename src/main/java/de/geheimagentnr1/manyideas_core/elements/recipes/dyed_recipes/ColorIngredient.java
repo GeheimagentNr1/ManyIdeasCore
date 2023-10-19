@@ -1,11 +1,10 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
-import com.google.gson.JsonElement;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModIngredientSerializersRegisterFactory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.crafting.IIngredientSerializer;
+import net.minecraftforge.common.crafting.ingredients.IIngredientSerializer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.Stream;
@@ -27,16 +26,8 @@ public class ColorIngredient extends Ingredient {
 		ingrediant = _ingrediant;
 	}
 	
-	@NotNull
 	@Override
-	public JsonElement toJson() {
-		
-		return ingrediant.serialize();
-	}
-	
-	@NotNull
-	@Override
-	public IIngredientSerializer<? extends Ingredient> getSerializer() {
+	public IIngredientSerializer<? extends Ingredient> serializer() {
 		
 		return ModIngredientSerializersRegisterFactory.COLOR;
 	}

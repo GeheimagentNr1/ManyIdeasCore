@@ -5,7 +5,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.world.inventory.RecipeHolder;
+import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeHooks;
@@ -77,8 +77,8 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 			stack.onCraftedBy( player.level(), player, amountCrafted );
 			ForgeEventFactory.firePlayerCraftingEvent( player, stack, craftingContainer );
 		}
-		if( container instanceof RecipeHolder ) {
-			( (RecipeHolder)container ).awardUsedRecipes( player, craftingContainer.getItems() );
+		if( container instanceof RecipeCraftingHolder ) {
+			( (RecipeCraftingHolder)container ).awardUsedRecipes( player, craftingContainer.getItems() );
 		}
 		amountCrafted = 0;
 	}

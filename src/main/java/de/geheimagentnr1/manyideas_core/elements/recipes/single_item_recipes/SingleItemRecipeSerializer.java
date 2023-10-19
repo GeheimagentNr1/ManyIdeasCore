@@ -1,57 +1,55 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 public class SingleItemRecipeSerializer<T extends SingleItemRecipe> implements RecipeSerializer<T> {
 	
 	
+	private static final MapCodec<ItemStack> RESULT_CODEC = RecordCodecBuilder.mapCodec( builder -> builder.group(
+		BuiltInRegistries.ITEM.byNameCodec().fieldOf( "result" ).forGetter( ItemStack::getItem ),
+		ExtraCodecs.strictOptionalField( ExtraCodecs.POSITIVE_INT, "count", 1 ).forGetter( ItemStack::getCount )
+	).apply( builder, ItemStack::new ) );
+	
 	@NotNull
 	private final ISingleItemRecipeFactory<T> factory;
+	
+	private final Codec<T> codec;
 	
 	public SingleItemRecipeSerializer( @NotNull ISingleItemRecipeFactory<T> _factory ) {
 		
 		factory = _factory;
-	}
-	
-	@SuppressWarnings( "deprecation" )
-	@NotNull
-	@Override
-	public T fromJson( @NotNull ResourceLocation recipeId, @NotNull JsonObject json ) {
-		
-		String group = GsonHelper.getAsString( json, "group", "" );
-		Ingredient ingredient;
-		if( GsonHelper.isArrayNode( json, "ingredient" ) ) {
-			ingredient = Ingredient.fromJson( GsonHelper.getAsJsonArray( json, "ingredient" ) );
-		} else {
-			ingredient = Ingredient.fromJson( GsonHelper.getAsJsonObject( json, "ingredient" ) );
-		}
-		
-		String resultName = GsonHelper.getAsString( json, "result" );
-		int resultCount = json.has( "count" ) ? GsonHelper.getAsInt( json, "count" ) : 1;
-		ItemStack result = new ItemStack(
-			BuiltInRegistries.ITEM.get( new ResourceLocation( resultName ) ),
-			resultCount
-		);
-		return factory.create( recipeId, group, ingredient, result );
+		codec = RecordCodecBuilder.create( ( builder ) -> builder.group(
+			ExtraCodecs.strictOptionalField( Codec.STRING, "group", "" ).forGetter( SingleItemRecipe::getGroup ),
+			Ingredient.CODEC_NONEMPTY.fieldOf( "ingredient" ).forGetter( SingleItemRecipe::getIngredient ),
+			RESULT_CODEC.forGetter( SingleItemRecipe::getResult )
+		).apply( builder, factory::create ) );
 	}
 	
 	@Override
-	@NotNull
-	public T fromNetwork( @NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer ) {
+	public Codec<T> codec() {
+		
+		return codec;
+	}
+	
+	@Nullable
+	@Override
+	public T fromNetwork( @NotNull FriendlyByteBuf buffer ) {
 		
 		String group = buffer.readUtf( 32767 );
 		Ingredient ingredient = Ingredient.fromNetwork( buffer );
 		ItemStack result = buffer.readItem();
-		return factory.create( recipeId, group, ingredient, result );
+		return factory.create( group, ingredient, result );
 	}
 	
 	@Override

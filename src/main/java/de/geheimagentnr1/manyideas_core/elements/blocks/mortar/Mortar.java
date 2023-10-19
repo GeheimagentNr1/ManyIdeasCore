@@ -11,6 +11,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -75,14 +76,14 @@ public class Mortar extends Block implements BlockItemInterface {
 		
 		ItemStack crafting_stack = player.getItemInHand( hand );
 		MortarCraftingContainer craftingInventory = new MortarCraftingContainer( crafting_stack );
-		Optional<GrindingRecipe> recipe = level.getRecipeManager().getRecipeFor(
+		Optional<RecipeHolder<GrindingRecipe>> recipe = level.getRecipeManager().getRecipeFor(
 			ModRecipeTypesRegisterFactory.GRINDING,
 			craftingInventory,
 			level
 		);
 		
 		if( recipe.isPresent() ) {
-			ItemStack result_stack = recipe.get().assemble( craftingInventory, level.registryAccess() );
+			ItemStack result_stack = recipe.get().value().assemble( craftingInventory, level.registryAccess() );
 			crafting_stack.shrink( 1 );
 			if( !player.addItem( result_stack ) ) {
 				player.drop( result_stack, false );

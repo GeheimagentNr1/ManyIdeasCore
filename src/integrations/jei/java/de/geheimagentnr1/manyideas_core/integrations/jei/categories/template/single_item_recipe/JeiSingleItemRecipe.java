@@ -3,6 +3,7 @@ package de.geheimagentnr1.manyideas_core.integrations.jei.categories.template.si
 import de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes.SingleItemRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,6 +37,7 @@ public abstract class JeiSingleItemRecipe<T extends SingleItemRecipe> {
 			.map( level -> level.getRecipeManager().getAllRecipesFor( recipe ) )
 			.orElseGet( ArrayList::new )
 			.stream()
+			.map( RecipeHolder::value )
 			.map( jeiRecipeBuilder )
 			.collect( Collectors.toList() );
 	}
