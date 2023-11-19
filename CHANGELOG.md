@@ -1,1 +1,1 @@
-Ported to 1.20.2 
+- Fix tooltips and title label for Dye Crafting Table and Table Saws

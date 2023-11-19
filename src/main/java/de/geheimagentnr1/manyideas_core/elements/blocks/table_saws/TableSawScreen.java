@@ -71,9 +71,9 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 	}
 	
 	@Override
-	protected void renderLabels( @NotNull GuiGraphics guiGraphics, int x, int y ) {
+	protected void renderTooltip( @NotNull GuiGraphics guiGraphics, int x, int y ) {
 		
-		renderTooltip( guiGraphics, x, y );
+		super.renderTooltip( guiGraphics, x, y );
 		if( displayRecipes ) {
 			int i = leftPos + 52;
 			int j = topPos + 14;
@@ -85,7 +85,14 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 				int j1 = i + ( i1 % 4 << 4 );
 				int k1 = j + i1 / 4 * 18 + 2;
 				if( x >= j1 && x < j1 + 16 && y >= k1 && y < k1 + 18 ) {
-					renderTooltip( guiGraphics, x, y );
+					guiGraphics.renderTooltip(
+						this.font,
+						list.get( l ).getResultItem(
+							Objects.requireNonNull( Objects.requireNonNull( this.minecraft ).level ).registryAccess()
+						),
+						x,
+						y
+					);
 				}
 			}
 		}
@@ -132,6 +139,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 		
 	}
 	
+	@Override
 	public boolean mouseClicked( double p_231044_1_, double p_231044_3_, int p_231044_5_ ) {
 		
 		scrolling = false;
@@ -165,6 +173,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 		return super.mouseClicked( p_231044_1_, p_231044_3_, p_231044_5_ );
 	}
 	
+	@Override
 	public boolean mouseDragged(
 		double p_231045_1_,
 		double p_231045_3_,
@@ -184,13 +193,14 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 		}
 	}
 	
-	public boolean mouseScrolled( double p_231043_1_, double p_231043_3_, double p_231043_5_ ) {
+	@Override
+	public boolean mouseScrolled( double pMouseX, double pMouseY, double pScrollX, double pScrollY ) {
 		
-		if( isScrollBarActive() ) {
-			int i = getOffscreenRows();
-			scrollOffs -= p_231043_5_ / i;
-			scrollOffs = Mth.clamp( scrollOffs, 0.0F, 1.0F );
-			startIndex = (int)( ( scrollOffs * i ) + 0.5D ) << 2;
+		if( this.isScrollBarActive() ) {
+			int i = this.getOffscreenRows();
+			float f = (float)pScrollY / i;
+			this.scrollOffs = Mth.clamp( this.scrollOffs - f, 0.0F, 1.0F );
+			this.startIndex = (int)( this.scrollOffs * i + 0.5D ) << 2;
 		}
 		
 		return true;

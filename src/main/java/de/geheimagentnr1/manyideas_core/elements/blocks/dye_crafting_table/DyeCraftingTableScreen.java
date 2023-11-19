@@ -31,14 +31,14 @@ public class DyeCraftingTableScreen extends AbstractContainerScreen<DyeCraftingT
 	
 	private void initData() {
 		
-		titleLabelX = 38;
+		titleLabelX = 29;
 	}
 	
 	@Override
 	public void render( @NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
 		
-		renderBackground( guiGraphics, mouseX, mouseY, partialTick );
 		super.render( guiGraphics, mouseX, mouseY, partialTick );
+		renderTooltip( guiGraphics, mouseX, mouseY );
 	}
 	
 	@Override
