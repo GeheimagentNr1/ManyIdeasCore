@@ -1,8 +1,8 @@
 {
-	"type":        "manyideas_core:dyed",
-	"shaped":      false,
+	"type":        "manyideas_core:dyed_shapeless",
 	"ingredients": [
 		{
+			"type": "manyideas_core:color_item",
 			"color_item": "manyideas_core:wood_colored"
 		}
 	],

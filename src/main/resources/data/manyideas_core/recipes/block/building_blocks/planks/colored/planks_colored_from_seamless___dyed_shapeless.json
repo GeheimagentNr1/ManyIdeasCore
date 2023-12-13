@@ -1,11 +1,11 @@
 {
-	"type":        "manyideas_core:dyed",
-	"shaped":      false,
+	"type":        "manyideas_core:dyed_shapeless",
 	"ingredients": [
 		{
-			"item": "manyideas_core:wood_colored"
+			"tag": "manyideas_core:planks"
 		},
 		{
+			"type": "manyideas_core:color_tag",
 			"color_tag": {
 				"black":      "minecraft:black_dye",
 				"blue":       "minecraft:blue_dye",
@@ -28,6 +28,6 @@
 		}
 	],
 	"result":      {
-		"item": "manyideas_core:wood_colored"
+		"item": "manyideas_core:planks_colored"
 	}
 }

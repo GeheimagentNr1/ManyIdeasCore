@@ -106,11 +106,7 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 				if( crafting_stack.isEmpty() ) {
 					craftingContainer.setItem( i, ingredient );
 				} else {
-					if( ItemStack.isSameItem( crafting_stack, ingredient ) && ItemStack.isSameItemSameTags
-						(
-							crafting_stack,
-							ingredient
-						) ) {
+					if( ItemStack.isSameItemSameTags( crafting_stack, ingredient ) ) {
 						ingredient.grow( crafting_stack.getCount() );
 						craftingContainer.setItem( i, ingredient );
 					} else {

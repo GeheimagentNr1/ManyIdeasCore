@@ -1,7 +1,9 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes;
 
-import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.ColorIngredient;
-import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.ColorIngredientSerializer;
+import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.ColorStackIngredient;
+import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.ColorStackIngredientSerializer;
+import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.ColorTagIngredient;
+import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.ColorTagIngredientSerializer;
 import de.geheimagentnr1.minecraft_forge_api.registry.ElementsRegisterFactory;
 import de.geheimagentnr1.minecraft_forge_api.registry.RegistryEntry;
 import net.minecraft.core.Registry;
@@ -18,7 +20,10 @@ public class ModIngredientSerializersRegisterFactory extends ElementsRegisterFac
 	//Color
 	
 	@NotNull
-	public static final ColorIngredientSerializer COLOR = new ColorIngredientSerializer();
+	public static final ColorStackIngredientSerializer COLOR_ITEM = new ColorStackIngredientSerializer();
+	
+	@NotNull
+	public static final ColorTagIngredientSerializer COLOR_TAG = new ColorTagIngredientSerializer();
 	
 	@Override
 	protected @NotNull ResourceKey<Registry<IIngredientSerializer<?>>> registryKey() {
@@ -31,7 +36,8 @@ public class ModIngredientSerializersRegisterFactory extends ElementsRegisterFac
 	protected List<RegistryEntry<IIngredientSerializer<?>>> elements() {
 		
 		return List.of(
-			RegistryEntry.create( ColorIngredient.registry_name, COLOR )
+			RegistryEntry.create( ColorStackIngredient.registry_name, COLOR_ITEM ),
+			RegistryEntry.create( ColorTagIngredient.registry_name, COLOR_TAG )
 		);
 	}
 }

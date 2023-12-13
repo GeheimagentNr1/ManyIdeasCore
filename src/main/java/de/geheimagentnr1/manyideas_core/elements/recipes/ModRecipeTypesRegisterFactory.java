@@ -6,8 +6,8 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.Table
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronRecipe;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneRecipe;
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedRecipe;
-import de.geheimagentnr1.manyideas_core.elements.recipes.types.SimpleRecipeType;
-import de.geheimagentnr1.minecraft_forge_api.registry.ElementsRegisterFactory;
+import de.geheimagentnr1.minecraft_forge_api.elements.recipes.types.RecipeTypesRegisterFactory;
+import de.geheimagentnr1.minecraft_forge_api.elements.recipes.types.SimpleRecipeType;
 import de.geheimagentnr1.minecraft_forge_api.registry.RegistryEntry;
 import de.geheimagentnr1.minecraft_forge_api.registry.RegistryKeys;
 import net.minecraft.core.Registry;
@@ -21,7 +21,7 @@ import java.util.List;
 
 
 @SuppressWarnings( { "StaticNonFinalField", "PublicField" } )
-public class ModRecipeTypesRegisterFactory extends ElementsRegisterFactory<RecipeType<?>> {
+public class ModRecipeTypesRegisterFactory extends RecipeTypesRegisterFactory {
 	
 	//Dyed
 	
@@ -56,9 +56,8 @@ public class ModRecipeTypesRegisterFactory extends ElementsRegisterFactory<Recip
 		return ForgeRegistries.Keys.RECIPE_TYPES;
 	}
 	
-	@NotNull
 	@Override
-	protected List<RegistryEntry<RecipeType<?>>> elements() {
+	protected @NotNull List<RegistryEntry<RecipeType<?>>> recipeTypes() {
 		
 		return List.of(
 			RegistryEntry.create(

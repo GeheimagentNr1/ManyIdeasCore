@@ -34,17 +34,13 @@ import java.util.List;
 public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyable, BlockItemInterface {
 	
 	
-	@NotNull
-	private final BlockSetType type;
-	
 	protected DoubleDoorBlock(
 		@NotNull BlockBehaviour.Properties _properties,
 		@NotNull BlockSetType _type,
 		@NotNull OpenedBy openedBy ) {
 		
-		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ), _type );
+		super( _type, _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ) );
 		initDoubleDoorBlock( openedBy );
-		type = _type;
 	}
 	
 	private void initDoubleDoorBlock( @NotNull OpenedBy openedBy ) {
@@ -66,7 +62,7 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 			OpenedByHelper.canBeOpened( state, true ) ) {
 			boolean open = !state.getValue( OPEN );
 			level.setBlock( pos, state.setValue( OPEN, open ), 10 );
-			DoorsHelper.playDoorSound( level, pos, type, player, state.getValue( OPEN ) );
+			DoorsHelper.playDoorSound( level, pos, type(), player, state.getValue( OPEN ) );
 			
 			BlockData neighbor = DoorsHelper.getNeighborBlock( level, pos, state );
 			if( DoorsHelper.isNeighbor( state, neighbor ) ) {
@@ -109,7 +105,7 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 			
 			if( isDoorPowered != state.getValue( POWERED ) ) {
 				if( state.getValue( OPEN ) != isDoorPowered ) {
-					DoorsHelper.playDoorSound( level, pos, type, null, isDoorPowered );
+					DoorsHelper.playDoorSound( level, pos, type(), null, isDoorPowered );
 				}
 				level.setBlock( pos, state.setValue( POWERED, isDoorPowered ).setValue( OPEN, isDoorPowered ), 2 );
 				if( isNeighbor ) {

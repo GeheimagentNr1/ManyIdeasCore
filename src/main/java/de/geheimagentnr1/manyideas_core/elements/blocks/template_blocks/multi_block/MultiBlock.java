@@ -151,8 +151,9 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 		);
 	}
 	
+	@NotNull
 	@Override
-	public void playerWillDestroy(
+	public BlockState playerWillDestroy(
 		@NotNull Level level,
 		@NotNull BlockPos pos,
 		@NotNull BlockState state,
@@ -188,7 +189,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 			},
 			true
 		);
-		super.playerWillDestroy( level, pos, state, player );
+		return super.playerWillDestroy( level, pos, state, player );
 	}
 	
 	@Override

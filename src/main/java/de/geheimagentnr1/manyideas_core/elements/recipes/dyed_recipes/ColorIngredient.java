@@ -1,46 +1,39 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
-import de.geheimagentnr1.manyideas_core.elements.recipes.ModIngredientSerializersRegisterFactory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.crafting.ingredients.IIngredientSerializer;
+import net.minecraftforge.common.crafting.ingredients.AbstractIngredient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.Stream;
 
 
-public class ColorIngredient extends Ingredient {
+abstract class ColorIngredient<T extends ColorList> extends AbstractIngredient {
 	
 	
 	@NotNull
-	public static final String registry_name = "color";
+	private final T ingrediant;
 	
-	@NotNull
-	private final ColorList ingrediant;
-	
-	//package-private
-	ColorIngredient( @NotNull ColorList _ingrediant ) {
+	ColorIngredient( @NotNull T _ingrediant ) {
 		
 		super( Stream.of( _ingrediant ) );
 		ingrediant = _ingrediant;
 	}
 	
 	@Override
-	public IIngredientSerializer<? extends Ingredient> serializer() {
+	public boolean isSimple() {
 		
-		return ModIngredientSerializersRegisterFactory.COLOR;
+		return false;
 	}
 	
 	//package-private
 	@NotNull
-	ColorList getIngrediant() {
+	T getIngrediant() {
 		
 		return ingrediant;
 	}
 	
-	//package-private
-	Color getColor( @NotNull ItemStack stack ) {
+	public Color getColor( @NotNull ItemStack stack ) {
 		
 		return ingrediant.getColor( stack );
 	}

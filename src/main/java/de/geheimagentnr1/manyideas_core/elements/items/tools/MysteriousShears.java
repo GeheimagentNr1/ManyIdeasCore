@@ -61,7 +61,7 @@ public class MysteriousShears extends Item {
 		}
 		if( state.is( BlockTags.LEAVES ) ||
 			state.is( Blocks.COBWEB ) ||
-			state.is( Blocks.GRASS ) ||
+			state.is( Blocks.SHORT_GRASS ) ||
 			state.is( Blocks.FERN ) ||
 			state.is( Blocks.DEAD_BUSH ) ||
 			state.is( Blocks.HANGING_ROOTS ) ||

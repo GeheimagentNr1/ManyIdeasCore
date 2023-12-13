@@ -46,7 +46,7 @@ public class SingleItemRecipeSerializer<T extends SingleItemRecipe> implements R
 	@Override
 	public T fromNetwork( @NotNull FriendlyByteBuf buffer ) {
 		
-		String group = buffer.readUtf( 32767 );
+		String group = buffer.readUtf();
 		Ingredient ingredient = Ingredient.fromNetwork( buffer );
 		ItemStack result = buffer.readItem();
 		return factory.create( group, ingredient, result );

@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -73,7 +74,7 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 		}
 	}
 	
-	private static void changeCaftingSlot(
+	private static void changeCraftingSlot(
 		@NotNull AbstractContainerMenu menu,
 		@NotNull Level level,
 		@NotNull Player player,
@@ -81,26 +82,32 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 		@NotNull ResultContainer resultContainer ) {
 		
 		if( !level.isClientSide() ) {
-			ServerPlayer serverPlayer = (ServerPlayer)player;
-			ItemStack stack = ItemStack.EMPTY;
-			Optional<DyedRecipe> recipeOptional =
-				Objects.requireNonNull( level.getServer() ).getRecipeManager().getRecipeFor(
-						ModRecipeTypesRegisterFactory.DYED,
-						craftingContainer,
-						level
-					)
-					.map( RecipeHolder::value );
-			if( recipeOptional.isPresent() ) {
-				DyedRecipe recipe = recipeOptional.get();
-				stack = recipe.assemble( craftingContainer, level.registryAccess() );
+			ServerPlayer serverplayer = (ServerPlayer)player;
+			ItemStack resultStack = ItemStack.EMPTY;
+			RecipeManager recipeManager = Objects.requireNonNull( level.getServer() ).getRecipeManager();
+			Optional<RecipeHolder<DyedRecipe>> dyedRecipeHolderOptional = recipeManager.getRecipeFor(
+				ModRecipeTypesRegisterFactory.DYED,
+				craftingContainer,
+				level
+			);
+			if( dyedRecipeHolderOptional.isPresent() ) {
+				RecipeHolder<DyedRecipe> recipeholder = dyedRecipeHolderOptional.get();
+				DyedRecipe dyedRecipe = recipeholder.value();
+				if( resultContainer.setRecipeUsed( level, serverplayer, recipeholder ) ) {
+					ItemStack assembledStack = dyedRecipe.assemble( craftingContainer, level.registryAccess() );
+					if( assembledStack.isItemEnabled( level.enabledFeatures() ) ) {
+						resultStack = assembledStack;
+					}
+				}
 			}
-			resultContainer.setItem( 0, stack );
-			menu.setRemoteSlot( 0, stack );
-			serverPlayer.connection.send( new ClientboundContainerSetSlotPacket(
+			
+			resultContainer.setItem( 0, resultStack );
+			menu.setRemoteSlot( 0, resultStack );
+			serverplayer.connection.send( new ClientboundContainerSetSlotPacket(
 				menu.containerId,
 				menu.incrementStateId(),
 				0,
-				stack
+				resultStack
 			) );
 		}
 	}
@@ -108,7 +115,7 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 	@Override
 	public void slotsChanged( @NotNull Container container ) {
 		
-		containerLevelAccess.execute( ( level, pos ) -> changeCaftingSlot(
+		containerLevelAccess.execute( ( level, pos ) -> changeCraftingSlot(
 			this,
 			level,
 			player,
@@ -140,30 +147,34 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 			ItemStack stack = slot.getItem();
 			resultStack = stack.copy();
 			if( index == 0 ) {
-				containerLevelAccess.execute( ( level, pos ) -> stack.getItem().onCraftedBy( stack, level, _player ) );
-				if( !moveItemStackTo( stack, 10, 46, true ) ) {
+				containerLevelAccess.execute( ( level, pos ) -> {
+					stack.getItem().onCraftedBy( stack, level, _player );
+				} );
+				if( !this.moveItemStackTo( stack, 10, 46, true ) ) {
 					return ItemStack.EMPTY;
 				}
 				slot.onQuickCraft( stack, resultStack );
 			} else {
-				if( index >= 10 && index < 37 ) {
-					if( !moveItemStackTo( stack, 37, 46, false ) ) {
-						return ItemStack.EMPTY;
+				if( index >= 10 && index < 46 ) {
+					if( !this.moveItemStackTo( stack, 1, 10, false ) ) {
+						if( index < 37 ) {
+							if( !this.moveItemStackTo( stack, 37, 46, false ) ) {
+								return ItemStack.EMPTY;
+							}
+						} else {
+							if( !this.moveItemStackTo( stack, 10, 37, false ) ) {
+								return ItemStack.EMPTY;
+							}
+						}
 					}
 				} else {
-					if( index >= 37 && index < 46 ) {
-						if( !moveItemStackTo( stack, 10, 37, false ) ) {
-							return ItemStack.EMPTY;
-						}
-					} else {
-						if( !moveItemStackTo( stack, 10, 46, false ) ) {
-							return ItemStack.EMPTY;
-						}
+					if( !this.moveItemStackTo( stack, 10, 46, false ) ) {
+						return ItemStack.EMPTY;
 					}
 				}
 			}
 			if( stack.isEmpty() ) {
-				slot.set( ItemStack.EMPTY );
+				slot.setByPlayer( ItemStack.EMPTY );
 			} else {
 				slot.setChanged();
 			}

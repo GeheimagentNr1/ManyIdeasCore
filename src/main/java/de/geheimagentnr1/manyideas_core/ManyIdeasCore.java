@@ -54,7 +54,7 @@ public class ManyIdeasCore extends AbstractMod {
 		registerEventHandler( new ModRecipeSerializersRegisterFactory() );
 		registerEventHandler( new ModRecipeTypesRegisterFactory() );
 		registerEventHandler( Network.getInstance() );
-		DistExecutor.safeRunWhenOn(
+		DistExecutor.unsafeRunWhenOn(
 			Dist.CLIENT,
 			() -> () -> {
 				PlayerDecorationManager playerDecorationManager = new PlayerDecorationManager();

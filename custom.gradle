@@ -18,14 +18,14 @@ dependencies {
     testCompileOnly fg.deobf("de.geheimagentnr1.minecraft_forge_api:MinecraftForgeAPI-${minecraft_version}:${mfapi_version}")
 
     // compile against the JEI API but do not include it at runtime
-    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge-api:${jei_version}")
+//    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-common-api:${jei_version}")
+//    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge-api:${jei_version}")
     // at runtime, use the full JEI jar for Forge
-    runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge:${jei_version}")
+    //runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge:${jei_version}")
 }
 
 test {
     useJUnitPlatform()
 }
 
-sourceSets.main.java { srcDir 'src/integrations/jei/java' }
+//sourceSets.main.java { srcDir 'src/integrations/jei/java' }
