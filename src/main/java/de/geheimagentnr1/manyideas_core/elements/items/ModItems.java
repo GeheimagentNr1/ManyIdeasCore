@@ -41,6 +41,7 @@ public class ModItems {
 		RegistryEntry.create( PanelCrimson.registry_name, new PanelCrimson() ),//FINRT
 		RegistryEntry.create( PanelDarkOak.registry_name, new PanelDarkOak() ),//FINRT
 		RegistryEntry.create( PanelJungle.registry_name, new PanelJungle() ),//FINRT
+		RegistryEntry.create( PanelMangrove.registry_name, new PanelMangrove() ),//FINRT
 		RegistryEntry.create( PanelOak.registry_name, new PanelOak() ),//FINRT
 		RegistryEntry.create( PanelSpruce.registry_name, new PanelSpruce() ),//FINRT
 		RegistryEntry.create( PanelWarped.registry_name, new PanelWarped() ),//FINRT
@@ -80,6 +81,9 @@ public class ModItems {
 	
 	@ObjectHolder( registryName = RegistryKeys.ITEMS, value = ManyIdeasCore.MODID + ":" + PanelJungle.registry_name )
 	public static PanelJungle PANEL_JUNGLE;
+	
+	@ObjectHolder( registryName = RegistryKeys.ITEMS, value = ManyIdeasCore.MODID + ":" + PanelMangrove.registry_name )
+	public static PanelMangrove PANEL_MANGROVE;
 	
 	@ObjectHolder( registryName = RegistryKeys.ITEMS, value = ManyIdeasCore.MODID + ":" + PanelOak.registry_name )
 	public static PanelOak PANEL_OAK;

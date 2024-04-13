@@ -1,1 +1,2 @@
-- Added straight flowers to minecraft:small_flowers or minecraft:tall_flowers tags
+- Add Blocks Mangrove Seamless Planks, Mangrove Smooth Stripped Log, Mangrove Smooth Stripped Wood
+- Add Item Mangrove Panel
