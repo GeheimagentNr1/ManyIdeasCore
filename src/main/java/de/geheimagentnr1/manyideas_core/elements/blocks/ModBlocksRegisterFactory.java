@@ -90,6 +90,10 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 	public static PlanksSeamlessJungle PLANKS_SEAMLESS_JUNGLE;
 	
 	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
+		value = ManyIdeasCore.MODID + ":" + PlanksSeamlessMangrove.registry_name )
+	public static PlanksSeamlessMangrove PLANKS_SEAMLESS_MANGROVE;
+	
+	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
 		value = ManyIdeasCore.MODID + ":" + PlanksSeamlessOak.registry_name )
 	public static PlanksSeamlessOak PLANKS_SEAMLESS_OAK;
 	
@@ -162,6 +166,10 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 	public static LogStrippedSmoothJungle LOG_STRIPPED_SMOOTH_JUNGLE;
 	
 	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
+		value = ManyIdeasCore.MODID + ":" + LogStrippedSmoothMangrove.registry_name )
+	public static LogStrippedSmoothMangrove LOG_STRIPPED_SMOOTH_MANGROVE;
+	
+	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
 		value = ManyIdeasCore.MODID + ":" + LogStrippedSmoothOak.registry_name )
 	public static LogStrippedSmoothOak LOG_STRIPPED_SMOOTH_OAK;
 	
@@ -194,6 +202,10 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
 		value = ManyIdeasCore.MODID + ":" + WoodStrippedSmoothJungle.registry_name )
 	public static WoodStrippedSmoothJungle WOOD_STRIPPED_SMOOTH_JUNGLE;
+	
+	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
+		value = ManyIdeasCore.MODID + ":" + WoodStrippedSmoothMangrove.registry_name )
+	public static WoodStrippedSmoothMangrove WOOD_STRIPPED_SMOOTH_MANGROVE;
 	
 	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
 		value = ManyIdeasCore.MODID + ":" + WoodStrippedSmoothOak.registry_name )
@@ -303,6 +315,7 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 			//BCPFINRLT
 			RegistryEntry.create( PlanksSeamlessJungle.registry_name, new PlanksSeamlessJungle() ),
 			//BCPFINRLT
+			RegistryEntry.create( PlanksSeamlessMangrove.registry_name, new PlanksSeamlessMangrove() ),//BCPFINRLT
 			RegistryEntry.create( PlanksSeamlessOak.registry_name, new PlanksSeamlessOak() ),
 			//BCPFINRLT
 			RegistryEntry.create( PlanksSeamlessSpruce.registry_name, new PlanksSeamlessSpruce() ),
@@ -340,6 +353,7 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 			//BCPFINRLT
 			RegistryEntry.create( LogStrippedSmoothJungle.registry_name, new LogStrippedSmoothJungle() ),
 			//BCPFINRLT
+			RegistryEntry.create( LogStrippedSmoothMangrove.registry_name, new LogStrippedSmoothMangrove() ),//BCPFINRLT
 			RegistryEntry.create( LogStrippedSmoothOak.registry_name, new LogStrippedSmoothOak() ),
 			//BCPFINRLT
 			RegistryEntry.create( LogStrippedSmoothSpruce.registry_name, new LogStrippedSmoothSpruce() ),
@@ -357,6 +371,7 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 			//BCPFINRLT
 			RegistryEntry.create( WoodStrippedSmoothJungle.registry_name, new WoodStrippedSmoothJungle() ),
 			//BCPFINRLT
+			RegistryEntry.create( WoodStrippedSmoothMangrove.registry_name, new WoodStrippedSmoothMangrove() ),//BCPFINRLT
 			RegistryEntry.create( WoodStrippedSmoothOak.registry_name, new WoodStrippedSmoothOak() ),
 			//BCPFINRLT
 			RegistryEntry.create( WoodStrippedSmoothSpruce.registry_name, new WoodStrippedSmoothSpruce() ),
