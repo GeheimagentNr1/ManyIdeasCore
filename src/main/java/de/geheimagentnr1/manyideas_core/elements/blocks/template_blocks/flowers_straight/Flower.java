@@ -1,6 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.flowers_straight;
 
 
+import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -11,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 public abstract class Flower extends FlowerBlock implements FlowerBlockItemInterface {
 	
 	
-	protected Flower( @NotNull MobEffect effect, int duration, @NotNull BlockBehaviour.Properties _properties ) {
+	protected Flower( @NotNull Holder<MobEffect> pEffect, int pSeconds, @NotNull BlockBehaviour.Properties pProperties ) {
 		
-		super( effect, duration, _properties );
+		super( pEffect, pSeconds, pProperties );
 	}
 }

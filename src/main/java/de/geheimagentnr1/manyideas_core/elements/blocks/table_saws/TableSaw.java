@@ -101,18 +101,15 @@ public abstract class TableSaw extends Block implements BlockItemInterface {
 		);
 	}
 	
-	@SuppressWarnings( "deprecation" )
-	@NotNull
 	@Override
-	public InteractionResult use(
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Player player,
-		@NotNull InteractionHand hand,
-		@NotNull BlockHitResult hitResult ) {
+	protected InteractionResult useWithoutItem(
+		@NotNull BlockState pState,
+		@NotNull Level pLevel,
+		@NotNull BlockPos pPos,
+		@NotNull Player pPlayer,
+		@NotNull BlockHitResult pHitResult ) {
 		
-		player.openMenu( state.getMenuProvider( level, pos ) );
+		pPlayer.openMenu( pState.getMenuProvider( pLevel, pPos ) );
 		return InteractionResult.SUCCESS;
 	}
 	

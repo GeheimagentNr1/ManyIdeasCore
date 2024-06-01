@@ -1,8 +1,10 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.crafting.ingredients.IIngredientSerializer;
 import org.jetbrains.annotations.NotNull;
@@ -14,28 +16,27 @@ public class ColorStackIngredientSerializer implements IIngredientSerializer<Col
 	private static final Codec<ItemStack> ITEMSTACK_DYE_BLOCK_ITEM_CODEC = DyedRecipe.DYE_BLOCK_ITEM_CODEC
 		.xmap( ItemStack::new, ItemStack::getItem );
 	
-	private static final Codec<ColorStackIngredient> CODEC = RecordCodecBuilder.create( ( builder ) -> builder.group(
+	private static final MapCodec<ColorStackIngredient> CODEC = RecordCodecBuilder.mapCodec( ( builder ) -> builder.group(
 		ITEMSTACK_DYE_BLOCK_ITEM_CODEC.fieldOf( "color_item" )
 			.forGetter( colorStackIngredient -> colorStackIngredient.getIngrediant().getItemStack() )
 	).apply( builder, ColorStackIngredient::new ) );
 	
 	@NotNull
 	@Override
-	public Codec<? extends ColorStackIngredient> codec() {
+	public MapCodec<? extends ColorStackIngredient> codec() {
 		
 		return CODEC;
 	}
 	
-	@NotNull
 	@Override
-	public ColorStackIngredient read( @NotNull FriendlyByteBuf buffer ) {
+	public void write( RegistryFriendlyByteBuf buffer, ColorStackIngredient value ) {
 		
-		return new ColorStackIngredient( buffer.readItem() );
+		ItemStack.STREAM_CODEC.encode( buffer, value.getIngrediant().getItemStack() );
 	}
 	
 	@Override
-	public void write( @NotNull FriendlyByteBuf buffer, @NotNull ColorStackIngredient ingredient ) {
+	public ColorStackIngredient read( RegistryFriendlyByteBuf buffer ) {
 		
-		buffer.writeItem( ingredient.getIngrediant().getItemStack() );
+		return new ColorStackIngredient( ItemStack.STREAM_CODEC.decode( buffer ) );
 	}
 }

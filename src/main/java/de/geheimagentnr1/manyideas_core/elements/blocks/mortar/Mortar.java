@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -63,34 +64,32 @@ public class Mortar extends Block implements BlockItemInterface {
 		return SHAPES.getShapeFromHorizontalFacing( state.getValue( BlockStateProperties.HORIZONTAL_FACING ) );
 	}
 	
-	@SuppressWarnings( "deprecation" )
-	@NotNull
 	@Override
-	public InteractionResult use(
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Player player,
-		@NotNull InteractionHand hand,
-		@NotNull BlockHitResult hitResult ) {
+	protected ItemInteractionResult useItemOn(
+		ItemStack pStack,
+		BlockState pState,
+		Level pLevel,
+		BlockPos pPos,
+		Player pPlayer,
+		InteractionHand pHand,
+		BlockHitResult pHitResult ) {
 		
-		ItemStack crafting_stack = player.getItemInHand( hand );
-		MortarCraftingContainer craftingInventory = new MortarCraftingContainer( crafting_stack );
-		Optional<RecipeHolder<GrindingRecipe>> recipe = level.getRecipeManager().getRecipeFor(
+		MortarCraftingContainer craftingInventory = new MortarCraftingContainer( pStack );
+		Optional<RecipeHolder<GrindingRecipe>> recipe = pLevel.getRecipeManager().getRecipeFor(
 			ModRecipeTypesRegisterFactory.GRINDING,
 			craftingInventory,
-			level
+			pLevel
 		);
 		
 		if( recipe.isPresent() ) {
-			ItemStack result_stack = recipe.get().value().assemble( craftingInventory, level.registryAccess() );
-			crafting_stack.shrink( 1 );
-			if( !player.addItem( result_stack ) ) {
-				player.drop( result_stack, false );
+			ItemStack result_stack = recipe.get().value().assemble( craftingInventory, pLevel.registryAccess() );
+			pStack.shrink( 1 );
+			if( !pPlayer.addItem( result_stack ) ) {
+				pPlayer.drop( result_stack, false );
 			}
-			return InteractionResult.SUCCESS;
+			return ItemInteractionResult.SUCCESS;
 		}
-		return InteractionResult.PASS;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 	
 	@Nullable

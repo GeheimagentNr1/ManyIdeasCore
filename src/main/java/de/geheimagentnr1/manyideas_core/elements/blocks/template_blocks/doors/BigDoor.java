@@ -18,7 +18,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -132,59 +134,59 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 		return getZeroPos( blockData.getState(), blockData.getPos() );
 	}
 	
-	@SuppressWarnings( "deprecation" )
 	@NotNull
 	@Override
-	public InteractionResult use(
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Player player,
-		@NotNull InteractionHand hand,
-		@NotNull BlockHitResult hitResult ) {
+	protected ItemInteractionResult useItemOn(
+		@NotNull ItemStack pStack,
+		@NotNull BlockState pState,
+		@NotNull Level pLevel,
+		@NotNull BlockPos pPos,
+		@NotNull Player pPlayer,
+		@NotNull InteractionHand pHand,
+		@NotNull BlockHitResult pHitResult ) {
 		
-		if( player.getItemInHand( hand ).getItem() != ModItemsRegisterFactory.RESTONE_KEY &&
-			OpenedByHelper.canBeOpened( state, true ) ) {
-			boolean open = !state.getValue( BlockStateProperties.OPEN );
-			Direction facing = state.getValue( BlockStateProperties.HORIZONTAL_FACING );
-			BlockPos zeroPos = getZeroPos( state, pos );
+		if( pStack.getItem() != ModItemsRegisterFactory.RESTONE_KEY &&
+			OpenedByHelper.canBeOpened( pState, true ) ) {
+			boolean open = !pState.getValue( BlockStateProperties.OPEN );
+			Direction facing = pState.getValue( BlockStateProperties.HORIZONTAL_FACING );
+			BlockPos zeroPos = getZeroPos( pState, pPos );
 			runForBlocks(
-				level,
+				pLevel,
 				zeroPos,
 				facing,
-				( x, y, z, blockPos ) -> level.setBlock(
+				( x, y, z, blockPos ) -> pLevel.setBlock(
 					blockPos,
-					level.getBlockState( blockPos ).setValue( BlockStateProperties.OPEN, open ),
+					pLevel.getBlockState( blockPos ).setValue( BlockStateProperties.OPEN, open ),
 					3
 				),
 				true
 			);
-			DoorsHelper.playDoorSound( level, pos, type, player, open );
+			DoorsHelper.playDoorSound( pLevel, pPos, type, pPlayer, open );
 			if( doubleDoorActive ) {
 				BlockData neighbor = BigDoorsHelper.getNeighborBlock(
-					level,
+					pLevel,
 					zeroPos,
-					state,
+					pState,
 					getZSize(),
 					this::getZeroPos
 				);
-				if( BigDoorsHelper.isNeighbor( state, neighbor ) ) {
+				if( BigDoorsHelper.isNeighbor( pState, neighbor ) ) {
 					runForBlocks(
-						level,
+						pLevel,
 						neighbor.getZeroPos(),
 						facing,
-						( x, y, z, blockPos ) -> level.setBlock(
+						( x, y, z, blockPos ) -> pLevel.setBlock(
 							blockPos,
-							level.getBlockState( blockPos ).setValue( BlockStateProperties.OPEN, open ),
+							pLevel.getBlockState( blockPos ).setValue( BlockStateProperties.OPEN, open ),
 							3
 						),
 						true
 					);
 				}
 			}
-			return InteractionResult.SUCCESS;
+			return ItemInteractionResult.SUCCESS;
 		}
-		return InteractionResult.PASS;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -247,17 +249,11 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 		}
 	}
 	
-	@SuppressWarnings( "deprecation" )
-	@Deprecated
 	@Override
-	public boolean isPathfindable(
-		@NotNull BlockState state,
-		@NotNull BlockGetter level,
-		@NotNull BlockPos pos,
-		@NotNull PathComputationType type ) {
+	protected boolean isPathfindable( BlockState pState, PathComputationType pPathComputationType ) {
 		
-		return switch( type ) {
-			case LAND, AIR -> state.getShape( level, pos ).isEmpty();
+		return switch( pPathComputationType ) {
+			case LAND, AIR -> pState.getValue( BlockStateProperties.OPEN );
 			case WATER -> false;
 		};
 	}

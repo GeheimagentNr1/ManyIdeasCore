@@ -31,7 +31,7 @@ public class ColorStackList implements ColorList {
 	@Override
 	public ItemStack getStack( @NotNull Color color ) {
 		
-		return DyeBlockHelper.setColorToItemStack( itemStack.copy(), color );
+		return DyeBlockHelper.setColor( itemStack.copy(), color );
 	}
 	
 	//package-private

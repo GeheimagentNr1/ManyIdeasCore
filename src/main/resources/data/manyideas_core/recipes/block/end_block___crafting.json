@@ -14,6 +14,6 @@
 		}
 	},
 	"result":  {
-		"item": "manyideas_core:end_block"
+		"id": "manyideas_core:end_block"
 	}
 }

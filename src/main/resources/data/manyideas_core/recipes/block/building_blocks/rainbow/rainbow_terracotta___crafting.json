@@ -15,7 +15,7 @@
 		}
 	},
 	"result":  {
-		"item":  "manyideas_core:rainbow_terracotta",
+		"id":  "manyideas_core:rainbow_terracotta",
 		"count": 8
 	}
 }

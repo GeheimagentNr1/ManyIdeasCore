@@ -15,7 +15,7 @@
 		}
 	},
 	"result":  {
-		"item":  "manyideas_core:rainbow_stained_glass_block",
+		"id":  "manyideas_core:rainbow_stained_glass_block",
 		"count": 8
 	}
 }

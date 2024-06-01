@@ -50,34 +50,34 @@ public class MysteriousShears extends Item {
 	 */
 	@Override
 	public boolean mineBlock(
-		@NotNull ItemStack stack,
-		@NotNull Level level,
-		@NotNull BlockState state,
-		@NotNull BlockPos pos,
-		@NotNull LivingEntity livingEntity ) {
+		@NotNull ItemStack pStack,
+		@NotNull Level pLevel,
+		@NotNull BlockState pState,
+		@NotNull BlockPos pPos,
+		@NotNull LivingEntity pMiningEntity ) {
 		
-		if( !level.isClientSide ) {
-			stack.hurtAndBreak( 1, livingEntity, entity -> entity.broadcastBreakEvent( EquipmentSlot.MAINHAND ) );
+		if( !pLevel.isClientSide ) {
+			pStack.hurtAndBreak(1, pMiningEntity, EquipmentSlot.MAINHAND);
 		}
-		if( state.is( BlockTags.LEAVES ) ||
-			state.is( Blocks.COBWEB ) ||
-			state.is( Blocks.SHORT_GRASS ) ||
-			state.is( Blocks.FERN ) ||
-			state.is( Blocks.DEAD_BUSH ) ||
-			state.is( Blocks.HANGING_ROOTS ) ||
-			state.is( Blocks.VINE ) ||
-			state.is( Blocks.TRIPWIRE ) ||
-			state.is( BlockTags.WOOL ) ) {
+		if( pState.is( BlockTags.LEAVES ) ||
+			pState.is( Blocks.COBWEB ) ||
+			pState.is( Blocks.SHORT_GRASS ) ||
+			pState.is( Blocks.FERN ) ||
+			pState.is( Blocks.DEAD_BUSH ) ||
+			pState.is( Blocks.HANGING_ROOTS ) ||
+			pState.is( Blocks.VINE ) ||
+			pState.is( Blocks.TRIPWIRE ) ||
+			pState.is( BlockTags.WOOL ) ) {
 			return true;
 		} else {
-			return super.mineBlock( stack, level, state, pos, livingEntity );
+			return super.mineBlock( pStack, pLevel, pState, pPos, pMiningEntity );
 		}
 	}
 	
 	@Override
-	public boolean isCorrectToolForDrops( @NotNull BlockState state ) {
+	public boolean isCorrectToolForDrops( @NotNull ItemStack pStack, @NotNull BlockState pState ) {
 		
-		Block block = state.getBlock();
+		Block block = pState.getBlock();
 		return block == Blocks.COBWEB || block == Blocks.REDSTONE_WIRE || block == Blocks.TRIPWIRE;
 	}
 	
@@ -122,7 +122,7 @@ public class MysteriousShears extends Item {
 						stack,
 						target.level(),
 						pos,
-						EnchantmentHelper.getItemEnchantmentLevel( Enchantments.BLOCK_FORTUNE, stack )
+						EnchantmentHelper.getItemEnchantmentLevel( Enchantments.FORTUNE, stack )
 					);
 				}
 				drops.forEach( drop -> {
@@ -134,7 +134,7 @@ public class MysteriousShears extends Item {
 							( random.nextFloat() - random.nextFloat() ) * 0.1F
 						) );
 				} );
-				stack.hurtAndBreak( 1, target, e -> e.broadcastBreakEvent( hand ) );
+				stack.hurtAndBreak( 1, target, LivingEntity.getSlotForHand(hand) );
 			}
 			return InteractionResult.SUCCESS;
 		}

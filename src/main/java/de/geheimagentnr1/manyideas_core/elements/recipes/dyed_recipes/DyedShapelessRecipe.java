@@ -41,16 +41,6 @@ public class DyedShapelessRecipe extends DyedRecipe {
 				inputItems.add( inv.getItem( i ) );
 			}
 		}
-		/*int found = 0;
-		for( Ingredient ingredient : ingredients ) {
-			for( int j = 0; j < inputItems.size(); j++ ) {
-				if( ingredient.test( inputItems.get( j ) ) ) {
-					inputItems.remove( j );
-					found++;
-					break;
-				}
-			}
-		}*/
 		return inputItems.size() == ingredients.size() && RecipeMatcher.findMatches( inputItems, ingredients ) != null;
 	}
 	

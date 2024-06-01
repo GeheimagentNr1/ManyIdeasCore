@@ -5,6 +5,9 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -18,46 +21,41 @@ public class SingleItemRecipeSerializer<T extends SingleItemRecipe> implements R
 	
 	private static final MapCodec<ItemStack> RESULT_CODEC = RecordCodecBuilder.mapCodec( builder -> builder.group(
 		BuiltInRegistries.ITEM.byNameCodec().fieldOf( "result" ).forGetter( ItemStack::getItem ),
-		ExtraCodecs.strictOptionalField( ExtraCodecs.POSITIVE_INT, "count", 1 ).forGetter( ItemStack::getCount )
+		ExtraCodecs.POSITIVE_INT.fieldOf( "count" ).orElse( 1 ).forGetter( ItemStack::getCount )
 	).apply( builder, ItemStack::new ) );
 	
 	@NotNull
 	private final ISingleItemRecipeFactory<T> factory;
 	
-	private final Codec<T> codec;
+	private final MapCodec<T> codec;
+	
+	private final StreamCodec<RegistryFriendlyByteBuf, T> streamCodec;
 	
 	public SingleItemRecipeSerializer( @NotNull ISingleItemRecipeFactory<T> _factory ) {
 		
 		factory = _factory;
-		codec = RecordCodecBuilder.create( ( builder ) -> builder.group(
-			ExtraCodecs.strictOptionalField( Codec.STRING, "group", "" ).forGetter( SingleItemRecipe::getGroup ),
+		codec = RecordCodecBuilder.mapCodec( ( builder ) -> builder.group(
+			Codec.STRING.optionalFieldOf( "group", "" ).forGetter( SingleItemRecipe::getGroup ),
 			Ingredient.CODEC_NONEMPTY.fieldOf( "ingredient" ).forGetter( SingleItemRecipe::getIngredient ),
 			RESULT_CODEC.forGetter( SingleItemRecipe::getResult )
 		).apply( builder, factory::create ) );
+		this.streamCodec = StreamCodec.composite(
+			ByteBufCodecs.STRING_UTF8, SingleItemRecipe::getGroup,
+			Ingredient.CONTENTS_STREAM_CODEC, SingleItemRecipe::getIngredient,
+			ItemStack.STREAM_CODEC, SingleItemRecipe::getResult,
+			factory::create
+		);
 	}
 	
 	@Override
-	public Codec<T> codec() {
+	public MapCodec<T> codec() {
 		
 		return codec;
 	}
 	
-	@Nullable
 	@Override
-	public T fromNetwork( @NotNull FriendlyByteBuf buffer ) {
+	public StreamCodec<RegistryFriendlyByteBuf, T> streamCodec() {
 		
-		String group = buffer.readUtf();
-		Ingredient ingredient = Ingredient.fromNetwork( buffer );
-		ItemStack result = buffer.readItem();
-		return factory.create( group, ingredient, result );
+		return streamCodec;
 	}
-	
-	@Override
-	public void toNetwork( @NotNull FriendlyByteBuf buffer, @NotNull T recipe ) {
-		
-		buffer.writeUtf( recipe.getGroup() );
-		recipe.ingredient.toNetwork( buffer );
-		buffer.writeItem( recipe.result );
-	}
-	
 }

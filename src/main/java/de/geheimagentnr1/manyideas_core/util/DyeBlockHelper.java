@@ -3,6 +3,7 @@ package de.geheimagentnr1.manyideas_core.util;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.ModBlockStateProperties;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlock;
+import de.geheimagentnr1.manyideas_core.elements.items.ModItemsRegisterFactory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -16,45 +17,15 @@ public class DyeBlockHelper {
 	
 	
 	@NotNull
-	private static final String dyeNBTname = "dye";
-	
-	@NotNull
-	private static final String colorNBTname = "color";
-	
-	private static String getColorNameFromStack( @NotNull ItemStack stack ) {
-		
-		return stack.getOrCreateTagElement( dyeNBTname ).getString( colorNBTname );
-	}
-	
-	@NotNull
-	public static String getColorName( @NotNull ItemStack stack ) {
-		
-		String color = getColorNameFromStack( stack );
-		return color.isEmpty() ? Color.WHITE.getSerializedName() : color;
-	}
-	
-	@NotNull
 	public static Color getColor( @NotNull ItemStack stack ) {
 		
-		String colorName = getColorName( stack );
-		if( colorName.isEmpty() ) {
-			return Color.WHITE;
-		}
-		Color resultColor = Color.WHITE;
-		
-		for( Color color : Color.values() ) {
-			if( color.getSerializedName().equals( colorName ) ) {
-				resultColor = color;
-				break;
-			}
-		}
-		return resultColor;
+		return stack.getOrDefault( ModItemsRegisterFactory.COLOR, Color.WHITE );
 	}
 	
 	@NotNull
-	public static ItemStack setColorToItemStack( @NotNull ItemStack stack, @NotNull Color color ) {
+	public static ItemStack setColor( @NotNull ItemStack stack, @NotNull Color color ) {
 		
-		stack.getOrCreateTagElement( dyeNBTname ).putString( colorNBTname, color.getSerializedName() );
+		stack.set( ModItemsRegisterFactory.COLOR, color );
 		return stack;
 	}
 	
@@ -75,12 +46,12 @@ public class DyeBlockHelper {
 	@NotNull
 	public static ItemStack getItem( @NotNull DyeBlock block, @NotNull BlockState state ) {
 		
-		return setColorToItemStack( new ItemStack( block ), state.getValue( ModBlockStateProperties.COLOR ) );
+		return setColor( new ItemStack( block ), state.getValue( ModBlockStateProperties.COLOR ) );
 	}
 	
 	@NotNull
 	public static ItemStack createItemStackOfItem( @NotNull Item item, @NotNull Color color ) {
 		
-		return setColorToItemStack( new ItemStack( item ), color );
+		return setColor( new ItemStack( item ), color );
 	}
 }

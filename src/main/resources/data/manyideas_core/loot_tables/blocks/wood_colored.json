@@ -1,235 +1,269 @@
 {
-	"type":  "minecraft:block",
+	"type": "minecraft:block",
 	"pools": [
 		{
-			"rolls":      1,
-			"entries":    [
+			"rolls": 1,
+			"entries": [
 				{
-					"type":      "minecraft:item",
+					"type": "minecraft:item",
 					"functions": [
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "black"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"black\"}}"
+							"components": {
+								"manyideas_core:color": "black"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "blue"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"blue\"}}"
+							"components": {
+								"manyideas_core:color": "blue"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "brown"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"brown\"}}"
+							"components": {
+								"manyideas_core:color": "brown"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "cyan"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"cyan\"}}"
+							"components": {
+								"manyideas_core:color": "cyan"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "gray"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"gray\"}}"
+							"components": {
+								"manyideas_core:color": "gray"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "green"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"green\"}}"
+							"components": {
+								"manyideas_core:color": "green"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "light_blue"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"light_blue\"}}"
+							"components": {
+								"manyideas_core:color": "light_blue"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "light_gray"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"light_gray\"}}"
+							"components": {
+								"manyideas_core:color": "light_gray"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "lime"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"lime\"}}"
+							"components": {
+								"manyideas_core:color": "lime"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "magenta"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"magenta\"}}"
+							"components": {
+								"manyideas_core:color": "magenta"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "orange"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"orange\"}}"
+							"components": {
+								"manyideas_core:color": "orange"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "pink"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"pink\"}}"
+							"components": {
+								"manyideas_core:color": "pink"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "purple"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"purple\"}}"
+							"components": {
+								"manyideas_core:color": "purple"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "rainbow"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"rainbow\"}}"
+							"components": {
+								"manyideas_core:color": "rainbow"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "red"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"red\"}}"
+							"components": {
+								"manyideas_core:color": "red"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "white"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"white\"}}"
+							"components": {
+								"manyideas_core:color": "white"
+							}
 						},
 						{
-							"function":   "minecraft:set_nbt",
+							"function": "minecraft:set_components",
 							"conditions": [
 								{
-									"condition":  "minecraft:block_state_property",
-									"block":      "manyideas_core:wood_colored",
+									"condition": "minecraft:block_state_property",
+									"block": "manyideas_core:wood_colored",
 									"properties": {
 										"color": "yellow"
 									}
 								}
 							],
-							"tag":        "{dye:{color:\"yellow\"}}"
+							"components": {
+								"manyideas_core:color": "yellow"
+							}
 						}
 					],
-					"name":      "manyideas_core:wood_colored"
+					"name": "manyideas_core:wood_colored"
 				}
 			],
 			"conditions": [

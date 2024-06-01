@@ -1,28 +1,35 @@
 package de.geheimagentnr1.manyideas_core.special.decoration_renderer;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.reflect.TypeToken;
 import com.mojang.blaze3d.vertex.PoseStack;
+import de.geheimagentnr1.manyideas_core.special.decoration_renderer.models.PlayerDecoration;
+import de.geheimagentnr1.manyideas_core.special.decoration_renderer.models.PlayerDecorationItems;
 import de.geheimagentnr1.manyideas_core.special.json.JSONUtil;
 import de.geheimagentnr1.minecraft_forge_api.events.ForgeEventHandlerInterface;
 import de.geheimagentnr1.minecraft_forge_api.events.ModEventHandlerInterface;
 import lombok.extern.log4j.Log4j2;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.TreeMap;
+import java.util.*;
 
 
 @Log4j2
@@ -30,41 +37,51 @@ public class PlayerDecorationManager implements ModEventHandlerInterface, ForgeE
 	
 	
 	@NotNull
-	private final TreeMap<String, PlayerDecorationRenderer> DECORATION_LIST = new TreeMap<>();
+	private final Set<PlayerDecoration> PLAYER_DECORATIONS = new TreeSet<>(
+		Comparator.comparing( PlayerDecoration::getName )
+	);
 	
 	@NotNull
-	private JsonArray loadDecorationJson() {
+	private final Map<String, PlayerDecorationRenderer> DECORATION_LIST = new TreeMap<>();
+	
+	@NotNull
+	private void loadDecorationJson() {
 		
 		try {
-			URL url = new URL( "https://raw.githubusercontent.com/GeheimagentNr1/Online_Mod_Data/master/" +
-				"player_decorations.json" );
-			return JSONUtil.GSON.fromJson(
-				new InputStreamReader( url.openStream(), StandardCharsets.UTF_8 ),
-				JsonArray.class
+			URL url = URI.create( "https://raw.githubusercontent.com/GeheimagentNr1/Online_Mod_Data/master/" +
+				"player_decorations.json" ).toURL();
+			PLAYER_DECORATIONS.addAll(
+				JSONUtil.GSON.fromJson(
+					new InputStreamReader( url.openStream(), StandardCharsets.UTF_8 ),
+					new TypeToken<List<PlayerDecoration>>() {
+					
+					}
+				)
 			);
-		} catch( IOException exception ) {
+		} catch( IOException | JsonParseException exception ) {
 			log.error( "Failed to load Player Decorations", exception );
-			return new JsonArray();
 		}
 	}
 	
-	private void readDecoration( @NotNull JsonObject jsonDecoration ) {
+	private void readDecoration(
+		@NotNull RegistryAccess.Frozen registryAccess,
+		@NotNull PlayerDecoration playerDecoration ) {
 		
 		log.info( "Loading Player Decorations" );
-		String name = JSONUtil.getStringFromJson( jsonDecoration, "name" );
+		String name = playerDecoration.getName();
 		log.info( "Read Player Decorations" );
 		if( name != null ) {
-			JsonObject jsonItems = JSONUtil.getJsonObjectFromJson( jsonDecoration, "items" );
-			if( jsonItems != null ) {
+			PlayerDecorationItems items = playerDecoration.getItems();
+			if( items != null ) {
 				ItemStack stack = ItemStack.EMPTY;
-				JsonObject jsonModdedItem = JSONUtil.getJsonObjectFromJson( jsonItems, "modded" );
+				JsonObject jsonModdedItem = items.getModded();
 				if( jsonModdedItem != null ) {
-					stack = JSONUtil.readItemStackFromJson( jsonModdedItem );
+					stack = JSONUtil.readItemStackFromJson( registryAccess, jsonModdedItem );
 				}
 				if( stack.isEmpty() ) {
-					JsonObject jsonVanillaItem = JSONUtil.getJsonObjectFromJson( jsonItems, "vanilla" );
+					JsonObject jsonVanillaItem = items.getVanilla();
 					if( jsonVanillaItem != null ) {
-						stack = JSONUtil.readItemStackFromJson( jsonVanillaItem );
+						stack = JSONUtil.readItemStackFromJson( registryAccess, jsonVanillaItem );
 					}
 				}
 				if( !stack.isEmpty() ) {
@@ -75,13 +92,10 @@ public class PlayerDecorationManager implements ModEventHandlerInterface, ForgeE
 		log.info( "Initialized Player Decorations" );
 	}
 	
-	private void initDecorationList() {
+	private void initDecorationList( @NotNull RegistryAccess.Frozen registryAccess ) {
 		
-		JsonArray jsonDecorations = loadDecorationJson();
-		for( JsonElement element : jsonDecorations ) {
-			if( element.isJsonObject() ) {
-				readDecoration( element.getAsJsonObject() );
-			}
+		for( PlayerDecoration playerDecoration : PLAYER_DECORATIONS ) {
+			readDecoration( registryAccess, playerDecoration );
 		}
 	}
 	
@@ -104,7 +118,18 @@ public class PlayerDecorationManager implements ModEventHandlerInterface, ForgeE
 	@Override
 	public void handleFMLClientSetupEvent( @NotNull FMLClientSetupEvent event ) {
 		
-		initDecorationList();
+		loadDecorationJson();
+	}
+	
+	@OnlyIn( Dist.CLIENT )
+	@SubscribeEvent
+	@Override
+	public void handlePlayerLoggedInEvent( @NotNull PlayerEvent.PlayerLoggedInEvent event ) {
+		
+		ClientPacketListener connection = Minecraft.getInstance().getConnection();
+		if( connection != null ) {
+			initDecorationList( connection.registryAccess() );
+		}
 	}
 	
 	@OnlyIn( Dist.CLIENT )

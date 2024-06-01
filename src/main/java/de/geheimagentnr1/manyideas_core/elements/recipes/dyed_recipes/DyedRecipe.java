@@ -7,8 +7,8 @@ import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlockItem;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
 import lombok.Getter;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -27,16 +27,16 @@ public abstract class DyedRecipe implements Recipe<CraftingContainer> {
 	@NotNull
 	public static final String registry_name = "dyed";
 	
-	static final Codec<Item> DYE_BLOCK_ITEM_CODEC = ExtraCodecs.validate(
-		BuiltInRegistries.ITEM.byNameCodec(),
-		( item ) -> item instanceof DyeBlockItem
-			? DataResult.success( item )
-			: DataResult.error( () -> "Non DyeBlockItem result not allowed here" )
-	);
+	static final Codec<Item> DYE_BLOCK_ITEM_CODEC = BuiltInRegistries.ITEM.byNameCodec()
+		.validate(
+			( item ) -> item instanceof DyeBlockItem
+				? DataResult.success( item )
+				: DataResult.error( () -> "Non DyeBlockItem result not allowed here" )
+		);
 	
 	static final Codec<ItemStack> RESULT_CODEC = RecordCodecBuilder.create( builder -> builder.group(
 		DYE_BLOCK_ITEM_CODEC.fieldOf( "item" ).forGetter( ItemStack::getItem ),
-		ExtraCodecs.strictOptionalField( ExtraCodecs.POSITIVE_INT, "count", 1 ).forGetter( ItemStack::getCount )
+		ExtraCodecs.POSITIVE_INT.fieldOf( "count" ).orElse( 1 ).forGetter( ItemStack::getCount )
 	).apply( builder, ItemStack::new ) );
 	
 	@NotNull
@@ -82,22 +82,16 @@ public abstract class DyedRecipe implements Recipe<CraftingContainer> {
 		return color == null ? Optional.empty() : Optional.of( color );
 	}
 	
-	@NotNull
 	@Override
-	public ItemStack assemble( @NotNull CraftingContainer inv, @NotNull RegistryAccess registryAccess ) {
+	public ItemStack assemble( CraftingContainer pCraftingContainer, HolderLookup.Provider pRegistries ) {
 		
-		Optional<Color> color = findMatchingColor( inv );
-		return color.map( value -> DyeBlockHelper.setColorToItemStack( result.copy(), value ) )
+		Optional<Color> color = findMatchingColor( pCraftingContainer );
+		return color.map( value -> DyeBlockHelper.setColor( result.copy(), value ) )
 			.orElse( ItemStack.EMPTY );
 	}
 	
-	/**
-	 * Get the result of this recipe, usually for display purposes (e.g. recipe book). If your recipe has more than one
-	 * possible result (e.g. it's dynamic and depends on its inputs), then return an empty stack.
-	 */
-	@NotNull
 	@Override
-	public ItemStack getResultItem( @NotNull RegistryAccess registryAccess ) {
+	public ItemStack getResultItem( HolderLookup.Provider pRegistries ) {
 		
 		return ItemStack.EMPTY;
 	}

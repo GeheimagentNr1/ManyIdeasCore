@@ -1,6 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.items;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
+import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.elements.items.dyes.DyeRainbow;
 import de.geheimagentnr1.manyideas_core.elements.items.panels.*;
 import de.geheimagentnr1.manyideas_core.elements.items.plates.PlateCopper;
@@ -18,6 +19,7 @@ import de.geheimagentnr1.minecraft_forge_api.elements.items.ItemsRegisterFactory
 import de.geheimagentnr1.minecraft_forge_api.registry.RegistryEntry;
 import de.geheimagentnr1.minecraft_forge_api.registry.RegistryKeys;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -42,6 +44,12 @@ public class ModItemsRegisterFactory extends ItemsRegisterFactory {
 	
 	@ObjectHolder( registryName = RegistryKeys.ITEMS, value = ManyIdeasCore.MODID + ":" + DyeRainbow.registry_name )
 	public static DyeRainbow DYE_RAINBOW;
+	
+	@NotNull
+	public static final DataComponentType<Color> COLOR =
+		DataComponentType.<Color> builder()
+			.persistent( Color.CODEC )
+			.build();
 	
 	//Panels
 	
@@ -142,6 +150,17 @@ public class ModItemsRegisterFactory extends ItemsRegisterFactory {
 			RegistryEntry.create( MysteriousShears.registry_name, new MysteriousShears() ),//FINRT
 			//Tools: Redstone Key
 			RegistryEntry.create( RedstoneKey.registry_name, new RedstoneKey() )//FINZT
+		);
+	}
+	
+	@Override
+	protected @NotNull List<RegistryEntry<DataComponentType<?>>> dataComponentTypes() {
+		
+		return List.of(
+			RegistryEntry.create(
+				"color",
+				COLOR
+			)
 		);
 	}
 	

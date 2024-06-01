@@ -62,7 +62,7 @@ public class GiveDBCommand implements CommandInterface {
 		int count ) {
 		
 		for( ServerPlayer player : targets ) {
-			player.addItem( DyeBlockHelper.setColorToItemStack(
+			player.addItem( DyeBlockHelper.setColor(
 				new ItemStack( item, count ),
 				color
 			) );
@@ -76,14 +76,14 @@ public class GiveDBCommand implements CommandInterface {
 			source.sendSuccess( () -> Component.translatable(
 				"commands.give.success.single",
 				count,
-				DyeBlockHelper.setColorToItemStack( new ItemStack( item, count ), color ).getDisplayName(),
+				DyeBlockHelper.setColor( new ItemStack( item, count ), color ).getDisplayName(),
 				targets.iterator().next().getDisplayName()
 			), true );
 		} else {
 			source.sendSuccess( () -> Component.translatable(
 				"commands.give.success.single",
 				count,
-				DyeBlockHelper.setColorToItemStack( new ItemStack( item, count ), color ).getDisplayName(),
+				DyeBlockHelper.setColor( new ItemStack( item, count ), color ).getDisplayName(),
 				targets.size()
 			), true );
 		}

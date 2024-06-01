@@ -1,2 +1,2 @@
-- Add Blocks Mangrove Seamless Planks, Mangrove Smooth Stripped Log, Mangrove Smooth Stripped Wood
-- Add Item Mangrove Panel
+Ported to 1.20.6 
+- Due to changes in the way, data are saved to item, not backward compatible.  (Colored Planks and Colored Wood Items will lose there color)

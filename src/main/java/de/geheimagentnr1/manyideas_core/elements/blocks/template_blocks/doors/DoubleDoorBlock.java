@@ -13,9 +13,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
@@ -50,27 +51,28 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	
 	@NotNull
 	@Override
-	public InteractionResult use(
-		@NotNull BlockState state,
-		@NotNull Level level,
-		@NotNull BlockPos pos,
-		@NotNull Player player,
-		@NotNull InteractionHand hand,
-		@NotNull BlockHitResult hitResult ) {
+	protected ItemInteractionResult useItemOn(
+		@NotNull ItemStack pStack,
+		@NotNull BlockState pState,
+		@NotNull Level pLevel,
+		@NotNull BlockPos pPos,
+		@NotNull Player pPlayer,
+		@NotNull InteractionHand pHand,
+		@NotNull BlockHitResult pHitResult ) {
 		
-		if( player.getItemInHand( hand ).getItem() != ModItemsRegisterFactory.RESTONE_KEY &&
-			OpenedByHelper.canBeOpened( state, true ) ) {
-			boolean open = !state.getValue( OPEN );
-			level.setBlock( pos, state.setValue( OPEN, open ), 10 );
-			DoorsHelper.playDoorSound( level, pos, type(), player, state.getValue( OPEN ) );
+		if( pStack.getItem() != ModItemsRegisterFactory.RESTONE_KEY &&
+			OpenedByHelper.canBeOpened( pState, true ) ) {
+			boolean open = !pState.getValue( OPEN );
+			pLevel.setBlock( pPos, pState.setValue( OPEN, open ), 10 );
+			DoorsHelper.playDoorSound( pLevel, pPos, type(), pPlayer, pState.getValue( OPEN ) );
 			
-			BlockData neighbor = DoorsHelper.getNeighborBlock( level, pos, state );
-			if( DoorsHelper.isNeighbor( state, neighbor ) ) {
-				level.setBlock( neighbor.getPos(), neighbor.getState().setValue( OPEN, open ), 2 );
+			BlockData neighbor = DoorsHelper.getNeighborBlock( pLevel, pPos, pState );
+			if( DoorsHelper.isNeighbor( pState, neighbor ) ) {
+				pLevel.setBlock( neighbor.getPos(), neighbor.getState().setValue( OPEN, open ), 2 );
 			}
-			return InteractionResult.SUCCESS;
+			return ItemInteractionResult.SUCCESS;
 		}
-		return InteractionResult.PASS;
+		return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
 	}
 	
 	@Override

@@ -32,9 +32,9 @@ public class GrindingRecipe extends SingleItemRecipe {
 	}
 	
 	@Override
-	public boolean matches( @NotNull Container inv, @NotNull Level level ) {
+	public boolean matches( @NotNull Container pContainer, @NotNull Level pLevel ) {
 		
-		return ingredient.test( inv.getItem( 0 ) );
+		return ingredient.test( pContainer.getItem( 0 ) );
 	}
 	
 	@NotNull

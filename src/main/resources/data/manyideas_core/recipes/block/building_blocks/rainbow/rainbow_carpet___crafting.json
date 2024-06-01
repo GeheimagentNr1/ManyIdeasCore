@@ -10,7 +10,7 @@
 		}
 	},
 	"result":  {
-		"item":  "manyideas_core:rainbow_carpet",
+		"id":  "manyideas_core:rainbow_carpet",
 		"count": 4
 	}
 }

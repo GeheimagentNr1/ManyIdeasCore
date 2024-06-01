@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.Container;
@@ -67,7 +68,7 @@ public abstract class SingleItemRecipe implements Recipe<Container> {
 	
 	@NotNull
 	@Override
-	public ItemStack getResultItem( @NotNull RegistryAccess registryAccess ) {
+	public ItemStack getResultItem( @NotNull HolderLookup.Provider pRegistries ) {
 		
 		return result;
 	}
@@ -89,7 +90,7 @@ public abstract class SingleItemRecipe implements Recipe<Container> {
 	
 	@NotNull
 	@Override
-	public ItemStack assemble( @NotNull Container container, @NotNull RegistryAccess registryAccess ) {
+	public ItemStack assemble( @NotNull Container pCraftingContainer, @NotNull HolderLookup.Provider pRegistries ) {
 		
 		return result.copy();
 	}
