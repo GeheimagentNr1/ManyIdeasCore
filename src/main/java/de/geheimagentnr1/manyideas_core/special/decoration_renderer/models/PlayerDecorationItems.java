@@ -6,7 +6,8 @@ import lombok.Data;
 
 @Data
 public class PlayerDecorationItems {
-
+	
+	
 	private JsonObject modded;
 	
 	private JsonObject vanilla;

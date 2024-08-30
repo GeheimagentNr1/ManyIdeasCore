@@ -22,7 +22,7 @@ public class OpenedByHelper {
 		TranslationKeyHelper.generateMessageTranslationTextComponent( ManyIdeasCore.MODID, "opened_by" );
 	
 	@NotNull
-	public static final ResourceLocation ICON_TEXTURES = new ResourceLocation(
+	public static final ResourceLocation ICON_TEXTURES = ResourceLocation.fromNamespaceAndPath(
 		ManyIdeasCore.MODID,
 		"textures/gui/redstone_key/icons/icons_doors.png"
 	);

@@ -15,7 +15,7 @@ public class ToggleButton extends AbstractButton {
 	
 	
 	@NotNull
-	private static final ResourceLocation TOGGLE_BUTTON = new ResourceLocation(
+	private static final ResourceLocation TOGGLE_BUTTON = ResourceLocation.fromNamespaceAndPath(
 		ManyIdeasCore.MODID,
 		"textures/gui/redstone_key/toggle_button.png"
 	);

@@ -27,7 +27,7 @@ public class DyedRecipeCategory extends JeiRecipeCategory<JeiDyedRecipe> {
 	);
 	
 	@NotNull
-	private static final ResourceLocation texture = new ResourceLocation( "jei", "textures/gui/gui_vanilla.png" );
+	private static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath( "jei", "textures/gui/gui_vanilla.png" );
 	
 	public DyedRecipeCategory( @NotNull IGuiHelper guiHelper ) {
 		

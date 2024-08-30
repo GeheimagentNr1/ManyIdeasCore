@@ -11,9 +11,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 
 
-public abstract class DyedRecipe implements Recipe<CraftingContainer> {
+public abstract class DyedRecipe implements Recipe<CraftingInput> {
 	
 	
 	@NotNull
@@ -55,12 +55,12 @@ public abstract class DyedRecipe implements Recipe<CraftingContainer> {
 	}
 	
 	@NotNull
-	Optional<Color> findMatchingColor( @NotNull CraftingContainer inv ) {
+	Optional<Color> findMatchingColor( @NotNull CraftingInput inv ) {
 		
 		Color color = null;
 		for( Ingredient ingredient : ingredients ) {
 			if( ingredient instanceof ColorIngredient ) {
-				for( int j = 0; j < inv.getContainerSize(); j++ ) {
+				for( int j = 0; j < inv.size(); j++ ) {
 					if( ingredient.test( inv.getItem( j ) ) ) {
 						ColorIngredient<?> colorIngredient = (ColorIngredient<?>)ingredient;
 						Color newColor = colorIngredient.getColor( inv.getItem( j ) );
@@ -83,7 +83,7 @@ public abstract class DyedRecipe implements Recipe<CraftingContainer> {
 	}
 	
 	@Override
-	public ItemStack assemble( CraftingContainer pCraftingContainer, HolderLookup.Provider pRegistries ) {
+	public ItemStack assemble( CraftingInput pCraftingContainer, HolderLookup.Provider pRegistries ) {
 		
 		Optional<Color> color = findMatchingColor( pCraftingContainer );
 		return color.map( value -> DyeBlockHelper.setColor( result.copy(), value ) )
@@ -93,6 +93,6 @@ public abstract class DyedRecipe implements Recipe<CraftingContainer> {
 	@Override
 	public ItemStack getResultItem( HolderLookup.Provider pRegistries ) {
 		
-		return ItemStack.EMPTY;
+		return result;
 	}
 }

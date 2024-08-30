@@ -18,7 +18,7 @@ public class RedstoneKeyScreen extends AbstractContainerScreen<RedstoneKeyContai
 	
 	
 	@NotNull
-	private static final ResourceLocation REDSTONE_KEY_GUI_TEXTURE = new ResourceLocation(
+	private static final ResourceLocation REDSTONE_KEY_GUI_TEXTURE = ResourceLocation.fromNamespaceAndPath(
 		ManyIdeasCore.MODID,
 		"textures/gui/redstone_key/redstone_key_gui.png"
 	);

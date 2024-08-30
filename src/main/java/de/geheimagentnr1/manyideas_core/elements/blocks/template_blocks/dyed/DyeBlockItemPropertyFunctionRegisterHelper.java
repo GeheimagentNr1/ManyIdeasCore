@@ -13,24 +13,15 @@ import net.minecraftforge.fml.DistExecutor;
 import org.jetbrains.annotations.NotNull;
 
 
-public class DyeBlockItem extends BlockItem {
+@OnlyIn( Dist.CLIENT )
+public class DyeBlockItemPropertyFunctionRegisterHelper {
 	
-	
-	public DyeBlockItem( @NotNull Block block, @NotNull Item.Properties _properties ) {
+	public static void initDyeBlockItemPropertyGetter( @NotNull DyeBlockItem dyeBlockItem ) {
 		
-		super( block, _properties );
-		DistExecutor.unsafeRunWhenOn(
-			Dist.CLIENT,
-			() -> () -> DyeBlockItemPropertyFunctionRegisterHelper.initDyeBlockItemPropertyGetter( this )
-		);
-	}
-	
-	@NotNull
-	@Override
-	public Component getName( @NotNull ItemStack stack ) {
-		
-		return Component.translatable(
-			getDescriptionId( stack ) + "_" + DyeBlockHelper.getColor( stack ).getSerializedName()
+		ItemProperties.register(
+			dyeBlockItem,
+			DyeBlockItemPropertyGetter.registry_name,
+			new DyeBlockItemPropertyGetter()
 		);
 	}
 }

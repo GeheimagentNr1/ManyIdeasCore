@@ -1,6 +1,5 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
-import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
@@ -8,6 +7,8 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.ForgeEventFactory;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +24,7 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	@NotNull
 	private final Player player;
 	
-	private int amountCrafted;
+	private int removeCount;
 	
 	//package-private
 	@SuppressWarnings( "SameParameterValue" )
@@ -51,7 +52,7 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	public ItemStack remove( int count ) {
 		
 		if( hasItem() ) {
-			amountCrafted += Math.min( count, getItem().getCount() );
+			removeCount += Math.min( count, getItem().getCount() );
 		}
 		
 		return super.remove( count );
@@ -60,62 +61,76 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	@Override
 	protected void onQuickCraft( @NotNull ItemStack stack, int count ) {
 		
-		amountCrafted += count;
+		removeCount += count;
 		checkTakeAchievements( stack );
 	}
 	
 	@Override
 	protected void onSwapCraft( int count ) {
 		
-		amountCrafted += count;
+		removeCount += count;
 	}
 	
 	@Override
 	protected void checkTakeAchievements( @NotNull ItemStack stack ) {
 		
-		if( amountCrafted > 0 ) {
-			stack.onCraftedBy( player.level(), player, amountCrafted );
+		if( removeCount > 0 ) {
+			stack.onCraftedBy( player.level(), player, removeCount );
 			ForgeEventFactory.firePlayerCraftingEvent( player, stack, craftingContainer );
 		}
-		if( container instanceof RecipeCraftingHolder ) {
-			( (RecipeCraftingHolder)container ).awardUsedRecipes( player, craftingContainer.getItems() );
+		if( container instanceof RecipeCraftingHolder recipeCraftingHolder ) {
+			recipeCraftingHolder.awardUsedRecipes( player, craftingContainer.getItems() );
 		}
-		amountCrafted = 0;
+		removeCount = 0;
 	}
 	
 	@Override
-	public void onTake( @NotNull Player _player, @NotNull ItemStack stack ) {
+	public void onTake( @NotNull Player pPlayer, @NotNull ItemStack pStack ) {
 		
-		checkTakeAchievements( stack );
-		ForgeHooks.setCraftingPlayer( _player );
-		NonNullList<ItemStack> ingredients = _player.level().getRecipeManager().getRemainingItemsFor(
-			ModRecipeTypesRegisterFactory.DYED,
-			craftingContainer,
-			_player.level()
+		checkTakeAchievements( pStack );
+		CraftingInput.Positioned positionedCraftInput = craftingContainer.asPositionedCraftInput();
+		CraftingInput craftingInput = positionedCraftInput.input();
+		int left = positionedCraftInput.left();
+		int top = positionedCraftInput.top();
+		ForgeHooks.setCraftingPlayer( pPlayer );
+		NonNullList<ItemStack> ingredients = pPlayer.level().getRecipeManager().getRemainingItemsFor(
+			RecipeType.CRAFTING,
+			craftingInput,
+			pPlayer.level()
 		);
 		ForgeHooks.setCraftingPlayer( null );
-		for( int i = 0; i < ingredients.size(); ++i ) {
-			ItemStack crafting_stack = craftingContainer.getItem( i );
-			ItemStack ingredient = ingredients.get( i );
-			if( !crafting_stack.isEmpty() ) {
-				craftingContainer.removeItem( i, 1 );
-				crafting_stack = craftingContainer.getItem( i );
-			}
-			
-			if( !ingredient.isEmpty() ) {
-				if( crafting_stack.isEmpty() ) {
-					craftingContainer.setItem( i, ingredient );
-				} else {
-					if( ItemStack.isSameItemSameComponents( crafting_stack, ingredient ) ) {
-						ingredient.grow( crafting_stack.getCount() );
-						craftingContainer.setItem( i, ingredient );
+		
+		for( int i = 0; i < craftingInput.height(); i++ ) {
+			for( int j = 0; j < craftingInput.width(); j++ ) {
+				int stackIndex = j + left + ( i + top ) * craftingContainer.getWidth();
+				ItemStack crafting_stack = craftingContainer.getItem( stackIndex );
+				ItemStack ingredient = ingredients.get( j + i * craftingInput.width() );
+				if( !crafting_stack.isEmpty() ) {
+					this.craftingContainer.removeItem( stackIndex, 1 );
+					crafting_stack = this.craftingContainer.getItem( stackIndex );
+				}
+				
+				if( !ingredient.isEmpty() ) {
+					if( crafting_stack.isEmpty() ) {
+						this.craftingContainer.setItem( stackIndex, ingredient );
 					} else {
-						if( !player.getInventory().add( ingredient ) ) {
-							player.drop( ingredient, false );
+						if( ItemStack.isSameItemSameComponents( crafting_stack, ingredient ) ) {
+							//ingredient.grow( - crafting_stack.getCount() );
+							this.craftingContainer.setItem( stackIndex, ingredient );
+						} else {
+							if( !this.player.getInventory().add( ingredient ) ) {
+								this.player.drop( ingredient, false );
+							}
 						}
 					}
 				}
 			}
 		}
+	}
+	
+	@Override
+	public boolean isFake() {
+		
+		return true;
 	}
 }

@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
@@ -82,19 +83,20 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 		@NotNull ResultContainer resultContainer ) {
 		
 		if( !level.isClientSide() ) {
+			CraftingInput craftingInput = craftingContainer.asCraftInput();
 			ServerPlayer serverplayer = (ServerPlayer)player;
 			ItemStack resultStack = ItemStack.EMPTY;
 			RecipeManager recipeManager = Objects.requireNonNull( level.getServer() ).getRecipeManager();
 			Optional<RecipeHolder<DyedRecipe>> dyedRecipeHolderOptional = recipeManager.getRecipeFor(
 				ModRecipeTypesRegisterFactory.DYED,
-				craftingContainer,
+				craftingInput,
 				level
 			);
 			if( dyedRecipeHolderOptional.isPresent() ) {
 				RecipeHolder<DyedRecipe> recipeholder = dyedRecipeHolderOptional.get();
 				DyedRecipe dyedRecipe = recipeholder.value();
 				if( resultContainer.setRecipeUsed( level, serverplayer, recipeholder ) ) {
-					ItemStack assembledStack = dyedRecipe.assemble( craftingContainer, level.registryAccess() );
+					ItemStack assembledStack = dyedRecipe.assemble( craftingInput, level.registryAccess() );
 					if( assembledStack.isItemEnabled( level.enabledFeatures() ) ) {
 						resultStack = assembledStack;
 					}
@@ -139,25 +141,26 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 	
 	@NotNull
 	@Override
-	public ItemStack quickMoveStack( @NotNull Player _player, int index ) {
+	public ItemStack quickMoveStack( Player pPlayer, int pIndex ) {
 		
 		ItemStack resultStack = ItemStack.EMPTY;
-		Slot slot = slots.get( index );
+		Slot slot = this.slots.get( pIndex );
 		if( slot.hasItem() ) {
 			ItemStack stack = slot.getItem();
 			resultStack = stack.copy();
-			if( index == 0 ) {
-				containerLevelAccess.execute( ( level, pos ) -> {
-					stack.getItem().onCraftedBy( stack, level, _player );
+			if( pIndex == 0 ) {
+				this.containerLevelAccess.execute( ( level, pos ) -> {
+					stack.getItem().onCraftedBy( stack, level, pPlayer );
 				} );
 				if( !this.moveItemStackTo( stack, 10, 46, true ) ) {
 					return ItemStack.EMPTY;
 				}
+				
 				slot.onQuickCraft( stack, resultStack );
 			} else {
-				if( index >= 10 && index < 46 ) {
+				if( pIndex >= 10 && pIndex < 46 ) {
 					if( !this.moveItemStackTo( stack, 1, 10, false ) ) {
-						if( index < 37 ) {
+						if( pIndex < 37 ) {
 							if( !this.moveItemStackTo( stack, 37, 46, false ) ) {
 								return ItemStack.EMPTY;
 							}
@@ -173,25 +176,28 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 					}
 				}
 			}
+			
 			if( stack.isEmpty() ) {
 				slot.setByPlayer( ItemStack.EMPTY );
 			} else {
 				slot.setChanged();
 			}
+			
 			if( stack.getCount() == resultStack.getCount() ) {
 				return ItemStack.EMPTY;
 			}
-			slot.onTake( _player, stack );
-			if( index == 0 ) {
-				_player.drop( stack, false );
+			
+			slot.onTake( pPlayer, stack );
+			if( pIndex == 0 ) {
+				pPlayer.drop( stack, false );
 			}
 		}
 		return resultStack;
 	}
 	
 	@Override
-	public boolean canTakeItemForPickAll( @NotNull ItemStack stack, @NotNull Slot slot ) {
+	public boolean canTakeItemForPickAll( @NotNull ItemStack pStack, @NotNull Slot pSlot ) {
 		
-		return slot.container != resultContainer;
+		return pSlot.container != resultContainer && super.canTakeItemForPickAll( pStack, pSlot );
 	}
 }

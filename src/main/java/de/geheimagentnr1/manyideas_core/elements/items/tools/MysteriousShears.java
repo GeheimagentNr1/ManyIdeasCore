@@ -2,6 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.items.tools;
 
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -57,7 +59,7 @@ public class MysteriousShears extends Item {
 		@NotNull LivingEntity pMiningEntity ) {
 		
 		if( !pLevel.isClientSide ) {
-			pStack.hurtAndBreak(1, pMiningEntity, EquipmentSlot.MAINHAND);
+			pStack.hurtAndBreak( 1, pMiningEntity, EquipmentSlot.MAINHAND );
 		}
 		if( pState.is( BlockTags.LEAVES ) ||
 			pState.is( Blocks.COBWEB ) ||
@@ -117,12 +119,18 @@ public class MysteriousShears extends Item {
 					( (Sheep)shear_target ).setSheared( true );
 					target.playSound( SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F );
 				} else {
+					ResourceKey<Enchantment> key = Enchantments.FORTUNE;
 					drops = shear_target.onSheared(
 						player,
 						stack,
 						target.level(),
 						pos,
-						EnchantmentHelper.getItemEnchantmentLevel( Enchantments.FORTUNE, stack )
+						EnchantmentHelper.getItemEnchantmentLevel(
+							target.level()
+								.holderLookup( key.registryKey() )
+								.getOrThrow( key ),
+							stack
+						)
 					);
 				}
 				drops.forEach( drop -> {
@@ -134,7 +142,7 @@ public class MysteriousShears extends Item {
 							( random.nextFloat() - random.nextFloat() ) * 0.1F
 						) );
 				} );
-				stack.hurtAndBreak( 1, target, LivingEntity.getSlotForHand(hand) );
+				stack.hurtAndBreak( 1, target, LivingEntity.getSlotForHand( hand ) );
 			}
 			return InteractionResult.SUCCESS;
 		}

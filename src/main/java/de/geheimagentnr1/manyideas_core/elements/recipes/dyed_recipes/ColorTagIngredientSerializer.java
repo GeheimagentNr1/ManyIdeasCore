@@ -22,16 +22,16 @@ public class ColorTagIngredientSerializer implements IIngredientSerializer<Color
 	
 	private static final MapCodec<ColorTagIngredient> CODEC =
 		RecordCodecBuilder.mapCodec( ( builder ) -> builder.group(
-		Codec.simpleMap(
-				new EnumCodec<>( Color.class ),
-				BuiltInRegistries.ITEM.byNameCodec(),
-				Keyable.forStrings(
-					() -> Arrays.stream( Color.values() )
-						.map( SimpleStringRepresentable::getSerializedName )
-				)
-			).fieldOf( "color_tag" )
-			.forGetter( colorTagIngredient -> colorTagIngredient.getIngrediant().getStackColors() )
-	).apply( builder, ColorTagIngredient::new ) );
+			Codec.simpleMap(
+					new EnumCodec<>( Color.class ),
+					BuiltInRegistries.ITEM.byNameCodec(),
+					Keyable.forStrings(
+						() -> Arrays.stream( Color.values() )
+							.map( SimpleStringRepresentable::getSerializedName )
+					)
+				).fieldOf( "color_tag" )
+				.forGetter( colorTagIngredient -> colorTagIngredient.getIngrediant().getStackColors() )
+		).apply( builder, ColorTagIngredient::new ) );
 	
 	@Override
 	public MapCodec<? extends ColorTagIngredient> codec() {

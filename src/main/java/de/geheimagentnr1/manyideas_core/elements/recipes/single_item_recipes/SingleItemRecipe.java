@@ -2,17 +2,12 @@ package de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import org.jetbrains.annotations.NotNull;
 
 
-public abstract class SingleItemRecipe implements Recipe<Container> {
+public abstract class SingleItemRecipe implements Recipe<SingleRecipeInput> {
 	
 	
 	@NotNull
@@ -90,7 +85,9 @@ public abstract class SingleItemRecipe implements Recipe<Container> {
 	
 	@NotNull
 	@Override
-	public ItemStack assemble( @NotNull Container pCraftingContainer, @NotNull HolderLookup.Provider pRegistries ) {
+	public ItemStack assemble(
+		@NotNull SingleRecipeInput pCraftingContainer,
+		@NotNull HolderLookup.Provider pRegistries ) {
 		
 		return result.copy();
 	}

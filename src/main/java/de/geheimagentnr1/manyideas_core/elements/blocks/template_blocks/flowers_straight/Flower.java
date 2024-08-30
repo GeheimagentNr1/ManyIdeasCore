@@ -12,7 +12,10 @@ import org.jetbrains.annotations.NotNull;
 public abstract class Flower extends FlowerBlock implements FlowerBlockItemInterface {
 	
 	
-	protected Flower( @NotNull Holder<MobEffect> pEffect, int pSeconds, @NotNull BlockBehaviour.Properties pProperties ) {
+	protected Flower(
+		@NotNull Holder<MobEffect> pEffect,
+		int pSeconds,
+		@NotNull BlockBehaviour.Properties pProperties ) {
 		
 		super( pEffect, pSeconds, pProperties );
 	}

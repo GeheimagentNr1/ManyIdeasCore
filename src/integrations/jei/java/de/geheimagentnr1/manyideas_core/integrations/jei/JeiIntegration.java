@@ -37,7 +37,7 @@ public class JeiIntegration implements IModPlugin {
 	@Override
 	public ResourceLocation getPluginUid() {
 		
-		return new ResourceLocation( ManyIdeasCore.MODID, ManyIdeasCore.MODID );
+		return ResourceLocation.fromNamespaceAndPath( ManyIdeasCore.MODID, ManyIdeasCore.MODID );
 	}
 	
 	@Override

@@ -4,12 +4,8 @@ import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersReg
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import lombok.Getter;
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.ShapedRecipePattern;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,7 +29,7 @@ public class DyedShapedRecipe extends DyedRecipe {
 	}
 	
 	@Override
-	public boolean matches( @NotNull CraftingContainer inv, @NotNull Level level ) {
+	public boolean matches( @NotNull CraftingInput inv, @NotNull Level level ) {
 		
 		if( findMatchingColor( inv ).isEmpty() ) {
 			return false;

@@ -4,9 +4,10 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes.SingleItemRecipe;
-import net.minecraft.world.Container;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,7 +33,7 @@ public class GrindingRecipe extends SingleItemRecipe {
 	}
 	
 	@Override
-	public boolean matches( @NotNull Container pContainer, @NotNull Level pLevel ) {
+	public boolean matches( @NotNull SingleRecipeInput pContainer, @NotNull Level pLevel ) {
 		
 		return ingredient.test( pContainer.getItem( 0 ) );
 	}

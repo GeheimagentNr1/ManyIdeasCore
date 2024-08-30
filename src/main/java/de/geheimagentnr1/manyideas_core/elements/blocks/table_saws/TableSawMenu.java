@@ -9,6 +9,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
@@ -165,12 +166,17 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 		ItemStack itemstack = inputInventorySlot.getItem();
 		if( itemstack.getItem() != itemStackInput.getItem() ) {
 			itemStackInput = itemstack.copy();
-			updateAvailableRecipes( container, itemstack );
+			updateAvailableRecipes( createRecipeInput( container ), itemstack );
 		}
 		
 	}
 	
-	private void updateAvailableRecipes( @NotNull Container inventory, @NotNull ItemStack stack ) {
+	private SingleRecipeInput createRecipeInput( Container container ) {
+		
+		return new SingleRecipeInput( container.getItem( 0 ) );
+	}
+	
+	private void updateAvailableRecipes( @NotNull SingleRecipeInput inventory, @NotNull ItemStack stack ) {
 		
 		recipes.clear();
 		selectedRecipe.set( -1 );
@@ -181,7 +187,9 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 	}
 	
 	@NotNull
-	protected abstract List<TableSawRecipe> getAvaiableRecipes( @NotNull Container container, @NotNull Level _level );
+	protected abstract List<TableSawRecipe> getAvaiableRecipes(
+		@NotNull SingleRecipeInput container,
+		@NotNull Level _level );
 	
 	//package-private
 	void updateRecipeResultSlot() {
@@ -190,7 +198,10 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 			outputInventorySlot.set( ItemStack.EMPTY );
 		} else {
 			TableSawRecipe tableSawRecipe = recipes.get( selectedRecipe.get() );
-			outputInventorySlot.set( tableSawRecipe.assemble( inputInventory, level.registryAccess() ) );
+			outputInventorySlot.set( tableSawRecipe.assemble(
+				createRecipeInput( inputInventory ),
+				level.registryAccess()
+			) );
 		}
 		broadcastChanges();
 	}

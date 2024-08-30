@@ -4,11 +4,11 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSawMenu;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSawRecipe;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
@@ -55,7 +55,7 @@ public class TableSawDiamondMenu extends TableSawMenu {
 	
 	@NotNull
 	@Override
-	public List<TableSawRecipe> getAvaiableRecipes( @NotNull Container container, @NotNull Level _level ) {
+	public List<TableSawRecipe> getAvaiableRecipes( @NotNull SingleRecipeInput container, @NotNull Level _level ) {
 		
 		ArrayList<TableSawRecipe> recipes = new ArrayList<>();
 		

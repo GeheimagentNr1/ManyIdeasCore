@@ -5,10 +5,11 @@ import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.minecraft_forge_api.util.TranslationKeyHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.*;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -86,8 +87,12 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 		@NotNull Player pPlayer,
 		@NotNull BlockHitResult pHitResult ) {
 		
-		pPlayer.openMenu( pState.getMenuProvider( pLevel, pPos ) );
-		return InteractionResult.SUCCESS;
+		if( pLevel.isClientSide ) {
+			return InteractionResult.SUCCESS;
+		} else {
+			pPlayer.openMenu( pState.getMenuProvider( pLevel, pPos ) );
+			return InteractionResult.CONSUME;
+		}
 	}
 	
 	@Nullable

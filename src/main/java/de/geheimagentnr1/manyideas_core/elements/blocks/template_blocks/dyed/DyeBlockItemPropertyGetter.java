@@ -16,7 +16,7 @@ public class DyeBlockItemPropertyGetter implements ItemPropertyFunction {
 	
 	
 	@NotNull
-	public static final ResourceLocation registry_name = new ResourceLocation( "color" );
+	public static final ResourceLocation registry_name = ResourceLocation.withDefaultNamespace( "color" );
 	
 	@Override
 	public float call(

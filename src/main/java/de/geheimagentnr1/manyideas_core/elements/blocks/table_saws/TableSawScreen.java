@@ -23,7 +23,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 	
 	
 	@NotNull
-	private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(
+	private static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocation.fromNamespaceAndPath(
 		ManyIdeasCore.MODID,
 		"textures/gui/table_saws/table_saw_gui.png"
 	);

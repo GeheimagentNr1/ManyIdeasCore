@@ -15,8 +15,7 @@ public class DyeCraftingTableScreen extends AbstractContainerScreen<DyeCraftingT
 	
 	
 	@NotNull
-	private static final ResourceLocation CRAFTING_TABLE_GUI_TEXTURES = new ResourceLocation(
-		"minecraft",
+	private static final ResourceLocation CRAFTING_TABLE_GUI_TEXTURES = ResourceLocation.withDefaultNamespace(
 		"textures/gui/container/crafting_table.png"
 	);
 	
@@ -26,11 +25,12 @@ public class DyeCraftingTableScreen extends AbstractContainerScreen<DyeCraftingT
 		@NotNull Component _title ) {
 		
 		super( _menu, _inventory, _title );
-		initData();
 	}
 	
-	private void initData() {
+	@Override
+	protected void init() {
 		
+		super.init();
 		titleLabelX = 29;
 	}
 	

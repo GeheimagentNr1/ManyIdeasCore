@@ -18,7 +18,7 @@ public abstract class JeiSingleItemRecipeCategory<R extends JeiSingleItemRecipe<
 	
 	
 	@NotNull
-	private static final ResourceLocation texture = new ResourceLocation(
+	private static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(
 		ManyIdeasCore.MODID,
 		"textures/jei/gui/single_item_recipe_gui.png"
 	);
