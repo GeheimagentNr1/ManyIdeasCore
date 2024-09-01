@@ -23,7 +23,7 @@ public enum Color implements SimpleStringRepresentable {
 	WHITE,
 	YELLOW;
 	
-	public static Codec<Color> CODEC = Codec.STRING.xmap(
+	public static final Codec<Color> CODEC = Codec.STRING.xmap(
 		value -> valueOf( SimpleStringRepresentable.buildDeserializedName( value ) ),
 		SimpleStringRepresentable::getSerializedName
 	);

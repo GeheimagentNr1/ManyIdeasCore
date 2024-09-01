@@ -15,11 +15,14 @@ import de.geheimagentnr1.manyideas_core.elements.items.tools.MysteriousShears;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.RedstoneKey;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyContainer;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyScreen;
+import de.geheimagentnr1.manyideas_core.util.CodeNetworkHelper;
 import de.geheimagentnr1.minecraft_forge_api.elements.items.ItemsRegisterFactory;
 import de.geheimagentnr1.minecraft_forge_api.registry.RegistryEntry;
 import de.geheimagentnr1.minecraft_forge_api.registry.RegistryKeys;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -49,6 +52,10 @@ public class ModItemsRegisterFactory extends ItemsRegisterFactory {
 	public static final DataComponentType<Color> COLOR =
 		DataComponentType.<Color> builder()
 			.persistent( Color.CODEC )
+			.networkSynchronized( StreamCodec.of(
+				CodeNetworkHelper::toNetwork,
+				CodeNetworkHelper::fromNetwork
+			) )
 			.build();
 	
 	//Panels
