@@ -1,9 +1,10 @@
 package de.geheimagentnr1.manyideas_core.elements.commands;
 
+import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.commands.givedb.ColorArgument;
 import de.geheimagentnr1.manyideas_core.elements.commands.givedb.DyeItemArgument;
-import de.geheimagentnr1.minecraft_forge_api.registry.ElementsRegisterFactory;
-import de.geheimagentnr1.minecraft_forge_api.registry.RegistryEntry;
+import de.geheimagentnr1.manyideas_core.core.registry.ElementsRegisterFactory;
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryEntry;
 import net.minecraft.commands.synchronization.ArgumentTypeInfo;
 import net.minecraft.commands.synchronization.ArgumentTypeInfos;
 import net.minecraft.commands.synchronization.SingletonArgumentInfo;
@@ -17,6 +18,13 @@ import java.util.List;
 
 public class ModArgumentTypesRegisterFactory extends ElementsRegisterFactory<ArgumentTypeInfo<?, ?>> {
 	
+	
+	@NotNull
+	@Override
+	protected String getModId() {
+		
+		return ManyIdeasCore.MODID;
+	}
 	
 	@NotNull
 	@Override
@@ -45,5 +53,11 @@ public class ModArgumentTypesRegisterFactory extends ElementsRegisterFactory<Arg
 				)
 			)
 		);
+	}
+	
+	@net.neoforged.bus.api.SubscribeEvent
+	public void handleRegisterEvent( @NotNull net.neoforged.neoforge.registries.RegisterEvent event ) {
+		
+		doRegisterEvent( event );
 	}
 }

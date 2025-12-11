@@ -1,8 +1,8 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
-import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
-import de.geheimagentnr1.minecraft_forge_api.util.TranslationKeyHelper;
+import de.geheimagentnr1.manyideas_core.core.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.manyideas_core.core.util.TranslationKeyHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;

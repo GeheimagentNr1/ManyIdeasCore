@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.multi_block;
 
-import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.manyideas_core.core.elements.blocks.BlockItemInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;

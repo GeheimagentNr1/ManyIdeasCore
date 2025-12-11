@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks;
 
-import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.manyideas_core.core.elements.blocks.BlockItemInterface;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;

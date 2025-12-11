@@ -1,7 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.end_block;
 
 import com.mojang.serialization.MapCodec;
-import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.manyideas_core.core.elements.blocks.BlockItemInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;

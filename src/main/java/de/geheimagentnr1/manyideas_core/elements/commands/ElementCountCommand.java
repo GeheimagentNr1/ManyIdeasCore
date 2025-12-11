@@ -2,7 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.commands;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import de.geheimagentnr1.minecraft_forge_api.elements.commands.CommandInterface;
+import de.geheimagentnr1.manyideas_core.core.elements.commands.CommandInterface;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;

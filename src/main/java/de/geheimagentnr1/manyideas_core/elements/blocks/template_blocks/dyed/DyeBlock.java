@@ -1,7 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed;
 
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
-import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.manyideas_core.core.elements.blocks.BlockItemInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

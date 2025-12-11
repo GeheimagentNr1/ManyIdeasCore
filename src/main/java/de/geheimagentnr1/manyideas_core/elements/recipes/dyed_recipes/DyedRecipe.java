@@ -59,10 +59,9 @@ public abstract class DyedRecipe implements Recipe<CraftingInput> {
 		
 		Color color = null;
 		for( Ingredient ingredient : ingredients ) {
-			if( ingredient instanceof ColorIngredient ) {
+			if( ingredient.getCustomIngredient() instanceof ColorIngredient<?> colorIngredient ) {
 				for( int j = 0; j < inv.size(); j++ ) {
 					if( ingredient.test( inv.getItem( j ) ) ) {
-						ColorIngredient<?> colorIngredient = (ColorIngredient<?>)ingredient;
 						Color newColor = colorIngredient.getColor( inv.getItem( j ) );
 						if( newColor == null ) {
 							return Optional.empty();

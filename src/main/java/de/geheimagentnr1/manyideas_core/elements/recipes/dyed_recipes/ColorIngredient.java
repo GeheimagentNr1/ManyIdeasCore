@@ -2,13 +2,13 @@ package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.crafting.ingredients.AbstractIngredient;
+import net.neoforged.neoforge.common.crafting.ICustomIngredient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.Stream;
 
 
-abstract class ColorIngredient<T extends ColorList> extends AbstractIngredient {
+public abstract class ColorIngredient<T extends ColorList> implements ICustomIngredient {
 	
 	
 	@NotNull
@@ -16,7 +16,6 @@ abstract class ColorIngredient<T extends ColorList> extends AbstractIngredient {
 	
 	ColorIngredient( @NotNull T _ingrediant ) {
 		
-		super( Stream.of( _ingrediant ) );
 		ingrediant = _ingrediant;
 	}
 	
@@ -24,6 +23,18 @@ abstract class ColorIngredient<T extends ColorList> extends AbstractIngredient {
 	public boolean isSimple() {
 		
 		return false;
+	}
+	
+	@Override
+	public boolean test( @NotNull ItemStack stack ) {
+		
+		return ingrediant.test( stack );
+	}
+	
+	@Override
+	public @NotNull Stream<ItemStack> getItems() {
+		
+		return ingrediant.getItems().stream();
 	}
 	
 	//package-private

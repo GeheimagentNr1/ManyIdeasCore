@@ -1,6 +1,6 @@
 package de.geheimagentnr1.manyideas_core;
 
-import de.geheimagentnr1.manyideas_core.config.ClientConfig;
+import de.geheimagentnr1.manyideas_core.core.AbstractMod;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModDebugBlocksRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.commands.ModArgumentTypesRegisterFactory;
@@ -12,10 +12,11 @@ import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersReg
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import de.geheimagentnr1.manyideas_core.network.Network;
 import de.geheimagentnr1.manyideas_core.special.decoration_renderer.PlayerDecorationManager;
-import de.geheimagentnr1.minecraft_forge_api.AbstractMod;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.loading.FMLEnvironment;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -25,6 +26,11 @@ public class ManyIdeasCore extends AbstractMod {
 	
 	@NotNull
 	public static final String MODID = "manyideas_core";
+	
+	public ManyIdeasCore( @NotNull IEventBus modEventBus, @NotNull ModContainer modContainer ) {
+		
+		super( modEventBus, modContainer );
+	}
 	
 	@NotNull
 	@Override
@@ -36,16 +42,14 @@ public class ManyIdeasCore extends AbstractMod {
 	@Override
 	protected void initMod() {
 		
-		ClientConfig clientConfig = registerConfig( ClientConfig::new );
 		ModBlocksRegisterFactory modBlocksRegisterFactory = registerEventHandler( new ModBlocksRegisterFactory() );
 		ModDebugBlocksRegisterFactory modDebugBlocksRegisterFactory = registerEventHandler(
-			new ModDebugBlocksRegisterFactory( clientConfig )
+			new ModDebugBlocksRegisterFactory()
 		);
 		registerEventHandler( new ModArgumentTypesRegisterFactory() );
 		registerEventHandler( new ModCommandsRegisterFactory() );
 		ModItemsRegisterFactory modItemsRegisterFactory = registerEventHandler( new ModItemsRegisterFactory() );
 		registerEventHandler( new ModCreativeModeTabRegisterFactory(
-			clientConfig,
 			modBlocksRegisterFactory,
 			modDebugBlocksRegisterFactory,
 			modItemsRegisterFactory
@@ -54,13 +58,10 @@ public class ManyIdeasCore extends AbstractMod {
 		registerEventHandler( new ModRecipeSerializersRegisterFactory() );
 		registerEventHandler( new ModRecipeTypesRegisterFactory() );
 		registerEventHandler( Network.getInstance() );
-		DistExecutor.unsafeRunWhenOn(
-			Dist.CLIENT,
-			() -> () -> {
-				PlayerDecorationManager playerDecorationManager = new PlayerDecorationManager();
-				forgeEventBus().addListener( playerDecorationManager::handlePreRenderPlayerEvent );
-				modEventBus().addListener( playerDecorationManager::handleFMLClientSetupEvent );
-			}
-		);
+		if( FMLEnvironment.dist == Dist.CLIENT ) {
+			PlayerDecorationManager playerDecorationManager = new PlayerDecorationManager();
+			forgeEventBus().addListener( playerDecorationManager::handlePreRenderPlayerEvent );
+			modEventBus().addListener( playerDecorationManager::handleFMLClientSetupEvent );
+		}
 	}
 }

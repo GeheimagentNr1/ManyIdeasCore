@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.IForgeShearable;
+import net.neoforged.neoforge.common.IShearable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -104,9 +104,9 @@ public class MysteriousShears extends Item {
 		if( target.level().isClientSide ) {
 			return InteractionResult.PASS;
 		}
-		if( target instanceof IForgeShearable shear_target ) {
+		if( target instanceof net.neoforged.neoforge.common.IShearable shear_target ) {
 			BlockPos pos = BlockPos.containing( target.position() );
-			if( shear_target.isShearable( stack, target.level(), pos ) ) {
+			if( shear_target.isShearable( player, stack, target.level(), pos ) ) {
 				
 				RandomSource random = player.getRandom();
 				List<ItemStack> drops;
@@ -119,18 +119,11 @@ public class MysteriousShears extends Item {
 					( (Sheep)shear_target ).setSheared( true );
 					target.playSound( SoundEvents.SHEEP_SHEAR, 1.0F, 1.0F );
 				} else {
-					ResourceKey<Enchantment> key = Enchantments.FORTUNE;
 					drops = shear_target.onSheared(
 						player,
 						stack,
 						target.level(),
-						pos,
-						EnchantmentHelper.getItemEnchantmentLevel(
-							target.level()
-								.holderLookup( key.registryKey() )
-								.getOrThrow( key ),
-							stack
-						)
+						pos
 					);
 				}
 				drops.forEach( drop -> {

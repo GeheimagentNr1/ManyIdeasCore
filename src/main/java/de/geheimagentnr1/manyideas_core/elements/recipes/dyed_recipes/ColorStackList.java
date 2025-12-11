@@ -5,8 +5,8 @@ import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 
 public class ColorStackList implements ColorList {
@@ -34,6 +34,12 @@ public class ColorStackList implements ColorList {
 		return DyeBlockHelper.setColor( itemStack.copy(), color );
 	}
 	
+	@Override
+	public boolean test( @NotNull ItemStack stack ) {
+		
+		return ItemStack.isSameItem( itemStack, stack );
+	}
+	
 	//package-private
 	@NotNull
 	ItemStack getItemStack() {
@@ -43,7 +49,7 @@ public class ColorStackList implements ColorList {
 	
 	@NotNull
 	@Override
-	public Collection<ItemStack> getItems() {
+	public List<ItemStack> getItems() {
 		
 		return Collections.singletonList( itemStack );
 	}

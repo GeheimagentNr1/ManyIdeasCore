@@ -1,7 +1,9 @@
 package de.geheimagentnr1.manyideas_core.network;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
-import de.geheimagentnr1.minecraft_forge_api.network.AbstractNetwork;
+import de.geheimagentnr1.manyideas_core.core.network.AbstractNetwork;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -34,10 +36,16 @@ public class Network extends AbstractNetwork {
 	@Override
 	public void registerPackets() {
 		
-		getChannel().messageBuilder( RedstoneKeyStateUpdateMsg.class )
-			.encoder( RedstoneKeyStateUpdateMsg::encode )
-			.decoder( RedstoneKeyStateUpdateMsg::decode )
-			.consumerNetworkThread( RedstoneKeyStateUpdateMsg::handle )
-			.add();
+		getRegistrar().playToServer(
+			RedstoneKeyStateUpdateMsg.TYPE,
+			RedstoneKeyStateUpdateMsg.STREAM_CODEC,
+			RedstoneKeyStateUpdateMsg::handle
+		);
+	}
+	
+	@SubscribeEvent
+	public void handleRegisterPayloadHandlersEvent( @NotNull RegisterPayloadHandlersEvent event ) {
+		
+		doRegisterPayloadHandlersEvent( event );
 	}
 }

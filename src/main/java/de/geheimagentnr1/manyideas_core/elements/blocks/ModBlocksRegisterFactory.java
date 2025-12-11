@@ -27,21 +27,22 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_s
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightPeony;
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightRoseBush;
 import de.geheimagentnr1.manyideas_core.elements.blocks.vanilla_blocks.flowers_straight.tall.FlowerTallStraightSunflower;
+import de.geheimagentnr1.manyideas_core.elements.items.ModItemsRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.RedstoneKey;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyContainer;
-import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlocksRegisterFactory;
-import de.geheimagentnr1.minecraft_forge_api.registry.RegistryEntry;
-import de.geheimagentnr1.minecraft_forge_api.registry.RegistryHelper;
-import de.geheimagentnr1.minecraft_forge_api.registry.RegistryKeys;
+import de.geheimagentnr1.manyideas_core.core.elements.blocks.BlocksRegisterFactory;
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryEntry;
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryHelper;
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryKeys;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.registries.ObjectHolder;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -49,6 +50,14 @@ import java.util.List;
 
 @SuppressWarnings( { "StaticNonFinalField", "PublicField", "unused" } )
 public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
+	
+	
+	@NotNull
+	@Override
+	protected String getModId() {
+		
+		return ManyIdeasCore.MODID;
+	}
 	
 	//TODO:
 	// B - Block Textur fertig
@@ -63,243 +72,159 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 	
 	//Building Blocks: Plankss
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS, value =
-		ManyIdeasCore.MODID + ":" + PlanksColored.registry_name )
 	public static PlanksColored PLANKS_COLORED;
 	
 	//Building Blocks: Planks: Seamless
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + PlanksSeamlessAcacia.registry_name )
 	public static PlanksSeamlessAcacia PLANKS_SEAMLESS_ACACIA;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + PlanksSeamlessBirch.registry_name )
 	public static PlanksSeamlessBirch PLANKS_SEAMLESS_BIRCH;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + PlanksSeamlessCrimson.registry_name )
 	public static PlanksSeamlessCrimson PLANKS_SEAMLESS_CRIMSON;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + PlanksSeamlessDarkOak.registry_name )
 	public static PlanksSeamlessDarkOak PLANKS_SEAMLESS_DARK_OAK;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + PlanksSeamlessJungle.registry_name )
 	public static PlanksSeamlessJungle PLANKS_SEAMLESS_JUNGLE;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + PlanksSeamlessMangrove.registry_name )
 	public static PlanksSeamlessMangrove PLANKS_SEAMLESS_MANGROVE;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + PlanksSeamlessOak.registry_name )
 	public static PlanksSeamlessOak PLANKS_SEAMLESS_OAK;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + PlanksSeamlessSpruce.registry_name )
 	public static PlanksSeamlessSpruce PLANKS_SEAMLESS_SPRUCE;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + PlanksSeamlessWarped.registry_name )
 	public static PlanksSeamlessWarped PLANKS_SEAMLESS_WARPED;
 	
 	//Building Blocks: Blocks: Rainbow
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS, value =
-		ManyIdeasCore.MODID + ":" + RainbowCarpet.registry_name )
 	public static RainbowCarpet RAINBOW_CARPET;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + RainbowConcrete.registry_name )
 	public static RainbowConcrete RAINBOW_CONCRETE;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + RainbowConcretePowder.registry_name )
 	public static RainbowConcretePowder RAINBOW_CONCRETE_POWDER;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + RainbowStainedGlassBlock.registry_name )
 	public static RainbowStainedGlassBlock RAINBOW_STAINED_GLASS_BLOCK;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + RainbowStainedGlassPane.registry_name )
 	public static RainbowStainedGlassPane RAINBOW_STAINED_GLASS_PANE;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + RainbowTerracotta.registry_name )
 	public static RainbowTerracotta RAINBOW_TERRACOTTA;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + RainbowTerracottaGlazed.registry_name )
 	public static RainbowTerracottaGlazed RAINBOW_TERRACOTTA_GLAZED;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS, value = ManyIdeasCore.MODID + ":" + RainbowWool.registry_name )
 	public static RainbowWool RAINBOW_WOOL;
 	
 	//Building Blocks: Woods
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS, value = ManyIdeasCore.MODID + ":" + WoodColored.registry_name )
 	public static WoodColored WOOD_COLORED;
 	
 	//Building Blocks: Woods: Logs Stripped Smooth
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + LogStrippedSmoothAcacia.registry_name )
 	public static LogStrippedSmoothAcacia LOG_STRIPPED_SMOOTH_ACACIA;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + LogStrippedSmoothBirch.registry_name )
 	public static LogStrippedSmoothBirch LOG_STRIPPED_SMOOTH_BIRCH;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + LogStrippedSmoothCrimson.registry_name )
 	public static LogStrippedSmoothCrimson LOG_STRIPPED_SMOOTH_CRIMSON;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + LogStrippedSmoothDarkOak.registry_name )
 	public static LogStrippedSmoothDarkOak LOG_STRIPPED_SMOOTH_DARK_OAK;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + LogStrippedSmoothJungle.registry_name )
 	public static LogStrippedSmoothJungle LOG_STRIPPED_SMOOTH_JUNGLE;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + LogStrippedSmoothMangrove.registry_name )
 	public static LogStrippedSmoothMangrove LOG_STRIPPED_SMOOTH_MANGROVE;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + LogStrippedSmoothOak.registry_name )
 	public static LogStrippedSmoothOak LOG_STRIPPED_SMOOTH_OAK;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + LogStrippedSmoothSpruce.registry_name )
 	public static LogStrippedSmoothSpruce LOG_STRIPPED_SMOOTH_SPRUCE;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + LogStrippedSmoothWarped.registry_name )
 	public static LogStrippedSmoothWarped LOG_STRIPPED_SMOOTH_WARPED;
 	
 	//Building Blocks: Woods: Woods Stripped Smooth
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + WoodStrippedSmoothAcacia.registry_name )
 	public static WoodStrippedSmoothAcacia WOOD_STRIPPED_SMOOTH_ACACIA;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + WoodStrippedSmoothBirch.registry_name )
 	public static WoodStrippedSmoothBirch WOOD_STRIPPED_SMOOTH_BIRCH;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + WoodStrippedSmoothCrimson.registry_name )
 	public static WoodStrippedSmoothCrimson WOOD_STRIPPED_SMOOTH_CRIMSON;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + WoodStrippedSmoothDarkOak.registry_name )
 	public static WoodStrippedSmoothDarkOak WOOD_STRIPPED_SMOOTH_DARK_OAK;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + WoodStrippedSmoothJungle.registry_name )
 	public static WoodStrippedSmoothJungle WOOD_STRIPPED_SMOOTH_JUNGLE;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + WoodStrippedSmoothMangrove.registry_name )
 	public static WoodStrippedSmoothMangrove WOOD_STRIPPED_SMOOTH_MANGROVE;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + WoodStrippedSmoothOak.registry_name )
 	public static WoodStrippedSmoothOak WOOD_STRIPPED_SMOOTH_OAK;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + WoodStrippedSmoothSpruce.registry_name )
 	public static WoodStrippedSmoothSpruce WOOD_STRIPPED_SMOOTH_SPRUCE;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + WoodStrippedSmoothWarped.registry_name )
 	public static WoodStrippedSmoothWarped WOOD_STRIPPED_SMOOTH_WARPED;
 	
 	//Dye Crafting Table
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + DyeCraftingTable.registry_name )
 	public static DyeCraftingTable DYE_CRAFTING_TABLE;
 	
-	@ObjectHolder( registryName = RegistryKeys.MENU_TYPES,
-		value = ManyIdeasCore.MODID + ":" + DyeCraftingTable.registry_name )
 	public static MenuType<DyeCraftingTableMenu> DYE_CRAFTING_TABLE_MENU;
 	
 	//End Block
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS, value = ManyIdeasCore.MODID + ":" + EndBlock.registry_name )
 	public static EndBlock END_BLOCK;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCK_ENTITY_TYPES,
-		value = ManyIdeasCore.MODID + ":" + EndBlock.registry_name )
 	public static BlockEntityType<EndBlockEntity> END_BLOCK_ENTITY;
 	
 	//Mortar
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS, value = ManyIdeasCore.MODID + ":" + Mortar.registry_name )
 	public static Mortar MORTAR;
 	
 	//Table Saws
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + TableSawDiamond.registry_name )
 	public static TableSawDiamond TABLE_SAW_DIAMOND;
 	
-	@ObjectHolder( registryName = RegistryKeys.MENU_TYPES,
-		value = ManyIdeasCore.MODID + ":" + TableSawDiamond.registry_name )
 	public static MenuType<TableSawDiamondMenu> TABLE_SAW_DIAMOND_MENU;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS, value = ManyIdeasCore.MODID + ":" + TableSawIron.registry_name )
 	public static TableSawIron TABLE_SAW_IRON;
 	
-	@ObjectHolder( registryName = RegistryKeys.MENU_TYPES,
-		value = ManyIdeasCore.MODID + ":" + TableSawIron.registry_name )
 	public static MenuType<TableSawIronMenu> TABLE_SAW_IRON_MENU;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS, value =
-		ManyIdeasCore.MODID + ":" + TableSawStone.registry_name )
 	public static TableSawStone TABLE_SAW_STONE;
 	
-	@ObjectHolder( registryName = RegistryKeys.MENU_TYPES, value =
-		ManyIdeasCore.MODID + ":" + TableSawStone.registry_name )
 	public static MenuType<TableSawStoneMenu> TABLE_SAW_STONE_MENU;
 	
 	//Vanilla Blocks: Flowers: Normal
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + FlowerStraightAllium.registry_name )
 	public static FlowerStraightAllium FLOWER_STRAIGHT_ALLIUM;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + FlowerStraightOrchidBlue.registry_name )
 	public static FlowerStraightOrchidBlue FLOWER_STRAIGHT_ORCHID_BLUE;
 	
 	//Vanilla Blocks: Flowers: Tall
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + FlowerTallStraightLilac.registry_name )
 	public static FlowerTallStraightLilac FLOWER_TALL_STRAIGHT_LILAC;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + FlowerTallStraightRoseBush.registry_name )
 	public static FlowerTallStraightRoseBush FLOWER_TALL_STRAIGHT_ROSE_BUSH;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + FlowerTallStraightPeony.registry_name )
 	public static FlowerTallStraightPeony FLOWER_TALL_STRAIGHT_PEONY;
 	
-	@ObjectHolder( registryName = RegistryKeys.BLOCKS,
-		value = ManyIdeasCore.MODID + ":" + FlowerTallStraightSunflower.registry_name )
 	public static FlowerTallStraightSunflower FLOWER_TALL_STRAIGHT_SUNFLOWER;
+	
+	private void initializeStaticFields() {
+		
+		if( DYE_CRAFTING_TABLE == null ) {
+			DYE_CRAFTING_TABLE = new DyeCraftingTable();
+			DYE_CRAFTING_TABLE_MENU = IMenuTypeExtension.create( ( windowId, inv, data ) -> new DyeCraftingTableMenu( windowId, inv ) );
+			END_BLOCK = new EndBlock();
+			END_BLOCK_ENTITY = RegistryHelper.buildBlockEntity( EndBlock.registry_name, EndBlockEntity::new, END_BLOCK );
+			RAINBOW_WOOL = new RainbowWool();
+			TABLE_SAW_DIAMOND = new TableSawDiamond();
+			TABLE_SAW_DIAMOND_MENU = IMenuTypeExtension.create( ( windowId, inv, data ) -> new TableSawDiamondMenu( windowId, inv ) );
+			TABLE_SAW_IRON = new TableSawIron();
+			TABLE_SAW_IRON_MENU = IMenuTypeExtension.create( ( windowId, inv, data ) -> new TableSawIronMenu( windowId, inv ) );
+			TABLE_SAW_STONE = new TableSawStone();
+			TABLE_SAW_STONE_MENU = IMenuTypeExtension.create( ( windowId, inv, data ) -> new TableSawStoneMenu( windowId, inv ) );
+			ModItemsRegisterFactory.RESTONE_KEY_CONTAINER = IMenuTypeExtension.create( ( windowId, inv, data ) -> new RedstoneKeyContainer( windowId, data ) );
+		}
+	}
 	
 	@NotNull
 	@Override
 	protected List<RegistryEntry<Block>> blocks() {
 		
+		initializeStaticFields();
 		return List.of(//BCPFINRLT
 			//Building Blocks: Planks
 			RegistryEntry.create( PlanksColored.registry_name, new PlanksColored() ),
@@ -338,7 +263,7 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 			//BCPFINRLT
 			RegistryEntry.create( RainbowTerracottaGlazed.registry_name, new RainbowTerracottaGlazed() ),
 			//BCPFINRLT
-			RegistryEntry.create( RainbowWool.registry_name, new RainbowWool() ),
+			RegistryEntry.create( RainbowWool.registry_name, RAINBOW_WOOL ),
 			//BCPFINRLT//Kein Rezept
 			//Building Blocks: Woods
 			RegistryEntry.create( WoodColored.registry_name, new WoodColored() ),
@@ -382,20 +307,20 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 			RegistryEntry.create( WoodStrippedSmoothWarped.registry_name, new WoodStrippedSmoothWarped() ),
 			//BCPFINRLT
 			//Dye Crafting Table
-			RegistryEntry.create( DyeCraftingTable.registry_name, new DyeCraftingTable() ),
+			RegistryEntry.create( DyeCraftingTable.registry_name, DYE_CRAFTING_TABLE ),
 			//BCPFINRLT
 			//End Block
-			RegistryEntry.create( EndBlock.registry_name, new EndBlock() ),
+			RegistryEntry.create( EndBlock.registry_name, END_BLOCK ),
 			//BCPFINRLT
 			//Mortar
 			RegistryEntry.create( Mortar.registry_name, new Mortar() ),
 			//BCPFINRLT
 			//Table Saws
-			RegistryEntry.create( TableSawDiamond.registry_name, new TableSawDiamond() ),
+			RegistryEntry.create( TableSawDiamond.registry_name, TABLE_SAW_DIAMOND ),
 			//BCPFINRLT
-			RegistryEntry.create( TableSawIron.registry_name, new TableSawIron() ),
+			RegistryEntry.create( TableSawIron.registry_name, TABLE_SAW_IRON ),
 			//BCPFINRLT
-			RegistryEntry.create( TableSawStone.registry_name, new TableSawStone() ),
+			RegistryEntry.create( TableSawStone.registry_name, TABLE_SAW_STONE ),
 			//BCPFINRLT
 			//Vanilla Blocks: Flowers: Normal
 			RegistryEntry.create( FlowerStraightAllium.registry_name, new FlowerStraightAllium() ),
@@ -419,10 +344,7 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 	protected List<RegistryEntry<BlockEntityType<?>>> blockEntityTypes() {
 		
 		return List.of(
-			RegistryEntry.create(
-				EndBlock.registry_name,
-				RegistryHelper.buildBlockEntity( EndBlock.registry_name, EndBlockEntity::new, END_BLOCK )
-			)
+			RegistryEntry.create( EndBlock.registry_name, END_BLOCK_ENTITY )
 		);
 	}
 	
@@ -431,38 +353,33 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 	protected List<RegistryEntry<MenuType<?>>> menuTypes() {
 		
 		return List.of(
-			RegistryEntry.create(
-				DyeCraftingTable.registry_name,
-				IForgeMenuType.create( ( windowId, inv, data ) -> new DyeCraftingTableMenu( windowId, inv ) )
-			),
-			RegistryEntry.create(
-				TableSawDiamond.registry_name,
-				IForgeMenuType.create( ( windowId, inv, data ) -> new TableSawDiamondMenu( windowId, inv ) )
-			),
-			RegistryEntry.create(
-				TableSawIron.registry_name,
-				IForgeMenuType.create( ( windowId, inv, data ) -> new TableSawIronMenu( windowId, inv ) )
-			),
-			RegistryEntry.create(
-				TableSawStone.registry_name,
-				IForgeMenuType.create( ( windowId, inv, data ) -> new TableSawStoneMenu( windowId, inv ) )
-			),
-			RegistryEntry.create(
-				RedstoneKey.registry_name,
-				IForgeMenuType.create( ( windowId, inv, data ) -> new RedstoneKeyContainer( windowId, data ) )
-			)
+			RegistryEntry.create( DyeCraftingTable.registry_name, DYE_CRAFTING_TABLE_MENU ),
+			RegistryEntry.create( TableSawDiamond.registry_name, TABLE_SAW_DIAMOND_MENU ),
+			RegistryEntry.create( TableSawIron.registry_name, TABLE_SAW_IRON_MENU ),
+			RegistryEntry.create( TableSawStone.registry_name, TABLE_SAW_STONE_MENU ),
+			RegistryEntry.create( RedstoneKey.registry_name, ModItemsRegisterFactory.RESTONE_KEY_CONTAINER )
 		);
+	}
+	
+	@SubscribeEvent
+	public void handleRegisterEvent( @NotNull net.neoforged.neoforge.registries.RegisterEvent event ) {
+		
+		doRegisterEvent( event );
 	}
 	
 	@SubscribeEvent
 	@Override
 	public void handleFMLClientSetupEvent( @NotNull FMLClientSetupEvent event ) {
 		
-		MenuScreens.register( DYE_CRAFTING_TABLE_MENU, DyeCraftingTableScreen::new );
-		MenuScreens.register( TABLE_SAW_STONE_MENU, TableSawScreen::new );
-		MenuScreens.register( TABLE_SAW_IRON_MENU, TableSawScreen::new );
-		MenuScreens.register( TABLE_SAW_DIAMOND_MENU, TableSawScreen::new );
-		
 		BlockEntityRenderers.register( END_BLOCK_ENTITY, EndBlockEntityRenderer::new );
+	}
+	
+	@SubscribeEvent
+	public void handleRegisterMenuScreensEvent( @NotNull net.neoforged.neoforge.client.event.RegisterMenuScreensEvent event ) {
+		
+		event.register( DYE_CRAFTING_TABLE_MENU, DyeCraftingTableScreen::new );
+		event.register( TABLE_SAW_STONE_MENU, TableSawScreen::new );
+		event.register( TABLE_SAW_IRON_MENU, TableSawScreen::new );
+		event.register( TABLE_SAW_DIAMOND_MENU, TableSawScreen::new );
 	}
 }

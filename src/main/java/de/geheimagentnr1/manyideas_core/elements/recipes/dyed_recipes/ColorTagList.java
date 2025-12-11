@@ -49,6 +49,12 @@ public class ColorTagList implements ColorList {
 		return ItemStack.EMPTY;
 	}
 	
+	@Override
+	public boolean test( @NotNull ItemStack stack ) {
+		
+		return stacks.keySet().stream().anyMatch( s -> ItemStack.isSameItem( s, stack ) );
+	}
+	
 	//package-private
 	@NotNull
 	TreeMap<ItemStack, Color> getColorStacks() {
@@ -66,8 +72,8 @@ public class ColorTagList implements ColorList {
 	
 	@NotNull
 	@Override
-	public Collection<ItemStack> getItems() {
+	public List<ItemStack> getItems() {
 		
-		return stacks.keySet();
+		return new ArrayList<>( stacks.keySet() );
 	}
 }

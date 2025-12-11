@@ -13,14 +13,14 @@ import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedShaped
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedShapedRecipeSerializer;
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedShapelessRecipe;
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedShapelessRecipeSerializer;
-import de.geheimagentnr1.minecraft_forge_api.registry.ElementsRegisterFactory;
-import de.geheimagentnr1.minecraft_forge_api.registry.RegistryEntry;
-import de.geheimagentnr1.minecraft_forge_api.registry.RegistryKeys;
+import de.geheimagentnr1.manyideas_core.core.registry.ElementsRegisterFactory;
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryEntry;
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryKeys;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ObjectHolder;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -29,57 +29,72 @@ import java.util.List;
 @SuppressWarnings( { "StaticNonFinalField", "PublicField", "unused" } )
 public class ModRecipeSerializersRegisterFactory extends ElementsRegisterFactory<RecipeSerializer<?>> {
 	
+	
+	@NotNull
+	@Override
+	protected String getModId() {
+		
+		return ManyIdeasCore.MODID;
+	}
+	
 	//Dyed
 	
-	@ObjectHolder( registryName = RegistryKeys.RECIPE_SERIALIZERS,
-		value = ManyIdeasCore.MODID + ":" + DyedShapedRecipe.registry_name )
 	public static DyedShapedRecipeSerializer DYED_SHAPED;
 	
-	@ObjectHolder( registryName = RegistryKeys.RECIPE_SERIALIZERS,
-		value = ManyIdeasCore.MODID + ":" + DyedShapelessRecipe.registry_name )
 	public static DyedShapelessRecipeSerializer DYED_SHAPELESS;
 	
 	//Grinding
 	
-	@ObjectHolder( registryName = RegistryKeys.RECIPE_SERIALIZERS,
-		value = ManyIdeasCore.MODID + ":" + GrindingRecipe.registry_name )
 	public static GrindingRecipeSerializer GRINDING;
 	
 	//Tablesawing
 	
-	@ObjectHolder( registryName = RegistryKeys.RECIPE_SERIALIZERS,
-		value = ManyIdeasCore.MODID + ":" + TableSawDiamondRecipe.registry_name )
 	public static TableSawDiamondRecipeSerializer TABLE_SAWING_DIAMOND;
 	
-	@ObjectHolder( registryName = RegistryKeys.RECIPE_SERIALIZERS,
-		value = ManyIdeasCore.MODID + ":" + TableSawIronRecipe.registry_name )
 	public static TableSawIronRecipeSerializer TABLE_SAWING_IRON;
 	
-	@ObjectHolder( registryName = RegistryKeys.RECIPE_SERIALIZERS,
-		value = ManyIdeasCore.MODID + ":" + TableSawStoneRecipe.registry_name )
 	public static TableSawStoneRecipeSerializer TABLE_SAWING_STONE;
 	
 	@NotNull
 	@Override
 	protected ResourceKey<Registry<RecipeSerializer<?>>> registryKey() {
 		
-		return ForgeRegistries.Keys.RECIPE_SERIALIZERS;
+		return net.minecraft.core.registries.Registries.RECIPE_SERIALIZER;
+	}
+	
+	private void initializeStaticFields() {
+		
+		if( DYED_SHAPED == null ) {
+			DYED_SHAPED = new DyedShapedRecipeSerializer();
+			DYED_SHAPELESS = new DyedShapelessRecipeSerializer();
+			GRINDING = new GrindingRecipeSerializer();
+			TABLE_SAWING_DIAMOND = new TableSawDiamondRecipeSerializer();
+			TABLE_SAWING_IRON = new TableSawIronRecipeSerializer();
+			TABLE_SAWING_STONE = new TableSawStoneRecipeSerializer();
+		}
 	}
 	
 	@NotNull
 	@Override
 	protected List<RegistryEntry<RecipeSerializer<?>>> elements() {
 		
+		initializeStaticFields();
 		return List.of(
 			//Dyed
-			RegistryEntry.create( DyedShapedRecipe.registry_name, new DyedShapedRecipeSerializer() ),
-			RegistryEntry.create( DyedShapelessRecipe.registry_name, new DyedShapelessRecipeSerializer() ),
+			RegistryEntry.create( DyedShapedRecipe.registry_name, DYED_SHAPED ),
+			RegistryEntry.create( DyedShapelessRecipe.registry_name, DYED_SHAPELESS ),
 			//Grinding
-			RegistryEntry.create( GrindingRecipe.registry_name, new GrindingRecipeSerializer() ),
+			RegistryEntry.create( GrindingRecipe.registry_name, GRINDING ),
 			//Tablesawing
-			RegistryEntry.create( TableSawDiamondRecipe.registry_name, new TableSawDiamondRecipeSerializer() ),
-			RegistryEntry.create( TableSawIronRecipe.registry_name, new TableSawIronRecipeSerializer() ),
-			RegistryEntry.create( TableSawStoneRecipe.registry_name, new TableSawStoneRecipeSerializer() )
+			RegistryEntry.create( TableSawDiamondRecipe.registry_name, TABLE_SAWING_DIAMOND ),
+			RegistryEntry.create( TableSawIronRecipe.registry_name, TABLE_SAWING_IRON ),
+			RegistryEntry.create( TableSawStoneRecipe.registry_name, TABLE_SAWING_STONE )
 		);
+	}
+	
+	@net.neoforged.bus.api.SubscribeEvent
+	public void handleRegisterEvent( @NotNull net.neoforged.neoforge.registries.RegisterEvent event ) {
+		
+		doRegisterEvent( event );
 	}
 }

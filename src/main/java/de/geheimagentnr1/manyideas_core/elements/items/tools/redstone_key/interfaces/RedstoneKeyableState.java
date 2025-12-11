@@ -1,7 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces;
 
-import de.geheimagentnr1.minecraft_forge_api.util.SimpleStringRepresentable;
-import de.geheimagentnr1.minecraft_forge_api.util.TranslationKeyHelper;
+import de.geheimagentnr1.manyideas_core.core.util.SimpleStringRepresentable;
+import de.geheimagentnr1.manyideas_core.core.util.TranslationKeyHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;

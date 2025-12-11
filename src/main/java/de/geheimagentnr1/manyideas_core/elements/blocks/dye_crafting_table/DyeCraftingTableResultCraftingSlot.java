@@ -9,8 +9,8 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -76,7 +76,7 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 		
 		if( removeCount > 0 ) {
 			stack.onCraftedBy( player.level(), player, removeCount );
-			ForgeEventFactory.firePlayerCraftingEvent( player, stack, craftingContainer );
+			net.neoforged.neoforge.event.EventHooks.firePlayerCraftingEvent( player, stack, craftingContainer );
 		}
 		if( container instanceof RecipeCraftingHolder recipeCraftingHolder ) {
 			recipeCraftingHolder.awardUsedRecipes( player, craftingContainer.getItems() );
@@ -92,13 +92,13 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 		CraftingInput craftingInput = positionedCraftInput.input();
 		int left = positionedCraftInput.left();
 		int top = positionedCraftInput.top();
-		ForgeHooks.setCraftingPlayer( pPlayer );
+		net.neoforged.neoforge.common.CommonHooks.setCraftingPlayer( pPlayer );
 		NonNullList<ItemStack> ingredients = pPlayer.level().getRecipeManager().getRemainingItemsFor(
 			RecipeType.CRAFTING,
 			craftingInput,
 			pPlayer.level()
 		);
-		ForgeHooks.setCraftingPlayer( null );
+		net.neoforged.neoforge.common.CommonHooks.setCraftingPlayer( null );
 		
 		for( int i = 0; i < craftingInput.height(); i++ ) {
 			for( int j = 0; j < craftingInput.width(); j++ ) {

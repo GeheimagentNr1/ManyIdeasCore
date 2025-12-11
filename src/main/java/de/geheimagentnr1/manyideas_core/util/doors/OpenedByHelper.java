@@ -4,7 +4,7 @@ import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.ModBlockStateProperties;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.OpenedBy;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
-import de.geheimagentnr1.minecraft_forge_api.util.TranslationKeyHelper;
+import de.geheimagentnr1.manyideas_core.core.util.TranslationKeyHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockState;

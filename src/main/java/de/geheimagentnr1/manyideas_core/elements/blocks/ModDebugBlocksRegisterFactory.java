@@ -1,18 +1,27 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks;
 
-import de.geheimagentnr1.manyideas_core.config.ClientConfig;
+import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.blocks.debug.DebugBlockCullface;
-import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlocksRegisterFactory;
-import de.geheimagentnr1.minecraft_forge_api.registry.RegistryEntry;
-import lombok.RequiredArgsConstructor;
+import de.geheimagentnr1.manyideas_core.core.elements.blocks.BlocksRegisterFactory;
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryEntry;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.registries.RegisterEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 
-@RequiredArgsConstructor
 public class ModDebugBlocksRegisterFactory extends BlocksRegisterFactory {
+	
+	
+	@NotNull
+	@Override
+	protected String getModId() {
+		
+		return ManyIdeasCore.MODID;
+	}
 	
 	//TODO:
 	// B - Block Textur fertig
@@ -26,19 +35,24 @@ public class ModDebugBlocksRegisterFactory extends BlocksRegisterFactory {
 	// T - Tags fertig
 	
 	@NotNull
-	private final ClientConfig clientConfig;
-	
-	@NotNull
 	@Override
 	protected List<RegistryEntry<Block>> blocks() {
 		
-		if( clientConfig.debug() ) {
-			return List.of(//BCPFINRLT
-				//Debug
-				RegistryEntry.create( DebugBlockCullface.registry_name, new DebugBlockCullface() )//BCFINRLT
-			);
-		} else {
-			return List.of();
-		}
+		return List.of(//BCPFINRLT
+			//Debug
+			RegistryEntry.create( DebugBlockCullface.registry_name, new DebugBlockCullface() )//BCFINRLT
+		);
+	}
+	
+	@SubscribeEvent
+	public void handleRegisterEvent( @NotNull RegisterEvent event ) {
+		
+		doRegisterEvent( event );
+	}
+	
+	@SubscribeEvent
+	@Override
+	public void handleFMLClientSetupEvent( @NotNull FMLClientSetupEvent event ) {
+	
 	}
 }
