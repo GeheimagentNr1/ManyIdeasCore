@@ -23,13 +23,25 @@ public class JSONUtil {
 		@NotNull JsonObject jsonObject ) {
 		
 		try {
+			JsonObject normalizedJson = normalizeItemStackJson( jsonObject );
 			RegistryOps<JsonElement> registryops = registryAccess.createSerializationContext( JsonOps.INSTANCE );
-			ItemStack stack = ItemStack.CODEC.parse( registryops, jsonObject ).getOrThrow( JsonParseException::new );
+			ItemStack stack = ItemStack.CODEC.parse( registryops, normalizedJson ).getOrThrow( JsonParseException::new );
 			stack.setCount( 1 );
 			return stack;
 		} catch( ResourceLocationException | JsonSyntaxException exception ) {
 			log.error( "Failed to load ItemStack", exception );
 			return ItemStack.EMPTY;
 		}
+	}
+	
+	@NotNull
+	private static JsonObject normalizeItemStackJson( @NotNull JsonObject jsonObject ) {
+		
+		if( jsonObject.has( "item" ) && !jsonObject.has( "id" ) ) {
+			JsonObject normalized = jsonObject.deepCopy();
+			normalized.add( "id", normalized.remove( "item" ) );
+			return normalized;
+		}
+		return jsonObject;
 	}
 }

@@ -61,6 +61,7 @@ public class ManyIdeasCore extends AbstractMod {
 		if( FMLEnvironment.dist == Dist.CLIENT ) {
 			PlayerDecorationManager playerDecorationManager = new PlayerDecorationManager();
 			forgeEventBus().addListener( playerDecorationManager::handlePreRenderPlayerEvent );
+			forgeEventBus().addListener( playerDecorationManager::handleClientPlayerLoggingInEvent );
 			modEventBus().addListener( playerDecorationManager::handleFMLClientSetupEvent );
 		}
 	}

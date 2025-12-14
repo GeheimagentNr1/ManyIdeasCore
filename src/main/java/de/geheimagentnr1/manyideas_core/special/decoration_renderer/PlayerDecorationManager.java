@@ -19,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.event.RenderPlayerEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import org.jetbrains.annotations.NotNull;
@@ -124,7 +124,7 @@ public class PlayerDecorationManager implements ModEventHandlerInterface, ForgeE
 	@OnlyIn( Dist.CLIENT )
 	@SubscribeEvent
 	@Override
-	public void handlePlayerLoggedInEvent( @NotNull PlayerEvent.PlayerLoggedInEvent event ) {
+	public void handleClientPlayerLoggingInEvent( @NotNull ClientPlayerNetworkEvent.LoggingIn event ) {
 		
 		ClientPacketListener connection = Minecraft.getInstance().getConnection();
 		if( connection != null ) {
