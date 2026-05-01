@@ -46,9 +46,9 @@ Neue Blöcke/Items werden über `ElementsRegisterFactory<T>` registriert:
 - Nutze `RegistryEntry<T>` für einzelne Einträge
 
 ### 3. Client/Server Separation
-Client-only Code wird mit `FMLEnvironment.dist == Dist.CLIENT` geprüft:
+Client-only Code wird mit `FMLLoader.getDist() == Dist.CLIENT` geprüft:
 ```java
-if( FMLEnvironment.dist == Dist.CLIENT ) {
+if( FMLLoader.getDist() == Dist.CLIENT ) {
     // Client-only code
 }
 ```
