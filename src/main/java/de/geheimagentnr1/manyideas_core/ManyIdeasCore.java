@@ -11,12 +11,9 @@ import de.geheimagentnr1.manyideas_core.elements.recipes.ModIngredientSerializer
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import de.geheimagentnr1.manyideas_core.network.Network;
-import de.geheimagentnr1.manyideas_core.special.decoration_renderer.PlayerDecorationManager;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.loading.FMLEnvironment;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -58,11 +55,5 @@ public class ManyIdeasCore extends AbstractMod {
 		registerEventHandler( new ModRecipeSerializersRegisterFactory() );
 		registerEventHandler( new ModRecipeTypesRegisterFactory() );
 		registerEventHandler( Network.getInstance() );
-		if( FMLEnvironment.dist == Dist.CLIENT ) {
-			PlayerDecorationManager playerDecorationManager = new PlayerDecorationManager();
-			forgeEventBus().addListener( playerDecorationManager::handlePreRenderPlayerEvent );
-			forgeEventBus().addListener( playerDecorationManager::handleClientPlayerLoggingInEvent );
-			modEventBus().addListener( playerDecorationManager::handleFMLClientSetupEvent );
-		}
 	}
 }
