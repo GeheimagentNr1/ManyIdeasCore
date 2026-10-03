@@ -2,11 +2,29 @@
 
 ## Projekt-Übersicht
 
-**ManyIdeas Core** ist ein NeoForge Minecraft Mod für Minecraft 1.21.1.
+**ManyIdeas Core** ist ein NeoForge Minecraft Mod.
 - **Mod ID**: `manyideas_core`
 - **Package**: `de.geheimagentnr1.manyideas_core`
-- **Java Version**: 21
-- **NeoForge Version**: 21.1.x
+- **Java Version**: 21 (`develop_26.1`/`develop_26.3`: 25, `jdk-25.0.4.7-hotspot`)
+- **NeoForge Version**: je Branch, siehe Tabelle
+
+| Branch | MC | Range | NeoForge (kompiliert gegen) | Hinweis |
+|---|---|---|---|---|
+| `develop_1.21.1` | 1.21.1 | `[1.21.1,1.21.2)` | `21.1.216` | Fix-Release 3.0.2 (Behutsamkeits-Loot, Blumen-Kompostierbarkeit) |
+| `develop_1.21.2` | 1.21.2 - 1.21.3 | `[1.21.2,1.21.4)` | `21.2.1-beta` | Registrierung mit Supplier + Key-Kontext (IDs), Rezept-API/JSON, Tischsägen-Rezept-Sync, Klick-Ergebnisse |
+| `develop_1.21.4` | 1.21.4 | `[1.21.4,1.21.5)` | `21.4.158` | Client-Item-Definitionen (`assets/manyideas_core/items`), Farb-Items per `range_dispatch` + eigener Property, `RenderShape.INVISIBLE` |
+| `develop_1.21.5` | 1.21.5 | `[1.21.5,1.21.6)` | `21.5.98` | Multiblock-Abbau in `affectNeighborsAfterRemoval`, `onCraftedBy` |
+| `develop_1.21.6` | 1.21.6 - 1.21.8 | `[1.21.6,1.21.9)` | `21.6.20-beta` | GUI (`RenderPipelines`, Alpha-Farben), Paket über `ServerboundCustomPayloadPacket` |
+| `develop_1.21.9` | 1.21.9 - 1.21.10 | `[1.21.9,1.21.11)` | `21.9.16-beta` | Submit-Renderer (End-Block, Spieler-Dekoration), Maus-Events, Farb-Items per `minecraft:select` + Komponente |
+| `develop_1.21.11` | 1.21.11 | `[1.21.11,1.21.12)` | `21.11.45` | `Identifier`, `LEVEL_GAMEMASTERS`, `renderContents` |
+| `develop_26.1` | 26.1 - 26.2 | `[26.1,26.3)` | `26.1.0.19-beta` (Java 25) | `RecipeSerializer`-Record, `ItemStackTemplate`, `GuiGraphicsExtractor`, End-Portal `submitCube` |
+| `develop_26.3` | 26.3 | `[26.3,27)` | `26.3.0.36-beta` (Java 25) | Loot in beiden Formaten, `Prediction`, `PushReaction.IMMOVEABLE`, Kompostierbarkeit als Item-Komponente |
+
+Alle 3.0.2, released 2026-10-03 (ingame getestet auf 1.21.1 - 26.3). Details: [`../Docs/migrations/1.21.1-to-1.21.2.md`](../Docs/migrations/1.21.1-to-1.21.2.md) 4i, [`../Docs/migrations/1.21.11-to-26.1.md`](../Docs/migrations/1.21.11-to-26.1.md).
+
+**Registrierung ab 1.21.2:** Block-/Item-IDs müssen vor dem Konstruktor feststehen. Einträge daher als `RegistryEntry.create( name, () -> new X() )` (Supplier); während der Supplier läuft, kennt `RegistryHelper` den Key, und die Templates (`DoubleDoorBlock`, `BigDoor`, `MultiBlock`, ...) setzen die ID per `RegistryHelper.withBlockId( properties )`, Items per `RegistryHelper.itemProperties()`. Abhängige Mods (Doors, Christmas, Halloween) müssen nur `new X()` → `() -> new X()` ändern.
+
+**Tischsägen-Rezepte:** Seit 1.21.2 schickt der Server keine Rezepte mehr an den Client; `TableSawRecipesSyncMsg` sendet sie beim Login und nach `/reload`, der Client hält sie in `TableSawRecipes`. Rezeptlisten im Menü sind veränderbare Kopien (eine `toList()`-Liste brachte den Client beim Herausnehmen zum Absturz).
 
 Dieser Mod dient als Core-Library für andere "Many Ideas" Mods und enthält gemeinsam genutzte Blöcke, Items, Tools und Utilities.
 
@@ -46,12 +64,7 @@ Neue Blöcke/Items werden über `ElementsRegisterFactory<T>` registriert:
 - Nutze `RegistryEntry<T>` für einzelne Einträge
 
 ### 3. Client/Server Separation
-Client-only Code wird mit `FMLLoader.getDist() == Dist.CLIENT` geprüft:
-```java
-if( FMLLoader.getDist() == Dist.CLIENT ) {
-    // Client-only code
-}
-```
+Keine Dist-Abfrage über FML-APIs (nicht versionsübergreifend). Client-only Handler per `@EventBusSubscriber( modid = ManyIdeasCore.MODID, value = Dist.CLIENT )` (ab NeoForge 21.6 ohne `bus`), siehe `ManyIdeasCoreClientSetup`.
 
 ### 4. Netzwerk-Pakete
 Netzwerk-Kommunikation erfolgt über `AbstractNetwork`:
@@ -129,7 +142,7 @@ Verschiedene Java-Versionen sind unter `C:\Program Files\Eclipse Adoptium` insta
 
 ```powershell
 # Java 21 für MC 1.20.5+ (NeoForge)
-$env:JAVA_HOME = "C:\Program Files\Eclipse Adoptium\jdk-21.0.9.10-hotspot"
+$env:JAVA_HOME = "C:\Program Files\Eclipse Adoptium\jdk-21.0.12.8-hotspot"
 ./gradlew build
 ```
 
@@ -151,7 +164,7 @@ Für Integration Tests in einer echten Minecraft-Umgebung:
 ./gradlew runGameTestServer
 ```
 
-GameTest-Klassen werden mit `@GameTestHolder` annotiert und liegen unter `src/main/java/.../elements/gametests/`.
+Der triviale GameTest wurde beim 1.21.2-Port entfernt (annotationsbasierte GameTests gibt es ab 1.21.5 nicht mehr).
 
 ### CI/CD (GitHub Actions)
 
