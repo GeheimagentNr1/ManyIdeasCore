@@ -9,6 +9,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.jetbrains.annotations.NotNull;
 
 
+
+
 public class RainbowConcretePowder extends ConcretePowderBlock implements BlockItemInterface {
 	
 	
@@ -19,13 +21,21 @@ public class RainbowConcretePowder extends ConcretePowderBlock implements BlockI
 	static Block CONCRETE_BLOCK;
 	
 	public RainbowConcretePowder() {
-		
-		super(
-			CONCRETE_BLOCK,
-			BlockBehaviour.Properties.of()
-				.mapColor( DyeColor.WHITE )
-				.strength( 0.5F )
-				.sound( SoundType.SAND )
-		);
+
+		this( createProperties() );
+	}
+
+	public RainbowConcretePowder( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( CONCRETE_BLOCK, properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of()
+			.mapColor( DyeColor.WHITE )
+			.strength( 0.5F )
+			.sound( SoundType.SAND );
 	}
 }

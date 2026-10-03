@@ -7,13 +7,24 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class WoodStrippedSmoothWarped extends Wood {
-	
-	
+
+
 	@NotNull
 	public static final String registry_name = "wood_stripped_smooth_warped";
-	
+
 	public WoodStrippedSmoothWarped() {
-		
-		super( BlockBehaviour.Properties.of().mapColor( MapColor.WARPED_HYPHAE ) );
+
+		this( createProperties() );
+	}
+
+	public WoodStrippedSmoothWarped( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of().mapColor( MapColor.WARPED_HYPHAE );
 	}
 }

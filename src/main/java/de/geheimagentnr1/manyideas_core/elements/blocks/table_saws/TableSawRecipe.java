@@ -30,6 +30,5 @@ public abstract class TableSawRecipe extends SingleItemRecipe {
 	}
 	
 	@NotNull
-	@Override
 	public abstract ItemStack getToastSymbol();
 }

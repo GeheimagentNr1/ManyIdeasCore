@@ -7,13 +7,24 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class WoodStrippedSmoothAcacia extends Wood {
-	
-	
+
+
 	@NotNull
 	public static final String registry_name = "wood_stripped_smooth_acacia";
-	
+
 	public WoodStrippedSmoothAcacia() {
-		
-		super( BlockBehaviour.Properties.of().mapColor( MapColor.COLOR_ORANGE ) );
+
+		this( createProperties() );
+	}
+
+	public WoodStrippedSmoothAcacia( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of().mapColor( MapColor.COLOR_ORANGE );
 	}
 }

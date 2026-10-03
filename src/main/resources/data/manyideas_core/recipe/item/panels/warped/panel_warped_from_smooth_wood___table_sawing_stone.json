@@ -1,8 +1,6 @@
 {
-	"type":       "manyideas_core:table_sawing_stone",
-	"ingredient": {
-		"item": "manyideas_core:wood_stripped_smooth_warped"
-	},
-	"result":     "manyideas_core:panel_warped",
-	"count":      6
+	"type": "manyideas_core:table_sawing_stone",
+	"ingredient": "manyideas_core:wood_stripped_smooth_warped",
+	"result": "manyideas_core:panel_warped",
+	"count": 6
 }

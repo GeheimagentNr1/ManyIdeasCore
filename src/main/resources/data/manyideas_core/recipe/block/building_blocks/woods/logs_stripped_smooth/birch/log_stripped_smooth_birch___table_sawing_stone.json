@@ -1,7 +1,5 @@
 {
-	"type":       "manyideas_core:table_sawing_stone",
-	"ingredient": {
-		"item": "minecraft:birch_log"
-	},
-	"result":     "manyideas_core:log_stripped_smooth_birch"
+	"type": "manyideas_core:table_sawing_stone",
+	"ingredient": "minecraft:birch_log",
+	"result": "manyideas_core:log_stripped_smooth_birch"
 }

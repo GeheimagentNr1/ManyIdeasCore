@@ -7,13 +7,24 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class WoodStrippedSmoothDarkOak extends Wood {
-	
-	
+
+
 	@NotNull
 	public static final String registry_name = "wood_stripped_smooth_dark_oak";
-	
+
 	public WoodStrippedSmoothDarkOak() {
-		
-		super( BlockBehaviour.Properties.of().mapColor( MapColor.COLOR_BROWN ) );
+
+		this( createProperties() );
+	}
+
+	public WoodStrippedSmoothDarkOak( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of().mapColor( MapColor.COLOR_BROWN );
 	}
 }

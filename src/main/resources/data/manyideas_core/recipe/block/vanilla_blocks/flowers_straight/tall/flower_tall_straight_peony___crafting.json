@@ -1,14 +1,10 @@
 {
-	"type":        "minecraft:crafting_shapeless",
+	"type": "minecraft:crafting_shapeless",
 	"ingredients": [
-		{
-			"item": "minecraft:peony"
-		},
-		{
-			"item": "minecraft:stick"
-		}
+		"minecraft:peony",
+		"minecraft:stick"
 	],
-	"result":      {
+	"result": {
 		"id": "manyideas_core:flower_tall_straight_peony"
 	}
 }

@@ -1,8 +1,6 @@
 {
-	"type":       "manyideas_core:table_sawing_diamond",
-	"ingredient": {
-		"item": "minecraft:iron_block"
-	},
-	"result":     "manyideas_core:plate_iron",
-	"count":      8
+	"type": "manyideas_core:table_sawing_diamond",
+	"ingredient": "minecraft:iron_block",
+	"result": "manyideas_core:plate_iron",
+	"count": 8
 }

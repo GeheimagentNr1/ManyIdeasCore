@@ -1,6 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.flowers_straight;
 
 
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -17,6 +18,6 @@ public abstract class Flower extends FlowerBlock implements FlowerBlockItemInter
 		int pSeconds,
 		@NotNull BlockBehaviour.Properties pProperties ) {
 		
-		super( pEffect, pSeconds, pProperties );
+		super( pEffect, pSeconds, RegistryHelper.withBlockId( pProperties ) );
 	}
 }

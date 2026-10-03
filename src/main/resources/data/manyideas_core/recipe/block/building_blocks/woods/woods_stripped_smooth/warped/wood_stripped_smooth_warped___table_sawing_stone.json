@@ -1,7 +1,5 @@
 {
-	"type":       "manyideas_core:table_sawing_stone",
-	"ingredient": {
-		"item": "minecraft:warped_hyphae"
-	},
-	"result":     "manyideas_core:wood_stripped_smooth_warped"
+	"type": "manyideas_core:table_sawing_stone",
+	"ingredient": "minecraft:warped_hyphae",
+	"result": "manyideas_core:wood_stripped_smooth_warped"
 }

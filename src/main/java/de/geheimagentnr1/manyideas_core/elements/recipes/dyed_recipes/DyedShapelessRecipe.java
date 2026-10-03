@@ -6,6 +6,8 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -16,22 +18,22 @@ import java.util.ArrayList;
 
 
 public class DyedShapelessRecipe extends DyedRecipe {
-	
-	
+
+
 	@NotNull
 	public static final String registry_name = "dyed_shapeless";
-	
+
 	//package-private
 	DyedShapelessRecipe(
 		@NotNull NonNullList<Ingredient> _ingredients,
 		@NotNull ItemStack _result ) {
-		
+
 		super( _ingredients, _result );
 	}
-	
+
 	@Override
 	public boolean matches( @NotNull CraftingInput inv, @NotNull Level level ) {
-		
+
 		if( findMatchingColor( inv ).isEmpty() ) {
 			return false;
 		}
@@ -43,34 +45,39 @@ public class DyedShapelessRecipe extends DyedRecipe {
 		}
 		return inputItems.size() == ingredients.size() && RecipeMatcher.findMatches( inputItems, ingredients ) != null;
 	}
-	
+
 	/**
 	 * Used to determine if this recipe can fit in a grid of the given width/height
 	 */
-	@Override
 	public boolean canCraftInDimensions( int pWidth, int pHeight ) {
-		
+
 		return pWidth * pHeight >= this.ingredients.size();
 	}
-	
+
 	@NotNull
 	@Override
-	public RecipeType<?> getType() {
-		
+	public RecipeType<? extends Recipe<CraftingInput>> getType() {
+
 		return ModRecipeTypesRegisterFactory.DYED;
 	}
-	
+
 	@NotNull
 	@Override
-	public RecipeSerializer<?> getSerializer() {
-		
+	public RecipeSerializer<? extends Recipe<CraftingInput>> getSerializer() {
+
 		return ModRecipeSerializersRegisterFactory.DYED_SHAPELESS;
 	}
-	
+
+	@NotNull
+	public NonNullList<Ingredient> getIngredients() {
+
+		return ingredients;
+	}
+
 	@NotNull
 	@Override
-	public NonNullList<Ingredient> getIngredients() {
-		
-		return ingredients;
+	public PlacementInfo placementInfo() {
+
+		return PlacementInfo.create( ingredients );
 	}
 }

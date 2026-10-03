@@ -15,11 +15,22 @@ public class RainbowTerracottaGlazed extends GlazedTerracottaBlock implements Bl
 	public static final String registry_name = "rainbow_terracotta_glazed";
 	
 	public RainbowTerracottaGlazed() {
-		
-		super( BlockBehaviour.Properties.of()
+
+		this( createProperties() );
+	}
+
+	public RainbowTerracottaGlazed( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of()
 			.mapColor( DyeColor.WHITE )
 			.strength( 1.4F )
 			.requiresCorrectToolForDrops()
-			.sound( SoundType.STONE ) );
+			.sound( SoundType.STONE );
 	}
 }

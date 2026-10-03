@@ -4,9 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.state.PlayerRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -15,32 +14,32 @@ import org.jetbrains.annotations.NotNull;
 
 //package-private
 class PlayerDecorationRenderer {
-	
-	
+
+
 	@NotNull
 	private final ItemStack stack;
-	
+
 	private final boolean isBlock;
-	
+
 	//package-private
 	PlayerDecorationRenderer( @NotNull ItemStack _stack ) {
-		
+
 		stack = _stack;
 		isBlock = _stack.getItem() instanceof BlockItem;
 	}
-	
+
 	//package-private
 	void renderItemStack(
-		@NotNull Player player,
+		@NotNull PlayerRenderState renderState,
 		int light,
 		@NotNull PoseStack poseStack,
 		@NotNull MultiBufferSource buffer ) {
-		
-		if( player.isInvisible() || !player.isModelPartShown( PlayerModelPart.CAPE ) || player.isFallFlying() ) {
+
+		if( renderState.isInvisible || !renderState.showCape || renderState.isFallFlying ) {
 			return;
 		}
 		poseStack.pushPose();
-		poseStack.translate( 0.0D, 2.4 - ( player.isCrouching() ? 0.3D : 0.0D ), 0.0D );
+		poseStack.translate( 0.0D, 2.4 - ( renderState.isCrouching ? 0.3D : 0.0D ), 0.0D );
 		poseStack.pushPose();
 		float size;
 		if( isBlock ) {
@@ -61,8 +60,8 @@ class PlayerDecorationRenderer {
 			OverlayTexture.NO_OVERLAY,
 			poseStack,
 			buffer,
-			player.level(),
-			player.getId()
+			Minecraft.getInstance().level,
+			renderState.id
 		);
 		poseStack.popPose();
 		poseStack.popPose();

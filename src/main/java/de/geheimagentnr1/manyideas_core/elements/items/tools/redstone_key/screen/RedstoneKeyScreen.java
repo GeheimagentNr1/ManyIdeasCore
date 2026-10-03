@@ -4,6 +4,7 @@ import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -72,13 +73,16 @@ public class RedstoneKeyScreen extends AbstractContainerScreen<RedstoneKeyContai
 	protected void renderBg( @NotNull GuiGraphics guiGraphics, float partialTick, int x, int y ) {
 		
 		guiGraphics.blit(
+			RenderType::guiTextured,
 			REDSTONE_KEY_GUI_TEXTURE,
 			leftPos,
 			( height - imageHeight ) / 2,
-			0,
-			0,
+			0.0f,
+			0.0f,
 			imageWidth,
-			imageHeight
+			imageHeight,
+			256,
+			256
 		);
 	}
 	

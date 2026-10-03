@@ -41,6 +41,11 @@ public class Network extends AbstractNetwork {
 			RedstoneKeyStateUpdateMsg.STREAM_CODEC,
 			RedstoneKeyStateUpdateMsg::handle
 		);
+		getRegistrar().playToClient(
+			TableSawRecipesSyncMsg.TYPE,
+			TableSawRecipesSyncMsg.STREAM_CODEC,
+			TableSawRecipesSyncMsg::handle
+		);
 	}
 	
 	@SubscribeEvent

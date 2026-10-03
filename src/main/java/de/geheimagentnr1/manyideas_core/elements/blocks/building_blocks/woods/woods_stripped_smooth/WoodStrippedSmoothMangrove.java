@@ -3,15 +3,28 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.w
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.woods.Wood;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import org.jetbrains.annotations.NotNull;
 
 
 public class WoodStrippedSmoothMangrove extends Wood {
-	
-	
+
+
+	@NotNull
 	public static final String registry_name = "wood_stripped_smooth_mangrove";
-	
+
 	public WoodStrippedSmoothMangrove() {
-		
-		super( BlockBehaviour.Properties.of().mapColor( MapColor.COLOR_RED ) );
+
+		this( createProperties() );
+	}
+
+	public WoodStrippedSmoothMangrove( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of().mapColor( MapColor.COLOR_RED );
 	}
 }

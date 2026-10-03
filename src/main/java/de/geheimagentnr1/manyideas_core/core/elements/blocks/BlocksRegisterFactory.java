@@ -3,6 +3,8 @@ package de.geheimagentnr1.manyideas_core.core.elements.blocks;
 import de.geheimagentnr1.manyideas_core.core.events.ModEventHandlerInterface;
 import de.geheimagentnr1.manyideas_core.core.registry.RegistryEntry;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -57,19 +59,28 @@ public abstract class BlocksRegisterFactory implements ModEventHandlerInterface 
 			blocks.clear();
 			blocks.addAll( blocks() );
 			for( RegistryEntry<Block> entry : blocks ) {
-				helper.register( entry.getResourceLocation( modId ), entry.getValue() );
+				ResourceLocation rl = entry.getResourceLocation( modId );
+				if( entry.hasFactory() ) {
+					ResourceKey<Block> key = ResourceKey.create( Registries.BLOCK, rl );
+					entry.build( key );
+				}
+				helper.register( rl, entry.getValue() );
 			}
 		} );
 		event.register( Registries.ITEM, helper -> {
 			for( RegistryEntry<Block> entry : blocks ) {
 				Block block = entry.getValue();
+				ResourceLocation rl = entry.getResourceLocation( modId );
+				Item.Properties properties = new Item.Properties()
+					.setId( ResourceKey.create( Registries.ITEM, rl ) )
+					.useBlockDescriptionPrefix();
 				Item item;
 				if( block instanceof BlockItemInterface blockItemInterface ) {
-					item = blockItemInterface.getBlockItem( block, new Item.Properties() );
+					item = blockItemInterface.getBlockItem( block, properties );
 				} else {
-					item = new BlockItem( block, new Item.Properties() );
+					item = new BlockItem( block, properties );
 				}
-				helper.register( entry.getResourceLocation( modId ), item );
+				helper.register( rl, item );
 			}
 		} );
 		event.register( Registries.BLOCK_ENTITY_TYPE, helper -> {

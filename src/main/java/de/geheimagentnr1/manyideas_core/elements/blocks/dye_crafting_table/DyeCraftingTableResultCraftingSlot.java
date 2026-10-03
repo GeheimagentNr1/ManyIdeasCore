@@ -1,6 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -8,7 +9,11 @@ import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
+
+import java.util.Optional;
 import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
@@ -79,7 +84,7 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 			net.neoforged.neoforge.event.EventHooks.firePlayerCraftingEvent( player, stack, craftingContainer );
 		}
 		if( container instanceof RecipeCraftingHolder recipeCraftingHolder ) {
-			recipeCraftingHolder.awardUsedRecipes( player, craftingContainer.getItems() );
+			recipeCraftingHolder.awardUsedRecipes( player, craftingContainer.asCraftInput().items() );
 		}
 		removeCount = 0;
 	}
@@ -93,11 +98,19 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 		int left = positionedCraftInput.left();
 		int top = positionedCraftInput.top();
 		net.neoforged.neoforge.common.CommonHooks.setCraftingPlayer( pPlayer );
-		NonNullList<ItemStack> ingredients = pPlayer.level().getRecipeManager().getRemainingItemsFor(
-			RecipeType.CRAFTING,
-			craftingInput,
-			pPlayer.level()
-		);
+		NonNullList<ItemStack> ingredients;
+		if( pPlayer.level() instanceof ServerLevel serverLevel ) {
+			Optional<RecipeHolder<CraftingRecipe>> recipeHolder = serverLevel.recipeAccess().getRecipeFor(
+				RecipeType.CRAFTING,
+				craftingInput,
+				serverLevel
+			);
+			ingredients = recipeHolder
+				.map( rh -> rh.value().getRemainingItems( craftingInput ) )
+				.orElseGet( () -> NonNullList.withSize( craftingInput.size(), ItemStack.EMPTY ) );
+		} else {
+			ingredients = NonNullList.withSize( craftingInput.size(), ItemStack.EMPTY );
+		}
 		net.neoforged.neoforge.common.CommonHooks.setCraftingPlayer( null );
 		
 		for( int i = 0; i < craftingInput.height(); i++ ) {

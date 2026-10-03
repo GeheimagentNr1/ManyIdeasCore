@@ -15,18 +15,26 @@ public class RainbowStainedGlassBlock extends StainedGlassBlock implements Block
 	public static final String registry_name = "rainbow_stained_glass_block";
 	
 	public RainbowStainedGlassBlock() {
-		
-		super(
-			DyeColor.WHITE,
-			BlockBehaviour.Properties.of()
-				.mapColor( DyeColor.WHITE )
-				.strength( 0.3F )
-				.noOcclusion()
-				.isValidSpawn( ( state, level, pos, entityType ) -> false )
-				.isRedstoneConductor( ( state, level, pos ) -> false )
-				.isSuffocating( ( state, level, pos ) -> false )
-				.isViewBlocking( ( state, level, pos ) -> false )
-				.sound( SoundType.GLASS )
-		);
+
+		this( createProperties() );
+	}
+
+	public RainbowStainedGlassBlock( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( DyeColor.WHITE, properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of()
+			.mapColor( DyeColor.WHITE )
+			.strength( 0.3F )
+			.noOcclusion()
+			.isValidSpawn( ( state, level, pos, entityType ) -> false )
+			.isRedstoneConductor( ( state, level, pos ) -> false )
+			.isSuffocating( ( state, level, pos ) -> false )
+			.isViewBlocking( ( state, level, pos ) -> false )
+			.sound( SoundType.GLASS );
 	}
 }

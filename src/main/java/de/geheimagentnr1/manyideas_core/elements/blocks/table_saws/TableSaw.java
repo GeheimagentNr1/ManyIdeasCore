@@ -23,6 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import org.jetbrains.annotations.NotNull;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -56,11 +57,22 @@ public abstract class TableSaw extends Block implements BlockItemInterface {
 	);
 	
 	protected TableSaw() {
-		
-		super( BlockBehaviour.Properties.of()
+
+		super( createProperties() );
+	}
+
+	protected TableSaw( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of()
 			.mapColor( MapColor.WOOD )
 			.strength( 2.5F )
-			.sound( SoundType.WOOD ) );
+			.sound( SoundType.WOOD );
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -94,7 +106,7 @@ public abstract class TableSaw extends Block implements BlockItemInterface {
 		
 		entity.hurt(
 			new DamageSource(
-				level.registryAccess().registryOrThrow( Registries.DAMAGE_TYPE ).getHolderOrThrow( SAW )
+				level.registryAccess().lookupOrThrow( Registries.DAMAGE_TYPE ).getOrThrow( SAW )
 			),
 			1.0F
 		);

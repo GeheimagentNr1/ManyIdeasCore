@@ -95,11 +95,10 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 			if( dyedRecipeHolderOptional.isPresent() ) {
 				RecipeHolder<DyedRecipe> recipeholder = dyedRecipeHolderOptional.get();
 				DyedRecipe dyedRecipe = recipeholder.value();
-				if( resultContainer.setRecipeUsed( level, serverplayer, recipeholder ) ) {
-					ItemStack assembledStack = dyedRecipe.assemble( craftingInput, level.registryAccess() );
-					if( assembledStack.isItemEnabled( level.enabledFeatures() ) ) {
-						resultStack = assembledStack;
-					}
+				resultContainer.setRecipeUsed( recipeholder );
+				ItemStack assembledStack = dyedRecipe.assemble( craftingInput, level.registryAccess() );
+				if( assembledStack.isItemEnabled( level.enabledFeatures() ) ) {
+					resultStack = assembledStack;
 				}
 			}
 			

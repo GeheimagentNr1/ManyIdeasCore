@@ -7,14 +7,20 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.jetbrains.annotations.NotNull;
 
 
 public class TableSawIron extends TableSaw {
-	
-	
+
+
 	@NotNull
 	public static final String registry_name = "table_saw_iron";
+
+	public TableSawIron( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
 	
 	@NotNull
 	private static final Component CONTAINER_TITLE = TranslationKeyHelper.generateContainerTranslationText(

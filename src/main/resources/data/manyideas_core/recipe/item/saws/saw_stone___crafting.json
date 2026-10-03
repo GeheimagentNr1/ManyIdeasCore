@@ -1,16 +1,14 @@
 {
-	"type":    "minecraft:crafting_shaped",
+	"type": "minecraft:crafting_shaped",
 	"pattern": [
 		" S ",
 		"SSS",
 		" S "
 	],
-	"key":     {
-		"S": {
-			"item": "minecraft:stone"
-		}
+	"key": {
+		"S": "minecraft:stone"
 	},
-	"result":  {
+	"result": {
 		"id": "manyideas_core:saw_stone"
 	}
 }

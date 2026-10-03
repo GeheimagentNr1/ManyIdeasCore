@@ -7,9 +7,10 @@ import de.geheimagentnr1.manyideas_core.core.elements.blocks.BlockItemInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
@@ -44,12 +45,23 @@ public class Mortar extends Block implements BlockItemInterface {
 	);
 	
 	public Mortar() {
-		
-		super( BlockBehaviour.Properties.of()
+
+		this( createProperties() );
+	}
+
+	public Mortar( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of()
 			.mapColor( MapColor.QUARTZ )
 			.strength( 0.8F )
 			.requiresCorrectToolForDrops()
-			.sound( SoundType.STONE ) );
+			.sound( SoundType.STONE );
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -65,7 +77,7 @@ public class Mortar extends Block implements BlockItemInterface {
 	}
 	
 	@Override
-	protected ItemInteractionResult useItemOn(
+	protected InteractionResult useItemOn(
 		ItemStack pStack,
 		BlockState pState,
 		Level pLevel,
@@ -74,22 +86,25 @@ public class Mortar extends Block implements BlockItemInterface {
 		InteractionHand pHand,
 		BlockHitResult pHitResult ) {
 		
+		if( !( pLevel instanceof ServerLevel serverLevel ) ) {
+			return InteractionResult.SUCCESS;
+		}
 		SingleRecipeInput craftingInventory = new SingleRecipeInput( pStack );
-		Optional<RecipeHolder<GrindingRecipe>> recipe = pLevel.getRecipeManager().getRecipeFor(
+		Optional<RecipeHolder<GrindingRecipe>> recipe = serverLevel.recipeAccess().getRecipeFor(
 			ModRecipeTypesRegisterFactory.GRINDING,
 			craftingInventory,
-			pLevel
+			serverLevel
 		);
-		
+
 		if( recipe.isPresent() ) {
 			ItemStack result_stack = recipe.get().value().assemble( craftingInventory, pLevel.registryAccess() );
 			pStack.shrink( 1 );
 			if( !pPlayer.addItem( result_stack ) ) {
 				pPlayer.drop( result_stack, false );
 			}
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		return InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
 	
 	@Nullable

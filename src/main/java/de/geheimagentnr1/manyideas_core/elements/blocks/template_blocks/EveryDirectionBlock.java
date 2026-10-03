@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks;
 
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryHelper;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.EveryDirectionFacing;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.ModBlockStateProperties;
 import net.minecraft.core.Direction;
@@ -19,7 +20,7 @@ public class EveryDirectionBlock extends Block {
 	
 	public EveryDirectionBlock( @NotNull Properties _properties ) {
 		
-		super( _properties );
+		super( RegistryHelper.withBlockId( _properties ) );
 	}
 	
 	@Nullable

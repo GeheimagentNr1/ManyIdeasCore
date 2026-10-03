@@ -14,6 +14,8 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import org.jetbrains.annotations.NotNull;
@@ -89,9 +91,14 @@ public abstract class DyedRecipe implements Recipe<CraftingInput> {
 			.orElse( ItemStack.EMPTY );
 	}
 	
-	@Override
 	public ItemStack getResultItem( HolderLookup.Provider pRegistries ) {
-		
+
 		return result;
+	}
+
+	@Override
+	public RecipeBookCategory recipeBookCategory() {
+
+		return RecipeBookCategories.CRAFTING_MISC;
 	}
 }

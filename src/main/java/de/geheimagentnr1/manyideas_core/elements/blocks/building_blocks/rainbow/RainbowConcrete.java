@@ -15,15 +15,24 @@ public class RainbowConcrete extends Block implements BlockItemInterface {
 	public static final String registry_name = "rainbow_concrete";
 	
 	public RainbowConcrete() {
-		
-		super(
-			BlockBehaviour.Properties.of()
-				.mapColor( DyeColor.WHITE )
-				.strength( 1.8F )
-				.requiresCorrectToolForDrops()
-				.sound( SoundType.STONE )
-		);
+
+		this( createProperties() );
+	}
+
+	public RainbowConcrete( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
 		initConcretePowder();
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of()
+			.mapColor( DyeColor.WHITE )
+			.strength( 1.8F )
+			.requiresCorrectToolForDrops()
+			.sound( SoundType.STONE );
 	}
 	
 	private void initConcretePowder() {

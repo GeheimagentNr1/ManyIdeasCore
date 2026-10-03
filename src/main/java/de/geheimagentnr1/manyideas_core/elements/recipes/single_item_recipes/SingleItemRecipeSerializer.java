@@ -37,7 +37,7 @@ public class SingleItemRecipeSerializer<T extends SingleItemRecipe> implements R
 		factory = _factory;
 		codec = RecordCodecBuilder.mapCodec( ( builder ) -> builder.group(
 			Codec.STRING.optionalFieldOf( "group", "" ).forGetter( SingleItemRecipe::getGroup ),
-			Ingredient.CODEC_NONEMPTY.fieldOf( "ingredient" ).forGetter( SingleItemRecipe::getIngredient ),
+			Ingredient.CODEC.fieldOf( "ingredient" ).forGetter( SingleItemRecipe::getIngredient ),
 			BuiltInRegistries.ITEM.byNameCodec().fieldOf( "result" ).forGetter( recipe -> recipe.getResult().getItem() ),
 			ExtraCodecs.POSITIVE_INT.fieldOf( "count" ).orElse( 1 ).forGetter( recipe -> recipe.getResult().getCount() )
 		).apply( builder, factory::create ) );

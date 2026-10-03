@@ -1,25 +1,17 @@
 {
-	"type":    "minecraft:crafting_shaped",
+	"type": "minecraft:crafting_shaped",
 	"pattern": [
 		"DIS",
 		"PPP",
 		"P P"
 	],
-	"key":     {
-		"D": {
-			"item": "minecraft:dried_kelp"
-		},
-		"I": {
-			"item": "minecraft:iron_ingot"
-		},
-		"S": {
-			"item": "minecraft:stick"
-		},
-		"P": {
-			"tag": "minecraft:planks"
-		}
+	"key": {
+		"D": "minecraft:dried_kelp",
+		"I": "minecraft:iron_ingot",
+		"S": "minecraft:stick",
+		"P": "#minecraft:planks"
 	},
-	"result":  {
+	"result": {
 		"id": "manyideas_core:dye_crafting_table"
 	}
 }

@@ -1,7 +1,5 @@
 {
-	"type":       "manyideas_core:table_sawing_stone",
-	"ingredient": {
-		"item": "minecraft:dark_oak_log"
-	},
-	"result":     "manyideas_core:log_stripped_smooth_dark_oak"
+	"type": "manyideas_core:table_sawing_stone",
+	"ingredient": "minecraft:dark_oak_log",
+	"result": "manyideas_core:log_stripped_smooth_dark_oak"
 }

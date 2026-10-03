@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed;
 
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryHelper;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
 import de.geheimagentnr1.manyideas_core.core.elements.blocks.BlockItemInterface;
 import net.minecraft.core.BlockPos;
@@ -22,7 +23,7 @@ public abstract class DyeBlock extends Block implements BlockItemInterface {
 	
 	protected DyeBlock( @NotNull BlockBehaviour.Properties _properties ) {
 		
-		super( _properties );
+		super( RegistryHelper.withBlockId( _properties ) );
 	}
 	
 	@Nullable

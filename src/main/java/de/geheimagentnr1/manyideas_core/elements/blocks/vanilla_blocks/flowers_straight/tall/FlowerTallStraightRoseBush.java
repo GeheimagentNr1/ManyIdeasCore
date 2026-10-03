@@ -14,13 +14,22 @@ public class FlowerTallStraightRoseBush extends TallFlower {
 	public static final String registry_name = "flower_tall_straight_rose_bush";
 	
 	public FlowerTallStraightRoseBush() {
-		
-		super(
-			BlockBehaviour.Properties.of()
-				.mapColor( MapColor.PLANT )
-				.noCollission()
-				.instabreak()
-				.sound( SoundType.GRASS )
-		);
+
+		this( createProperties() );
+	}
+
+	public FlowerTallStraightRoseBush( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of()
+			.mapColor( MapColor.PLANT )
+			.noCollission()
+			.instabreak()
+			.sound( SoundType.GRASS );
 	}
 }

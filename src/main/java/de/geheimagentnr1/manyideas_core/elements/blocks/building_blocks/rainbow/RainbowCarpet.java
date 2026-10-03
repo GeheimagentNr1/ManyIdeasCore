@@ -15,7 +15,18 @@ public class RainbowCarpet extends CarpetBlock implements BlockItemInterface {
 	public static final String registry_name = "rainbow_carpet";
 	
 	public RainbowCarpet() {
-		
-		super( BlockBehaviour.Properties.of().mapColor( MapColor.SNOW ).strength( 0.1F ).sound( SoundType.WOOL ) );
+
+		this( createProperties() );
+	}
+
+	public RainbowCarpet( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of().mapColor( MapColor.SNOW ).strength( 0.1F ).sound( SoundType.WOOL );
 	}
 }

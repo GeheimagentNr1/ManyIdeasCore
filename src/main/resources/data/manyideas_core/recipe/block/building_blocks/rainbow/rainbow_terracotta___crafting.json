@@ -1,21 +1,17 @@
 {
-	"type":    "minecraft:crafting_shaped",
-	"group":   "stained_terracotta",
+	"type": "minecraft:crafting_shaped",
+	"group": "stained_terracotta",
 	"pattern": [
 		"TTT",
 		"TDT",
 		"TTT"
 	],
-	"key":     {
-		"T": {
-			"item": "minecraft:terracotta"
-		},
-		"D": {
-			"item": "manyideas_core:dye_rainbow"
-		}
+	"key": {
+		"T": "minecraft:terracotta",
+		"D": "manyideas_core:dye_rainbow"
 	},
-	"result":  {
-		"id":  "manyideas_core:rainbow_terracotta",
+	"result": {
+		"id": "manyideas_core:rainbow_terracotta",
 		"count": 8
 	}
 }

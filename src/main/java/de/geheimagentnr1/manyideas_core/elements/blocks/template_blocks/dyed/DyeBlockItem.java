@@ -27,7 +27,7 @@ public class DyeBlockItem extends BlockItem {
 	public Component getName( @NotNull ItemStack stack ) {
 		
 		return Component.translatable(
-			getDescriptionId( stack ) + "_" + DyeBlockHelper.getColor( stack ).getSerializedName()
+			getDescriptionId() + "_" + DyeBlockHelper.getColor( stack ).getSerializedName()
 		);
 	}
 }

@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.items.panels;
 
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryHelper;
 import net.minecraft.world.item.Item;
 
 
@@ -10,6 +11,6 @@ public class PanelMangrove extends Item {
 	
 	public PanelMangrove() {
 		
-		super( new Properties() );
+		super( RegistryHelper.itemProperties() );
 	}
 }

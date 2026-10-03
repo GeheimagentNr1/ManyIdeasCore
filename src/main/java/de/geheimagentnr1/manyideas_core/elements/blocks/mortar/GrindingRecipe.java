@@ -39,7 +39,6 @@ public class GrindingRecipe extends SingleItemRecipe {
 	}
 	
 	@NotNull
-	@Override
 	public ItemStack getToastSymbol() {
 		
 		return new ItemStack( ModBlocksRegisterFactory.MORTAR );

@@ -1,16 +1,14 @@
 {
-	"type":    "minecraft:crafting_shaped",
-	"group":   "carpet",
+	"type": "minecraft:crafting_shaped",
+	"group": "carpet",
 	"pattern": [
 		"WW"
 	],
-	"key":     {
-		"W": {
-			"item": "manyideas_core:rainbow_wool"
-		}
+	"key": {
+		"W": "manyideas_core:rainbow_wool"
 	},
-	"result":  {
-		"id":  "manyideas_core:rainbow_carpet",
+	"result": {
+		"id": "manyideas_core:rainbow_carpet",
 		"count": 4
 	}
 }

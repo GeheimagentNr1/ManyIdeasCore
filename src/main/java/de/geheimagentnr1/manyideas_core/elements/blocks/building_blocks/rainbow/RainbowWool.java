@@ -15,7 +15,18 @@ public class RainbowWool extends Block implements BlockItemInterface {
 	public static final String registry_name = "rainbow_wool";
 	
 	public RainbowWool() {
-		
-		super( BlockBehaviour.Properties.of().mapColor( MapColor.SNOW ).strength( 0.8F ).sound( SoundType.WOOL ) );
+
+		this( createProperties() );
+	}
+
+	public RainbowWool( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of().mapColor( MapColor.SNOW ).strength( 0.8F ).sound( SoundType.WOOL );
 	}
 }

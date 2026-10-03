@@ -22,13 +22,22 @@ public class WoodColored extends DyeBlock {
 	public static final String registry_name = "wood_colored";
 	
 	public WoodColored() {
-		
-		super(
-			BlockBehaviour.Properties.of()
-				.mapColor( MapColor.WOOD )
-				.strength( 2.0F )
-				.sound( SoundType.WOOD )
-		);
+
+		this( createProperties() );
+	}
+
+	public WoodColored( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of()
+			.mapColor( MapColor.WOOD )
+			.strength( 2.0F )
+			.sound( SoundType.WOOD );
 	}
 	
 	@Nullable

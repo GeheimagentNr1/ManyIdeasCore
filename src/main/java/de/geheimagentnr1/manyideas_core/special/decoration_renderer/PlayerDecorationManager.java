@@ -13,8 +13,8 @@ import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.state.PlayerRenderState;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -100,16 +100,15 @@ public class PlayerDecorationManager implements ModEventHandlerInterface, ForgeE
 	}
 	
 	private void renderForPlayer(
-		@NotNull Player player,
+		@NotNull PlayerRenderState renderState,
 		int light,
 		@NotNull PoseStack poseStack,
 		@NotNull MultiBufferSource buffer ) {
-		
-		PlayerDecorationRenderer playerDecorationRenderer = DECORATION_LIST.get(
-			player.getName().getString() );
-		
+
+		PlayerDecorationRenderer playerDecorationRenderer = DECORATION_LIST.get( renderState.name );
+
 		if( playerDecorationRenderer != null ) {
-			playerDecorationRenderer.renderItemStack( player, light, poseStack, buffer );
+			playerDecorationRenderer.renderItemStack( renderState, light, poseStack, buffer );
 		}
 	}
 	
@@ -136,14 +135,12 @@ public class PlayerDecorationManager implements ModEventHandlerInterface, ForgeE
 	@SubscribeEvent
 	@Override
 	public void handlePreRenderPlayerEvent( @NotNull RenderPlayerEvent.Pre event ) {
-		
-		if( event.getEntity() != null ) {
-			renderForPlayer(
-				event.getEntity(),
-				event.getPackedLight(),
-				event.getPoseStack(),
-				event.getMultiBufferSource()
-			);
-		}
+
+		renderForPlayer(
+			event.getRenderState(),
+			event.getPackedLight(),
+			event.getPoseStack(),
+			event.getMultiBufferSource()
+		);
 	}
 }

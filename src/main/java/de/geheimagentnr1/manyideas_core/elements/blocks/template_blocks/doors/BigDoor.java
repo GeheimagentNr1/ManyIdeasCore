@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.doors;
 
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryHelper;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.ModBlockStateProperties;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.OpenedBy;
 import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.multi_block.MultiBlock;
@@ -14,10 +15,11 @@ import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeMemory;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeVector;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -62,7 +64,7 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 		@NotNull OpenedBy openedBy,
 		boolean _doubleDoorActive ) {
 		
-		super( _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ) );
+		super( RegistryHelper.withBlockId( _properties ).noOcclusion().isViewBlocking( ( state, level, pos ) -> false ) );
 		registerDefaultState(
 			defaultBlockState().setValue( BlockStateProperties.OPEN, false )
 				.setValue( BlockStateProperties.POWERED, false )
@@ -135,7 +137,7 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 	
 	@NotNull
 	@Override
-	protected ItemInteractionResult useItemOn(
+	protected InteractionResult useItemOn(
 		@NotNull ItemStack pStack,
 		@NotNull BlockState pState,
 		@NotNull Level pLevel,
@@ -183,9 +185,9 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 					);
 				}
 			}
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		return InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -195,7 +197,7 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 		@NotNull Level level,
 		@NotNull BlockPos pos,
 		@NotNull Block block,
-		@NotNull BlockPos fromPos,
+		@NotNull Orientation orientation,
 		boolean isMoving ) {
 		
 		if( block != this && OpenedByHelper.canBeOpened( state, false ) ) {

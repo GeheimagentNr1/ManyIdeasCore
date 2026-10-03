@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key;
 
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryHelper;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interfaces.RedstoneKeyable;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyNamedContainerProvider;
@@ -27,7 +28,7 @@ public class RedstoneKey extends Item {
 	
 	public RedstoneKey() {
 		
-		super( new Properties() );
+		super( RegistryHelper.itemProperties() );
 	}
 	
 	@NotNull

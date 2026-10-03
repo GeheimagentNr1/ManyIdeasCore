@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.doors;
 
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryHelper;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.ModBlockStateProperties;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.OpenedBy;
 import de.geheimagentnr1.manyideas_core.elements.items.ModItemsRegisterFactory;
@@ -10,10 +11,11 @@ import de.geheimagentnr1.manyideas_core.util.doors.DoorsHelper;
 import de.geheimagentnr1.manyideas_core.util.doors.OpenedByHelper;
 import de.geheimagentnr1.manyideas_core.core.elements.blocks.BlockItemInterface;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -40,7 +42,7 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 		@NotNull BlockSetType _type,
 		@NotNull OpenedBy openedBy ) {
 		
-		super( _type, _properties.noOcclusion().isViewBlocking( ( state, level, pos ) -> false ) );
+		super( _type, RegistryHelper.withBlockId( _properties ).noOcclusion().isViewBlocking( ( state, level, pos ) -> false ) );
 		initDoubleDoorBlock( openedBy );
 	}
 	
@@ -51,7 +53,7 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	
 	@NotNull
 	@Override
-	protected ItemInteractionResult useItemOn(
+	protected InteractionResult useItemOn(
 		@NotNull ItemStack pStack,
 		@NotNull BlockState pState,
 		@NotNull Level pLevel,
@@ -70,9 +72,9 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 			if( DoorsHelper.isNeighbor( pState, neighbor ) ) {
 				pLevel.setBlock( neighbor.getPos(), neighbor.getState().setValue( OPEN, open ), 2 );
 			}
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+		return InteractionResult.PASS;
 	}
 	
 	@Override
@@ -96,7 +98,7 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 		@NotNull Level level,
 		@NotNull BlockPos pos,
 		@NotNull Block block,
-		@NotNull BlockPos fromPos,
+		@NotNull Orientation orientation,
 		boolean isMoving ) {
 		
 		if( block != this && OpenedByHelper.canBeOpened( state, false ) ) {

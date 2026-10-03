@@ -1,13 +1,13 @@
 {
-	"type":        "manyideas_core:dyed_shapeless",
+	"type": "manyideas_core:dyed_shapeless",
 	"ingredients": [
 		{
-			"type": "manyideas_core:color_item",
+			"neoforge:ingredient_type": "manyideas_core:color_item",
 			"color_item": "manyideas_core:wood_colored"
 		}
 	],
-	"result":      {
-		"item":  "manyideas_core:planks_colored",
+	"result": {
+		"item": "manyideas_core:planks_colored",
 		"count": 4
 	}
 }

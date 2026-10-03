@@ -1,16 +1,14 @@
 {
-	"type":    "minecraft:crafting_shaped",
+	"type": "minecraft:crafting_shaped",
 	"pattern": [
 		" D ",
 		"DDD",
 		" D "
 	],
-	"key":     {
-		"D": {
-			"item": "minecraft:diamond"
-		}
+	"key": {
+		"D": "minecraft:diamond"
 	},
-	"result":  {
+	"result": {
 		"id": "manyideas_core:saw_diamond"
 	}
 }

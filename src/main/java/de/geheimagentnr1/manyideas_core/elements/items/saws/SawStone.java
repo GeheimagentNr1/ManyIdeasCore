@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.items.saws;
 
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryHelper;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,6 +13,6 @@ public class SawStone extends Item {
 	
 	public SawStone() {
 		
-		super( new Item.Properties() );
+		super( RegistryHelper.itemProperties() );
 	}
 }

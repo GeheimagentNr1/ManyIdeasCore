@@ -22,13 +22,22 @@ public class PlanksColored extends DyeBlock {
 	public static final String registry_name = "planks_colored";
 	
 	public PlanksColored() {
-		
-		super(
-			BlockBehaviour.Properties.of()
-				.mapColor( MapColor.WOOD )
-				.strength( 2.0F, 3.0F )
-				.sound( SoundType.WOOD )
-		);
+
+		this( createProperties() );
+	}
+
+	public PlanksColored( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of()
+			.mapColor( MapColor.WOOD )
+			.strength( 2.0F, 3.0F )
+			.sound( SoundType.WOOD );
 	}
 	
 	@Nullable

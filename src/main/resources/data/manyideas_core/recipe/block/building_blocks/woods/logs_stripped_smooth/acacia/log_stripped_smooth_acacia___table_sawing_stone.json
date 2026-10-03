@@ -1,7 +1,5 @@
 {
-	"type":       "manyideas_core:table_sawing_stone",
-	"ingredient": {
-		"item": "minecraft:acacia_log"
-	},
-	"result":     "manyideas_core:log_stripped_smooth_acacia"
+	"type": "manyideas_core:table_sawing_stone",
+	"ingredient": "minecraft:acacia_log",
+	"result": "manyideas_core:log_stripped_smooth_acacia"
 }

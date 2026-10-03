@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools;
 
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryHelper;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -38,7 +40,7 @@ public class MysteriousShears extends Item {
 	
 	public MysteriousShears() {
 		
-		super( new Item.Properties().durability( 238 ) );
+		super( RegistryHelper.itemProperties().durability( 238 ) );
 	}
 	
 	@Override
@@ -127,7 +129,7 @@ public class MysteriousShears extends Item {
 					);
 				}
 				drops.forEach( drop -> {
-					ItemEntity ent = target.spawnAtLocation( drop, 1.0F );
+					ItemEntity ent = target.spawnAtLocation( (ServerLevel) target.level(), drop, 1.0F );
 					Objects.requireNonNull( ent ).setDeltaMovement( ent.getDeltaMovement()
 						.add(
 							( random.nextFloat() - random.nextFloat() ) * 0.1F,

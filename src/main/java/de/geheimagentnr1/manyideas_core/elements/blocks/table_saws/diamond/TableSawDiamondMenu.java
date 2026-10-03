@@ -3,10 +3,10 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSawMenu;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSawRecipe;
+import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSawRecipes;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
@@ -56,30 +56,13 @@ public class TableSawDiamondMenu extends TableSawMenu {
 	@NotNull
 	@Override
 	public List<TableSawRecipe> getAvaiableRecipes( @NotNull SingleRecipeInput container, @NotNull Level _level ) {
-		
-		ArrayList<TableSawRecipe> recipes = new ArrayList<>();
-		
-		recipes.addAll(
-			_level.getRecipeManager()
-				.getRecipesFor( ModRecipeTypesRegisterFactory.TABLE_SAWING_STONE, container, _level )
-				.stream()
-				.map( RecipeHolder::value )
-				.toList()
-		);
-		recipes.addAll(
-			_level.getRecipeManager()
-				.getRecipesFor( ModRecipeTypesRegisterFactory.TABLE_SAWING_IRON, container, _level )
-				.stream()
-				.map( RecipeHolder::value )
-				.toList()
-		);
-		recipes.addAll(
-			_level.getRecipeManager()
-				.getRecipesFor( ModRecipeTypesRegisterFactory.TABLE_SAWING_DIAMOND, container, _level )
-				.stream()
-				.map( RecipeHolder::value )
-				.toList()
-		);
-		return recipes;
+
+		return TableSawRecipes.getRecipes( _level ).stream()
+			.filter( recipe ->
+				recipe.getType() == ModRecipeTypesRegisterFactory.TABLE_SAWING_STONE
+					|| recipe.getType() == ModRecipeTypesRegisterFactory.TABLE_SAWING_IRON
+					|| recipe.getType() == ModRecipeTypesRegisterFactory.TABLE_SAWING_DIAMOND )
+			.filter( recipe -> recipe.matches( container, _level ) )
+			.toList();
 	}
 }

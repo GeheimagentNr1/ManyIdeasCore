@@ -1,7 +1,5 @@
 {
-	"type":       "manyideas_core:grinding",
-	"ingredient": {
-		"item": "minecraft:prismarine_crystals"
-	},
-	"result":     "manyideas_core:dye_rainbow"
+	"type": "manyideas_core:grinding",
+	"ingredient": "minecraft:prismarine_crystals",
+	"result": "manyideas_core:dye_rainbow"
 }

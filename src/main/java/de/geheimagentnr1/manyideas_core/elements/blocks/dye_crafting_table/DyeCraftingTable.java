@@ -51,11 +51,22 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 	);
 	
 	public DyeCraftingTable() {
-		
-		super( BlockBehaviour.Properties.of()
+
+		this( createProperties() );
+	}
+
+	public DyeCraftingTable( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of()
 			.mapColor( MapColor.WOOD )
 			.strength( 2.5F )
-			.sound( SoundType.WOOD ) );
+			.sound( SoundType.WOOD );
 	}
 	
 	@NotNull

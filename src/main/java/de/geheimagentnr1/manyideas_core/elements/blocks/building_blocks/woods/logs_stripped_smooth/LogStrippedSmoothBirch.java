@@ -7,13 +7,24 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class LogStrippedSmoothBirch extends Wood {
-	
-	
+
+
 	@NotNull
 	public static final String registry_name = "log_stripped_smooth_birch";
-	
+
 	public LogStrippedSmoothBirch() {
-		
-		super( BlockBehaviour.Properties.of().mapColor( MapColor.SAND ) );
+
+		this( createProperties() );
+	}
+
+	public LogStrippedSmoothBirch( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of().mapColor( MapColor.SAND );
 	}
 }

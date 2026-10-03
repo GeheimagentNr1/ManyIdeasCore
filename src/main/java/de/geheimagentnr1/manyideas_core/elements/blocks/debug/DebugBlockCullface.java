@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.debug;
 
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryHelper;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeMemory;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeVector;
 import de.geheimagentnr1.manyideas_core.core.elements.blocks.BlockItemInterface;
@@ -31,7 +32,7 @@ public class DebugBlockCullface extends Block implements BlockItemInterface {
 	
 	public DebugBlockCullface() {
 		
-		super( BlockBehaviour.Properties.of() );
+		super( RegistryHelper.withBlockId( BlockBehaviour.Properties.of() ) );
 	}
 	
 	@SuppressWarnings( "deprecation" )

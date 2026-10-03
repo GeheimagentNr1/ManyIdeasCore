@@ -119,30 +119,30 @@ public class ModItemsRegisterFactory extends ItemsRegisterFactory {
 		
 		return List.of(
 			//Dyes
-			RegistryEntry.create( DyeRainbow.registry_name, new DyeRainbow() ),//FINRT
+			RegistryEntry.create( DyeRainbow.registry_name, () -> new DyeRainbow() ),//FINRT
 			//Panels
-			RegistryEntry.create( PanelAcacia.registry_name, new PanelAcacia() ),//FINRT
-			RegistryEntry.create( PanelBirch.registry_name, new PanelBirch() ),//FINRT
-			RegistryEntry.create( PanelCrimson.registry_name, new PanelCrimson() ),//FINRT
-			RegistryEntry.create( PanelDarkOak.registry_name, new PanelDarkOak() ),//FINRT
-			RegistryEntry.create( PanelJungle.registry_name, new PanelJungle() ),//FINRT
-			RegistryEntry.create( PanelMangrove.registry_name, new PanelMangrove() ),//FINRT
-			RegistryEntry.create( PanelOak.registry_name, new PanelOak() ),//FINRT
-			RegistryEntry.create( PanelSpruce.registry_name, new PanelSpruce() ),//FINRT
-			RegistryEntry.create( PanelWarped.registry_name, new PanelWarped() ),//FINRT
+			RegistryEntry.create( PanelAcacia.registry_name, () -> new PanelAcacia() ),//FINRT
+			RegistryEntry.create( PanelBirch.registry_name, () -> new PanelBirch() ),//FINRT
+			RegistryEntry.create( PanelCrimson.registry_name, () -> new PanelCrimson() ),//FINRT
+			RegistryEntry.create( PanelDarkOak.registry_name, () -> new PanelDarkOak() ),//FINRT
+			RegistryEntry.create( PanelJungle.registry_name, () -> new PanelJungle() ),//FINRT
+			RegistryEntry.create( PanelMangrove.registry_name, () -> new PanelMangrove() ),//FINRT
+			RegistryEntry.create( PanelOak.registry_name, () -> new PanelOak() ),//FINRT
+			RegistryEntry.create( PanelSpruce.registry_name, () -> new PanelSpruce() ),//FINRT
+			RegistryEntry.create( PanelWarped.registry_name, () -> new PanelWarped() ),//FINRT
 			//Plates
-			RegistryEntry.create( PlateCopper.registry_name, new PlateCopper() ),//FINRT
-			RegistryEntry.create( PlateGold.registry_name, new PlateGold() ),//FINRT
-			RegistryEntry.create( PlateIron.registry_name, new PlateIron() ),//FINRT
-			RegistryEntry.create( PlateQuartz.registry_name, new PlateQuartz() ),//FINRT
+			RegistryEntry.create( PlateCopper.registry_name, () -> new PlateCopper() ),//FINRT
+			RegistryEntry.create( PlateGold.registry_name, () -> new PlateGold() ),//FINRT
+			RegistryEntry.create( PlateIron.registry_name, () -> new PlateIron() ),//FINRT
+			RegistryEntry.create( PlateQuartz.registry_name, () -> new PlateQuartz() ),//FINRT
 			//Saws
-			RegistryEntry.create( SawDiamond.registry_name, new SawDiamond() ),//FINRT
-			RegistryEntry.create( SawIron.registry_name, new SawIron() ),//FINRT
-			RegistryEntry.create( SawStone.registry_name, new SawStone() ),//FINRT
+			RegistryEntry.create( SawDiamond.registry_name, () -> new SawDiamond() ),//FINRT
+			RegistryEntry.create( SawIron.registry_name, () -> new SawIron() ),//FINRT
+			RegistryEntry.create( SawStone.registry_name, () -> new SawStone() ),//FINRT
 			//Tools
-			RegistryEntry.create( MysteriousShears.registry_name, new MysteriousShears() ),//FINRT
+			RegistryEntry.create( MysteriousShears.registry_name, () -> new MysteriousShears() ),//FINRT
 			//Tools: Redstone Key
-			RegistryEntry.create( RedstoneKey.registry_name, RESTONE_KEY = new RedstoneKey() )//FINZT
+			RegistryEntry.create( RedstoneKey.registry_name, () -> RESTONE_KEY = new RedstoneKey() )//FINZT
 		);
 	}
 	

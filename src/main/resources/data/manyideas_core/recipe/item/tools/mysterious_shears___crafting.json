@@ -1,19 +1,15 @@
 {
-	"type":    "minecraft:crafting_shaped",
+	"type": "minecraft:crafting_shaped",
 	"pattern": [
 		"EEE",
 		"ESE",
 		"EEE"
 	],
-	"key":     {
-		"E": {
-			"item": "minecraft:enchanted_book"
-		},
-		"S": {
-			"item": "minecraft:shears"
-		}
+	"key": {
+		"E": "minecraft:enchanted_book",
+		"S": "minecraft:shears"
 	},
-	"result":  {
+	"result": {
 		"id": "manyideas_core:mysterious_shears"
 	}
 }

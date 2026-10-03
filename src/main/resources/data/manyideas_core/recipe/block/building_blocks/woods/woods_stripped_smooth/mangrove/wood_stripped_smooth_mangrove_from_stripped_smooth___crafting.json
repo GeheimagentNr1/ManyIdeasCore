@@ -1,14 +1,12 @@
 {
-	"type":    "minecraft:crafting_shaped",
+	"type": "minecraft:crafting_shaped",
 	"pattern": [
 		"LL"
 	],
-	"key":     {
-		"L": {
-			"item": "manyideas_core:log_stripped_smooth_mangrove"
-		}
+	"key": {
+		"L": "manyideas_core:log_stripped_smooth_mangrove"
 	},
-	"result":  {
+	"result": {
 		"id": "manyideas_core:wood_stripped_smooth_mangrove"
 	}
 }

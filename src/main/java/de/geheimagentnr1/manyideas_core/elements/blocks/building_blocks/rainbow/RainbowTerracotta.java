@@ -15,11 +15,22 @@ public class RainbowTerracotta extends Block implements BlockItemInterface {
 	public static final String registry_name = "rainbow_terracotta";
 	
 	public RainbowTerracotta() {
-		
-		super( BlockBehaviour.Properties.of()
+
+		this( createProperties() );
+	}
+
+	public RainbowTerracotta( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of()
 			.mapColor( MapColor.TERRACOTTA_WHITE )
 			.strength( 1.25F, 4.2F )
 			.requiresCorrectToolForDrops()
-			.sound( SoundType.STONE ) );
+			.sound( SoundType.STONE );
 	}
 }

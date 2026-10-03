@@ -7,13 +7,24 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class LogStrippedSmoothCrimson extends Wood {
-	
-	
+
+
 	@NotNull
 	public static final String registry_name = "log_stripped_smooth_crimson";
-	
+
 	public LogStrippedSmoothCrimson() {
-		
-		super( BlockBehaviour.Properties.of().mapColor( MapColor.CRIMSON_STEM ) );
+
+		this( createProperties() );
+	}
+
+	public LogStrippedSmoothCrimson( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of().mapColor( MapColor.CRIMSON_STEM );
 	}
 }

@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.multi_block;
 
+import de.geheimagentnr1.manyideas_core.core.registry.RegistryHelper;
 import de.geheimagentnr1.manyideas_core.core.elements.blocks.BlockItemInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -8,6 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -36,7 +38,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	
 	protected MultiBlock( @NotNull BlockBehaviour.Properties _properties ) {
 		
-		super( _properties.pushReaction( PushReaction.BLOCK ) );
+		super( RegistryHelper.withBlockId( _properties ).pushReaction( PushReaction.BLOCK ) );
 	}
 	
 	protected abstract int getXSize();
@@ -195,7 +197,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	@Override
 	public void onBlockExploded(
 		@NotNull BlockState state,
-		@NotNull Level level,
+		@NotNull ServerLevel level,
 		@NotNull BlockPos pos,
 		@NotNull Explosion explosion ) {
 		
@@ -204,7 +206,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 			getZeroPos( state, pos ),
 			state.getValue( BlockStateProperties.HORIZONTAL_FACING ),
 			( x, y, z, blockPos ) -> {
-				if( !blockPos.equals( pos ) && !level.isClientSide ) {
+				if( !blockPos.equals( pos ) ) {
 					BlockState blockState = level.getBlockState( blockPos );
 					Block.dropResources(
 						blockState,

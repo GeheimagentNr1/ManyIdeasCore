@@ -11,6 +11,7 @@ import de.geheimagentnr1.manyideas_core.elements.recipes.ModIngredientSerializer
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import de.geheimagentnr1.manyideas_core.network.Network;
+import de.geheimagentnr1.manyideas_core.network.TableSawRecipesSyncMsg;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -55,5 +56,6 @@ public class ManyIdeasCore extends AbstractMod {
 		registerEventHandler( new ModRecipeSerializersRegisterFactory() );
 		registerEventHandler( new ModRecipeTypesRegisterFactory() );
 		registerEventHandler( Network.getInstance() );
+		forgeEventBus().register( new TableSawRecipesSyncMsg.SyncHandler() );
 	}
 }

@@ -22,14 +22,25 @@ public class EndBlock extends BaseEntityBlock implements BlockItemInterface {
 	public static final String registry_name = "end_block";
 	
 	public EndBlock() {
-		
-		super( BlockBehaviour.Properties.of()
+
+		this( createProperties() );
+	}
+
+	public EndBlock( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of()
 			.mapColor( MapColor.COLOR_BLACK )
 			.strength( 50.0F, 1200.0F )
 			.requiresCorrectToolForDrops()
 			.noOcclusion()
 			.isViewBlocking( ( state, level, pos ) -> false )
-			.sound( SoundType.GLASS ) );
+			.sound( SoundType.GLASS );
 	}
 	
 	@Override

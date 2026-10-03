@@ -15,15 +15,22 @@ public class FlowerStraightAllium extends Flower {
 	public static final String registry_name = "flower_straight_allium";
 	
 	public FlowerStraightAllium() {
-		
-		super(
-			MobEffects.FIRE_RESISTANCE,
-			4,
-			BlockBehaviour.Properties.of()
-				.mapColor( MapColor.PLANT )
-				.noCollission()
-				.instabreak()
-				.sound( SoundType.GRASS )
-		);
+
+		this( createProperties() );
+	}
+
+	public FlowerStraightAllium( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( MobEffects.FIRE_RESISTANCE, 4, properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of()
+			.mapColor( MapColor.PLANT )
+			.noCollission()
+			.instabreak()
+			.sound( SoundType.GRASS );
 	}
 }

@@ -7,13 +7,24 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class WoodStrippedSmoothJungle extends Wood {
-	
-	
+
+
 	@NotNull
 	public static final String registry_name = "wood_stripped_smooth_jungle";
-	
+
 	public WoodStrippedSmoothJungle() {
-		
-		super( BlockBehaviour.Properties.of().mapColor( MapColor.DIRT ) );
+
+		this( createProperties() );
+	}
+
+	public WoodStrippedSmoothJungle( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of().mapColor( MapColor.DIRT );
 	}
 }

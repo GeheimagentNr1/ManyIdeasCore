@@ -15,10 +15,18 @@ public class RainbowStainedGlassPane extends StainedGlassPaneBlock implements Bl
 	public static final String registry_name = "rainbow_stained_glass_pane";
 	
 	public RainbowStainedGlassPane() {
-		
-		super(
-			DyeColor.WHITE,
-			BlockBehaviour.Properties.of().mapColor( DyeColor.WHITE ).strength( 0.3F ).sound( SoundType.GLASS )
-		);
+
+		this( createProperties() );
+	}
+
+	public RainbowStainedGlassPane( @NotNull BlockBehaviour.Properties properties ) {
+
+		super( DyeColor.WHITE, properties );
+	}
+
+	@NotNull
+	public static BlockBehaviour.Properties createProperties() {
+
+		return BlockBehaviour.Properties.of().mapColor( DyeColor.WHITE ).strength( 0.3F ).sound( SoundType.GLASS );
 	}
 }

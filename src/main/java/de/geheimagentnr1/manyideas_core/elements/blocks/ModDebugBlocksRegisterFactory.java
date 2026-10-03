@@ -40,7 +40,7 @@ public class ModDebugBlocksRegisterFactory extends BlocksRegisterFactory {
 		
 		return List.of(//BCPFINRLT
 			//Debug
-			RegistryEntry.create( DebugBlockCullface.registry_name, new DebugBlockCullface() )//BCFINRLT
+			RegistryEntry.create( DebugBlockCullface.registry_name, () -> new DebugBlockCullface() )//BCFINRLT
 		);
 	}
 	
