@@ -1,122 +1,123 @@
 {
 	"model": {
-		"type": "minecraft:range_dispatch",
-		"property": "manyideas_core:color",
-		"entries": [
+		"type": "minecraft:select",
+		"property": "minecraft:component",
+		"component": "manyideas_core:color",
+		"cases": [
 			{
-				"threshold": 0,
+				"when": "black",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_black"
 				}
 			},
 			{
-				"threshold": 1,
+				"when": "blue",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_blue"
 				}
 			},
 			{
-				"threshold": 2,
+				"when": "brown",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_brown"
 				}
 			},
 			{
-				"threshold": 3,
+				"when": "cyan",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_cyan"
 				}
 			},
 			{
-				"threshold": 4,
+				"when": "gray",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_gray"
 				}
 			},
 			{
-				"threshold": 5,
+				"when": "green",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_green"
 				}
 			},
 			{
-				"threshold": 6,
+				"when": "light_blue",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_light_blue"
 				}
 			},
 			{
-				"threshold": 7,
+				"when": "light_gray",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_light_gray"
 				}
 			},
 			{
-				"threshold": 8,
+				"when": "lime",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_lime"
 				}
 			},
 			{
-				"threshold": 9,
+				"when": "magenta",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_magenta"
 				}
 			},
 			{
-				"threshold": 10,
+				"when": "orange",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_orange"
 				}
 			},
 			{
-				"threshold": 11,
+				"when": "pink",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_pink"
 				}
 			},
 			{
-				"threshold": 12,
+				"when": "purple",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_purple"
 				}
 			},
 			{
-				"threshold": 13,
+				"when": "rainbow",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_rainbow"
 				}
 			},
 			{
-				"threshold": 14,
+				"when": "red",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_red"
 				}
 			},
 			{
-				"threshold": 15,
+				"when": "white",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_white"
 				}
 			},
 			{
-				"threshold": 16,
+				"when": "yellow",
 				"model": {
 					"type": "minecraft:model",
 					"model": "manyideas_core:block/building_blocks/planks/colored/planks_colored_yellow"

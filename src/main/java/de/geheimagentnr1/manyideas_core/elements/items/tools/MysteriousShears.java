@@ -60,7 +60,7 @@ public class MysteriousShears extends Item {
 		@NotNull BlockPos pPos,
 		@NotNull LivingEntity pMiningEntity ) {
 		
-		if( !pLevel.isClientSide ) {
+		if( !pLevel.isClientSide() ) {
 			pStack.hurtAndBreak( 1, pMiningEntity, EquipmentSlot.MAINHAND );
 		}
 		if( pState.is( BlockTags.LEAVES ) ||
@@ -103,7 +103,7 @@ public class MysteriousShears extends Item {
 		@NotNull LivingEntity target,
 		@NotNull InteractionHand hand ) {
 		
-		if( target.level().isClientSide ) {
+		if( target.level().isClientSide() ) {
 			return InteractionResult.PASS;
 		}
 		if( target instanceof net.neoforged.neoforge.common.IShearable shear_target ) {
@@ -137,7 +137,7 @@ public class MysteriousShears extends Item {
 							( random.nextFloat() - random.nextFloat() ) * 0.1F
 						) );
 				} );
-				stack.hurtAndBreak( 1, target, LivingEntity.getSlotForHand( hand ) );
+				stack.hurtAndBreak( 1, target, hand.asEquipmentSlot() );
 			}
 			return InteractionResult.SUCCESS;
 		}

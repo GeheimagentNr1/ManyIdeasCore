@@ -167,7 +167,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 			state.getValue( BlockStateProperties.HORIZONTAL_FACING ),
 			( x, y, z, blockPos ) -> {
 				BlockState blockState = level.getBlockState( blockPos );
-				if( !level.isClientSide && !player.isCreative() && player.hasCorrectToolForDrops( blockState ) ) {
+				if( !level.isClientSide() && !player.isCreative() && player.hasCorrectToolForDrops( blockState ) ) {
 					Block.dropResources(
 						blockState,
 						level,

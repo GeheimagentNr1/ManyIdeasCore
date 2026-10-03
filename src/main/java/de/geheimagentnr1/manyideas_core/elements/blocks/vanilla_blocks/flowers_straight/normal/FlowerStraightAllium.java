@@ -29,7 +29,7 @@ public class FlowerStraightAllium extends Flower {
 
 		return BlockBehaviour.Properties.of()
 			.mapColor( MapColor.PLANT )
-			.noCollission()
+			.noCollision()
 			.instabreak()
 			.sound( SoundType.GRASS );
 	}

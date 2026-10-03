@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen;
 
+import net.minecraft.client.input.InputWithModifiers;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -65,7 +66,7 @@ public class ToggleButton extends AbstractButton {
 	}
 
 	@Override
-	public void onPress() {
+	public void onPress( @NotNull InputWithModifiers input ) {
 
 		onPress.accept( selected );
 	}

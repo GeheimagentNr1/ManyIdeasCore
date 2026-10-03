@@ -28,7 +28,7 @@ public class FlowerTallStraightLilac extends TallFlower {
 
 		return BlockBehaviour.Properties.of()
 			.mapColor( MapColor.PLANT )
-			.noCollission()
+			.noCollision()
 			.instabreak()
 			.sound( SoundType.GRASS );
 	}

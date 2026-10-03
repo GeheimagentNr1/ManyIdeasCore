@@ -11,9 +11,11 @@ import de.geheimagentnr1.manyideas_core.core.events.ForgeEventHandlerInterface;
 import de.geheimagentnr1.manyideas_core.core.events.ModEventHandlerInterface;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.state.PlayerRenderState;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.state.AvatarRenderState;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -100,15 +102,20 @@ public class PlayerDecorationManager implements ModEventHandlerInterface, ForgeE
 	}
 	
 	private void renderForPlayer(
-		@NotNull PlayerRenderState renderState,
-		int light,
+		@NotNull AvatarRenderState renderState,
 		@NotNull PoseStack poseStack,
-		@NotNull MultiBufferSource buffer ) {
+		@NotNull SubmitNodeCollector submitNodeCollector ) {
 
-		PlayerDecorationRenderer playerDecorationRenderer = DECORATION_LIST.get( renderState.name );
+		//Since 1.21.9 the render state has no player name anymore
+		ClientLevel level = Minecraft.getInstance().level;
+		Entity entity = level == null ? null : level.getEntity( renderState.id );
+		if( entity == null ) {
+			return;
+		}
+		PlayerDecorationRenderer playerDecorationRenderer = DECORATION_LIST.get( entity.getName().getString() );
 
 		if( playerDecorationRenderer != null ) {
-			playerDecorationRenderer.renderItemStack( renderState, light, poseStack, buffer );
+			playerDecorationRenderer.renderItemStack( renderState, poseStack, submitNodeCollector );
 		}
 	}
 	
@@ -137,10 +144,9 @@ public class PlayerDecorationManager implements ModEventHandlerInterface, ForgeE
 	public void handlePreRenderPlayerEvent( @NotNull RenderPlayerEvent.Pre event ) {
 
 		renderForPlayer(
-			event.getRenderState(),
-			event.getPackedLight(),
+			(AvatarRenderState)event.getRenderState(),
 			event.getPoseStack(),
-			event.getMultiBufferSource()
+			event.getSubmitNodeCollector()
 		);
 	}
 }

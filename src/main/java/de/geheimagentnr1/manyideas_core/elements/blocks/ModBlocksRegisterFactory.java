@@ -1,6 +1,5 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks;
 
-import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.DyeBlockItemPropertyGetter;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.planks.PlanksColored;
 import de.geheimagentnr1.manyideas_core.elements.blocks.building_blocks.planks.seamless.*;
@@ -415,13 +414,6 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 		BlockEntityRenderers.register( END_BLOCK_ENTITY, EndBlockEntityRenderer::new );
 	}
 
-	@SubscribeEvent
-	public void handleRegisterRangeSelectItemModelPropertyEvent(
-		@NotNull net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent event ) {
-		
-		event.register( DyeBlockItemPropertyGetter.registry_name, DyeBlockItemPropertyGetter.MAP_CODEC );
-	}
-	
 	@SubscribeEvent
 	public void handleRegisterMenuScreensEvent( @NotNull net.neoforged.neoforge.client.event.RegisterMenuScreensEvent event ) {
 

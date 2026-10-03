@@ -3,8 +3,9 @@ package de.geheimagentnr1.manyideas_core.special.decoration_renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.state.PlayerRenderState;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.entity.state.AvatarRenderState;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -20,6 +21,9 @@ class PlayerDecorationRenderer {
 	private final ItemStack stack;
 
 	private final boolean isBlock;
+	
+	@NotNull
+	private final ItemStackRenderState itemStackRenderState = new ItemStackRenderState();
 
 	//package-private
 	PlayerDecorationRenderer( @NotNull ItemStack _stack ) {
@@ -30,10 +34,9 @@ class PlayerDecorationRenderer {
 
 	//package-private
 	void renderItemStack(
-		@NotNull PlayerRenderState renderState,
-		int light,
+		@NotNull AvatarRenderState renderState,
 		@NotNull PoseStack poseStack,
-		@NotNull MultiBufferSource buffer ) {
+		@NotNull SubmitNodeCollector submitNodeCollector ) {
 
 		if( renderState.isInvisible || !renderState.showCape || renderState.isFallFlying ) {
 			return;
@@ -53,15 +56,21 @@ class PlayerDecorationRenderer {
 		poseStack.translate( 0.0D, StrictMath.sin( bouncing % ( 2 * Math.PI ) ) * 0.25, 0.0D );
 		poseStack.pushPose();
 		poseStack.mulPose( Axis.YP.rotationDegrees( (float)( bouncing * 40.0D % 360 ) ) );
-		Minecraft.getInstance().getItemRenderer().renderStatic(
+		Minecraft minecraft = Minecraft.getInstance();
+		minecraft.getItemModelResolver().updateForTopItem(
+			itemStackRenderState,
 			stack,
 			ItemDisplayContext.FIXED,
-			light,
-			OverlayTexture.NO_OVERLAY,
-			poseStack,
-			buffer,
-			Minecraft.getInstance().level,
+			minecraft.level,
+			null,
 			renderState.id
+		);
+		itemStackRenderState.submit(
+			poseStack,
+			submitNodeCollector,
+			renderState.lightCoords,
+			OverlayTexture.NO_OVERLAY,
+			renderState.outlineColor
 		);
 		poseStack.popPose();
 		poseStack.popPose();

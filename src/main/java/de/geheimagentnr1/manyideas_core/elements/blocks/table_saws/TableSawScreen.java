@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 
+import net.minecraft.client.input.MouseButtonEvent;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -141,8 +142,10 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 	}
 	
 	@Override
-	public boolean mouseClicked( double p_231044_1_, double p_231044_3_, int p_231044_5_ ) {
+	public boolean mouseClicked( @NotNull MouseButtonEvent event, boolean doubleClick ) {
 		
+		double p_231044_1_ = event.x();
+		double p_231044_3_ = event.y();
 		scrolling = false;
 		if( displayRecipes ) {
 			int i = leftPos + 52;
@@ -171,17 +174,13 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 			}
 		}
 		
-		return super.mouseClicked( p_231044_1_, p_231044_3_, p_231044_5_ );
+		return super.mouseClicked( event, doubleClick );
 	}
 	
 	@Override
-	public boolean mouseDragged(
-		double p_231045_1_,
-		double p_231045_3_,
-		int p_231045_5_,
-		double p_231045_6_,
-		double p_231045_8_ ) {
+	public boolean mouseDragged( @NotNull MouseButtonEvent event, double dragX, double dragY ) {
 		
+		double p_231045_3_ = event.y();
 		if( scrolling && isScrollBarActive() ) {
 			int i = topPos + 14;
 			int j = i + 54;
@@ -190,7 +189,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 			startIndex = (int)( ( scrollOffs * getOffscreenRows() ) + 0.5D ) << 2;
 			return true;
 		} else {
-			return super.mouseDragged( p_231045_1_, p_231045_3_, p_231045_5_, p_231045_6_, p_231045_8_ );
+			return super.mouseDragged( event, dragX, dragY );
 		}
 	}
 	

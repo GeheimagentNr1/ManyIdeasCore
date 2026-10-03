@@ -98,7 +98,7 @@ public class DyeCraftingTable extends Block implements BlockItemInterface {
 		@NotNull Player pPlayer,
 		@NotNull BlockHitResult pHitResult ) {
 		
-		if( pLevel.isClientSide ) {
+		if( pLevel.isClientSide() ) {
 			return InteractionResult.SUCCESS;
 		} else {
 			pPlayer.openMenu( pState.getMenuProvider( pLevel, pPos ) );

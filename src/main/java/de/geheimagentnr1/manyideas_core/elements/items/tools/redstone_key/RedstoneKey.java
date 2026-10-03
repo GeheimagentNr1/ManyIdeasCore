@@ -41,7 +41,7 @@ public class RedstoneKey extends Item {
 		Block block = state.getBlock();
 		Player player = context.getPlayer();
 		if( block instanceof RedstoneKeyable redstoneKeyableBlock ) {
-			if( !level.isClientSide && player != null ) {
+			if( !level.isClientSide() && player != null ) {
 				Component title = redstoneKeyableBlock.getTitle();
 				ResourceLocation icons = redstoneKeyableBlock.getIconTextures();
 				List<Option> options = redstoneKeyableBlock.getOptions();
