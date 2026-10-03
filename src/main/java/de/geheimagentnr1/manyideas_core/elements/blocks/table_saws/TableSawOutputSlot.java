@@ -47,13 +47,13 @@ class TableSawOutputSlot extends Slot {
 	@Override
 	public void onTake( @NotNull Player player, @NotNull ItemStack stack ) {
 		
-		stack.onCraftedBy( player.level(), player, stack.getCount() );
+		stack.onCraftedBy( player, stack.getCount() );
 		tableSawMenu.getResultContainer().awardUsedRecipes( player, List.of( inputInventorySlot.getItem() ) );
 		ItemStack itemstack = inputInventorySlot.remove( 1 );
 		if( !itemstack.isEmpty() ) {
 			tableSawMenu.updateRecipeResultSlot();
 		}
-		stack.getItem().onCraftedBy( stack, player.level(), player );
+		stack.getItem().onCraftedBy( stack, player );
 		levelPosCallable.execute( ( level, pos ) -> {
 			long l = level.getGameTime();
 			if( tableSawMenu.lastOnTake != l ) {

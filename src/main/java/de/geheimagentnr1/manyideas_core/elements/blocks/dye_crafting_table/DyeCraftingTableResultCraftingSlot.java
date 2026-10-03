@@ -80,7 +80,7 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 	protected void checkTakeAchievements( @NotNull ItemStack stack ) {
 		
 		if( removeCount > 0 ) {
-			stack.onCraftedBy( player.level(), player, removeCount );
+			stack.onCraftedBy( player, removeCount );
 			net.neoforged.neoforge.event.EventHooks.firePlayerCraftingEvent( player, stack, craftingContainer );
 		}
 		if( container instanceof RecipeCraftingHolder recipeCraftingHolder ) {

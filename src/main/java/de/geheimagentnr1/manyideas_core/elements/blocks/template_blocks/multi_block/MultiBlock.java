@@ -221,28 +221,21 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 		super.onBlockExploded( state, level, pos, explosion );
 	}
 	
-	@SuppressWarnings( "deprecation" )
+	//Since 1.21.5 called instead of onRemove, when the block was replaced by another block (with neighbor updates)
 	@Override
-	public void onRemove(
+	protected void affectNeighborsAfterRemoval(
 		@NotNull BlockState state,
-		@NotNull Level level,
+		@NotNull ServerLevel level,
 		@NotNull BlockPos pos,
-		@NotNull BlockState newState,
-		boolean isMoving ) {
+		boolean movedByPiston ) {
 		
-		if( newState.getBlock() != this ) {
-			runForBlocks(
-				level,
-				getZeroPos( state, pos ),
-				state.getValue( BlockStateProperties.HORIZONTAL_FACING ),
-				( x, y, z, blockPos ) -> {
-					BlockState blockState = level.getBlockState( blockPos );
-					super.onRemove( blockState, level, blockPos, Blocks.AIR.defaultBlockState(), isMoving );
-					level.setBlock( blockPos, Blocks.AIR.defaultBlockState(), 3 );
-				},
-				true
-			);
-		}
+		runForBlocks(
+			level,
+			getZeroPos( state, pos ),
+			state.getValue( BlockStateProperties.HORIZONTAL_FACING ),
+			( x, y, z, blockPos ) -> level.setBlock( blockPos, Blocks.AIR.defaultBlockState(), 3 ),
+			true
+		);
 	}
 	
 	@NotNull

@@ -233,7 +233,7 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 			Item item = itemstack1.getItem();
 			itemstack = itemstack1.copy();
 			if( index == 1 ) {
-				item.onCraftedBy( itemstack1, player.level(), player );
+				item.onCraftedBy( itemstack1, player );
 				if( !moveItemStackTo( itemstack1, 2, 38, true ) ) {
 					return ItemStack.EMPTY;
 				}

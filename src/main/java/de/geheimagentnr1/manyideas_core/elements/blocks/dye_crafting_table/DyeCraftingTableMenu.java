@@ -149,7 +149,7 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 			resultStack = stack.copy();
 			if( pIndex == 0 ) {
 				this.containerLevelAccess.execute( ( level, pos ) -> {
-					stack.getItem().onCraftedBy( stack, level, pPlayer );
+					stack.getItem().onCraftedBy( stack, pPlayer );
 				} );
 				if( !this.moveItemStackTo( stack, 10, 46, true ) ) {
 					return ItemStack.EMPTY;
