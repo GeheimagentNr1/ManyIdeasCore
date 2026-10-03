@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
+import net.minecraft.util.Prediction;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedRecipe;
@@ -188,7 +189,7 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 			
 			slot.onTake( pPlayer, stack );
 			if( pIndex == 0 ) {
-				pPlayer.drop( stack, false );
+				pPlayer.drop( stack, false, Prediction.SERVER_ONLY );
 			}
 		}
 		return resultStack;

@@ -263,14 +263,240 @@
 							}
 						}
 					],
-					"name": "manyideas_core:planks_colored"
+					"name": "manyideas_core:planks_colored",
+					"modifier": [
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "black"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "black"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "blue"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "blue"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "brown"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "brown"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "cyan"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "cyan"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "gray"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "gray"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "green"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "green"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "light_blue"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "light_blue"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "light_gray"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "light_gray"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "lime"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "lime"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "magenta"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "magenta"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "orange"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "orange"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "pink"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "pink"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "purple"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "purple"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "rainbow"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "rainbow"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "red"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "red"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "white"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "white"
+								}
+							}
+						},
+						{
+							"type": "minecraft:set_components",
+							"components": {
+								"manyideas_core:color": "yellow"
+							},
+							"condition": {
+								"type": "minecraft:match_block",
+								"blocks": "manyideas_core:planks_colored",
+								"state": {
+									"color": "yellow"
+								}
+							}
+						}
+					]
 				}
 			],
 			"conditions": [
 				{
 					"condition": "minecraft:survives_explosion"
 				}
-			]
+			],
+			"condition": {
+				"type": "minecraft:survives_explosion"
+			}
 		}
 	]
 }

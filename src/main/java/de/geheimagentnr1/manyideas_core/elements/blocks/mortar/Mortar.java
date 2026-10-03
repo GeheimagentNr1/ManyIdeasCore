@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.mortar;
 
+import net.minecraft.util.Prediction;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeMemory;
 import de.geheimagentnr1.manyideas_core.util.voxel_shapes.VoxelShapeVector;
@@ -100,7 +101,7 @@ public class Mortar extends Block implements BlockItemInterface {
 			ItemStack result_stack = recipe.get().value().assemble( craftingInventory );
 			pStack.shrink( 1 );
 			if( !pPlayer.addItem( result_stack ) ) {
-				pPlayer.drop( result_stack, false );
+				pPlayer.drop( result_stack, false, Prediction.SERVER_ONLY );
 			}
 			return InteractionResult.SUCCESS;
 		}

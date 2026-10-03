@@ -34,7 +34,7 @@ public class RainbowStainedGlassBlock extends StainedGlassBlock implements Block
 			.isValidSpawn( ( state, level, pos, entityType ) -> false )
 			.isRedstoneConductor( ( state, level, pos ) -> false )
 			.isSuffocating( ( state, level, pos ) -> false )
-			.isViewBlocking( ( state, level, pos ) -> false )
+			.isViewBlocking( ( state, level, pos, nearPlaneBox ) -> false )
 			.sound( SoundType.GLASS );
 	}
 }

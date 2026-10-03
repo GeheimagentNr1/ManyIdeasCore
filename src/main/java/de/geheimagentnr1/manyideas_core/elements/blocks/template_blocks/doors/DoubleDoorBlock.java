@@ -42,7 +42,7 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 		@NotNull BlockSetType _type,
 		@NotNull OpenedBy openedBy ) {
 		
-		super( _type, RegistryHelper.withBlockId( _properties ).noOcclusion().isViewBlocking( ( state, level, pos ) -> false ) );
+		super( _type, RegistryHelper.withBlockId( _properties ).noOcclusion().isViewBlocking( ( state, level, pos, nearPlaneBox ) -> false ) );
 		initDoubleDoorBlock( openedBy );
 	}
 	

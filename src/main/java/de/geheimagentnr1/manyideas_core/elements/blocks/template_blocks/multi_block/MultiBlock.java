@@ -38,7 +38,7 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	
 	protected MultiBlock( @NotNull BlockBehaviour.Properties _properties ) {
 		
-		super( RegistryHelper.withBlockId( _properties ).pushReaction( PushReaction.BLOCK ) );
+		super( RegistryHelper.withBlockId( _properties ).pushReaction( PushReaction.IMMOVEABLE ) );
 	}
 	
 	protected abstract int getXSize();

@@ -1,28 +1,38 @@
 {
-	"type":  "minecraft:block",
+	"type": "minecraft:block",
 	"pools": [
 		{
-			"rolls":      1,
-			"entries":    [
+			"rolls": 1,
+			"entries": [
 				{
-					"type":       "minecraft:item",
+					"type": "minecraft:item",
 					"conditions": [
 						{
-							"condition":  "minecraft:block_state_property",
-							"block":      "manyideas_core:flower_tall_straight_peony",
+							"condition": "minecraft:block_state_property",
+							"block": "manyideas_core:flower_tall_straight_peony",
 							"properties": {
 								"half": "lower"
 							}
 						}
 					],
-					"name":       "manyideas_core:flower_tall_straight_peony"
+					"name": "manyideas_core:flower_tall_straight_peony",
+					"condition": {
+						"type": "minecraft:match_block",
+						"blocks": "manyideas_core:flower_tall_straight_peony",
+						"state": {
+							"half": "lower"
+						}
+					}
 				}
 			],
 			"conditions": [
 				{
 					"condition": "minecraft:survives_explosion"
 				}
-			]
+			],
+			"condition": {
+				"type": "minecraft:survives_explosion"
+			}
 		}
 	]
 }

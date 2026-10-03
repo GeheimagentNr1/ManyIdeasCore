@@ -55,7 +55,7 @@ class PlayerDecorationRenderer {
 		double bouncing = ( System.currentTimeMillis() & Long.MAX_VALUE ) / 1000.0D;
 		poseStack.translate( 0.0D, StrictMath.sin( bouncing % ( 2 * Math.PI ) ) * 0.25, 0.0D );
 		poseStack.pushPose();
-		poseStack.mulPose( Axis.YP.rotationDegrees( (float)( bouncing * 40.0D % 360 ) ) );
+		poseStack.rotate( Axis.YP.rotationDegrees( (float)( bouncing * 40.0D % 360 ) ) );
 		Minecraft minecraft = Minecraft.getInstance();
 		minecraft.getItemModelResolver().updateForTopItem(
 			itemStackRenderState,

@@ -64,7 +64,7 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 		@NotNull OpenedBy openedBy,
 		boolean _doubleDoorActive ) {
 		
-		super( RegistryHelper.withBlockId( _properties ).noOcclusion().isViewBlocking( ( state, level, pos ) -> false ) );
+		super( RegistryHelper.withBlockId( _properties ).noOcclusion().isViewBlocking( ( state, level, pos, nearPlaneBox ) -> false ) );
 		registerDefaultState(
 			defaultBlockState().setValue( BlockStateProperties.OPEN, false )
 				.setValue( BlockStateProperties.POWERED, false )

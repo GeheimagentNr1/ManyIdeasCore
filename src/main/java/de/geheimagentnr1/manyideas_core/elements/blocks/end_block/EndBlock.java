@@ -1,6 +1,5 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.end_block;
 
-import com.mojang.serialization.MapCodec;
 import de.geheimagentnr1.manyideas_core.core.elements.blocks.BlockItemInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -39,14 +38,8 @@ public class EndBlock extends BaseEntityBlock implements BlockItemInterface {
 			.strength( 50.0F, 1200.0F )
 			.requiresCorrectToolForDrops()
 			.noOcclusion()
-			.isViewBlocking( ( state, level, pos ) -> false )
+			.isViewBlocking( ( state, level, pos, nearPlaneBox ) -> false )
 			.sound( SoundType.GLASS );
-	}
-	
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		
-		return null;
 	}
 	
 	@NotNull

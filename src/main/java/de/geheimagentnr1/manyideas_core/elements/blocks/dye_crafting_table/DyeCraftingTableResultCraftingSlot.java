@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
+import net.minecraft.util.Prediction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
@@ -132,7 +133,7 @@ class DyeCraftingTableResultCraftingSlot extends Slot {
 							this.craftingContainer.setItem( stackIndex, ingredient );
 						} else {
 							if( !this.player.getInventory().add( ingredient ) ) {
-								this.player.drop( ingredient, false );
+								this.player.drop( ingredient, false, Prediction.SERVER_ONLY );
 							}
 						}
 					}
