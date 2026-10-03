@@ -53,7 +53,7 @@ public class EndBlock extends BaseEntityBlock implements BlockItemInterface {
 	@Override
 	public RenderShape getRenderShape( @NotNull BlockState state ) {
 		
-		return RenderShape.ENTITYBLOCK_ANIMATED;
+		return RenderShape.INVISIBLE;
 	}
 	
 	@Nullable

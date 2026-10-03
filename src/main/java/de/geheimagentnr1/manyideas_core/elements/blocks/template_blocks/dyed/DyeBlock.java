@@ -43,7 +43,8 @@ public abstract class DyeBlock extends Block implements BlockItemInterface {
 	@Override
 	public ItemStack getCloneItemStack(
 		@NotNull LevelReader level, @NotNull BlockPos pos,
-		@NotNull BlockState state ) {
+		@NotNull BlockState state,
+		boolean includeData ) {
 		
 		return DyeBlockHelper.getItem( this, state );
 	}
