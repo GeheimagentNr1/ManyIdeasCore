@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
+import net.minecraft.world.item.ItemStackTemplate;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import lombok.Getter;
@@ -24,7 +25,7 @@ public class DyedShapedRecipe extends DyedRecipe {
 	//package-private
 	DyedShapedRecipe(
 		@NotNull ShapedRecipePattern _pattern,
-		@NotNull ItemStack _result ) {
+		@NotNull ItemStackTemplate _result ) {
 
 		super( toNonNullList( _pattern ), _result );
 		pattern = _pattern;

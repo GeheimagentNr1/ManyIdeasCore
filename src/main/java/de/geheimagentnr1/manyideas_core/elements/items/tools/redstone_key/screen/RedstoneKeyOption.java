@@ -1,10 +1,9 @@
 package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen;
 
 import de.geheimagentnr1.manyideas_core.network.RedstoneKeyStateUpdateMsg;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.AbstractContainerEventHandler;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -13,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 
 @SuppressWarnings( "WeakerAccess" )
@@ -78,25 +76,25 @@ public class RedstoneKeyOption extends AbstractContainerEventHandler implements 
 	}
 	
 	@Override
-	public void render( @NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
+	public void extractRenderState( @NotNull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick ) {
 		
-		button.render( guiGraphics, mouseX, mouseY, partialTick );
+		button.extractRenderState( guiGraphics, mouseX, mouseY, partialTick );
 		
 		Font font = Minecraft.getInstance().font;
-		guiGraphics.drawString(
+		guiGraphics.text(
 			font,
 			title,
 			x + 30,
 			y + 2,
-			0xFF000000 | Objects.requireNonNull( ChatFormatting.DARK_GRAY.getColor() ),
+			0xFF555555,//ChatFormatting.DARK_GRAY, getColor() was removed in 26.2
 			false
 		);
-		guiGraphics.drawString(
+		guiGraphics.text(
 			font,
 			description,
 			x + 30,
 			y + 12,
-			0xFF000000 | Objects.requireNonNull( ChatFormatting.WHITE.getColor() ),
+			0xFFFFFFFF,//ChatFormatting.WHITE
 			false
 		);
 	}

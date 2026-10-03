@@ -2,7 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.crafting.IngredientType;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,7 +19,7 @@ public class ColorStackIngredient extends ColorIngredient<ColorStackList> {
 	);
 	
 	//package-private
-	ColorStackIngredient( @NotNull ItemStack _ingrediant ) {
+	ColorStackIngredient( @NotNull Item _ingrediant ) {
 		
 		super( new ColorStackList( _ingrediant ) );
 	}

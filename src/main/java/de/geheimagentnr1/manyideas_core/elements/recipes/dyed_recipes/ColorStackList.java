@@ -2,6 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import de.geheimagentnr1.manyideas_core.util.DyeBlockHelper;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,11 +14,11 @@ public class ColorStackList implements ColorList {
 	
 	
 	@NotNull
-	private final ItemStack itemStack;
+	private final Item item;
 	
-	ColorStackList( @NotNull ItemStack _stack ) {
+	ColorStackList( @NotNull Item _item ) {
 		
-		itemStack = _stack;
+		item = _item;
 	}
 	
 	@NotNull
@@ -31,26 +32,26 @@ public class ColorStackList implements ColorList {
 	@Override
 	public ItemStack getStack( @NotNull Color color ) {
 		
-		return DyeBlockHelper.setColor( itemStack.copy(), color );
+		return DyeBlockHelper.setColor( new ItemStack( item ), color );
 	}
 	
 	@Override
 	public boolean test( @NotNull ItemStack stack ) {
 		
-		return ItemStack.isSameItem( itemStack, stack );
+		return stack.is( item );
 	}
 	
 	//package-private
 	@NotNull
-	ItemStack getItemStack() {
+	Item getItem() {
 		
-		return itemStack;
+		return item;
 	}
 	
 	@NotNull
 	@Override
-	public List<ItemStack> getItems() {
+	public List<Item> getItems() {
 		
-		return Collections.singletonList( itemStack );
+		return Collections.singletonList( item );
 	}
 }

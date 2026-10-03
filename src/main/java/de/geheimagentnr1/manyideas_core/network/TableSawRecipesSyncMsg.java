@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.network;
 
+import net.minecraft.world.item.ItemStackTemplate;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSawRecipe;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSawRecipes;
@@ -11,7 +12,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
@@ -44,7 +44,7 @@ public record TableSawRecipesSyncMsg( @NotNull List<TableSawRecipe> recipes ) im
 			buffer.writeUtf( recipeName( recipe ) );
 			buffer.writeUtf( recipe.getGroup() );
 			Ingredient.CONTENTS_STREAM_CODEC.encode( buffer, recipe.getIngredient() );
-			ItemStack.STREAM_CODEC.encode( buffer, recipe.getResult() );
+			ItemStackTemplate.STREAM_CODEC.encode( buffer, recipe.getResultTemplate() );
 		}
 	}
 	
@@ -57,7 +57,7 @@ public record TableSawRecipesSyncMsg( @NotNull List<TableSawRecipe> recipes ) im
 			String name = buffer.readUtf();
 			String group = buffer.readUtf();
 			Ingredient ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode( buffer );
-			ItemStack result = ItemStack.STREAM_CODEC.decode( buffer );
+			ItemStackTemplate result = ItemStackTemplate.STREAM_CODEC.decode( buffer );
 			switch( name ) {
 				case TableSawStoneRecipe.registry_name ->
 					recipes.add( new TableSawStoneRecipe( group, ingredient, result ) );

@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond;
 
+import net.minecraft.world.item.ItemStackTemplate;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSawRecipe;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersRegisterFactory;
@@ -17,7 +18,7 @@ public class TableSawDiamondRecipe extends TableSawRecipe {
 	public TableSawDiamondRecipe(
 		@NotNull String _group,
 		@NotNull Ingredient _ingredient,
-		@NotNull ItemStack _result ) {
+		@NotNull ItemStackTemplate _result ) {
 		
 		super(
 			ModRecipeTypesRegisterFactory.TABLE_SAWING_DIAMOND,

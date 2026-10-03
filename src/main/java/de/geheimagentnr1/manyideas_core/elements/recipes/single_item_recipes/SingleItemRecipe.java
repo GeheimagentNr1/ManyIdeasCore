@@ -1,5 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes;
 
+import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
@@ -15,9 +17,12 @@ public abstract class SingleItemRecipe implements Recipe<SingleRecipeInput> {
 	@NotNull
 	protected final Ingredient ingredient;
 
-	//package-private
 	@NotNull
-	final ItemStack result;
+	private final ItemStackTemplate result;
+	
+	//Created on first use: since 26.1 recipes are parsed before item components are bound
+	@Nullable
+	private ItemStack resultStack;
 
 	@NotNull
 	private final RecipeType<? extends Recipe<SingleRecipeInput>> type;
@@ -33,7 +38,7 @@ public abstract class SingleItemRecipe implements Recipe<SingleRecipeInput> {
 		@NotNull RecipeSerializer<? extends Recipe<SingleRecipeInput>> _serializer,
 		@NotNull String _group,
 		@NotNull Ingredient _ingredient,
-		@NotNull ItemStack _result ) {
+		@NotNull ItemStackTemplate _result ) {
 
 		type = _type;
 		serializer = _serializer;
@@ -63,9 +68,22 @@ public abstract class SingleItemRecipe implements Recipe<SingleRecipeInput> {
 	}
 
 	@NotNull
+	@Override
+	public String group() {
+
+		return group;
+	}
+
+	@Override
+	public boolean showNotification() {
+
+		return true;
+	}
+
+	@NotNull
 	public ItemStack getResultItem( @NotNull HolderLookup.Provider pRegistries ) {
 
-		return result;
+		return getResult();
 	}
 
 	@NotNull
@@ -99,11 +117,9 @@ public abstract class SingleItemRecipe implements Recipe<SingleRecipeInput> {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(
-		@NotNull SingleRecipeInput pCraftingContainer,
-		@NotNull HolderLookup.Provider pRegistries ) {
+	public ItemStack assemble( @NotNull SingleRecipeInput pCraftingContainer ) {
 
-		return result.copy();
+		return result.create();
 	}
 
 
@@ -113,8 +129,18 @@ public abstract class SingleItemRecipe implements Recipe<SingleRecipeInput> {
 		return ingredient;
 	}
 
+	//Result for display, must not be modified
 	@NotNull
 	public ItemStack getResult() {
+
+		if( resultStack == null ) {
+			resultStack = result.create();
+		}
+		return resultStack;
+	}
+
+	@NotNull
+	public ItemStackTemplate getResultTemplate() {
 
 		return result;
 	}

@@ -6,7 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +14,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 
-public class DyedShapelessRecipeSerializer implements RecipeSerializer<DyedShapelessRecipe> {
+//Since 26.1 RecipeSerializer is a record of codec and stream codec, this class builds it
+public class DyedShapelessRecipeSerializer {
 
 
 	private static final int MAX_INGREDIENTS = 9;
@@ -42,16 +43,20 @@ public class DyedShapelessRecipeSerializer implements RecipeSerializer<DyedShape
 		DyedShapelessRecipeSerializer::toNetwork, DyedShapelessRecipeSerializer::fromNetwork
 	);
 
-	@Override
 	public MapCodec<DyedShapelessRecipe> codec() {
 
 		return SHAPELESS_CODEC;
 	}
 
-	@Override
 	public StreamCodec<RegistryFriendlyByteBuf, DyedShapelessRecipe> streamCodec() {
 
 		return STREAM_CODEC;
+	}
+	
+	@NotNull
+	public RecipeSerializer<DyedShapelessRecipe> createSerializer() {
+		
+		return new RecipeSerializer<>( codec(), streamCodec() );
 	}
 
 	private static DyedShapelessRecipe fromNetwork( @NotNull RegistryFriendlyByteBuf buffer ) {
@@ -63,7 +68,7 @@ public class DyedShapelessRecipeSerializer implements RecipeSerializer<DyedShape
 		}
 		return new DyedShapelessRecipe(
 			ingredients,
-			ItemStack.STREAM_CODEC.decode( buffer )
+			ItemStackTemplate.STREAM_CODEC.decode( buffer )
 		);
 	}
 
@@ -74,6 +79,6 @@ public class DyedShapelessRecipeSerializer implements RecipeSerializer<DyedShape
 		for( Ingredient ingredient : ingredients ) {
 			Ingredient.CONTENTS_STREAM_CODEC.encode( buffer, ingredient );
 		}
-		ItemStack.STREAM_CODEC.encode( buffer, recipe.getResult() );
+		ItemStackTemplate.STREAM_CODEC.encode( buffer, recipe.getResult() );
 	}
 }

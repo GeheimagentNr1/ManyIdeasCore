@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
+import net.minecraft.world.item.ItemStackTemplate;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -36,21 +37,22 @@ public abstract class DyedRecipe implements Recipe<CraftingInput> {
 				: DataResult.error( () -> "Non DyeBlockItem result not allowed here" )
 		);
 	
-	static final Codec<ItemStack> RESULT_CODEC = RecordCodecBuilder.create( builder -> builder.group(
-		DYE_BLOCK_ITEM_CODEC.fieldOf( "item" ).forGetter( ItemStack::getItem ),
-		ExtraCodecs.POSITIVE_INT.fieldOf( "count" ).orElse( 1 ).forGetter( ItemStack::getCount )
-	).apply( builder, ItemStack::new ) );
+	//Since 26.1 recipes are parsed before item components are bound, so the result is an ItemStackTemplate
+	static final Codec<ItemStackTemplate> RESULT_CODEC = RecordCodecBuilder.create( builder -> builder.group(
+		DYE_BLOCK_ITEM_CODEC.fieldOf( "item" ).forGetter( template -> template.item().value() ),
+		ExtraCodecs.POSITIVE_INT.fieldOf( "count" ).orElse( 1 ).forGetter( ItemStackTemplate::count )
+	).apply( builder, ItemStackTemplate::new ) );
 	
 	@NotNull
 	final NonNullList<Ingredient> ingredients;
 	
 	@NotNull
 	@Getter
-	final ItemStack result;
+	final ItemStackTemplate result;
 	
 	DyedRecipe(
 		@NotNull NonNullList<Ingredient> _ingredients,
-		@NotNull ItemStack _result ) {
+		@NotNull ItemStackTemplate _result ) {
 		
 		ingredients = _ingredients;
 		result = _result;
@@ -84,16 +86,29 @@ public abstract class DyedRecipe implements Recipe<CraftingInput> {
 	}
 	
 	@Override
-	public ItemStack assemble( CraftingInput pCraftingContainer, HolderLookup.Provider pRegistries ) {
+	public ItemStack assemble( CraftingInput pCraftingContainer ) {
 		
 		Optional<Color> color = findMatchingColor( pCraftingContainer );
-		return color.map( value -> DyeBlockHelper.setColor( result.copy(), value ) )
+		return color.map( value -> DyeBlockHelper.setColor( result.create(), value ) )
 			.orElse( ItemStack.EMPTY );
 	}
 	
 	public ItemStack getResultItem( HolderLookup.Provider pRegistries ) {
 
-		return result;
+		return result.create();
+	}
+
+	@NotNull
+	@Override
+	public String group() {
+
+		return "";
+	}
+
+	@Override
+	public boolean showNotification() {
+
+		return true;
 	}
 
 	@Override

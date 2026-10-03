@@ -2,6 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.crafting.ICustomIngredient;
@@ -36,7 +37,7 @@ public abstract class ColorIngredient<T extends ColorList> implements ICustomIng
 	@Override
 	public @NotNull Stream<Holder<Item>> items() {
 
-		return ingrediant.getItems().stream().map( ItemStack::getItemHolder );
+		return ingrediant.getItems().stream().map( BuiltInRegistries.ITEM::wrapAsHolder );
 	}
 
 	//package-private

@@ -1,7 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -36,26 +35,22 @@ public class DyeCraftingTableScreen extends AbstractContainerScreen<DyeCraftingT
 	}
 	
 	@Override
-	public void render( @NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
+	public void extractBackground( @NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick ) {
 		
-		super.render( guiGraphics, mouseX, mouseY, partialTick );
-		renderTooltip( guiGraphics, mouseX, mouseY );
-	}
-	
-	@Override
-	protected void renderBg( @NotNull GuiGraphics guiGraphics, float partialTick, int x, int y ) {
-		
-		guiGraphics.blit(
-			RenderPipelines.GUI_TEXTURED,
+		super.extractBackground( graphics, mouseX, mouseY, partialTick );
+		//Overload without RenderPipeline: the RenderPipeline class moved in 26.3
+		int x = leftPos;
+		int y = ( height - imageHeight ) / 2;
+		graphics.blit(
 			CRAFTING_TABLE_GUI_TEXTURES,
-			leftPos,
-			( height - imageHeight ) / 2,
-			0.0f,
-			0.0f,
-			imageWidth,
-			imageHeight,
-			256,
-			256
+			x,
+			y,
+			x + imageWidth,
+			y + imageHeight,
+			0.0F,
+			imageWidth / 256.0F,
+			0.0F,
+			imageHeight / 256.0F
 		);
 	}
 }

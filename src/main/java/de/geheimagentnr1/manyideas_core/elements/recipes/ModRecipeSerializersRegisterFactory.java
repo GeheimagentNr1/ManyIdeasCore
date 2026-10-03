@@ -39,21 +39,21 @@ public class ModRecipeSerializersRegisterFactory extends ElementsRegisterFactory
 	
 	//Dyed
 	
-	public static DyedShapedRecipeSerializer DYED_SHAPED;
+	public static RecipeSerializer<DyedShapedRecipe> DYED_SHAPED;
 	
-	public static DyedShapelessRecipeSerializer DYED_SHAPELESS;
+	public static RecipeSerializer<DyedShapelessRecipe> DYED_SHAPELESS;
 	
 	//Grinding
 	
-	public static GrindingRecipeSerializer GRINDING;
+	public static RecipeSerializer<GrindingRecipe> GRINDING;
 	
 	//Tablesawing
 	
-	public static TableSawDiamondRecipeSerializer TABLE_SAWING_DIAMOND;
+	public static RecipeSerializer<TableSawDiamondRecipe> TABLE_SAWING_DIAMOND;
 	
-	public static TableSawIronRecipeSerializer TABLE_SAWING_IRON;
+	public static RecipeSerializer<TableSawIronRecipe> TABLE_SAWING_IRON;
 	
-	public static TableSawStoneRecipeSerializer TABLE_SAWING_STONE;
+	public static RecipeSerializer<TableSawStoneRecipe> TABLE_SAWING_STONE;
 	
 	@NotNull
 	@Override
@@ -65,12 +65,12 @@ public class ModRecipeSerializersRegisterFactory extends ElementsRegisterFactory
 	private void initializeStaticFields() {
 		
 		if( DYED_SHAPED == null ) {
-			DYED_SHAPED = new DyedShapedRecipeSerializer();
-			DYED_SHAPELESS = new DyedShapelessRecipeSerializer();
-			GRINDING = new GrindingRecipeSerializer();
-			TABLE_SAWING_DIAMOND = new TableSawDiamondRecipeSerializer();
-			TABLE_SAWING_IRON = new TableSawIronRecipeSerializer();
-			TABLE_SAWING_STONE = new TableSawStoneRecipeSerializer();
+			DYED_SHAPED = new DyedShapedRecipeSerializer().createSerializer();
+			DYED_SHAPELESS = new DyedShapelessRecipeSerializer().createSerializer();
+			GRINDING = new GrindingRecipeSerializer().createSerializer();
+			TABLE_SAWING_DIAMOND = new TableSawDiamondRecipeSerializer().createSerializer();
+			TABLE_SAWING_IRON = new TableSawIronRecipeSerializer().createSerializer();
+			TABLE_SAWING_STONE = new TableSawStoneRecipeSerializer().createSerializer();
 		}
 	}
 	

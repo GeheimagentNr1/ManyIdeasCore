@@ -194,10 +194,7 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 			outputInventorySlot.set( ItemStack.EMPTY );
 		} else {
 			TableSawRecipe tableSawRecipe = recipes.get( selectedRecipe.get() );
-			outputInventorySlot.set( tableSawRecipe.assemble(
-				createRecipeInput( inputInventory ),
-				level.registryAccess()
-			) );
+			outputInventorySlot.set( tableSawRecipe.assemble( createRecipeInput( inputInventory ) ) );
 		}
 		broadcastChanges();
 	}

@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
+import net.minecraft.world.item.ItemStackTemplate;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
 import net.minecraft.core.NonNullList;
@@ -26,7 +27,7 @@ public class DyedShapelessRecipe extends DyedRecipe {
 	//package-private
 	DyedShapelessRecipe(
 		@NotNull NonNullList<Ingredient> _ingredients,
-		@NotNull ItemStack _result ) {
+		@NotNull ItemStackTemplate _result ) {
 
 		super( _ingredients, _result );
 	}

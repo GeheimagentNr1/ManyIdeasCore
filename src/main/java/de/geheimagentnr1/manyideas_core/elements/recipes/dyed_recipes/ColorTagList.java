@@ -14,19 +14,14 @@ public class ColorTagList implements ColorList {
 	
 	
 	@NotNull
-	private final TreeMap<ItemStack, Color> stacks;
-	
-	ColorTagList( @NotNull TreeMap<ItemStack, Color> _stacks ) {
-		
-		stacks = _stacks;
-	}
+	private final TreeMap<Item, Color> items;
 	
 	ColorTagList( @NotNull Map<Color, Item> colors ) {
 		
-		stacks = new TreeMap<>( Comparator.comparing( o -> BuiltInRegistries.ITEM.getKey( o.getItem() ) ) );
+		items = new TreeMap<>( Comparator.comparing( BuiltInRegistries.ITEM::getKey ) );
 		colors.forEach( ( color, item ) -> {
 			if( item != Items.AIR ) {
-				stacks.put( new ItemStack( item ), color );
+				items.put( item, color );
 			}
 		} );
 	}
@@ -34,16 +29,16 @@ public class ColorTagList implements ColorList {
 	@Override
 	public Color getColor( @NotNull ItemStack stack ) {
 		
-		return stacks.get( stack );
+		return items.get( stack.getItem() );
 	}
 	
 	@NotNull
 	@Override
 	public ItemStack getStack( @NotNull Color color ) {
 		
-		for( Map.Entry<ItemStack, Color> entry : stacks.entrySet() ) {
+		for( Map.Entry<Item, Color> entry : items.entrySet() ) {
 			if( entry.getValue() == color ) {
-				return entry.getKey().copy();
+				return new ItemStack( entry.getKey() );
 			}
 		}
 		return ItemStack.EMPTY;
@@ -52,28 +47,21 @@ public class ColorTagList implements ColorList {
 	@Override
 	public boolean test( @NotNull ItemStack stack ) {
 		
-		return stacks.keySet().stream().anyMatch( s -> ItemStack.isSameItem( s, stack ) );
-	}
-	
-	//package-private
-	@NotNull
-	TreeMap<ItemStack, Color> getColorStacks() {
-		
-		return stacks;
+		return items.containsKey( stack.getItem() );
 	}
 	
 	@NotNull
 	public Map<Color, Item> getStackColors() {
 		
 		Map<Color, Item> colors = new EnumMap<>( Color.class );
-		stacks.forEach( ( stack, color ) -> colors.put( color, stack.getItem() ) );
+		items.forEach( ( item, color ) -> colors.put( color, item ) );
 		return colors;
 	}
 	
 	@NotNull
 	@Override
-	public List<ItemStack> getItems() {
+	public List<Item> getItems() {
 		
-		return new ArrayList<>( stacks.keySet() );
+		return new ArrayList<>( items.keySet() );
 	}
 }

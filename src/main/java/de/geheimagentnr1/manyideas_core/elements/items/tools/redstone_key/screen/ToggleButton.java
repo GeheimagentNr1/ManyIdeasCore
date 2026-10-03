@@ -2,8 +2,7 @@ package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.scree
 
 import net.minecraft.client.input.InputWithModifiers;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
@@ -46,7 +45,7 @@ public class ToggleButton extends AbstractButton {
 	}
 
 	@Override
-	public void renderContents( @NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
+	protected void extractContents( @NotNull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick ) {
 
 		int textureStartindex = 0;
 
@@ -61,8 +60,9 @@ public class ToggleButton extends AbstractButton {
 		} else {
 			textureStartindex = 2;
 		}
-		guiGraphics.blit( RenderPipelines.GUI_TEXTURED, TOGGLE_BUTTON, getX(), getY(), (float)( width * textureStartindex ), 0.0f, width, height, 128, 32 );
-		guiGraphics.blit( RenderPipelines.GUI_TEXTURED, icon_textures, getX() + 3, getY() + 3, (float)( iconIndex << 4 ), 0.0f, 16, 16, 64, 16 );
+		//blit overload without RenderPipeline (the RenderPipeline class moved in 26.3), UVs normalized
+		guiGraphics.blit( TOGGLE_BUTTON, getX(), getY(), getX() + width, getY() + height, width * textureStartindex / 128.0F, width * ( textureStartindex + 1 ) / 128.0F, 0.0F, height / 32.0F );
+		guiGraphics.blit( icon_textures, getX() + 3, getY() + 3, getX() + 19, getY() + 19, ( iconIndex << 4 ) / 64.0F, ( ( iconIndex << 4 ) + 16 ) / 64.0F, 0.0F, 1.0F );
 	}
 
 	@Override

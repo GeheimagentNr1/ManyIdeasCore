@@ -96,7 +96,7 @@ public class DyeCraftingTableMenu extends AbstractContainerMenu {
 				RecipeHolder<DyedRecipe> recipeholder = dyedRecipeHolderOptional.get();
 				DyedRecipe dyedRecipe = recipeholder.value();
 				resultContainer.setRecipeUsed( recipeholder );
-				ItemStack assembledStack = dyedRecipe.assemble( craftingInput, level.registryAccess() );
+				ItemStack assembledStack = dyedRecipe.assemble( craftingInput );
 				if( assembledStack.isItemEnabled( level.enabledFeatures() ) ) {
 					resultStack = assembledStack;
 				}

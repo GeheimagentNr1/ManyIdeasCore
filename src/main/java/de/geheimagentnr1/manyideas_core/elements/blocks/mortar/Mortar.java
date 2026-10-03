@@ -97,7 +97,7 @@ public class Mortar extends Block implements BlockItemInterface {
 		);
 
 		if( recipe.isPresent() ) {
-			ItemStack result_stack = recipe.get().value().assemble( craftingInventory, pLevel.registryAccess() );
+			ItemStack result_stack = recipe.get().value().assemble( craftingInventory );
 			pStack.shrink( 1 );
 			if( !pPlayer.addItem( result_stack ) ) {
 				pPlayer.drop( result_stack, false );

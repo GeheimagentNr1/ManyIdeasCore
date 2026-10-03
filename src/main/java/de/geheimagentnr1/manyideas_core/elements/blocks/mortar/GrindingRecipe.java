@@ -1,5 +1,6 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.mortar;
 
+import net.minecraft.world.item.ItemStackTemplate;
 import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeSerializersRegisterFactory;
 import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
@@ -21,7 +22,7 @@ public class GrindingRecipe extends SingleItemRecipe {
 	public GrindingRecipe(
 		@NotNull String _group,
 		@NotNull Ingredient _ingredient,
-		@NotNull ItemStack _result ) {
+		@NotNull ItemStackTemplate _result ) {
 		
 		super(
 			ModRecipeTypesRegisterFactory.GRINDING,

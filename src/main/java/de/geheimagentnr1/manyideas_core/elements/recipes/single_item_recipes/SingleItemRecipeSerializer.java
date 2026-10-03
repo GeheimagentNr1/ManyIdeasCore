@@ -9,7 +9,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.NotNull;
@@ -17,13 +17,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Function;
 
 
-public class SingleItemRecipeSerializer<T extends SingleItemRecipe> implements RecipeSerializer<T> {
+//Since 26.1 RecipeSerializer is a record of codec and stream codec, this class builds it
+public class SingleItemRecipeSerializer<T extends SingleItemRecipe> {
 	
-	
-	private static final MapCodec<ItemStack> RESULT_CODEC = RecordCodecBuilder.mapCodec( builder -> builder.group(
-		BuiltInRegistries.ITEM.byNameCodec().fieldOf( "result" ).forGetter( ItemStack::getItem ),
-		ExtraCodecs.POSITIVE_INT.fieldOf( "count" ).orElse( 1 ).forGetter( ItemStack::getCount )
-	).apply( builder, ItemStack::new ) );
 	
 	@NotNull
 	private final ISingleItemRecipeFactory<T> factory;
@@ -38,26 +34,30 @@ public class SingleItemRecipeSerializer<T extends SingleItemRecipe> implements R
 		codec = RecordCodecBuilder.mapCodec( ( builder ) -> builder.group(
 			Codec.STRING.optionalFieldOf( "group", "" ).forGetter( SingleItemRecipe::getGroup ),
 			Ingredient.CODEC.fieldOf( "ingredient" ).forGetter( SingleItemRecipe::getIngredient ),
-			BuiltInRegistries.ITEM.byNameCodec().fieldOf( "result" ).forGetter( recipe -> recipe.getResult().getItem() ),
-			ExtraCodecs.POSITIVE_INT.fieldOf( "count" ).orElse( 1 ).forGetter( recipe -> recipe.getResult().getCount() )
+			BuiltInRegistries.ITEM.byNameCodec().fieldOf( "result" ).forGetter( recipe -> recipe.getResultTemplate().item().value() ),
+			ExtraCodecs.POSITIVE_INT.fieldOf( "count" ).orElse( 1 ).forGetter( recipe -> recipe.getResultTemplate().count() )
 		).apply( builder, factory::create ) );
 		this.streamCodec = StreamCodec.composite(
 			ByteBufCodecs.STRING_UTF8, SingleItemRecipe::getGroup,
 			Ingredient.CONTENTS_STREAM_CODEC, SingleItemRecipe::getIngredient,
-			ItemStack.STREAM_CODEC, SingleItemRecipe::getResult,
+			ItemStackTemplate.STREAM_CODEC, SingleItemRecipe::getResultTemplate,
 			factory::create
 		);
 	}
 	
-	@Override
 	public MapCodec<T> codec() {
 		
 		return codec;
 	}
 	
-	@Override
 	public StreamCodec<RegistryFriendlyByteBuf, T> streamCodec() {
 		
 		return streamCodec;
+	}
+	
+	@NotNull
+	public RecipeSerializer<T> createSerializer() {
+		
+		return new RecipeSerializer<>( codec, streamCodec );
 	}
 }

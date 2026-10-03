@@ -3,8 +3,7 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 import net.minecraft.client.input.MouseButtonEvent;
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -50,21 +49,38 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 		--titleLabelY;
 	}
 	
-	@Override
-	public void render( @NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
+	//blit overload without RenderPipeline (the RenderPipeline class moved in 26.3), UVs from pixels of a 256x256 texture
+	private static void blit(
+		@NotNull GuiGraphicsExtractor graphics,
+		int x,
+		int y,
+		float u,
+		float v,
+		int width,
+		int height ) {
 		
-		super.render( guiGraphics, mouseX, mouseY, partialTick );
-		renderTooltip( guiGraphics, mouseX, mouseY );
+		graphics.blit(
+			BACKGROUND_TEXTURE,
+			x,
+			y,
+			x + width,
+			y + height,
+			u / 256.0F,
+			( u + width ) / 256.0F,
+			v / 256.0F,
+			( v + height ) / 256.0F
+		);
 	}
 	
 	@Override
-	protected void renderBg( @NotNull GuiGraphics guiGraphics, float partialTick, int x, int y ) {
+	public void extractBackground( @NotNull GuiGraphicsExtractor guiGraphics, int x, int y, float partialTick ) {
 		
+		super.extractBackground( guiGraphics, x, y, partialTick );
 		int i = leftPos;
 		int j = topPos;
-		guiGraphics.blit( RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, i, j, 0.0f, 0.0f, imageWidth, imageHeight, 256, 256 );
+		blit( guiGraphics, i, j, 0.0f, 0.0f, imageWidth, imageHeight );
 		int k = (int)( 41.0F * scrollOffs );
-		guiGraphics.blit( RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, i + 119, j + 15 + k, (float)( 176 + ( isScrollBarActive() ? 0 : 12 ) ), 0.0f, 12, 15, 256, 256 );
+		blit( guiGraphics, i + 119, j + 15 + k, (float)( 176 + ( isScrollBarActive() ? 0 : 12 ) ), 0.0f, 12, 15 );
 		int l = leftPos + 52;
 		int i1 = topPos + 14;
 		int j1 = startIndex + 12;
@@ -73,9 +89,9 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 	}
 	
 	@Override
-	protected void renderTooltip( @NotNull GuiGraphics guiGraphics, int x, int y ) {
+	protected void extractTooltip( @NotNull GuiGraphicsExtractor guiGraphics, int x, int y ) {
 		
-		super.renderTooltip( guiGraphics, x, y );
+		super.extractTooltip( guiGraphics, x, y );
 		if( displayRecipes ) {
 			int i = leftPos + 52;
 			int j = topPos + 14;
@@ -101,7 +117,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 	}
 	
 	private void renderButtons(
-		@NotNull GuiGraphics guiGraphics,
+		@NotNull GuiGraphicsExtractor guiGraphics,
 		int mouseX,
 		int mouseY,
 		int left,
@@ -122,12 +138,12 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 				}
 			}
 			
-			guiGraphics.blit( RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, k, i1 - 1, 0.0f, (float) j1, 16, 18, 256, 256 );
+			blit( guiGraphics, k, i1 - 1, 0.0f, (float) j1, 16, 18 );
 		}
 		
 	}
 	
-	private void renderRecipes( @NotNull GuiGraphics guiGraphics, int left, int top, int recipeIndexOffsetMax ) {
+	private void renderRecipes( @NotNull GuiGraphicsExtractor guiGraphics, int left, int top, int recipeIndexOffsetMax ) {
 		
 		List<TableSawRecipe> list = menu.getRecipes();
 		
@@ -136,7 +152,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 			int k = left + ( j % 4 << 4 );
 			int l = j / 4;
 			int i1 = top + l * 18 + 2;
-			guiGraphics.renderItem( list.get( i ).getResult(), k, i1 );
+			guiGraphics.item( list.get( i ).getResult(), k, i1 );
 		}
 		
 	}
