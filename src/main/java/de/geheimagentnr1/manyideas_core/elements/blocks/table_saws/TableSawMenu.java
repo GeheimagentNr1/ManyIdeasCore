@@ -16,6 +16,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -178,7 +179,8 @@ public abstract class TableSawMenu extends AbstractContainerMenu {
 		selectedRecipe.set( -1 );
 		outputInventorySlot.set( ItemStack.EMPTY );
 		if( !stack.isEmpty() ) {
-			recipes = getAvaiableRecipes( inventory, level );
+			//copy: the recipe lookup returns an immutable list, but the list is cleared on the next slot change
+			recipes = new ArrayList<>( getAvaiableRecipes( inventory, level ) );
 		}
 	}
 	
