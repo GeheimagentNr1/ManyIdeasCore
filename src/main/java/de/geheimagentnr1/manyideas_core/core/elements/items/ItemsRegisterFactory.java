@@ -5,7 +5,7 @@ import de.geheimagentnr1.manyideas_core.core.registry.RegistryEntry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -57,7 +57,7 @@ public abstract class ItemsRegisterFactory implements ModEventHandlerInterface {
 			items.clear();
 			items.addAll( items() );
 			for( RegistryEntry<Item> entry : items ) {
-				ResourceLocation rl = entry.getResourceLocation( modId );
+				Identifier rl = entry.getResourceLocation( modId );
 				if( entry.hasFactory() ) {
 					entry.build( ResourceKey.create( Registries.ITEM, rl ) );
 				}

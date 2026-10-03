@@ -17,7 +17,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -278,7 +278,7 @@ public abstract class BigDoor extends MultiBlock implements RedstoneKeyable {
 	}
 	
 	@Override
-	public ResourceLocation getIconTextures() {
+	public Identifier getIconTextures() {
 		
 		return OpenedByHelper.ICON_TEXTURES;
 	}

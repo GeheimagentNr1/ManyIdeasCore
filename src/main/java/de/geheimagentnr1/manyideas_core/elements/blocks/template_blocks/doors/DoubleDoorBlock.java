@@ -13,7 +13,7 @@ import de.geheimagentnr1.manyideas_core.core.elements.blocks.BlockItemInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -139,7 +139,7 @@ public abstract class DoubleDoorBlock extends DoorBlock implements RedstoneKeyab
 	
 	@NotNull
 	@Override
-	public ResourceLocation getIconTextures() {
+	public Identifier getIconTextures() {
 		
 		return OpenedByHelper.ICON_TEXTURES;
 	}

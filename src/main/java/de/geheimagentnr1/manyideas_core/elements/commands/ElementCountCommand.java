@@ -8,7 +8,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -84,7 +84,7 @@ class ElementCountCommand implements CommandInterface {
 		@NotNull TreeSet<String> names,
 		@NotNull TreeMap<String, Integer> counts ) {
 		
-		ResourceLocation resourceLocation = registry.getKey( element );
+		Identifier resourceLocation = registry.getKey( element );
 		if( resourceLocation != null ) {
 			Integer block_count = counts.get( resourceLocation.getNamespace() );
 			if( block_count == null ) {

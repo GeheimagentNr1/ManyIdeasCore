@@ -4,7 +4,7 @@ import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.interf
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -22,7 +22,7 @@ public class RedstoneKeyNamedContainerProvider implements MenuProvider {
 	private final Component displayName;
 	
 	@NotNull
-	private final ResourceLocation icons;
+	private final Identifier icons;
 	
 	@NotNull
 	private final BlockPos pos;
@@ -37,7 +37,7 @@ public class RedstoneKeyNamedContainerProvider implements MenuProvider {
 	
 	public RedstoneKeyNamedContainerProvider(
 		@NotNull Component _displayName,
-		@NotNull ResourceLocation _icons,
+		@NotNull Identifier _icons,
 		@NotNull BlockPos _pos,
 		@NotNull RedstoneKeyable _redstoneKeyableBlock,
 		@NotNull List<Option> _options,

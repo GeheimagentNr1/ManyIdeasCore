@@ -1,7 +1,7 @@
 package de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.crafting.IngredientType;
 import org.jetbrains.annotations.NotNull;

@@ -6,7 +6,7 @@ import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
@@ -24,7 +24,7 @@ public class RedstoneKeyContainer extends AbstractContainerMenu {
 	
 	
 	@NotNull
-	private final ResourceLocation icons;
+	private final Identifier icons;
 	
 	@NotNull
 	private final BlockPos pos;
@@ -39,7 +39,7 @@ public class RedstoneKeyContainer extends AbstractContainerMenu {
 	
 	public RedstoneKeyContainer(
 		int windowId,
-		@NotNull ResourceLocation _icons,
+		@NotNull Identifier _icons,
 		@NotNull BlockPos _pos,
 		@NotNull RedstoneKeyable _redstoneKeyableBlock,
 		@NotNull List<Option> _options,
@@ -56,7 +56,7 @@ public class RedstoneKeyContainer extends AbstractContainerMenu {
 	public RedstoneKeyContainer( int windowId, @NotNull FriendlyByteBuf data ) {
 		
 		super( ModItemsRegisterFactory.RESTONE_KEY_CONTAINER, windowId );
-		icons = data.readResourceLocation();
+		icons = data.readIdentifier();
 		pos = data.readBlockPos();
 		redstoneKeyableBlock = (RedstoneKeyable)Objects.requireNonNull( Minecraft.getInstance().level )
 			.getBlockState( pos )
@@ -83,7 +83,7 @@ public class RedstoneKeyContainer extends AbstractContainerMenu {
 	}
 	
 	@NotNull
-	public ResourceLocation getIcons() {
+	public Identifier getIcons() {
 		
 		return icons;
 	}

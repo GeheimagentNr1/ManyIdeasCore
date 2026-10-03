@@ -8,7 +8,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +21,7 @@ public record RedstoneKeyStateUpdateMsg( int stateIndex ) implements CustomPacke
 	
 	@NotNull
 	public static final CustomPacketPayload.Type<RedstoneKeyStateUpdateMsg> TYPE = new CustomPacketPayload.Type<>(
-		ResourceLocation.fromNamespaceAndPath( ManyIdeasCore.MODID, "redstone_key_state_update" )
+		Identifier.fromNamespaceAndPath( ManyIdeasCore.MODID, "redstone_key_state_update" )
 	);
 	
 	@NotNull

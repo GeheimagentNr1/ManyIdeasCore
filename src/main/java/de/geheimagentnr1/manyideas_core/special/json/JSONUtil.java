@@ -3,7 +3,7 @@ package de.geheimagentnr1.manyideas_core.special.json;
 import com.google.gson.*;
 import com.mojang.serialization.JsonOps;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.ResourceLocationException;
+import net.minecraft.IdentifierException;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.item.ItemStack;
@@ -28,7 +28,7 @@ public class JSONUtil {
 			ItemStack stack = ItemStack.CODEC.parse( registryops, normalizedJson ).getOrThrow( JsonParseException::new );
 			stack.setCount( 1 );
 			return stack;
-		} catch( ResourceLocationException | JsonSyntaxException exception ) {
+		} catch( IdentifierException | JsonSyntaxException exception ) {
 			log.error( "Failed to load ItemStack", exception );
 			return ItemStack.EMPTY;
 		}

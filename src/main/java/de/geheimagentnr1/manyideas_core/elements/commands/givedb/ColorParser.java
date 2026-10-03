@@ -8,7 +8,7 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import de.geheimagentnr1.manyideas_core.elements.block_state_properties.Color;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
@@ -65,7 +65,7 @@ class ColorParser {
 	private void readColor() throws CommandSyntaxException {
 		
 		int cursor = reader.getCursor();
-		ResourceLocation resourceLocation = ResourceLocation.read( reader );
+		Identifier resourceLocation = Identifier.read( reader );
 		dyeColor = getItemForRegistry( resourceLocation ).orElseThrow( () -> {
 			reader.setCursor( cursor );
 			return COLOR_INVALID.createWithContext( reader, resourceLocation.toString() );
@@ -73,7 +73,7 @@ class ColorParser {
 	}
 	
 	@NotNull
-	private Optional<Color> getItemForRegistry( @NotNull ResourceLocation resourceLocation ) {
+	private Optional<Color> getItemForRegistry( @NotNull Identifier resourceLocation ) {
 		
 		for( Color dye_color : Color.values() ) {
 			if( dye_color.name().equals( resourceLocation.getPath().toUpperCase( Locale.ENGLISH ) ) ) {

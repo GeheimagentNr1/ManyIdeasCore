@@ -9,7 +9,7 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.dyed.Dye
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,7 +36,7 @@ class DyeItemParser {
 		SuggestionsBuilder::buildFuture;
 	
 	@NotNull
-	private static final Set<ResourceLocation> KEY_SET = getDyeItemKeySet();
+	private static final Set<Identifier> KEY_SET = getDyeItemKeySet();
 	
 	@NotNull
 	private final StringReader reader;
@@ -54,9 +54,9 @@ class DyeItemParser {
 	
 	@SuppressWarnings( "deprecation" )
 	@NotNull
-	private static Set<ResourceLocation> getDyeItemKeySet() {
+	private static Set<Identifier> getDyeItemKeySet() {
 		
-		Set<ResourceLocation> keySet = new TreeSet<>();
+		Set<Identifier> keySet = new TreeSet<>();
 		
 		for( Item item : BuiltInRegistries.ITEM ) {
 			if( item instanceof DyeBlockItem ) {
@@ -74,7 +74,7 @@ class DyeItemParser {
 	private void readItem() throws CommandSyntaxException {
 		
 		int cursor = reader.getCursor();
-		ResourceLocation resourceLocation = ResourceLocation.read( reader );
+		Identifier resourceLocation = Identifier.read( reader );
 		item = getItemForRegistry( resourceLocation ).orElseThrow( () -> {
 			reader.setCursor( cursor );
 			return ITEM_BAD_ID.createWithContext( reader, resourceLocation.toString() );
@@ -83,7 +83,7 @@ class DyeItemParser {
 	
 	@SuppressWarnings( "deprecation" )
 	@NotNull
-	private Optional<Item> getItemForRegistry( @NotNull ResourceLocation resourceLocation ) {
+	private Optional<Item> getItemForRegistry( @NotNull Identifier resourceLocation ) {
 		
 		Optional<Item> optional = BuiltInRegistries.ITEM.getOptional( resourceLocation );
 		

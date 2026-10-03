@@ -4,7 +4,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -16,7 +16,7 @@ public class DyeCraftingTableScreen extends AbstractContainerScreen<DyeCraftingT
 	
 	
 	@NotNull
-	private static final ResourceLocation CRAFTING_TABLE_GUI_TEXTURES = ResourceLocation.withDefaultNamespace(
+	private static final Identifier CRAFTING_TABLE_GUI_TEXTURES = Identifier.withDefaultNamespace(
 		"textures/gui/container/crafting_table.png"
 	);
 	

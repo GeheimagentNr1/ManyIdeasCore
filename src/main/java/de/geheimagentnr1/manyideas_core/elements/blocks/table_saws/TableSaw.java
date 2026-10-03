@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
@@ -44,7 +44,7 @@ public abstract class TableSaw extends Block implements BlockItemInterface {
 	@NotNull
 	private static final ResourceKey<DamageType> SAW = ResourceKey.create(
 		Registries.DAMAGE_TYPE,
-		ResourceLocation.fromNamespaceAndPath( ManyIdeasCore.MODID, "table_saw" )
+		Identifier.fromNamespaceAndPath( ManyIdeasCore.MODID, "table_saw" )
 	);
 	
 	@NotNull

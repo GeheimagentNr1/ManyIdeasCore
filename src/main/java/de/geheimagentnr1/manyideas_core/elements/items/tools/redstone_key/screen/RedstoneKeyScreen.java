@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,7 +19,7 @@ public class RedstoneKeyScreen extends AbstractContainerScreen<RedstoneKeyContai
 	
 	
 	@NotNull
-	private static final ResourceLocation REDSTONE_KEY_GUI_TEXTURE = ResourceLocation.fromNamespaceAndPath(
+	private static final Identifier REDSTONE_KEY_GUI_TEXTURE = Identifier.fromNamespaceAndPath(
 		ManyIdeasCore.MODID,
 		"textures/gui/redstone_key/redstone_key_gui.png"
 	);

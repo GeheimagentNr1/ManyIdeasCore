@@ -26,7 +26,7 @@ public abstract class CreativeModeTabRegisterFactory implements ModEventHandlerI
 		event.register( Registries.CREATIVE_MODE_TAB, helper -> {
 			for( CreativeModeTabFactory factory : factories() ) {
 				helper.register(
-					net.minecraft.resources.ResourceLocation.fromNamespaceAndPath( "manyideas_core", factory.getRegistryName() ),
+					net.minecraft.resources.Identifier.fromNamespaceAndPath( "manyideas_core", factory.getRegistryName() ),
 					CreativeModeTab.builder()
 						.title( Component.translatable( "itemGroup." + factory.getRegistryName() ) )
 						.icon( () -> new ItemStack( factory.getIconItem() ) )

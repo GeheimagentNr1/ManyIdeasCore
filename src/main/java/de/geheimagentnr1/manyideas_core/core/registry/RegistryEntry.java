@@ -1,7 +1,7 @@
 package de.geheimagentnr1.manyideas_core.core.registry;
 
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -76,9 +76,9 @@ public class RegistryEntry<T> {
 	}
 
 	@NotNull
-	public ResourceLocation getResourceLocation( @NotNull String namespace ) {
+	public Identifier getResourceLocation( @NotNull String namespace ) {
 
-		return ResourceLocation.fromNamespaceAndPath( namespace, name );
+		return Identifier.fromNamespaceAndPath( namespace, name );
 	}
 
 	@NotNull

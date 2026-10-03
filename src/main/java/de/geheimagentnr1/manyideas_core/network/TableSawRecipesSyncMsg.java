@@ -9,7 +9,7 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSa
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -28,7 +28,7 @@ public record TableSawRecipesSyncMsg( @NotNull List<TableSawRecipe> recipes ) im
 	
 	@NotNull
 	public static final CustomPacketPayload.Type<TableSawRecipesSyncMsg> TYPE = new CustomPacketPayload.Type<>(
-		ResourceLocation.fromNamespaceAndPath( ManyIdeasCore.MODID, "table_saw_recipes_sync" )
+		Identifier.fromNamespaceAndPath( ManyIdeasCore.MODID, "table_saw_recipes_sync" )
 	);
 	
 	@NotNull

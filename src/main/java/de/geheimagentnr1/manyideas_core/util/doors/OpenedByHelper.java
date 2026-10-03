@@ -6,7 +6,7 @@ import de.geheimagentnr1.manyideas_core.elements.block_state_properties.OpenedBy
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
 import de.geheimagentnr1.manyideas_core.core.util.TranslationKeyHelper;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +22,7 @@ public class OpenedByHelper {
 		TranslationKeyHelper.generateMessageTranslationTextComponent( ManyIdeasCore.MODID, "opened_by" );
 	
 	@NotNull
-	public static final ResourceLocation ICON_TEXTURES = ResourceLocation.fromNamespaceAndPath(
+	public static final Identifier ICON_TEXTURES = Identifier.fromNamespaceAndPath(
 		ManyIdeasCore.MODID,
 		"textures/gui/redstone_key/icons/icons_doors.png"
 	);

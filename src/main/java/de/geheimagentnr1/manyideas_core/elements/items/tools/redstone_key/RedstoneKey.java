@@ -6,7 +6,7 @@ import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.screen.RedstoneKeyNamedContainerProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -43,7 +43,7 @@ public class RedstoneKey extends Item {
 		if( block instanceof RedstoneKeyable redstoneKeyableBlock ) {
 			if( !level.isClientSide() && player != null ) {
 				Component title = redstoneKeyableBlock.getTitle();
-				ResourceLocation icons = redstoneKeyableBlock.getIconTextures();
+				Identifier icons = redstoneKeyableBlock.getIconTextures();
 				List<Option> options = redstoneKeyableBlock.getOptions();
 				int stateIndex = redstoneKeyableBlock.getStateIndex( state );
 				
@@ -58,7 +58,7 @@ public class RedstoneKey extends Item {
 							stateIndex
 						),
 						packetBuffer -> {
-							packetBuffer.writeResourceLocation( icons );
+							packetBuffer.writeIdentifier( icons );
 							packetBuffer.writeBlockPos( pos );
 							packetBuffer.writeInt( options.size() );
 							options.forEach( option -> {

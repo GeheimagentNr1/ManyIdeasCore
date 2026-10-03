@@ -8,7 +8,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
@@ -25,7 +25,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 	
 	
 	@NotNull
-	private static final ResourceLocation BACKGROUND_TEXTURE = ResourceLocation.fromNamespaceAndPath(
+	private static final Identifier BACKGROUND_TEXTURE = Identifier.fromNamespaceAndPath(
 		ManyIdeasCore.MODID,
 		"textures/gui/table_saws/table_saw_gui.png"
 	);

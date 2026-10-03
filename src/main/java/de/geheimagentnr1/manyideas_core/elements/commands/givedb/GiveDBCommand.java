@@ -26,7 +26,7 @@ public class GiveDBCommand implements CommandInterface {
 	public LiteralArgumentBuilder<CommandSourceStack> build() {
 		
 		LiteralArgumentBuilder<CommandSourceStack> givedbCommand =
-			Commands.literal( "givedb" ).requires( commandSource -> commandSource.hasPermission( 2 ) );
+			Commands.literal( "givedb" ).requires( Commands.hasPermission( Commands.LEVEL_GAMEMASTERS ) );
 		givedbCommand.executes( command -> {
 			command.getSource()
 				.sendSuccess( () -> Component.literal( "/givedb <target> <name of a dye block> <color>" ), true );

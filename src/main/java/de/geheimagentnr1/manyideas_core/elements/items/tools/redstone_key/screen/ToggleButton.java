@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
@@ -17,13 +17,13 @@ public class ToggleButton extends AbstractButton {
 
 
 	@NotNull
-	private static final ResourceLocation TOGGLE_BUTTON = ResourceLocation.fromNamespaceAndPath(
+	private static final Identifier TOGGLE_BUTTON = Identifier.fromNamespaceAndPath(
 		ManyIdeasCore.MODID,
 		"textures/gui/redstone_key/toggle_button.png"
 	);
 
 	@NotNull
-	private final ResourceLocation icon_textures;
+	private final Identifier icon_textures;
 
 	private final int iconIndex;
 
@@ -35,7 +35,7 @@ public class ToggleButton extends AbstractButton {
 	public ToggleButton(
 		int _x,
 		int _y,
-		@NotNull ResourceLocation _icon_textures,
+		@NotNull Identifier _icon_textures,
 		int _iconIndex,
 		@NotNull Consumer<Boolean> _onPress ) {
 
@@ -46,7 +46,7 @@ public class ToggleButton extends AbstractButton {
 	}
 
 	@Override
-	public void renderWidget( @NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
+	public void renderContents( @NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
 
 		int textureStartindex = 0;
 

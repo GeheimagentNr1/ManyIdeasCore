@@ -8,7 +8,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.AbstractContainerEventHandler;
 import net.minecraft.client.gui.components.events.GuiEventListener;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -28,7 +28,7 @@ public class RedstoneKeyOption extends AbstractContainerEventHandler implements 
 	private final int y;
 	
 	@NotNull
-	private final ResourceLocation icons;
+	private final Identifier icons;
 	
 	private final int stateIndex;
 	
@@ -44,7 +44,7 @@ public class RedstoneKeyOption extends AbstractContainerEventHandler implements 
 		@NotNull RedstoneKeyScreen _parent,
 		int _x,
 		int _y,
-		@NotNull ResourceLocation _icons,
+		@NotNull Identifier _icons,
 		int _stateIndex,
 		@NotNull String _title,
 		@NotNull String _description ) {
