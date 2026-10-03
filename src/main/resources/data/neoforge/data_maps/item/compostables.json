@@ -1,0 +1,22 @@
+{
+	"values": {
+		"manyideas_core:flower_straight_allium": {
+			"chance": 0.65
+		},
+		"manyideas_core:flower_straight_orchid_blue": {
+			"chance": 0.65
+		},
+		"manyideas_core:flower_tall_straight_lilac": {
+			"chance": 0.65
+		},
+		"manyideas_core:flower_tall_straight_peony": {
+			"chance": 0.65
+		},
+		"manyideas_core:flower_tall_straight_rose_bush": {
+			"chance": 0.65
+		},
+		"manyideas_core:flower_tall_straight_sunflower": {
+			"chance": 0.65
+		}
+	}
+}
