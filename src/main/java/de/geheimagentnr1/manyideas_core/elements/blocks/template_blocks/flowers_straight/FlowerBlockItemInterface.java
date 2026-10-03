@@ -3,7 +3,6 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.template_blocks.flowers
 import de.geheimagentnr1.manyideas_core.core.elements.blocks.BlockItemInterface;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.ComposterBlock;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -14,8 +13,8 @@ public interface FlowerBlockItemInterface extends BlockItemInterface {
 	@Override
 	default Item getBlockItem( @NotNull Block block, @NotNull Item.Properties properties ) {
 		
-		Item item = BlockItemInterface.super.getBlockItem( block, properties );
-		ComposterBlock.COMPOSTABLES.put( item, 0.65F );
-		return item;
+		//Compostable via data/neoforge/data_maps/item/compostables.json - NeoForge's composter only reads the data map,
+		//ComposterBlock.COMPOSTABLES is ignored
+		return BlockItemInterface.super.getBlockItem( block, properties );
 	}
 }
