@@ -1,8 +1,8 @@
 package de.geheimagentnr1.manyideas_core.elements.blocks.dye_crafting_table;
 
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -46,7 +46,7 @@ public class DyeCraftingTableScreen extends AbstractContainerScreen<DyeCraftingT
 	protected void renderBg( @NotNull GuiGraphics guiGraphics, float partialTick, int x, int y ) {
 		
 		guiGraphics.blit(
-			RenderType::guiTextured,
+			RenderPipelines.GUI_TEXTURED,
 			CRAFTING_TABLE_GUI_TEXTURES,
 			leftPos,
 			( height - imageHeight ) / 2,

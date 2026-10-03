@@ -88,7 +88,7 @@ public class RedstoneKeyOption extends AbstractContainerEventHandler implements 
 			title,
 			x + 30,
 			y + 2,
-			Objects.requireNonNull( ChatFormatting.DARK_GRAY.getColor() ),
+			0xFF000000 | Objects.requireNonNull( ChatFormatting.DARK_GRAY.getColor() ),
 			false
 		);
 		guiGraphics.drawString(
@@ -96,7 +96,7 @@ public class RedstoneKeyOption extends AbstractContainerEventHandler implements 
 			description,
 			x + 30,
 			y + 12,
-			Objects.requireNonNull( ChatFormatting.WHITE.getColor() ),
+			0xFF000000 | Objects.requireNonNull( ChatFormatting.WHITE.getColor() ),
 			false
 		);
 	}

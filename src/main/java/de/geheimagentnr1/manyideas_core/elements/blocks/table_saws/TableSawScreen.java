@@ -2,9 +2,9 @@ package de.geheimagentnr1.manyideas_core.elements.blocks.table_saws;
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -61,9 +61,9 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 		
 		int i = leftPos;
 		int j = topPos;
-		guiGraphics.blit( RenderType::guiTextured, BACKGROUND_TEXTURE, i, j, 0.0f, 0.0f, imageWidth, imageHeight, 256, 256 );
+		guiGraphics.blit( RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, i, j, 0.0f, 0.0f, imageWidth, imageHeight, 256, 256 );
 		int k = (int)( 41.0F * scrollOffs );
-		guiGraphics.blit( RenderType::guiTextured, BACKGROUND_TEXTURE, i + 119, j + 15 + k, (float)( 176 + ( isScrollBarActive() ? 0 : 12 ) ), 0.0f, 12, 15, 256, 256 );
+		guiGraphics.blit( RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, i + 119, j + 15 + k, (float)( 176 + ( isScrollBarActive() ? 0 : 12 ) ), 0.0f, 12, 15, 256, 256 );
 		int l = leftPos + 52;
 		int i1 = topPos + 14;
 		int j1 = startIndex + 12;
@@ -86,7 +86,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 				int j1 = i + ( i1 % 4 << 4 );
 				int k1 = j + i1 / 4 * 18 + 2;
 				if( x >= j1 && x < j1 + 16 && y >= k1 && y < k1 + 18 ) {
-					guiGraphics.renderTooltip(
+					guiGraphics.setTooltipForNextFrame(
 						this.font,
 						list.get( l ).getResultItem(
 							Objects.requireNonNull( Objects.requireNonNull( this.minecraft ).level ).registryAccess()
@@ -121,7 +121,7 @@ public class TableSawScreen extends AbstractContainerScreen<TableSawMenu> {
 				}
 			}
 			
-			guiGraphics.blit( RenderType::guiTextured, BACKGROUND_TEXTURE, k, i1 - 1, 0.0f, (float) j1, 16, 18, 256, 256 );
+			guiGraphics.blit( RenderPipelines.GUI_TEXTURED, BACKGROUND_TEXTURE, k, i1 - 1, 0.0f, (float) j1, 16, 18, 256, 256 );
 		}
 		
 	}

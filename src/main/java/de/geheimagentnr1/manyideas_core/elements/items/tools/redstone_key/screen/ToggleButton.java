@@ -2,9 +2,9 @@ package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.scree
 
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -60,8 +60,8 @@ public class ToggleButton extends AbstractButton {
 		} else {
 			textureStartindex = 2;
 		}
-		guiGraphics.blit( RenderType::guiTextured, TOGGLE_BUTTON, getX(), getY(), (float)( width * textureStartindex ), 0.0f, width, height, 128, 32 );
-		guiGraphics.blit( RenderType::guiTextured, icon_textures, getX() + 3, getY() + 3, (float)( iconIndex << 4 ), 0.0f, 16, 16, 64, 16 );
+		guiGraphics.blit( RenderPipelines.GUI_TEXTURED, TOGGLE_BUTTON, getX(), getY(), (float)( width * textureStartindex ), 0.0f, width, height, 128, 32 );
+		guiGraphics.blit( RenderPipelines.GUI_TEXTURED, icon_textures, getX() + 3, getY() + 3, (float)( iconIndex << 4 ), 0.0f, 16, 16, 64, 16 );
 	}
 
 	@Override

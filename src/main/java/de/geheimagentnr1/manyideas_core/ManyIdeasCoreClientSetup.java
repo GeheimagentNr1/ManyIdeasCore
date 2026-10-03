@@ -8,7 +8,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
 
-@EventBusSubscriber( modid = ManyIdeasCore.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD )
+@EventBusSubscriber( modid = ManyIdeasCore.MODID, value = Dist.CLIENT )
 public class ManyIdeasCoreClientSetup {
 
 	private static final PlayerDecorationManager MANAGER = new PlayerDecorationManager();

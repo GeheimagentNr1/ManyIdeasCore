@@ -3,8 +3,8 @@ package de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.scree
 import de.geheimagentnr1.manyideas_core.ManyIdeasCore;
 import de.geheimagentnr1.manyideas_core.elements.items.tools.redstone_key.models.Option;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -65,7 +65,6 @@ public class RedstoneKeyScreen extends AbstractContainerScreen<RedstoneKeyContai
 	@Override
 	public void render( @NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick ) {
 		
-		renderBackground( guiGraphics, mouseX, mouseY, partialTick );
 		super.render( guiGraphics, mouseX, mouseY, partialTick );
 	}
 	
@@ -73,7 +72,7 @@ public class RedstoneKeyScreen extends AbstractContainerScreen<RedstoneKeyContai
 	protected void renderBg( @NotNull GuiGraphics guiGraphics, float partialTick, int x, int y ) {
 		
 		guiGraphics.blit(
-			RenderType::guiTextured,
+			RenderPipelines.GUI_TEXTURED,
 			REDSTONE_KEY_GUI_TEXTURE,
 			leftPos,
 			( height - imageHeight ) / 2,
@@ -90,7 +89,7 @@ public class RedstoneKeyScreen extends AbstractContainerScreen<RedstoneKeyContai
 	protected void renderLabels( @NotNull GuiGraphics guiGraphics, int x, int y ) {
 		
 		int titleStartX = width / 2 - leftPos - font.width( title.getString() ) / 2;
-		guiGraphics.drawString( font, title.getString(), titleStartX, 5, 4210752, false );
+		guiGraphics.drawString( font, title.getString(), titleStartX, 5, 0xFF404040, false );
 	}
 	
 	public void resetSelected() {
