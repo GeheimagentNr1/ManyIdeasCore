@@ -10,15 +10,20 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,7 +32,7 @@ import java.util.Optional;
 
 
 @SuppressWarnings( { "AbstractClassExtendsConcreteClass", "AbstractClassNeverImplemented", "unused", "WeakerAccess" } )
-public abstract class MultiBlock extends Block implements BlockItemInterface {
+public abstract class MultiBlock extends Block implements BlockItemInterface, LiquidBlockContainer {
 	
 	
 	protected IntegerProperty X_SIZE;
@@ -39,6 +44,29 @@ public abstract class MultiBlock extends Block implements BlockItemInterface {
 	protected MultiBlock( @NotNull BlockBehaviour.Properties _properties ) {
 		
 		super( RegistryHelper.withBlockId( _properties ).pushReaction( PushReaction.BLOCK ) );
+	}
+	
+	//Fluids must not flow into the parts of a multi block like into a vanilla door,
+	//otherwise they replace the parts without a collision shape and the whole multi block is removed without drops.
+	@Override
+	public boolean canPlaceLiquid(
+		@Nullable Player player,
+		@NotNull BlockGetter level,
+		@NotNull BlockPos pos,
+		@NotNull BlockState state,
+		@NotNull Fluid fluid ) {
+		
+		return false;
+	}
+	
+	@Override
+	public boolean placeLiquid(
+		@NotNull LevelAccessor level,
+		@NotNull BlockPos pos,
+		@NotNull BlockState state,
+		@NotNull FluidState fluidState ) {
+		
+		return false;
 	}
 	
 	protected abstract int getXSize();
