@@ -9,7 +9,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,7 +27,7 @@ public class DyedRecipeCategory extends JeiRecipeCategory<JeiDyedRecipe> {
 	);
 	
 	@NotNull
-	private static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath( "jei", "textures/gui/gui_vanilla.png" );
+	private static final Identifier texture = Identifier.fromNamespaceAndPath( "jei", "textures/gui/gui_vanilla.png" );
 	
 	public DyedRecipeCategory( @NotNull IGuiHelper guiHelper ) {
 		

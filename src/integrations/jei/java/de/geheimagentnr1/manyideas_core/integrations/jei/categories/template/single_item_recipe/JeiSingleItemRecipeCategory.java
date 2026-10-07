@@ -8,7 +8,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,7 +18,7 @@ public abstract class JeiSingleItemRecipeCategory<R extends JeiSingleItemRecipe<
 	
 	
 	@NotNull
-	private static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(
+	private static final Identifier texture = Identifier.fromNamespaceAndPath(
 		ManyIdeasCore.MODID,
 		"textures/jei/gui/single_item_recipe_gui.png"
 	);

@@ -42,6 +42,7 @@ public abstract class DyedRecipe implements Recipe<CraftingInput> {
 	).apply( builder, ItemStack::new ) );
 	
 	@NotNull
+	@Getter
 	final NonNullList<Ingredient> ingredients;
 	
 	@NotNull
