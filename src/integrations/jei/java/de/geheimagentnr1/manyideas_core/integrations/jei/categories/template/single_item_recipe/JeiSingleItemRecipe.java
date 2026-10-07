@@ -1,15 +1,14 @@
 package de.geheimagentnr1.manyideas_core.integrations.jei.categories.template.single_item_recipe;
 
+import de.geheimagentnr1.manyideas_core.elements.recipes.ClientRecipes;
 import de.geheimagentnr1.manyideas_core.elements.recipes.single_item_recipes.SingleItemRecipe;
-import net.minecraft.client.Minecraft;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 
 @SuppressWarnings( "AbstractClassWithoutAbstractMethods" )
@@ -24,7 +23,7 @@ public abstract class JeiSingleItemRecipe<T extends SingleItemRecipe> {
 	
 	protected JeiSingleItemRecipe( @NotNull T recipe ) {
 		
-		input = Arrays.asList( recipe.getIngredient().getItems() );
+		input = recipe.getIngredient().items().map( ItemStack::new ).toList();
 		result = recipe.getResult();
 	}
 	
@@ -33,9 +32,7 @@ public abstract class JeiSingleItemRecipe<T extends SingleItemRecipe> {
 		@NotNull RecipeType<R> recipe,
 		@NotNull Function<R, J> jeiRecipeBuilder ) {
 		
-		return Optional.ofNullable( Minecraft.getInstance().level )
-			.map( level -> level.getRecipeManager().getAllRecipesFor( recipe ) )
-			.orElseGet( ArrayList::new )
+		return ClientRecipes.byType( recipe )
 			.stream()
 			.map( RecipeHolder::value )
 			.map( jeiRecipeBuilder )
