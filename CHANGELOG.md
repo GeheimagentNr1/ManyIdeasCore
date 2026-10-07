@@ -1,2 +1,1 @@
-﻿Fix rainbow stained glass blocks and panes dropping without silk touch
-Fix straight flowers not being compostable
+﻿Re-add the JEI integration: recipes of the table saws (stone, iron, diamond), of dyeing and of grinding are shown in JEI again, including the recipes of ManyIdeas Doors, Christmas and Halloween

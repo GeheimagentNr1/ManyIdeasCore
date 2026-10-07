@@ -45,8 +45,8 @@ public class JeiDyedRecipe {
 				ArrayList<List<ItemStack>> inputs = new ArrayList<>();
 				for( Ingredient ingredient : recipe.getIngredients() ) {
 					ArrayList<ItemStack> itemStacks = new ArrayList<>();
-					if( ingredient instanceof ColorIngredient ) {
-						ItemStack colorStack = ( (ColorIngredient)ingredient ).getStack( color );
+					if( ingredient.getCustomIngredient() instanceof ColorIngredient<?> colorIngredient ) {
+						ItemStack colorStack = colorIngredient.getStack( color );
 						if( colorStack != null ) {
 							itemStacks.add( colorStack );
 						}
@@ -54,7 +54,7 @@ public class JeiDyedRecipe {
 						ItemStack[] matchingStacks = ingredient.getItems();
 						if( matchingStacks.length == 1 && matchingStacks[0].getItem() instanceof DyeBlockItem ) {
 							for( Color matchingStackColor : Color.values() ) {
-								itemStacks.add( DyeBlockHelper.setColorToItemStack(
+								itemStacks.add( DyeBlockHelper.setColor(
 									matchingStacks[0].copy(),
 									matchingStackColor
 								) );
@@ -65,7 +65,7 @@ public class JeiDyedRecipe {
 					}
 					inputs.add( itemStacks );
 				}
-				recipes.add( new JeiDyedRecipe( inputs, DyeBlockHelper.setColorToItemStack( result.copy(), color ) ) );
+				recipes.add( new JeiDyedRecipe( inputs, DyeBlockHelper.setColor( result.copy(), color ) ) );
 			}
 		}
 		return recipes;
