@@ -1,13 +1,8 @@
 repositories {
     maven {
         // location of the maven that hosts JEI files
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        // location of a maven mirror for JEI files, as a fallback
-        name = "ModMaven"
-        url = "https://modmaven.dev"
+        name = "BlameJared maven"
+        url = "https://maven.blamejared.com/"
     }
 }
 
@@ -16,14 +11,14 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit_version}"
 
     // compile against the JEI API but do not include it at runtime
-//    compileOnly "mezz.jei:jei-${jei_mc_version}-common-api:${jei_version}"
-//    compileOnly "mezz.jei:jei-${jei_mc_version}-neoforge-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${jei_mc_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${jei_mc_version}-neoforge-api:${jei_version}"
     // at runtime, use the full JEI jar for NeoForge
-    //runtimeOnly "mezz.jei:jei-${jei_mc_version}-neoforge:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${jei_mc_version}-neoforge:${jei_version}"
 }
 
 test {
     useJUnitPlatform()
 }
 
-//sourceSets.main.java { srcDir 'src/integrations/jei/java' }
+sourceSets.main.java { srcDir 'src/integrations/jei/java' }
