@@ -1,2 +1,3 @@
 - Add Blocks Mangrove Seamless Planks, Mangrove Smooth Stripped Log, Mangrove Smooth Stripped Wood
 - Add Item Mangrove Panel
+- Fix dedicated servers not starting with Forge 47.4.16 and newer ("Attempted to load class net/minecraft/client/multiplayer/MultiPlayerGameMode for invalid dist DEDICATED_SERVER")
