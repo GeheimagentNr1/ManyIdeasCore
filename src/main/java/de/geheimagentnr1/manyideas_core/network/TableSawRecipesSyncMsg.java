@@ -7,6 +7,9 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.TableSawRecip
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.diamond.TableSawDiamondRecipe;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.iron.TableSawIronRecipe;
 import de.geheimagentnr1.manyideas_core.elements.blocks.table_saws.stone.TableSawStoneRecipe;
+import de.geheimagentnr1.manyideas_core.elements.recipes.ModRecipeTypesRegisterFactory;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -18,9 +21,6 @@ import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public record TableSawRecipesSyncMsg( @NotNull List<TableSawRecipe> recipes ) implements CustomPacketPayload {
@@ -106,6 +106,14 @@ public record TableSawRecipesSyncMsg( @NotNull List<TableSawRecipe> recipes ) im
 			ServerLevel level = event.getPlayerList().getServer().overworld();
 			TableSawRecipesSyncMsg msg = new TableSawRecipesSyncMsg( TableSawRecipes.getServerRecipes( level ) );
 			event.getRelevantPlayers().forEach( player -> PacketDistributor.sendToPlayer( player, msg ) );
+			//For recipe viewers like JEI
+			event.sendRecipes(
+				ModRecipeTypesRegisterFactory.DYED,
+				ModRecipeTypesRegisterFactory.GRINDING,
+				ModRecipeTypesRegisterFactory.TABLE_SAWING_STONE,
+				ModRecipeTypesRegisterFactory.TABLE_SAWING_IRON,
+				ModRecipeTypesRegisterFactory.TABLE_SAWING_DIAMOND
+			);
 		}
 	}
 }

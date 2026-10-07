@@ -23,7 +23,7 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.registration.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,9 +35,9 @@ public class JeiIntegration implements IModPlugin {
 	
 	@NotNull
 	@Override
-	public ResourceLocation getPluginUid() {
+	public Identifier getPluginUid() {
 		
-		return ResourceLocation.fromNamespaceAndPath( ManyIdeasCore.MODID, ManyIdeasCore.MODID );
+		return Identifier.fromNamespaceAndPath( ManyIdeasCore.MODID, ManyIdeasCore.MODID );
 	}
 	
 	@Override
