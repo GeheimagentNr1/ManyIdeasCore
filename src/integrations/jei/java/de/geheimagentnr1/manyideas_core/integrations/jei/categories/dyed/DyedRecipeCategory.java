@@ -5,11 +5,13 @@ import de.geheimagentnr1.manyideas_core.elements.blocks.ModBlocksRegisterFactory
 import de.geheimagentnr1.manyideas_core.elements.recipes.dyed_recipes.DyedRecipe;
 import de.geheimagentnr1.manyideas_core.integrations.jei.categories.template.JeiRecipeCategory;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
-import net.minecraft.resources.Identifier;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,7 +29,10 @@ public class DyedRecipeCategory extends JeiRecipeCategory<JeiDyedRecipe> {
 	);
 	
 	@NotNull
-	private static final Identifier texture = Identifier.fromNamespaceAndPath( "jei", "textures/gui/gui_vanilla.png" );
+	private final IDrawable arrow;
+	
+	@NotNull
+	private final IDrawable slot;
 	
 	public DyedRecipeCategory( @NotNull IGuiHelper guiHelper ) {
 		
@@ -35,8 +40,10 @@ public class DyedRecipeCategory extends JeiRecipeCategory<JeiDyedRecipe> {
 			guiHelper,
 			DYED,
 			ModBlocksRegisterFactory.DYE_CRAFTING_TABLE,
-			guiHelper.createDrawable( texture, 0, 60, 116, 54 )
+			guiHelper.createBlankDrawable( 116, 54 )
 		);
+		arrow = guiHelper.getRecipeArrow();
+		slot = guiHelper.getSlotDrawable();
 	}
 	
 	@Override
@@ -55,6 +62,24 @@ public class DyedRecipeCategory extends JeiRecipeCategory<JeiDyedRecipe> {
 			}
 		}
 		builder.addSlot( RecipeIngredientRole.OUTPUT, 95, 19 )
+			.setOutputSlotBackground()
 			.addItemStack( recipe.getResult() );
+	}
+	
+	@Override
+	public void draw(
+		@NotNull JeiDyedRecipe recipe,
+		@NotNull IRecipeSlotsView recipeSlotsView,
+		@NotNull GuiGraphicsExtractor guiGraphics,
+		double mouseX,
+		double mouseY ) {
+		
+		super.draw( recipe, recipeSlotsView, guiGraphics, mouseX, mouseY );
+		for( int i = 0; i < 3; i++ ) {
+			for( int j = 0; j < 3; j++ ) {
+				slot.draw( guiGraphics, j * 18, i * 18 );
+			}
+		}
+		arrow.draw( guiGraphics, 61, 19 );
 	}
 }
