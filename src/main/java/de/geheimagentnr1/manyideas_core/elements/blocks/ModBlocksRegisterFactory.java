@@ -208,8 +208,11 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 			DYE_CRAFTING_TABLE = new DyeCraftingTable();
 			DYE_CRAFTING_TABLE_MENU = IMenuTypeExtension.create( ( windowId, inv, data ) -> new DyeCraftingTableMenu( windowId, inv ) );
 			END_BLOCK = new EndBlock();
+			MORTAR = new Mortar();
+			PLANKS_COLORED = new PlanksColored();
 			END_BLOCK_ENTITY = RegistryHelper.buildBlockEntity( EndBlock.registry_name, EndBlockEntity::new, END_BLOCK );
 			RAINBOW_WOOL = new RainbowWool();
+			WOOD_COLORED = new WoodColored();
 			TABLE_SAW_DIAMOND = new TableSawDiamond();
 			TABLE_SAW_DIAMOND_MENU = IMenuTypeExtension.create( ( windowId, inv, data ) -> new TableSawDiamondMenu( windowId, inv ) );
 			TABLE_SAW_IRON = new TableSawIron();
@@ -227,7 +230,7 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 		initializeStaticFields();
 		return List.of(//BCPFINRLT
 			//Building Blocks: Planks
-			RegistryEntry.create( PlanksColored.registry_name, new PlanksColored() ),
+			RegistryEntry.create( PlanksColored.registry_name, PLANKS_COLORED ),
 			//BCPFINRLT
 			//Building Blocks: Planks: Seamless
 			RegistryEntry.create( PlanksSeamlessAcacia.registry_name, new PlanksSeamlessAcacia() ),
@@ -266,7 +269,7 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 			RegistryEntry.create( RainbowWool.registry_name, RAINBOW_WOOL ),
 			//BCPFINRLT//Kein Rezept
 			//Building Blocks: Woods
-			RegistryEntry.create( WoodColored.registry_name, new WoodColored() ),
+			RegistryEntry.create( WoodColored.registry_name, WOOD_COLORED ),
 			//BCPFINRLT
 			//Building Blocks: Woods: Logs Stripped Smooth
 			RegistryEntry.create( LogStrippedSmoothAcacia.registry_name, new LogStrippedSmoothAcacia() ),
@@ -313,7 +316,7 @@ public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 			RegistryEntry.create( EndBlock.registry_name, END_BLOCK ),
 			//BCPFINRLT
 			//Mortar
-			RegistryEntry.create( Mortar.registry_name, new Mortar() ),
+			RegistryEntry.create( Mortar.registry_name, MORTAR ),
 			//BCPFINRLT
 			//Table Saws
 			RegistryEntry.create( TableSawDiamond.registry_name, TABLE_SAW_DIAMOND ),
