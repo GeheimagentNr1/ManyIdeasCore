@@ -44,6 +44,14 @@ public abstract class MultiBlock extends Block implements BlockItemInterface, Li
 		super( _properties.pushReaction( PushReaction.BLOCK ) );
 	}
 	
+	//Buckets replace blocks, that are not solid (like the parts without a collision shape), instead of filling them,
+	//so the parts must not be replaceable by fluids.
+	@Override
+	protected boolean canBeReplaced( @NotNull BlockState state, @NotNull Fluid fluid ) {
+		
+		return false;
+	}
+	
 	//Fluids must not flow into the parts of a multi block like into a vanilla door,
 	//otherwise they replace the parts without a collision shape and the whole multi block is removed without drops.
 	@Override
