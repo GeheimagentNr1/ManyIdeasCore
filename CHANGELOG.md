@@ -1,3 +1,1 @@
-﻿Add compatibility for minecraft version 1.21.2, 1.21.3
-Fix rainbow stained glass blocks and panes dropping without silk touch
-Fix straight flowers not being compostable
+﻿Fix fluids removing multi blocks (e.g. big doors) without drops: fluids no longer flow into the parts without a collision shape and buckets no longer replace these parts
