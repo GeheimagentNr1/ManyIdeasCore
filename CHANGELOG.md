@@ -1,1 +1,1 @@
-""Ported to 1.20"" 
+Fix the background of the dyeing category in JEI being black without slots (the JEI texture used for it was moved in JEI for 1.19.3 and newer)
