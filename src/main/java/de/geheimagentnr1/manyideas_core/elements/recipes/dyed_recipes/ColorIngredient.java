@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.stream.Stream;
 
 
-abstract class ColorIngredient<T extends ColorList> extends AbstractIngredient {
+public abstract class ColorIngredient<T extends ColorList> extends AbstractIngredient {
 	
 	
 	@NotNull

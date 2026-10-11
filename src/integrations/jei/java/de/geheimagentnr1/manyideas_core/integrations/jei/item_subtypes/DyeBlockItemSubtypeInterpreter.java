@@ -14,6 +14,6 @@ public class DyeBlockItemSubtypeInterpreter implements IIngredientSubtypeInterpr
 	@Override
 	public String apply( @NotNull ItemStack ingredient, @NotNull UidContext context ) {
 		
-		return DyeBlockHelper.getColorName( ingredient );
+		return DyeBlockHelper.getColor( ingredient ).getSerializedName();
 	}
 }
