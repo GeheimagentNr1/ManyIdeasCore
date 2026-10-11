@@ -1,1 +1,1 @@
-Ported to 1.21.1 
+Fix the background of the dyeing category in JEI being black without slots in newer JEI versions (the JEI texture used for it was removed)
