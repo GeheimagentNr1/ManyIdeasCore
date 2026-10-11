@@ -8,7 +8,7 @@ buildscript {
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'com.jaredsburrows:gradle-license-plugin:0.8.90'
+        classpath 'com.jaredsburrows:gradle-license-plugin:0.9.3'
     }
 }
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
