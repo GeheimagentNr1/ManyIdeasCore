@@ -1,2 +1,1 @@
-- Add Blocks Mangrove Seamless Planks, Mangrove Smooth Stripped Log, Mangrove Smooth Stripped Wood
-- Add Item Mangrove Panel
+- Fix the background of the dyeing category in JEI being black without slots (the JEI texture used for it was moved in JEI for 1.19.3 and newer)
