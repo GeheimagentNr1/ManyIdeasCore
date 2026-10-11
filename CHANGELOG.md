@@ -1,1 +1,1 @@
-Fix the background of the dyeing category in JEI being black without slots in newer JEI versions (the JEI texture used for it was removed)
+Re-add the JEI integration: recipes of the table saws (stone, iron, diamond), of dyeing and of grinding are shown in JEI again (it was not included since the port to 1.20.4)

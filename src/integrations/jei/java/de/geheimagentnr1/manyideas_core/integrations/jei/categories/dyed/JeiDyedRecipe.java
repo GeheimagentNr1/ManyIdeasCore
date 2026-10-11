@@ -54,7 +54,7 @@ public class JeiDyedRecipe {
 						ItemStack[] matchingStacks = ingredient.getItems();
 						if( matchingStacks.length == 1 && matchingStacks[0].getItem() instanceof DyeBlockItem ) {
 							for( Color matchingStackColor : Color.values() ) {
-								itemStacks.add( DyeBlockHelper.setColorToItemStack(
+								itemStacks.add( DyeBlockHelper.setColor(
 									matchingStacks[0].copy(),
 									matchingStackColor
 								) );
@@ -65,7 +65,7 @@ public class JeiDyedRecipe {
 					}
 					inputs.add( itemStacks );
 				}
-				recipes.add( new JeiDyedRecipe( inputs, DyeBlockHelper.setColorToItemStack( result.copy(), color ) ) );
+				recipes.add( new JeiDyedRecipe( inputs, DyeBlockHelper.setColor( result.copy(), color ) ) );
 			}
 		}
 		return recipes;
