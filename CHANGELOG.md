@@ -1,1 +1,1 @@
-Ported to 1.20.6 
+Re-add the JEI integration: recipes of the table saws (stone, iron, diamond), of dyeing and of grinding are shown in JEI again (it was not included since the port to 1.20.4)
