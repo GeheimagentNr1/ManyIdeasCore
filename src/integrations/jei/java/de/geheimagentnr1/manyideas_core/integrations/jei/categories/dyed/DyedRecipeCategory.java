@@ -25,11 +25,13 @@ public class DyedRecipeCategory extends JeiRecipeCategory<JeiDyedRecipe> {
 		JeiDyedRecipe.class
 	);
 	
-	private static final ResourceLocation texture = new ResourceLocation( "jei", "textures/gui/gui_vanilla.png" );
+	//The background of the vanilla crafting table: JEI removed its own copy (gui_vanilla.png) in newer versions
+	//(1.18.2: 10.81, 1.19.2: 11.38, 1.20.1: 15.19.5, 1.21.1: 19.18.8), the category was drawn black without slots.
+	private static final ResourceLocation texture = new ResourceLocation( "minecraft", "textures/gui/container/crafting_table.png" );
 	
 	public DyedRecipeCategory( IGuiHelper guiHelper ) {
 		
-		super( guiHelper, DYED, ModBlocks.DYE_CRAFTING_TABLE, guiHelper.createDrawable( texture, 0, 60, 116, 54 ) );
+		super( guiHelper, DYED, ModBlocks.DYE_CRAFTING_TABLE, guiHelper.createDrawable( texture, 29, 16, 116, 54 ) );
 	}
 	
 	@Override
