@@ -1,194 +1,60 @@
 # CLAUDE.md - ManyIdeas Core
 
-## Projekt-Übersicht
+Library der „Many Ideas“-Familie (ManyIdeasDoors, ManyIdeasChristmas, ManyIdeasHalloween) und zugleich eigene Inhalte-Mod: Tischsägen, Mörser, Färbe-Werkbank, Redstone-Schlüssel, Regenbogen-/Farbblöcke, Dielen, Platten, gerade Blumen u. a. Mod-ID `manyideas_core`, Package `de.geheimagentnr1.manyideas_core`, Client+Server.
 
-**ManyIdeas Core** ist ein NeoForge Minecraft Mod.
-- **Mod ID**: `manyideas_core`
-- **Package**: `de.geheimagentnr1.manyideas_core`
-- **Java Version**: 21 (`develop_26.1`/`develop_26.3`: 25, `jdk-25.0.4.7-hotspot`)
-- **NeoForge Version**: je Branch, siehe Tabelle
+Diese Datei ist auf allen `develop_*`-Branches identisch; Quelle: `../Docs/mod-claude/ManyIdeasCore.md` (Änderungen dort, dann `Docs/tools/sync_mod_claude_md.sh`). Versionsstand: [`../Docs/VERSIONEN.md`](../Docs/VERSIONEN.md).
 
-| Branch | MC | Range | NeoForge (kompiliert gegen) | Hinweis |
-|---|---|---|---|---|
-| `develop_1.21.1` | 1.21.1 | `[1.21.1,1.21.2)` | `21.1.216` | Fix-Release 3.0.2 (Behutsamkeits-Loot, Blumen-Kompostierbarkeit) |
-| `develop_1.21.2` | 1.21.2 - 1.21.3 | `[1.21.2,1.21.4)` | `21.2.1-beta` | Registrierung mit Supplier + Key-Kontext (IDs), Rezept-API/JSON, Tischsägen-Rezept-Sync, Klick-Ergebnisse |
-| `develop_1.21.4` | 1.21.4 | `[1.21.4,1.21.5)` | `21.4.158` | Client-Item-Definitionen (`assets/manyideas_core/items`), Farb-Items per `range_dispatch` + eigener Property, `RenderShape.INVISIBLE` |
-| `develop_1.21.5` | 1.21.5 | `[1.21.5,1.21.6)` | `21.5.98` | Multiblock-Abbau in `affectNeighborsAfterRemoval`, `onCraftedBy` |
-| `develop_1.21.6` | 1.21.6 - 1.21.8 | `[1.21.6,1.21.9)` | `21.6.20-beta` | GUI (`RenderPipelines`, Alpha-Farben), Paket über `ServerboundCustomPayloadPacket` |
-| `develop_1.21.9` | 1.21.9 - 1.21.10 | `[1.21.9,1.21.11)` | `21.9.16-beta` | Submit-Renderer (End-Block, Spieler-Dekoration), Maus-Events, Farb-Items per `minecraft:select` + Komponente |
-| `develop_1.21.11` | 1.21.11 | `[1.21.11,1.21.12)` | `21.11.45` | `Identifier`, `LEVEL_GAMEMASTERS`, `renderContents` |
-| `develop_26.1` | 26.1 - 26.2 | `[26.1,26.3)` | `26.1.0.19-beta` (Java 25) | `RecipeSerializer`-Record, `ItemStackTemplate`, `GuiGraphicsExtractor`, End-Portal `submitCube` |
-| `develop_26.3` | 26.3 | `[26.3,27)` | `26.3.0.36-beta` (Java 25) | Loot in beiden Formaten, `Prediction`, `PushReaction.IMMOVEABLE`, Kompostierbarkeit als Item-Komponente |
+## Versionen
 
-Alle 3.0.2, released 2026-10-03 (ingame getestet auf 1.21.1 - 26.3). Details: [`../Docs/migrations/1.21.1-to-1.21.2.md`](../Docs/migrations/1.21.1-to-1.21.2.md) 4i, [`../Docs/migrations/1.21.11-to-26.1.md`](../Docs/migrations/1.21.11-to-26.1.md).
+- Welche Jars/Branches welche MC-Versionen abdecken, Tags und Ranges: [`../Docs/VERSIONEN.md`](../Docs/VERSIONEN.md). NeoForge ab `develop_1.21.1`, Forge bis `develop_1.21` plus `develop_1.21.1_forge` ([`../Docs/forge/README.md`](../Docs/forge/README.md)). `develop_1.21.3` ist ein unveröffentlichter Forge-Versuch.
+- Ab 1.21.2 ist fast jede MC-Version ein eigener Core-Branch (Registrierung, Item-Modelle, GUI, Renderer, Loot-Format ändern sich laufend), Details: [`../Docs/migrations/1.21.1-to-1.21.2.md`](../Docs/migrations/1.21.1-to-1.21.2.md) 4i, [`../Docs/migrations/1.21.11-to-26.1.md`](../Docs/migrations/1.21.11-to-26.1.md).
+- Die abhängigen Mods binden ein Core-Jar `ManyIdeasCore-<mc>:${mic_version}` aus `ModdingMavenRepositories` (`<mc>` bis 1.21.1 = `minecraft_version`, ab 1.21.2 eigene Variable `mic_minecraft_version`, damit ein Jar mehrere Core-Jars abdecken kann) - **Core immer zuerst veröffentlichen** (lokales Maven), dann die abhängigen Mods.
+- CurseForge-Projekt `433642`, Modrinth `BBY8EPJt`.
 
-**Registrierung ab 1.21.2:** Block-/Item-IDs müssen vor dem Konstruktor feststehen. Einträge daher als `RegistryEntry.create( name, () -> new X() )` (Supplier); während der Supplier läuft, kennt `RegistryHelper` den Key, und die Templates (`DoubleDoorBlock`, `BigDoor`, `MultiBlock`, ...) setzen die ID per `RegistryHelper.withBlockId( properties )`, Items per `RegistryHelper.itemProperties()`. Abhängige Mods (Doors, Christmas, Halloween) müssen nur `new X()` → `() -> new X()` ändern.
+## Abhängigkeiten
 
-**Tischsägen-Rezepte:** Seit 1.21.2 schickt der Server keine Rezepte mehr an den Client; `TableSawRecipesSyncMsg` sendet sie beim Login und nach `/reload`, der Client hält sie in `TableSawRecipes`. Rezeptlisten im Menü sind veränderbare Kopien (eine `toList()`-Liste brachte den Client beim Herausnehmen zum Absturz).
+- Keine Pflicht-Mods. JEI optional (`compileOnly`/`runtimeOnly` in `custom.gradle`, Maven `https://maven.blamejared.com/`), Quellen unter `src/integrations/jei/java` als zusätzliches Source-Set. Auf `develop_1.21.2` (1.21.2 - 1.21.3) ist die JEI-Integration auskommentiert (kein JEI für diese Versionen).
+- Forge 1.20 - 1.21.1-Forge: MinecraftForgeAPI (`mfapi_version`, per jarJar gebündelt), siehe [`../Docs/forge/README.md`](../Docs/forge/README.md).
 
-Dieser Mod dient als Core-Library für andere "Many Ideas" Mods und enthält gemeinsam genutzte Blöcke, Items, Tools und Utilities.
+## Architektur
 
-## Projektstruktur
+- **Framework (NeoForge, `core/`)**: `AbstractMod` (Basis für alle ManyIdeas-Mods, `initMod()` + `registerEventHandler(..)`), `core/registry/` (`RegistryEntry`, `ElementsRegisterFactory`, `RegistryHelper`, `RegistryKeys`), `core/elements/` (`BlocksRegisterFactory`, `ItemsRegisterFactory`, `CommandsRegisterFactory`, `CreativeModeTabFactory`, `RecipeTypesRegisterFactory`, `BlockItemInterface`), `core/events/` (Mod-/Forge-Event-Interfaces), `core/network/AbstractNetwork`.
+  - Forge 1.20 - 1.21.1-Forge: dieselben Klassen kommen aus MinecraftForgeAPI (`de.geheimagentnr1.minecraft_forge_api.AbstractMod`), dazu `config/ClientConfig` (Debug-Blöcke, alle Farben im Creative-Tab). Forge bis 1.19.4: statische Handler in `handlers/` und `elements/RegistryEntry`.
+- **Templates für abhängige Mods** (`elements/blocks/template_blocks/`): `MultiBlock` (+ `MultiBlockCalculater`/`MultiBlockRunner`), `doors/BigDoor` (Mehrblock-Tür), `doors/DoubleDoorBlock`, `dyed/DyeBlock`/`DyeBlockItem`, `AxisBlock`, `EveryDirectionBlock`, `flowers_straight/`. Dazu `util/doors/` (`DoorsHelper`, `BigDoorsHelper`, `OpenedByHelper`), `util/voxel_shapes/`, Blockstate-Properties in `elements/block_state_properties/` (`OpenedBy`, `Color`, `BlockSide`, `EveryDirectionFacing`).
+- **Redstone-Schlüssel** (`elements/items/tools/redstone_key/`): Blöcke mit `RedstoneKeyable` (alle Türen, Doors-Sensor) bekommen per Rechtsklick ein Menü für `OpenedBy` (Hand/Redstone/beides); Paket `RedstoneKeyStateUpdateMsg`.
+- **Rezepte** (`elements/recipes/`, `elements/blocks/table_saws|mortar`): Typen `table_sawing_stone|iron|diamond`, `grinding` (Mörser), `dyed_shaped`/`dyed_shapeless` mit Ingredients `color_item`/`color_tag`. Abhängige Mods nutzen `manyideas_core:table_sawing_*` in ihren Rezept-JSONs.
+- **Netzwerk** (`network/Network`): `RedstoneKeyStateUpdateMsg`, ab 1.21.2 `TableSawRecipesSyncMsg`; ab 1.21.4 zusätzlich `elements/recipes/ClientRecipes` (Rezept-Cache für JEI).
+- **Spieler-Dekorationen** (`special/decoration_renderer/`): Client lädt `player_decorations.json` aus dem GitHub-Repo `GeheimagentNr1/Online_Mod_Data` und rendert Items an bestimmten Spielern.
+- `Entfernt/` enthält alte, nicht kompilierte Inhalte (Kochtopf, Töpferscheibe, Metall-Räucherofen).
 
-```
-src/main/java/de/geheimagentnr1/manyideas_core/
-├── ManyIdeasCore.java          # Haupt-Mod-Klasse (@Mod Annotation)
-├── core/                       # Framework-Klassen für Mod-Entwicklung
-│   ├── AbstractMod.java        # Basis-Klasse für Mods
-│   ├── events/                 # Event-Handler Interfaces
-│   ├── network/                # Netzwerk-Abstraktion
-│   └── registry/               # Registry-Utilities
-├── elements/                   # Mod-Inhalte
-│   ├── blocks/                 # Block-Definitionen
-│   ├── items/                  # Item-Definitionen
-│   ├── commands/               # Commands und ArgumentTypes
-│   ├── recipes/                # Rezept-Serializer und -Typen
-│   └── creative_mod_tabs/      # Creative-Tabs
-├── network/                    # Netzwerk-Pakete
-├── special/                    # Spezielle Features (z.B. Player Decorations)
-└── util/                       # Utility-Klassen (VoxelShapes, etc.)
-```
+**Was abhängige Mods bricht:** Signaturen von `AbstractMod`, `RegistryEntry.create(..)`, `ElementsRegisterFactory`/`BlocksRegisterFactory`, `CreativeModeTabFactory` (`getDisplayBlocks()`/`getDisplayItems()`), der Template-Blöcke und `RegistryHelper`; Rezepttyp- und Property-Namen (`manyideas_core:color`, `table_sawing_*`). Nach Core-Änderungen alle drei abhängigen Mods gegen das neue Core-Jar bauen und per `bincheck.ps1` prüfen.
 
-## Architektur-Patterns
+## Funktionen, Befehle, Konfiguration
 
-### 1. Event Handler Registration
-Event Handler werden über `registerEventHandler()` in `initMod()` registriert:
-```java
-registerEventHandler( new ModBlocksRegisterFactory() );
-```
+- `/givedb <target> <dye block> <color>` (Rechtestufe Gamemaster) - Farbblock in bestimmter Farbe geben; `/element_count` (Debug: Anzahl Blöcke/Items je Mod).
+- Debug-Block `DebugBlockCullface` (`ModDebugBlocksRegisterFactory`); auf Forge über die Client-Config schaltbar, NeoForge hat keine Config.
 
-### 2. Registry Pattern
-Neue Blöcke/Items werden über `ElementsRegisterFactory<T>` registriert:
-- Erstelle eine Klasse die `ElementsRegisterFactory<T>` erweitert
-- Implementiere `registryKey()` und `elements()`
-- Nutze `RegistryEntry<T>` für einzelne Einträge
+## Fallstricke
 
-### 3. Client/Server Separation
-Keine Dist-Abfrage über FML-APIs (nicht versionsübergreifend). Client-only Handler per `@EventBusSubscriber( modid = ManyIdeasCore.MODID, value = Dist.CLIENT )` (ab NeoForge 21.6 ohne `bus`), siehe `ManyIdeasCoreClientSetup`.
+- **Registrierung ab 1.21.2:** Block-/Item-IDs müssen vor dem Konstruktor feststehen. Einträge als `RegistryEntry.create( name, () -> new X() )` (Supplier); `RegistryHelper` hält währenddessen den Key in einem `ThreadLocal`, Templates setzen die ID mit `RegistryHelper.withBlockId( properties )`, Items mit `RegistryHelper.itemProperties()`. Abhängige Mods ändern nur `new X()` → `() -> new X()` (bzw. `withBlockId(..)` in Blöcken, die direkt Vanilla-Klassen erweitern). 1.21.1 und Forge kennen nur `create( name, value )`.
+- **Tischsägen-Rezepte ab 1.21.2:** Der Server schickt keine Rezepte mehr an den Client - `TableSawRecipesSyncMsg` (in `OnDatapackSyncEvent`, Login und `/reload`) füllt den Client-Cache `TableSawRecipes`. Menü-Listen sind veränderbare Kopien (`toList()` → Client-Absturz beim Herausnehmen).
+- **JEI ab 1.21.4:** eigene Rezepttypen per `event.sendRecipes(..)` anfordern, Client speichert sie in `ClientRecipes` (Listener mit `EventPriority.HIGHEST`). `jei:textures/gui/gui_vanilla.png` existiert nicht mehr: NeoForge `createBlankDrawable` + `getSlotDrawable()`/`getRecipeArrow()`, Forge Vanilla-`crafting_table.png` (29, 16, 116×54). Details: [`../Docs/migrations/1.21.1-to-1.21.2.md`](../Docs/migrations/1.21.1-to-1.21.2.md) Abschnitt „JEI und eigene Rezepttypen“.
+- **Klick-Ergebnisse ab 1.21.2:** `PASS_TO_DEFAULT_BLOCK_INTERACTION` → `TRY_WITH_EMPTY_HAND` (sonst öffnet die Tür mit Item in der Hand nicht), `SKIP_DEFAULT_BLOCK_INTERACTION` → `PASS` (sonst greift der Redstone-Schlüssel nicht); `onBlockExploded` überschreiben, nicht `wasExploded`.
+- **Mehrblöcke und Flüssigkeiten** (NeoForge und Forge 1.20.1): `MultiBlock` ist `LiquidBlockContainer` mit `canPlaceLiquid = false` (Signatur 1.20.2 `Player`, ab 1.21.5 `LivingEntity`) und überschreibt `canBeReplaced( BlockState, Fluid )` mit `false` - sonst entfernen fließendes Wasser oder ein Eimer die ganze Tür ohne Drop. Ab 1.21.5 Mehrblock-Abbau in `affectNeighborsAfterRemoval`.
+- **Loot:** `match_tool` nur im Format `"predicates": { "minecraft:enchantments": [..] }` (alte Form wird still ignoriert, Regenbogenglas). Ab 26.3 Loot-Tabellen in beiden Formaten (`conditions`/`functions` und `condition`/`modifier`, `match_block`).
+- **Kompostierbarkeit** (Blumen): Data-Map `data/neoforge/data_maps/item/compostables.json`; 26.3 `Item.Properties.compostable(..)`.
+- **Item-Modelle:** 1.21.4 Client-Item-Definitionen (`assets/manyideas_core/items`), Farb-Items ab 1.21.9 per `minecraft:select` + `minecraft:component`; Modelle ohne `#missing`-Flächen, ab 26.1 UVs nur 0 - 16.
+- **Creative-Tabs:** jedes Item nur einmal ausgeben (ab NeoForge 26.2.0.88 Absturz bei Duplikaten).
 
-### 4. Netzwerk-Pakete
-Netzwerk-Kommunikation erfolgt über `AbstractNetwork`:
-- Erweitere `AbstractNetwork`
-- Registriere Pakete in `registerPackets()`
-- Nutze `PayloadRegistrar` für Packet-Registration
+## Testen
 
-## Code-Stil
+- Allgemein: [`../Docs/testing/README.md`](../Docs/testing/README.md). Core immer zusammen mit **ManyIdeasDoors** testen - große Türen sind die eigentlichen Nutzer von `MultiBlock`, `BigDoor`, Redstone-Schlüssel und Tischsägen-Rezepten.
+- Prüfpunkte: Tischsäge (Rezepte erscheinen, Items lassen sich herausnehmen, nach `/reload`), Färbe-Werkbank, Mörser, Redstone-Schlüssel an einer Tür, JEI-Kategorien (Hintergrund, Slots), Behutsamkeit am Regenbogenglas, Abbau/Explosion einer großen Tür (nur Ursprungsblock droppt), Wasser/Eimer an einer Tür.
+- `Docs/testing/tools/neoforge_smoke_all.sh` enthält den Wassertest an einer großen Akazientür (braucht Doors im Pack); RCON-Loot-Test per `setblock` + `loot spawn .. mine ..`.
+- Unit-Tests: `src/test/java` (VoxelShape-Helfer).
 
-- **Annotations**: Nutze `@NotNull` aus `org.jetbrains.annotations`
-- **Lombok**: Projekt nutzt Lombok (z.B. für Getter/Setter)
-- **Formatierung**: Leerzeichen nach `(` und vor `)` bei Methodenaufrufen
-- **Imports**: Keine Wildcard-Imports
+## Links
 
-## Build & Test
-
-```bash
-# Build
-./gradlew build
-
-# Client starten
-./gradlew runClient
-
-# Server starten
-./gradlew runServer
-
-# Data Generation
-./gradlew runData
-
-# Tests
-./gradlew test
-
-# Publish to local Maven
-./gradlew publish
-```
-
-## Deployment
-
-- **CurseForge**: `./gradlew curseforge`
-- **Modrinth**: `./gradlew modrinth`
-- Debug-Modus: `-PuploadDebug=true`
-
-## Wichtige Hinweise
-
-1. **Mod-Abhängigkeiten**: Andere Mods können von diesem Core-Mod abhängen
-2. **Ressourcen**: Generierte Ressourcen liegen in `src/generated/resources`
-3. **Lizenzen**: `All Rights Reserved` - Drittanbieter-Lizenzen in `lib_licences/`
-4. **Tests**: Unit-Tests in `src/test/java/` (JUnit 5)
-
-## Häufige Aufgaben
-
-### Neuen Block hinzufügen
-1. Block-Klasse in `elements/blocks/` erstellen
-2. `RegistryEntry` in `ModBlocksRegisterFactory.elements()` hinzufügen
-3. Blockstate JSON in `src/main/resources/assets/manyideas_core/blockstates/`
-4. Model JSON in `src/main/resources/assets/manyideas_core/models/block/`
-5. Textur in `src/main/resources/assets/manyideas_core/textures/block/`
-
-### Neues Item hinzufügen
-1. Item-Klasse in `elements/items/` erstellen (falls custom)
-2. `RegistryEntry` in `ModItemsRegisterFactory.elements()` hinzufügen
-3. Model JSON in `src/main/resources/assets/manyideas_core/models/item/`
-4. Textur in `src/main/resources/assets/manyideas_core/textures/item/`
-
-### Neues Netzwerk-Paket hinzufügen
-1. Paket-Klasse mit `CustomPacketPayload` erstellen
-2. `TYPE` und `STREAM_CODEC` definieren
-3. In `Network.registerPackets()` registrieren
-
-## Testing
-
-### Java-Versionen
-
-Verschiedene Java-Versionen sind unter `C:\Program Files\Eclipse Adoptium` installiert. Für einen Gradle-Build muss die passende Java-Version gewählt werden:
-
-```powershell
-# Java 21 für MC 1.20.5+ (NeoForge)
-$env:JAVA_HOME = "C:\Program Files\Eclipse Adoptium\jdk-21.0.12.8-hotspot"
-./gradlew build
-```
-
-### Unit Tests (JUnit 5)
-
-Für reine Logik-Tests ohne Minecraft-Abhängigkeiten:
-
-```bash
-./gradlew test
-```
-
-Tests liegen unter `src/test/java/`. Ergebnisse: `build/reports/tests/test/index.html`
-
-### NeoForge GameTest Framework
-
-Für Integration Tests in einer echten Minecraft-Umgebung:
-
-```bash
-./gradlew runGameTestServer
-```
-
-Der triviale GameTest wurde beim 1.21.2-Port entfernt (annotationsbasierte GameTests gibt es ab 1.21.5 nicht mehr).
-
-### CI/CD (GitHub Actions)
-
-Der Workflow `.github/workflows/build-and-test.yml` führt automatisch aus:
-1. **Build**: Kompiliert den Mod
-2. **Unit Tests**: Führt JUnit Tests aus
-3. **GameTests**: Startet GameTestServer (optional)
-
-### Was kann automatisiert getestet werden?
-
-| Aspekt | Automatisiert? | Methode |
-|--------|----------------|---------|
-| Utility-Klassen | ✅ | JUnit |
-| Config-Parsing | ✅ | JUnit |
-| Commands | ✅ | GameTest |
-| Block/Item-Verhalten | ✅ | GameTest |
-| Multi-MC-Version | ⚠️ Pro Branch | CI Matrix |
-
-## Referenzen
-
-- [NeoForge Migration Primer](https://docs.neoforged.net/primer/docs/) — Dokumentiert API-Aenderungen zwischen Minecraft/NeoForge-Versionen; nuetzlich fuer die Pruefung von Breaking Changes beim Upgrade auf neue Versionen
-
----
-
-## Wissensdatenbank
-
-Versionsübergreifende Migrations- und Entwicklungs-Erkenntnisse (Breaking Changes, Fixes, Testumgebungs-Patterns) werden zentral in [`../Docs/`](../Docs/) gepflegt. Bei neuen relevanten Erkenntnissen dort ergänzen, nicht nur hier.
+- Wiki: https://github.com/GeheimagentNr1/ManyIdeasCore/wiki
+- CurseForge: https://www.curseforge.com/minecraft/mc-mods/many-ideas-core, Modrinth: https://modrinth.com/mod/BBY8EPJt
+- [`../Docs/migrations/BREAKING_CHANGES.md`](../Docs/migrations/BREAKING_CHANGES.md), [`../Docs/migrations/1.21.1-to-1.21.2.md`](../Docs/migrations/1.21.1-to-1.21.2.md) 4i, [`../Docs/forge/README.md`](../Docs/forge/README.md)
