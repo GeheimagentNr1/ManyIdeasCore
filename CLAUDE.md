@@ -6,7 +6,7 @@ Diese Datei ist auf allen `develop_*`-Branches identisch; Quelle: `../Docs/mod-c
 
 ## Versionen
 
-- Welche Jars/Branches welche MC-Versionen abdecken, Tags und Ranges: [`../Docs/VERSIONEN.md`](../Docs/VERSIONEN.md). NeoForge ab `develop_1.21.1`, Forge bis `develop_1.21` plus `develop_1.21.1_forge` ([`../Docs/forge/README.md`](../Docs/forge/README.md)). `develop_1.21.3` ist ein unveröffentlichter Forge-Versuch.
+- Welche Jars/Branches welche MC-Versionen abdecken, Tags und Ranges: [`../Docs/VERSIONEN.md`](../Docs/VERSIONEN.md). NeoForge ab `develop_1.21.1`, Forge bis `develop_1.21` plus `develop_1.21.1_forge` ([`../Docs/forge/README.md`](../Docs/forge/README.md)).
 - Ab 1.21.2 ist fast jede MC-Version ein eigener Core-Branch (Registrierung, Item-Modelle, GUI, Renderer, Loot-Format ändern sich laufend), Details: [`../Docs/migrations/1.21.1-to-1.21.2.md`](../Docs/migrations/1.21.1-to-1.21.2.md) 4i, [`../Docs/migrations/1.21.11-to-26.1.md`](../Docs/migrations/1.21.11-to-26.1.md).
 - Die abhängigen Mods binden ein Core-Jar `ManyIdeasCore-<mc>:${mic_version}` aus `ModdingMavenRepositories` (`<mc>` bis 1.21.1 = `minecraft_version`, ab 1.21.2 eigene Variable `mic_minecraft_version`, damit ein Jar mehrere Core-Jars abdecken kann) - **Core immer zuerst veröffentlichen** (lokales Maven), dann die abhängigen Mods.
 - CurseForge-Projekt `433642`, Modrinth `BBY8EPJt`.
